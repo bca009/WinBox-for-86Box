@@ -1,800 +1,680 @@
 ------------------------------------------------------------------------------
-A kivételrõl napló készült részletes technikai információkkal.
-A generálás idõpontja: 2021. 07. 16. 12:50:11.
+A kivÃ©telrÅ‘l naplÃ³ kÃ©szÃ¼lt rÃ©szletes technikai informÃ¡ciÃ³kkal.
+A generÃ¡lÃ¡s idÅ‘pontja: 2021. 07. 21. 15:04:20.
 
-Ha a hiba váratlan volt, és oka ismeretlen, érdemes a naplót a
- fejlesztõ számára továbbítani, mivel nagyban segítheti õt hiba
- okának megértésében.
+Ha a hiba vÃ¡ratlan volt, Ã©s oka ismeretlen, Ã©rdemes a naplÃ³t a
+ fejlesztÅ‘ szÃ¡mÃ¡ra tovÃ¡bbÃ­tani, mivel nagyban segÃ­theti Å‘t hiba
+ okÃ¡nak megÃ©rtÃ©sÃ©ben.
 
- Application Title: WinBox for 86Box v1.0.0.547
- Application File: E:\Projektek\WinBox-for-86Box\Win64\Debug\WinBox.exe
- Command Line: "E:\Projektek\WinBox-for-86Box\Win64\Debug\WinBox.exe"
+ Application Title: WinBox for 86Box v1.0.0.562
+ Application File: E:\Projektek\WinBox-for-86Box\Win32\Debug\WinBox.exe
+ Command Line: "E:\Projektek\WinBox-for-86Box\Win32\Debug\WinBox.exe" 
  Program Language: hu-HU
 ------------------------------------------------------------------------------
 Exception class: EOSError
 Exception message: System Error.  Code: 87.
-A paraméter nem megfelelõ.
-Exception address: 000000000044E9F2
+A paramÃ©ter nem megfelelÅ‘.
+Exception address: 004354EC
 ------------------------------------------------------------------------------
-Main thread ID = 8696
-Exception thread ID = 8696
+Main thread ID = 4636
+Exception thread ID = 4636
 ------------------------------------------------------------------------------
 Exception stack
-Stack list, generated 2021. 07. 16. 12:50:09
-[0000000000B55C81]{WinBox.exe  } JclDebug._ZN8Jcldebug17TJclStackInfoListC3EbiPvbS1_S1_ (Line 5509, "JclDebug.pas" + 34) + $0
-[0000000000B554D2]{WinBox.exe  } JclDebug._ZN8Jcldebug18JclCreateStackListEbiPvbS0_ (Line 5351, "JclDebug.pas" + 1) + $3E
-[0000000000B5541F]{WinBox.exe  } JclDebug._ZN8Jcldebug21DoExceptionStackTraceEPN6System7TObjectEPvbS3_ (Line 5292, "JclDebug.pas" + 20) + $1F
-[0000000000B58A1C]{WinBox.exe  } JclDebug._ZN8Jcldebug14DoExceptNotifyEPN6System7TObjectEPvbS3_ (Line 6741, "JclDebug.pas" + 7) + $0
-[0000000000B42502]{WinBox.exe  } JclHookExcept._ZN13Jclhookexcept13TNotifierItem8DoNotifyEPN6System7TObjectEPvbS4_ (Line 272, "JclHookExcept.pas" + 5) + $1D
-[0000000000B4276B]{WinBox.exe  } JclHookExcept._ZN13Jclhookexcept14DoExceptNotifyEPN6System7TObjectEPvbS3_ (Line 339, "JclHookExcept.pas" + 13) + $2B
-[0000000000B428E0]{WinBox.exe  } JclHookExcept._ZN13Jclhookexcept20HookedRaiseExceptionEjjjPNS_19TExceptionArgumentsE (Line 381, "JclHookExcept.pas" + 14) + $0
-[00000000004102C3]{WinBox.exe  } System._ZN6System14_RaiseAtExceptEPNS_7TObjectEPv (Line 21533, "System.pas" + 32) + $0
-[000000000044EA9D]{WinBox.exe  } System.SysUtils._ZN6System8Sysutils16RaiseLastOSErrorEiNS_13UnicodeStringE (Line 26268, "System.SysUtils.pas" + 6) + $F
-[000000000044E9F2]{WinBox.exe  } System.SysUtils._ZN6System8Sysutils16RaiseLastOSErrorEv (Line 26252, "System.SysUtils.pas" + 2) + $0
-[0000000000C088DD]{WinBox.exe  } frmMainForm._ZN11Frmmainform11TWinBoxMain14acErrorExecuteEPN6System7TObjectE (Line 524, "frmMainForm.pas" + 8) + $5
-[0000000000542B22]{WinBox.exe  } System.Classes._ZN6System7Classes12TBasicAction7ExecuteEv (Line 17426, "System.Classes.pas" + 4) + $0
-[00000000006EFA8A]{WinBox.exe  } Vcl.ActnList._ZN3Vcl8Actnlist13TCustomAction7ExecuteEv (Line 261, "Vcl.ActnList.pas" + 19) + $4E
-[0000000000542816]{WinBox.exe  } System.Classes._ZN6System7Classes16TBasicActionLink7ExecuteEPNS0_10TComponentE (Line 17337, "System.Classes.pas" + 3) + $0
-[000000000086787A]{WinBox.exe  } Vcl.Menus._ZN3Vcl5Menus9TMenuItem5ClickEv (Line 2553, "Vcl.Menus.pas" + 17) + $13
-[000000000086A074]{WinBox.exe  } Vcl.Menus._ZN3Vcl5Menus5TMenu15DispatchCommandEt (Line 3500, "Vcl.Menus.pas" + 6) + $0
-[000000000083C849]{WinBox.exe  } Vcl.Forms._ZN3Vcl5Forms11TCustomForm9WMCommandERN6Winapi8Messages10TWMCommandE (Line 6487, "Vcl.Forms.pas" + 5) + $22
-[000000000040E4C5]{WinBox.exe  } System._ZN6System7TObject8DispatchEPv (Line 18302, "System.pas" + 10) + $A
-[00000000008873D0]{WinBox.exe  } Vcl.Controls._ZN3Vcl8Controls8TControl7WndProcERN6Winapi8Messages8TMessageE (Line 7421, "Vcl.Controls.pas" + 92) + $0
-[000000000088E08F]{WinBox.exe  } Vcl.Controls._ZN3Vcl8Controls11TWinControl7WndProcERN6Winapi8Messages8TMessageE (Line 10280, "Vcl.Controls.pas" + 168) + $0
-[0000000000837D32]{WinBox.exe  } Vcl.Forms._ZN3Vcl5Forms11TCustomForm7WndProcERN6Winapi8Messages8TMessageE (Line 4653, "Vcl.Forms.pas" + 210) + $0
-[000000000088D2BC]{WinBox.exe  } Vcl.Controls._ZN3Vcl8Controls11TWinControl11MainWndProcERN6Winapi8Messages8TMessageE (Line 9979, "Vcl.Controls.pas" + 5) + $0
-[0000000000543F96]{WinBox.exe  } System.Classes._ZN6System7Classes10StdWndProcEP6HWND__jyy (Line 17947, "System.Classes.pas" + 9) + $0
-[00007FF9919AE858]{USER32.dll  } Unknown function at CallWindowProcW + $3F8
-[00007FF9919AE299]{USER32.dll  } Unknown function at DispatchMessageW + $259
-[0000000000845EB3]{WinBox.exe  } Vcl.Forms._ZN3Vcl5Forms12TApplication14ProcessMessageER6tagMSG (Line 10747, "Vcl.Forms.pas" + 23) + $8
-[0000000000845F28]{WinBox.exe  } Vcl.Forms._ZN3Vcl5Forms12TApplication13HandleMessageEv (Line 10777, "Vcl.Forms.pas" + 1) + $C
-[0000000000846376]{WinBox.exe  } Vcl.Forms._ZN3Vcl5Forms12TApplication3RunEv (Line 10915, "Vcl.Forms.pas" + 26) + $9
-[0000000000C12ACD]{WinBox.exe  } WinBox._ZN6Winbox14initializationEv + $DD
-[00007FF991896FD4]{KERNEL32.DLL} BaseThreadInitThunk + $14
-[00007FF992ADCEC1]{ntdll.dll   } RtlUserThreadStart + $21
+Stack list, generated 2021. 07. 21. 15:04:19
+[004354E7]{WinBox.exe  } System.SysUtils.RaiseLastOSError$qqrv (Line 26251, "System.SysUtils.pas" + 0) + $7
+[00965739]{WinBox.exe  } frmMainForm.TWinBoxMain.acErrorExecute (Line 549, "frmMainForm.pas" + 8) + $0
+[004DB88F]{WinBox.exe  } System.Classes.TBasicAction.Execute (Line 17425, "System.Classes.pas" + 3) + $7
+[005E5C3E]{WinBox.exe  } Vcl.ActnList.TCustomAction.Execute (Line 261, "Vcl.ActnList.pas" + 19) + $35
+[004DB6F7]{WinBox.exe  } System.Classes.TBasicActionLink.Execute (Line 17336, "System.Classes.pas" + 2) + $7
+[006E20F3]{WinBox.exe  } Vcl.Menus.TMenuItem.Click (Line 2553, "Vcl.Menus.pas" + 17) + $7
+[006E3837]{WinBox.exe  } Vcl.Menus.TMenu.DispatchCommand (Line 3499, "Vcl.Menus.pas" + 5) + $2
+[006C4864]{WinBox.exe  } Vcl.Forms.TCustomForm.WMCommand (Line 6487, "Vcl.Forms.pas" + 5) + $19
+[006F6C42]{WinBox.exe  } Vcl.Controls.TControl.WndProc (Line 7420, "Vcl.Controls.pas" + 91) + $6
+[00409A22]{WinBox.exe  } System.TMonitor.Exit (Line 19210, "System.pas" + 1) + $2
+[00409A7E]{WinBox.exe  } System.TMonitor.Exit (Line 19232, "System.pas" + 2) + $7
+[005C8613]{WinBox.exe  } Vcl.Graphics.FreeMemoryContexts$qqrv (Line 7138, "Vcl.Graphics.pas" + 12) + $8
+[006FB6F7]{WinBox.exe  } Vcl.Controls.TWinControl.WndProc (Line 10278, "Vcl.Controls.pas" + 166) + $6
+[004DC5E4]{WinBox.exe  } System.Classes.StdWndProc$qqsp6HWND__uiuiui (Line 17929, "System.Classes.pas" + 8) + $0
+[00409D6C]{WinBox.exe  } System.TMonitor.TryEnter (Line 19445, "System.pas" + 10) + $0
+[00409894]{WinBox.exe  } System.TMonitor.Enter (Line 19106, "System.pas" + 4) + $2
+[00409700]{WinBox.exe  } System.TMonitor.CheckOwningThread (Line 19020, "System.pas" + 2) + $0
+[00409A22]{WinBox.exe  } System.TMonitor.Exit (Line 19210, "System.pas" + 1) + $2
+[00409A7E]{WinBox.exe  } System.TMonitor.Exit (Line 19232, "System.pas" + 2) + $7
+[005C8613]{WinBox.exe  } Vcl.Graphics.FreeMemoryContexts$qqrv (Line 7138, "Vcl.Graphics.pas" + 12) + $8
+[006FACC4]{WinBox.exe  } Vcl.Controls.TWinControl.MainWndProc (Line 9977, "Vcl.Controls.pas" + 3) + $6
+[006FACD9]{WinBox.exe  } Vcl.Controls.TWinControl.MainWndProc (Line 9980, "Vcl.Controls.pas" + 6) + $0
+[0040734C]{WinBox.exe  } System.@FreeMem$qqrpv (Line 4839, "System.pas" + 20) + $0
+[0040D69B]{WinBox.exe  } System.@DynArrayClear$qqrrpvpv (Line 36222, "System.pas" + 49) + $0
+[0040D2C8]{WinBox.exe  } System.DynArraySetLength$qqrrpvpvipi (Line 35868, "System.pas" + 9) + $6
+[004DC5E4]{WinBox.exe  } System.Classes.StdWndProc$qqsp6HWND__uiuiui (Line 17929, "System.Classes.pas" + 8) + $0
+[0040C2E1]{WinBox.exe  } System.@FinalizeArray$qqrpvt1ui (Line 32841, "System.pas" + 173) + $0
+[0040C19C]{WinBox.exe  } System.@FinalizeRecord$qqrpvt1 (Line 32510, "System.pas" + 41) + $0
+[00409770]{WinBox.exe  } System.TMonitor.Destroy (Line 19042, "System.pas" + 0) + $0
+[00408EAD]{WinBox.exe  } System.TObject.CleanupInstance (Line 17680, "System.pas" + 37) + $0
+[0040734C]{WinBox.exe  } System.@FreeMem$qqrpv (Line 4839, "System.pas" + 20) + $0
+[00408D10]{WinBox.exe  } System.TObject.FreeInstance (Line 17395, "System.pas" + 2) + $2
+[004094DA]{WinBox.exe  } System.@ClassDestroy$qqrxp14System.TObject (Line 18808, "System.pas" + 0) + $2
+[00409700]{WinBox.exe  } System.TMonitor.CheckOwningThread (Line 19020, "System.pas" + 2) + $0
+[006FB6F7]{WinBox.exe  } Vcl.Controls.TWinControl.WndProc (Line 10278, "Vcl.Controls.pas" + 166) + $6
+[00409A7E]{WinBox.exe  } System.TMonitor.Exit (Line 19232, "System.pas" + 2) + $7
+[004D892D]{WinBox.exe  } System.Classes.CheckSynchronize$qqri (Line 15339, "System.Classes.pas" + 56) + $5
+[006C14F1]{WinBox.exe  } Vcl.Forms.TCustomForm.WndProc (Line 4652, "Vcl.Forms.pas" + 209) + $5
+[00409A7E]{WinBox.exe  } System.TMonitor.Exit (Line 19232, "System.pas" + 2) + $7
+[005C8613]{WinBox.exe  } Vcl.Graphics.FreeMemoryContexts$qqrv (Line 7138, "Vcl.Graphics.pas" + 12) + $8
+[006FACC4]{WinBox.exe  } Vcl.Controls.TWinControl.MainWndProc (Line 9977, "Vcl.Controls.pas" + 3) + $6
+[004DC5E4]{WinBox.exe  } System.Classes.StdWndProc$qqsp6HWND__uiuiui (Line 17929, "System.Classes.pas" + 8) + $0
+[006CAEDF]{WinBox.exe  } Vcl.Forms.TApplication.ProcessMessage (Line 10747, "Vcl.Forms.pas" + 23) + $1
+[006CAF22]{WinBox.exe  } Vcl.Forms.TApplication.HandleMessage (Line 10777, "Vcl.Forms.pas" + 1) + $4
+[006CB255]{WinBox.exe  } Vcl.Forms.TApplication.Run (Line 10915, "Vcl.Forms.pas" + 26) + $3
+(0057C2FD){WinBox.exe  } [0097D2FD]
 ------------------------------------------------------------------------------
 Call stack for main thread
-Stack list, generated 2021. 07. 16. 12:50:11
-[00007FF992B2DBF4]{ntdll.dll   } ZwGetContextThread + $14
-[0000000000B55C81]{WinBox.exe  } JclDebug._ZN8Jcldebug17TJclStackInfoListC3EbiPvbS1_S1_ (Line 5509, "JclDebug.pas" + 34) + $0
-[0000000000B55563]{WinBox.exe  } JclDebug._ZN8Jcldebug18JclCreateStackListEbiPvbS0_S0_ (Line 5358, "JclDebug.pas" + 1) + $41
-[0000000000B556A6]{WinBox.exe  } JclDebug._ZN8Jcldebug25JclCreateThreadStackTraceEby (Line 5402, "JclDebug.pas" + 17) + $39
-[0000000000B55754]{WinBox.exe  } JclDebug._ZN8Jcldebug31JclCreateThreadStackTraceFromIDEbj (Line 5431, "JclDebug.pas" + 12) + $E
-[0000000000B6EC5D]{WinBox.exe  } frmErrorDialog._ZN14Frmerrordialog16TExceptionDialog12CreateReportEv (Line 351, "frmErrorDialog.pas" + 18) + $10
-[0000000000B6E635]{WinBox.exe  } frmErrorDialog._ZN14Frmerrordialog16TExceptionDialog13CreateDetailsEv (Line 303, "frmErrorDialog.pas" + 6) + $0
-[0000000000B71848]{WinBox.exe  } frmErrorDialog._ZN14Frmerrordialog16TExceptionDialog15UMCreateDetailsERN6Winapi8Messages8TMessageE (Line 742, "frmErrorDialog.pas" + 3) + $0
-[000000000040E4C5]{WinBox.exe  } System._ZN6System7TObject8DispatchEPv (Line 18302, "System.pas" + 10) + $A
-[00000000008873D0]{WinBox.exe  } Vcl.Controls._ZN3Vcl8Controls8TControl7WndProcERN6Winapi8Messages8TMessageE (Line 7421, "Vcl.Controls.pas" + 92) + $0
-[000000000088E08F]{WinBox.exe  } Vcl.Controls._ZN3Vcl8Controls11TWinControl7WndProcERN6Winapi8Messages8TMessageE (Line 10280, "Vcl.Controls.pas" + 168) + $0
-[0000000000837D32]{WinBox.exe  } Vcl.Forms._ZN3Vcl5Forms11TCustomForm7WndProcERN6Winapi8Messages8TMessageE (Line 4653, "Vcl.Forms.pas" + 210) + $0
-[000000000088D2BC]{WinBox.exe  } Vcl.Controls._ZN3Vcl8Controls11TWinControl11MainWndProcERN6Winapi8Messages8TMessageE (Line 9979, "Vcl.Controls.pas" + 5) + $0
-[0000000000543F96]{WinBox.exe  } System.Classes._ZN6System7Classes10StdWndProcEP6HWND__jyy (Line 17947, "System.Classes.pas" + 9) + $0
-[00007FF9919AE858]{USER32.dll  } Unknown function at CallWindowProcW + $3F8
-[00007FF9919AE299]{USER32.dll  } Unknown function at DispatchMessageW + $259
-[0000000000845EB3]{WinBox.exe  } Vcl.Forms._ZN3Vcl5Forms12TApplication14ProcessMessageER6tagMSG (Line 10747, "Vcl.Forms.pas" + 23) + $8
-[0000000000845F28]{WinBox.exe  } Vcl.Forms._ZN3Vcl5Forms12TApplication13HandleMessageEv (Line 10777, "Vcl.Forms.pas" + 1) + $C
-[000000000083EF78]{WinBox.exe  } Vcl.Forms._ZN3Vcl5Forms11TCustomForm9ShowModalEv (Line 7480, "Vcl.Forms.pas" + 34) + $0
-[0000000000B71312]{WinBox.exe  } frmErrorDialog._ZN14Frmerrordialog16TExceptionDialog13ShowExceptionEPN6System7TObjectEPN8Jcldebug15TJclDebugThreadE (Line 720, "frmErrorDialog.pas" + 36) + $0
-[0000000000B704D2]{WinBox.exe  } frmErrorDialog._ZN14Frmerrordialog16TExceptionDialog16ExceptionHandlerEPN6System7TObjectEPNS1_8Sysutils9ExceptionE (Line 525, "frmErrorDialog.pas" + 13) + $0
-[0000000000A08FF0]{WinBox.exe  } Vcl.AppEvnts._ZN3Vcl8Appevnts24TCustomApplicationEvents11DoExceptionEPN6System7TObjectEPNS2_8Sysutils9ExceptionE (Line 217, "Vcl.AppEvnts.pas" + 3) + $0
-[0000000000A09BB1]{WinBox.exe  } Vcl.AppEvnts._ZN3Vcl8Appevnts12TMultiCaster11DoExceptionEPN6System7TObjectEPNS2_8Sysutils9ExceptionE (Line 463, "Vcl.AppEvnts.pas" + 10) + $0
-[000000000084652A]{WinBox.exe  } Vcl.Forms._ZN3Vcl5Forms12TApplication15HandleExceptionEPN6System7TObjectE (Line 10964, "Vcl.Forms.pas" + 14) + $13
-[000000000088D2DE]{WinBox.exe  } Vcl.Controls._ZN3Vcl8Controls11TWinControl11MainWndProcERN6Winapi8Messages8TMessageE (Line 9983, "Vcl.Controls.pas" + 9) + $13
-[0000000000543F96]{WinBox.exe  } System.Classes._ZN6System7Classes10StdWndProcEP6HWND__jyy (Line 17947, "System.Classes.pas" + 9) + $0
-[00007FF9919AE858]{USER32.dll  } Unknown function at CallWindowProcW + $3F8
-[00007FF9919AE299]{USER32.dll  } Unknown function at DispatchMessageW + $259
-[0000000000845EB3]{WinBox.exe  } Vcl.Forms._ZN3Vcl5Forms12TApplication14ProcessMessageER6tagMSG (Line 10747, "Vcl.Forms.pas" + 23) + $8
-[0000000000845F28]{WinBox.exe  } Vcl.Forms._ZN3Vcl5Forms12TApplication13HandleMessageEv (Line 10777, "Vcl.Forms.pas" + 1) + $C
-[0000000000846376]{WinBox.exe  } Vcl.Forms._ZN3Vcl5Forms12TApplication3RunEv (Line 10915, "Vcl.Forms.pas" + 26) + $9
-[0000000000C12ACD]{WinBox.exe  } WinBox._ZN6Winbox14initializationEv + $DD
-[00007FF991896FD4]{KERNEL32.DLL} BaseThreadInitThunk + $14
-[00007FF992ADCEC1]{ntdll.dll   } RtlUserThreadStart + $21
+Stack list, generated 2021. 07. 21. 15:04:20
+[77E8240C]{ntdll.dll   } ZwGetContextThread + $C
 ------------------------------------------------------------------------------
 System   : Windows 10 Professional, Version: 10.0, Build: 4A61, "", Language: hu-HU
 Processor: Intel, Intel(R) Core(TM) i3-6100 CPU @ 3.70GHz, 3700 MHz MMX SSE SSE2 SSE3 SSSE3 SSE41 SSE42 64 bits DEP
-Memory: 8131; free 4275
+Memory: 8131; free 4041
 Display  : 1920x1080 pixels, 32 bpp, 144 DPI
 Monitors: 1
  0.: 1920x1080 pixels, 144 DPI, Primary: True, Active: True
 ------------------------------------------------------------------------------
 List of loaded modules:
-[0000000000400000] E:\Projektek\WinBox-for-86Box\Win64\Debug\WinBox.exe
-           1.0.0.547 - 1.0.0.547
+[00400000] E:\Projektek\WinBox-for-86Box\Win32\Debug\WinBox.exe
+           1.0.0.562 - 1.0.0.562
            WinBox for 86Box
-[0000000180000000] C:\Windows\SYSTEM32\security.dll
+[46480000] C:\Windows\SYSTEM32\security.dll
            10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
            Security Support Provider Interface
-[00007FF9659C0000] C:\Windows\System32\cryptnet.dll
-           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
-           Crypto Network Related API
-[00007FF969EA0000] C:\Program Files\ESET\ESET Security\eamsi.dll
-           10.21.13.0 - 10.21.13.0 BETA
-           ESET Antimalware Scan Interface DLL
-[00007FF972160000] C:\Windows\SYSTEM32\wininet.dll
-           11.0.19041.508 - 11.00.19041.1 (WinBuild.160101.0800)
-           Internet Extensions for Win32
-[00007FF972CB0000] C:\Windows\SYSTEM32\TextShaping.dll
+[62120000] C:\Windows\SYSTEM32\TextShaping.dll
            (no module version info)
-[00007FF9764A0000] C:\Windows\SYSTEM32\amsi.dll
-           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
-           Anti-Malware Scan Interface
-[00007FF9794C0000] C:\Windows\SYSTEM32\urlmon.dll
-           11.0.19041.488 - 11.00.19041.1 (WinBuild.160101.0800)
-           OLE32 Extensions for Win32
-[00007FF979860000] C:\Windows\SYSTEM32\winspool.drv
-           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
-           Windows nyomtatóvárólista-illesztõprogram
-[00007FF979B10000] C:\Windows\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.19041.488_none_ca04af081b815d21\COMCTL32.dll
-           6.10.19041.488 - 6.10 (WinBuild.160101.0800)
-           Felhasználói élmény vezérlõinek kódtára
-[00007FF97BF30000] C:\Windows\SYSTEM32\ondemandconnroutehelper.dll
-           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
-           On Demand Connctiond Route Helper
-[00007FF97FCE0000] C:\Windows\system32\wbem\wbemdisp.dll
-           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
-           WMI Scripting
-[00007FF982710000] C:\Windows\SYSTEM32\DWrite.dll
-           10.0.19041.388 - 10.0.19041.1 (WinBuild.160101.0800)
-           Microsoft DirectX tipográfiai szolgáltatások
-[00007FF983430000] C:\Windows\system32\windowscodecs.dll
-           10.0.19041.388 - 10.0.19041.388 (WinBuild.160101.0800)
-           Microsoft Windows Codecs Library
-[00007FF9835F0000] C:\Windows\SYSTEM32\iertutil.dll
-           11.0.19041.488 - 11.00.19041.1 (WinBuild.160101.0800)
-           Futtatókörnyezeti segédprogram az Internet Explorer alkalmazáshoz
-[00007FF984D20000] C:\Windows\WinSxS\amd64_microsoft.windows.gdiplus_6595b64144ccf1df_1.1.19041.508_none_faefa4f37613d18e\gdiplus.dll
-           10.0.19041.508 - 10.0.19041.508 (WinBuild.160101.0800)
-           Microsoft GDI+
-[00007FF985400000] C:\Windows\SYSTEM32\textinputframework.dll
-           10.0.19041.508 - 10.0.19041.508 (WinBuild.160101.0800)
-           "TextInputFramework.DYNLINK"
-[00007FF985A80000] C:\Windows\SYSTEM32\mskeyprotect.dll
-           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
-           Microsoft kulcsvédelmi szolgáltató
-[00007FF986090000] C:\Windows\SYSTEM32\SHFolder.dll
-           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
-           Shell Folder Service
-[00007FF986470000] C:\Windows\System32\rasadhlp.dll
-           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
-           Remote Access AutoDial Helper
-[00007FF9880B0000] C:\Windows\SYSTEM32\netapi32.dll
-           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
-           Net Win32 API DLL
-[00007FF988190000] C:\Windows\SYSTEM32\SECUR32.DLL
-           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
-           Security Support Provider Interface
-[00007FF9881D0000] C:\Windows\System32\dbghelp.dll
-           10.0.19041.488 - 10.0.19041.488 (WinBuild.160101.0800)
-           Windows Image Helper
-[00007FF989030000] C:\Windows\system32\wbem\wmiutils.dll
-           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
-           WMI
-[00007FF9890E0000] C:\Windows\system32\wbem\wbemsvc.dll
-           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
-           WMI
-[00007FF989210000] C:\Windows\system32\wbem\fastprox.dll
-           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
-           WMI Custom Marshaller
-[00007FF989CA0000] C:\Windows\system32\wbem\wbemprox.dll
-           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
-           WMI
-[00007FF989D90000] C:\Windows\SYSTEM32\version.dll
-           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
-           Version Checking and File Installation Libraries
-[00007FF98A3A0000] C:\Windows\SYSTEM32\FLTLIB.DLL
-           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
-           Szûrõkönyvtár
-[00007FF98A3B0000] C:\Windows\SYSTEM32\WINNSI.DLL
-           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
-           Network Store Information RPC interface
-[00007FF98A3C0000] C:\Windows\System32\fwpuclnt.dll
-           10.0.19041.488 - 10.0.19041.1 (WinBuild.160101.0800)
-           FWP/IPsec felhasználói módú API
-[00007FF98A690000] C:\Windows\SYSTEM32\winhttp.dll
-           10.0.19041.264 - 10.0.19041.1 (WinBuild.160101.0800)
-           Windows HTTP-szolgáltatások
-[00007FF98A860000] C:\Windows\SYSTEM32\VirtDisk.dll
-           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
-           Virtual Disk API DLL
-[00007FF98AB00000] C:\Windows\SYSTEM32\wbemcomn.dll
-           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
-           WMI
-[00007FF98B2F0000] C:\Windows\SYSTEM32\wtsapi32.dll
-           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
-           Windows Remote Desktop Session Host Server SDK APIs
-[00007FF98BF50000] C:\Windows\system32\ncryptsslp.dll
-           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
-           Microsoft SChannel Provider
-[00007FF98D2B0000] C:\Windows\SYSTEM32\wintypes.dll
-           10.0.19041.508 - 10.0.19041.1 (WinBuild.160101.0800)
-           Windows-alaptípusok DLL-je
-[00007FF98D510000] C:\Windows\SYSTEM32\CoreMessaging.dll
-           10.0.19041.423 - 10.0.19041.423
-           Microsoft CoreMessaging Dll
-[00007FF98D610000] C:\Windows\SYSTEM32\CoreUIComponents.dll
-           10.0.19041.1 - 10.0.19041.1
-           Microsoft Core UI Components Dll
-[00007FF98DA70000] C:\Windows\SYSTEM32\msimg32.dll
-           10.0.19041.508 - 10.0.19041.508 (WinBuild.160101.0800)
-           GDIEXT Client DLL
-[00007FF98DC30000] C:\Windows\system32\uxtheme.dll
-           10.0.19041.488 - 10.0.19041.1 (WinBuild.160101.0800)
-           Microsoft UxTheme függvénytár
-[00007FF98DE20000] C:\Windows\SYSTEM32\DWMAPI.DLL
-           10.0.19041.488 - 10.0.19041.1 (WinBuild.160101.0800)
-           Microsoft Asztalablak-kezelõ API
-[00007FF98E110000] C:\Windows\SYSTEM32\kernel.appcore.dll
-           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
-           AppModel API Host
-[00007FF98E310000] C:\Windows\SYSTEM32\windows.storage.dll
-           10.0.19041.508 - 10.0.19041.1 (WinBuild.160101.0800)
-           Microsoft WinRT tárolási API
-[00007FF98EF20000] C:\Windows\SYSTEM32\ntmarta.dll
-           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
-           Windows NT - MARTA-szolgáltató
-[00007FF98F160000] C:\Windows\system32\schannel.DLL
-           10.0.19041.508 - 10.0.19041.1 (WinBuild.160101.0800)
-           TLS/SSL biztonságszolgáltató
-[00007FF98F240000] C:\Windows\system32\rsaenh.dll
-           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
-           Microsoft Enhanced Cryptographic Provider
-[00007FF98F280000] C:\Windows\SYSTEM32\DPAPI.DLL
-           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
-           Data Protection API
-[00007FF98F5A0000] C:\Windows\SYSTEM32\IPHLPAPI.DLL
-           10.0.19041.488 - 10.0.19041.1 (WinBuild.160101.0800)
-           IP Helper API
-[00007FF98F5E0000] C:\Windows\SYSTEM32\DNSAPI.dll
-           10.0.19041.508 - 10.0.19041.1 (WinBuild.160101.0800)
-           DNS-ügyfél API DLL-je
-[00007FF98F6B0000] C:\Windows\SYSTEM32\NETUTILS.DLL
-           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
-           Net Win32 API Helpers DLL
-[00007FF98F890000] C:\Windows\System32\mswsock.dll
-           10.0.19041.423 - 10.0.19041.1 (WinBuild.160101.0800)
-           Microsoft Windows Sockets 2.0 szolgáltató
-[00007FF98FA10000] C:\Windows\SYSTEM32\CRYPTBASE.dll
-           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
-           Base cryptographic API DLL
-[00007FF98FAA0000] C:\Windows\SYSTEM32\Wldp.dll
-           10.0.19041.423 - 10.0.19041.1 (WinBuild.160101.0800)
-           Windows-zárolási házirend
-[00007FF98FAE0000] C:\Windows\SYSTEM32\CRYPTSP.dll
-           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
-           Cryptographic Service Provider API
-[00007FF98FBA0000] C:\Windows\SYSTEM32\NTASN1.dll
-           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
-           Microsoft ASN.1 API
-[00007FF98FBE0000] C:\Windows\SYSTEM32\ncrypt.dll
-           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
-           Windows NCrypt-útválasztó
-[00007FF98FCF0000] C:\Windows\SYSTEM32\MSASN1.dll
-           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
-           ASN.1 Runtime APIs
-[00007FF98FF00000] C:\Windows\SYSTEM32\WINSTA.dll
+[621C0000] C:\Windows\SYSTEM32\WINSTA.dll
            10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
            Winstation Library
-[00007FF990080000] C:\Windows\SYSTEM32\SSPICLI.DLL
-           10.0.19041.488 - 10.0.19041.488 (WinBuild.160101.0800)
-           Security Support Provider Interface
-[00007FF9900C0000] C:\Windows\SYSTEM32\USERENV.dll
+[634B0000] C:\Windows\system32\windowscodecs.dll
+           10.0.19041.388 - 10.0.19041.388 (WinBuild.160101.0800)
+           Microsoft Windows Codecs Library
+[63620000] C:\Windows\SYSTEM32\CoreUIComponents.dll
+           10.0.19041.1 - 10.0.19041.1
+           Microsoft Core UI Components Dll
+[63920000] C:\Windows\SYSTEM32\CoreMessaging.dll
+           10.0.19041.423 - 10.0.19041.423
+           Microsoft CoreMessaging Dll
+[639C0000] C:\Windows\SYSTEM32\textinputframework.dll
+           10.0.19041.508 - 10.0.19041.508 (WinBuild.160101.0800)
+           "TextInputFramework.DYNLINK"
+[651F0000] C:\Windows\SYSTEM32\wintypes.dll
+           10.0.19041.508 - 10.0.19041.1 (WinBuild.160101.0800)
+           Windows-alaptÃ­pusok DLL-je
+[6C950000] C:\Windows\system32\wbem\wbemdisp.dll
            10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
-           Userenv
-[00007FF990100000] C:\Windows\SYSTEM32\profapi.dll
+           WMI Scripting
+[6CB30000] C:\Windows\system32\wbem\wmiutils.dll
+           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
+           WMI
+[6CDF0000] C:\Windows\SYSTEM32\SHFolder.dll
+           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
+           Shell Folder Service
+[6E810000] C:\Windows\SYSTEM32\VirtDisk.dll
+           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
+           Virtual Disk API DLL
+[71CE0000] C:\Windows\SYSTEM32\sxs.dll
+           10.0.19041.450 - 10.0.19041.1 (WinBuild.160101.0800)
+           Fusion 2.5
+[72940000] C:\Windows\SYSTEM32\DWrite.dll
+           10.0.19041.388 - 10.0.19041.1 (WinBuild.160101.0800)
+           Microsoft DirectX tipogrÃ¡fiai szolgÃ¡ltatÃ¡sok
+[72BD0000] C:\Windows\SYSTEM32\wininet.dll
+           11.0.19041.508 - 11.00.19041.1 (WinBuild.160101.0800)
+           Internet Extensions for Win32
+[73030000] C:\Windows\system32\uxtheme.dll
+           10.0.19041.488 - 10.0.19041.1 (WinBuild.160101.0800)
+           Microsoft UxTheme fÃ¼ggvÃ©nytÃ¡r
+[730B0000] C:\Windows\SYSTEM32\msimg32.dll
+           10.0.19041.508 - 10.0.19041.508 (WinBuild.160101.0800)
+           GDIEXT Client DLL
+[730C0000] C:\Windows\WinSxS\x86_microsoft.windows.common-controls_6595b64144ccf1df_6.0.19041.488_none_11b1e5df2ffd8627\COMCTL32.dll
+           6.10.19041.488 - 6.10 (WinBuild.160101.0800)
+           FelhasznÃ¡lÃ³i Ã©lmÃ©ny vezÃ©rlÅ‘inek kÃ³dtÃ¡ra
+[73750000] C:\Windows\SYSTEM32\winspool.drv
+           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
+           Windows nyomtatÃ³vÃ¡rÃ³lista-illesztÅ‘program
+[73980000] C:\Windows\SYSTEM32\DWMAPI.DLL
+           10.0.19041.488 - 10.0.19041.1 (WinBuild.160101.0800)
+           Microsoft Asztalablak-kezelÅ‘ API
+[73F70000] C:\Windows\WinSxS\x86_microsoft.windows.gdiplus_6595b64144ccf1df_1.1.19041.508_none_429cdbca8a8ffa94\gdiplus.dll
+           10.0.19041.508 - 10.0.19041.508 (WinBuild.160101.0800)
+           Microsoft GDI+
+[74430000] C:\Windows\SYSTEM32\SECUR32.DLL
+           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
+           Security Support Provider Interface
+[74440000] C:\Windows\SYSTEM32\FLTLIB.DLL
+           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
+           SzÅ±rÅ‘kÃ¶nyvtÃ¡r
+[74480000] C:\Windows\System32\dbghelp.dll
+           10.0.19041.488 - 10.0.19041.488 (WinBuild.160101.0800)
+           Windows Image Helper
+[74630000] C:\Windows\System32\rasadhlp.dll
+           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
+           Remote Access AutoDial Helper
+[74720000] C:\Windows\System32\mswsock.dll
+           10.0.19041.423 - 10.0.19041.1 (WinBuild.160101.0800)
+           Microsoft Windows Sockets 2.0 szolgÃ¡ltatÃ³
+[74BF0000] C:\Program Files\ESET\ESET Security\x86\eamsi.dll
+           10.21.13.0 - 10.21.13.0 BETA
+           ESET Antimalware Scan Interface DLL
+[74C20000] C:\Windows\SYSTEM32\DNSAPI.dll
+           10.0.19041.508 - 10.0.19041.1 (WinBuild.160101.0800)
+           DNS-Ã¼gyfÃ©l API DLL-je
+[74CF0000] C:\Windows\SYSTEM32\amsi.dll
+           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
+           Anti-Malware Scan Interface
+[74EC0000] C:\Windows\system32\wbem\fastprox.dll
+           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
+           WMI Custom Marshaller
+[74FB0000] C:\Windows\system32\wbem\wbemsvc.dll
+           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
+           WMI
+[75090000] C:\Windows\SYSTEM32\wbemcomn.dll
+           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
+           WMI
+[75100000] C:\Windows\system32\wbem\wbemprox.dll
+           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
+           WMI
+[75110000] C:\Windows\SYSTEM32\ntmarta.dll
+           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
+           Windows NT - MARTA-szolgÃ¡ltatÃ³
+[75140000] C:\Windows\SYSTEM32\profapi.dll
            10.0.19041.488 - 10.0.19041.488 (WinBuild.160101.0800)
            User Profile Basic API
-[00007FF990280000] C:\Windows\System32\CRYPT32.dll
-           10.0.19041.21 - 10.0.19041.1 (WinBuild.160101.0800)
-           Crypto API32
-[00007FF9903E0000] C:\Windows\System32\ucrtbase.dll
+[75160000] C:\Windows\SYSTEM32\SSPICLI.DLL
            10.0.19041.488 - 10.0.19041.488 (WinBuild.160101.0800)
-           Microsoft® C Runtime Library
-[00007FF9904E0000] C:\Windows\System32\KERNELBASE.dll
-           10.0.19041.488 - 10.0.19041.388 (WinBuild.160101.0800)
-           Win32 kernel mag komponens
-[00007FF9907B0000] C:\Windows\System32\win32u.dll
-           10.0.19041.508 - 10.0.19041.508 (WinBuild.160101.0800)
-           Win32u
-[00007FF990830000] C:\Windows\System32\WINTRUST.dll
-           10.0.19041.423 - 10.0.19041.423 (WinBuild.160101.0800)
-           Microsoft Trust Verification APIs
-[00007FF990890000] C:\Windows\System32\gdi32full.dll
-           10.0.19041.508 - 10.0.19041.508 (WinBuild.160101.0800)
-           GDI Client DLL
-[00007FF9909A0000] C:\Windows\System32\bcrypt.dll
+           Security Support Provider Interface
+[75190000] C:\Windows\SYSTEM32\kernel.appcore.dll
            10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
-           Windows kriptográfiai primitívek kódtára
-[00007FF9909D0000] C:\Windows\System32\msvcp_win.dll
-           10.0.19041.488 - 10.0.19041.488 (WinBuild.160101.0800)
-           Microsoft® C Runtime Library
-[00007FF990A70000] C:\Windows\System32\bcryptPrimitives.dll
-           10.0.19041.264 - 10.0.19041.264 (WinBuild.160101.0800)
-           Windows Cryptographic Primitives Library
-[00007FF990AF0000] C:\Windows\System32\advapi32.dll
+           AppModel API Host
+[751A0000] C:\Windows\SYSTEM32\Wldp.dll
+           10.0.19041.423 - 10.0.19041.1 (WinBuild.160101.0800)
+           Windows-zÃ¡rolÃ¡si hÃ¡zirend
+[751D0000] C:\Windows\SYSTEM32\windows.storage.dll
+           10.0.19041.508 - 10.0.19041.1 (WinBuild.160101.0800)
+           Microsoft WinRT tÃ¡rolÃ¡si API
+[758A0000] C:\Windows\SYSTEM32\NETUTILS.DLL
            10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
-           Speciális 32 bites Windows API
-[00007FF990BA0000] C:\Windows\System32\SHELL32.dll
-           10.0.19041.488 - 10.0.19041.329 (WinBuild.160101.0800)
-           Windows felület - közös DLL
-[00007FF9912F0000] C:\Windows\System32\NSI.dll
+           Net Win32 API Helpers DLL
+[758B0000] C:\Windows\SYSTEM32\wtsapi32.dll
            10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
-           NSI User-mode interface DLL
-[00007FF991300000] C:\Windows\System32\shcore.dll
+           Windows Remote Desktop Session Host Server SDK APIs
+[758C0000] C:\Windows\SYSTEM32\version.dll
+           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
+           Version Checking and File Installation Libraries
+[758D0000] C:\Windows\SYSTEM32\USERENV.dll
+           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
+           Userenv
+[759D0000] C:\Windows\SYSTEM32\IPHLPAPI.DLL
            10.0.19041.488 - 10.0.19041.1 (WinBuild.160101.0800)
-           SHCORE
-[00007FF9913B0000] C:\Windows\System32\oleaut32.dll
-           10.0.19041.388 - 10.0.19041.388 (WinBuild.160101.0800)
-           OLEAUT32.DLL
-[00007FF991480000] C:\Windows\System32\Msctf.dll
-           10.0.19041.488 - 10.0.19041.1 (WinBuild.160101.0800)
-           MSCTF kiszolgáló DLL
-[00007FF9915A0000] C:\Windows\System32\msvcrt.dll
+           IP Helper API
+[75A10000] C:\Windows\SYSTEM32\netapi32.dll
+           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
+           Net Win32 API DLL
+[75CD0000] C:\Windows\System32\msvcrt.dll
            7.0.19041.1 - 7.0.19041.1 (WinBuild.160101.0800)
            Windows NT CRT DLL
-[00007FF9916C0000] C:\Windows\System32\WS2_32.dll
-           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
-           Windows Socket 2.0 32 bites DLL
-[00007FF991730000] C:\Windows\System32\sechost.dll
-           10.0.19041.388 - 10.0.19041.1 (WinBuild.160101.0800)
-           Host for SCM/SDDL/LSA Lookup APIs
-[00007FF991830000] C:\Windows\System32\GDI32.dll
-           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
-           GDI Client DLL
-[00007FF991860000] C:\Windows\System32\imagehlp.dll
-           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
-           Windows NT Image Helper
-[00007FF991880000] C:\Windows\System32\KERNEL32.DLL
-           10.0.19041.292 - 10.0.19041.329 (WinBuild.160101.0800)
-           Win32 kernel mag komponens
-[00007FF9919A0000] C:\Windows\System32\USER32.dll
-           10.0.19041.488 - 10.0.19041.1 (WinBuild.160101.0800)
-           A Windows többfelhasználós USER API-jának ügyféloldali DLL-je
-[00007FF991B40000] C:\Windows\System32\PSAPI.dll
-           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
-           Process Status Helper
-[00007FF991B50000] C:\Windows\System32\RPCRT4.dll
-           10.0.19041.508 - 10.0.19041.1 (WinBuild.160101.0800)
-           Távoli eljáráshívás – futásidejû
-[00007FF991C80000] C:\Windows\System32\comdlg32.dll
-           10.0.19041.488 - 10.0.19041.1 (WinBuild.160101.0800)
-           Common Dialogs DLL
-[00007FF991FB0000] C:\Windows\System32\IMM32.DLL
-           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
-           Multi-User Windows IMM32 API Client DLL
-[00007FF991FE0000] C:\Windows\System32\combase.dll
-           10.0.19041.508 - 10.0.19041.1 (WinBuild.160101.0800)
-           Microsoft COM for Windows
-[00007FF9927B0000] C:\Windows\System32\ole32.dll
-           10.0.19041.153 - 10.0.19041.1 (WinBuild.160101.0800)
-           Microsoft OLE for Windows
-[00007FF9928E0000] C:\Windows\System32\shlwapi.dll
-           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
-           Shell Light-weight Utility Library
-[00007FF9929A0000] C:\Windows\System32\clbcatq.dll
+[75D90000] C:\Windows\System32\clbcatq.dll
            2001.12.10941.16384 - 2001.12.10941.16384 (WinBuild.160101.0800)
            COM+ Configuration Catalog
-[00007FF992A90000] C:\Windows\SYSTEM32\ntdll.dll
+[75E10000] C:\Windows\System32\bcrypt.dll
+           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
+           Windows kriptogrÃ¡fiai primitÃ­vek kÃ³dtÃ¡ra
+[75FE0000] C:\Windows\System32\IMM32.DLL
+           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
+           Multi-User Windows IMM32 API Client DLL
+[76010000] C:\Windows\System32\shlwapi.dll
+           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
+           Shell Light-weight Utility Library
+[76060000] C:\Windows\System32\WS2_32.dll
+           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
+           Windows Socket 2.0 32 bites DLL
+[76120000] C:\Windows\System32\KERNEL32.DLL
+           10.0.19041.292 - 10.0.19041.329 (WinBuild.160101.0800)
+           Win32 kernel mag komponens
+[76210000] C:\Windows\System32\shcore.dll
            10.0.19041.488 - 10.0.19041.1 (WinBuild.160101.0800)
-           NT réteg DLL
+           SHCORE
+[762A0000] C:\Windows\System32\msvcp_win.dll
+           10.0.19041.488 - 10.0.19041.488 (WinBuild.160101.0800)
+           MicrosoftÂ® C Runtime Library
+[76320000] C:\Windows\System32\gdi32full.dll
+           10.0.19041.508 - 10.0.19041.508 (WinBuild.160101.0800)
+           GDI Client DLL
+[76460000] C:\Windows\System32\SHELL32.dll
+           10.0.19041.488 - 10.0.19041.329 (WinBuild.160101.0800)
+           Windows felÃ¼let - kÃ¶zÃ¶s DLL
+[76A20000] C:\Windows\System32\win32u.dll
+           10.0.19041.508 - 10.0.19041.508 (WinBuild.160101.0800)
+           Win32u
+[76A40000] C:\Windows\System32\bcryptPrimitives.dll
+           10.0.19041.264 - 10.0.19041.264 (WinBuild.160101.0800)
+           Windows Cryptographic Primitives Library
+[76AA0000] C:\Windows\System32\combase.dll
+           10.0.19041.508 - 10.0.19041.1 (WinBuild.160101.0800)
+           Microsoft COM for Windows
+[76DC0000] C:\Windows\System32\advapi32.dll
+           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
+           SpeciÃ¡lis 32 bites Windows API
+[76E40000] C:\Windows\System32\NSI.dll
+           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
+           NSI User-mode interface DLL
+[77290000] C:\Windows\System32\PSAPI.dll
+           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
+           Process Status Helper
+[772A0000] C:\Windows\System32\comdlg32.dll
+           10.0.19041.488 - 10.0.19041.1 (WinBuild.160101.0800)
+           Common Dialogs DLL
+[77350000] C:\Windows\System32\GDI32.dll
+           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
+           GDI Client DLL
+[77380000] C:\Windows\System32\sechost.dll
+           10.0.19041.388 - 10.0.19041.1 (WinBuild.160101.0800)
+           Host for SCM/SDDL/LSA Lookup APIs
+[77400000] C:\Windows\System32\oleaut32.dll
+           10.0.19041.388 - 10.0.19041.388 (WinBuild.160101.0800)
+           OLEAUT32.DLL
+[774A0000] C:\Windows\System32\KERNELBASE.dll
+           10.0.19041.488 - 10.0.19041.388 (WinBuild.160101.0800)
+           Win32 kernel mag komponens
+[776C0000] C:\Windows\System32\USER32.dll
+           10.0.19041.488 - 10.0.19041.1 (WinBuild.160101.0800)
+           A Windows tÃ¶bbfelhasznÃ¡lÃ³s USER API-jÃ¡nak Ã¼gyfÃ©loldali DLL-je
+[77960000] C:\Windows\System32\imagehlp.dll
+           10.0.19041.1 - 10.0.19041.1 (WinBuild.160101.0800)
+           Windows NT Image Helper
+[77980000] C:\Windows\System32\Msctf.dll
+           10.0.19041.488 - 10.0.19041.1 (WinBuild.160101.0800)
+           MSCTF kiszolgÃ¡lÃ³ DLL
+[77A60000] C:\Windows\System32\ucrtbase.dll
+           10.0.19041.488 - 10.0.19041.488 (WinBuild.160101.0800)
+           MicrosoftÂ® C Runtime Library
+[77BE0000] C:\Windows\System32\RPCRT4.dll
+           10.0.19041.508 - 10.0.19041.1 (WinBuild.160101.0800)
+           TÃ¡voli eljÃ¡rÃ¡shÃ­vÃ¡s â€“ futÃ¡sidejÅ±
+[77D10000] C:\Windows\System32\ole32.dll
+           10.0.19041.84 - 10.0.19041.1 (WinBuild.160101.0800)
+           Microsoft OLE for Windows
+[77E10000] C:\Windows\SYSTEM32\ntdll.dll
+           10.0.19041.488 - 10.0.19041.1 (WinBuild.160101.0800)
+           NT rÃ©teg DLL
 ------------------------------------------------------------------------------
 Active Controls hierarchy:
-TListBox "List"
 TWinBoxMain "WinBoxMain"
 ------------------------------------------------------------------------------
 RTTI log of most important objects:
 Config=(
-	MachineRoot=D:\Virtuális gépek\WinBox\
+	MachineRoot=C:\Users\laciba\Documents\WinBox for 86Box\Virtual Machines\
 	EraseProtLvl=1
 	TrayBehavior=0
 	MinimizeOnStart=False
 	LaunchTimeout=5000
-	EmulatorPath=C:\Users\laciba\AppData\Roaming\Laci bá'\WinBox\86Box\86Box.exe
+	EmulatorPath=C:\Users\laciba\Documents\WinBox for 86Box\Emulator Files\86Box.exe
 	Repository=https://ci.86box.net/job/86Box
 	AutoUpdate=True
 	GetSource=False
 	DisplayMode=0
-	DisplayValues=(TStringList @ 0000000004696E60)
+	DisplayValues=(TStringList @ 043B2130)
 	DisplayValues.Items=(
 		video_fullscreen_scale=1
 		dpi_scale=0
 		vid_resize=2
 	);
-	Tools=(TStringList @ 0000000004696DD0)
+	Tools=(TStringList @ 043B20E0)
 	Tools.Items=(
-		MinGW64 Shell=D:\Csomagoló\msys64_gcc91\mingw64_shell.bat
-		MinGW32 Shell=D:\Csomagoló\msys64_gcc91\mingw32_shell.bat
 	);
 	CustomTemplates=C:\Users\laciba\Documents\WinBox for 86Box\Custom Templates\
 	LoggingMode=0
 	GlobalLogFile=C:\Users\laciba\Documents\WinBox for 86Box\86Box.log
 	DebugMode=False
 	CrashDump=False
-	DiskImages=D:\Virtuális gépek\WinBox\Other Disk Images\
+	DiskImages=C:\Users\laciba\Documents\WinBox for 86Box\Virtual Machines\Other Disk Images\
 );
 
 WinBoxMain=(
-	Actions=(TActionList @ 00000000046001A0)
-	MainMenu=(TMainMenu @ 0000000004600290)
-	acDbgProcList=(TAction @ 0000000004639F10)
-	acDbgDumpList=(TAction @ 000000000463B7D0)
-	acDbgProcUpd=(TAction @ 000000000463B930)
-	acDbgProcChg=(TAction @ 000000000463BA90)
-	miDebug=(TMenuItem @ 0000000004665650)
-	acDbgDumpList1=(TMenuItem @ 0000000005022AC0)
-	acDbgProcChg1=(TMenuItem @ 00000000050230C0)
-	acDbgProcList1=(TMenuItem @ 0000000005022940)
-	acDbgProcUpd1=(TMenuItem @ 0000000005022F40)
-	acDbgProcOps=(TAction @ 000000000463BBF0)
-	acDbgPrfAsgn=(TAction @ 000000000463BD50)
-	N2=(TMenuItem @ 0000000005023240)
-	acDbgProcChg2=(TMenuItem @ 00000000050233C0)
-	acDbgProcChg3=(TMenuItem @ 00000000050236C0)
-	acDbgMonData=(TAction @ 000000000463BEB0)
-	N3=(TMenuItem @ 0000000005022DC0)
-	acDbgMonData1=(TMenuItem @ 0000000005023540)
-	acDbgMonQuery=(TAction @ 000000000463C010)
-	ProcessMonitorQuerykiratsa1=(TMenuItem @ 0000000005022C40)
-	acDbgProfChg=(TAction @ 000000000463C170)
-	N1=(TMenuItem @ 0000000005023840)
-	ProcessProfileOnChangeesemnyhvsok1=(TMenuItem @ 00000000050239C0)
-	List=(TListBox @ 0000000004590050)
-	List.ItemIndex=2
-	List.Items.Count=5
-	Pages=(TPageControl @ 00000000045905B0)
-	tabHome=(TTabSheet @ 000000000463FBB0)
-	lbWelcomeTip=(TLabel @ 000000000467DF80)
-	lbWelcome=(TLabel @ 000000000467E660)
-	ImgWelcome=(TImage @ 000000000467E9D0)
-	tabPerfMon=(TTabSheet @ 00000000046400A0)
-	pgCharts=(TPageControl @ 0000000004590B10)
-	tabCPU=(TTabSheet @ 0000000004640590)
-	ChartCPU=(TChart @ 0000000005050BC0)
-	tabRAM=(TTabSheet @ 0000000004640A80)
-	ChartRAM=(TChart @ 0000000005051510)
-	tabVMs=(TTabSheet @ 0000000004640F70)
-	ChartVMs=(TChart @ 0000000005051E60)
-	pnpBottom=(TPanel @ 0000000004641460)
-	pnpRight=(TPanel @ 0000000004641950)
-	lbHRAM=(TLabel @ 000000000467ED40)
-	pbRAM=(TProgressBar @ 0000000004641E40)
-	pnpLeft=(TPanel @ 0000000004642330)
-	lbHCPU=(TLabel @ 000000000467F0B0)
-	pbCPU=(TProgressBar @ 0000000004642820)
-	tab86Box=(TTabSheet @ 0000000004642D10)
-	Splitter=(TSplitter @ 00000000045A5E30)
-	StatusBar=(TStatusBar @ 0000000004591070)
-	ListImages=(TVirtualImageList @ 0000000004614800)
-	ImageCollection=(TImageCollection @ 00000000046061B0)
-	acProgramSettings=(TAction @ 000000000463C2D0)
-	acUpdateList=(TAction @ 000000000463C430)
-	miTools=(TMenuItem @ 0000000004662DD0)
-	Programbelltsok1=(TMenuItem @ 0000000004664ED0)
-	N4=(TMenuItem @ 0000000004662AD0)
-	acStart=(TAction @ 000000000463A490)
-	acStop=(TAction @ 000000000463A070)
-	acPause=(TAction @ 000000000463A5F0)
-	acStopForced=(TAction @ 000000000463A1D0)
-	miMachine=(TMenuItem @ 0000000004660550)
-	acStart1=(TMenuItem @ 00000000046606D0)
-	acStart3=(TMenuItem @ 00000000046612D0)
-	acStart4=(TMenuItem @ 0000000004660850)
-	acProfileSettings=(TAction @ 000000000463B670)
-	acProfileSettings1=(TMenuItem @ 0000000004661750)
-	miFile=(TMenuItem @ 000000000465F1D0)
-	acImportVM=(TAction @ 0000000004639AF0)
-	acImportVM1=(TMenuItem @ 000000000465F7D0)
-	aDbgErrAccViol=(TAction @ 000000000463B0F0)
-	aDbgErrExcept=(TAction @ 000000000463B3B0)
-	aDbgErrConvErr=(TAction @ 000000000463B250)
-	aDbgErrSystem=(TAction @ 000000000463B510)
-	aDbgErrorMath=(TAction @ 000000000463C590)
-	acDbgErrInvCast=(TAction @ 000000000463C6F0)
-	miWinBoxMonitor=(TMenuItem @ 00000000050227C0)
-	miExceptions=(TMenuItem @ 0000000005023B40)
-	KivtelfeldobsaEAccessViolation1=(TMenuItem @ 00000000050242C0)
-	KivtelfeldobsaEConvertError1=(TMenuItem @ 0000000005024440)
-	KivtelfeldobsaException1=(TMenuItem @ 0000000005023E40)
-	KivtelfeldobsaException2=(TMenuItem @ 0000000005023CC0)
-	KivtelfeldobsaEMathError1=(TMenuItem @ 0000000005023FC0)
-	miView=(TMenuItem @ 0000000004662050)
-	miHelp=(TMenuItem @ 00000000050248C0)
-	acAbout=(TAction @ 000000000463C850)
-	Nvjegy1=(TMenuItem @ 00000000050257C0)
-	N5=(TMenuItem @ 00000000046609D0)
-	N6=(TMenuItem @ 0000000004661450)
-	ImageCollection1=(TImageCollection @ 00000000046060E0)
-	Icons32=(TVirtualImageList @ 0000000004614930)
-	Icons16=(TVirtualImageList @ 0000000004614A60)
-	ac86BoxSettings=(TAction @ 000000000463C9B0)
-	acCtrlAltDel=(TAction @ 000000000463AA10)
-	acCtrlAltEsc=(TAction @ 000000000463A8B0)
-	acHWReset=(TAction @ 000000000463AB70)
-	acBringToFront=(TAction @ 000000000463A750)
-	CtrlAltDelkldse1=(TMenuItem @ 0000000004660B50)
-	Virtulisgplelltsa1=(TMenuItem @ 0000000004661150)
-	N7=(TMenuItem @ 0000000004660FD0)
-	CtrlAltEsckldse1=(TMenuItem @ 0000000004660CD0)
-	Virtulisgphardveresjraindtsa1=(TMenuItem @ 0000000004660E50)
-	Hardverbelltsok1=(TMenuItem @ 00000000046615D0)
-	Virtulisgpeltrbehozsa1=(TMenuItem @ 00000000046621D0)
-	N8=(TMenuItem @ 00000000046624D0)
-	VMMenu=(TPopupMenu @ 0000000004676D20)
-	Virtulisgpindtsa1=(TMenuItem @ 0000000005025AC0)
-	Virtulisgpszneteltetse1=(TMenuItem @ 0000000005025C40)
-	N14=(TMenuItem @ 0000000005025DC0)
-	MenuItem1=(TMenuItem @ 0000000005025F40)
-	MenuItem2=(TMenuItem @ 00000000050260C0)
-	MenuItem3=(TMenuItem @ 0000000005026240)
-	N15=(TMenuItem @ 00000000050263C0)
-	MenuItem4=(TMenuItem @ 0000000005026540)
-	Virtulisgpknyszertettlelltsa1=(TMenuItem @ 00000000050266C0)
-	N16=(TMenuItem @ 0000000005026840)
-	MenuItem5=(TMenuItem @ 0000000005026FC0)
-	Hardverbelltsok2=(TMenuItem @ 00000000050269C0)
-	Profilbelltsok1=(TMenuItem @ 0000000005026B40)
-	N9=(TMenuItem @ 0000000005026CC0)
-	HomeMenu=(TPopupMenu @ 0000000004676C10)
-	Meglvvirtulisgpimportlsa1=(TMenuItem @ 0000000005028C40)
-	N10=(TMenuItem @ 0000000005028F40)
-	Virtulisgpeklistjnakfrisstse1=(TMenuItem @ 0000000004F7ADA0)
-	acStopAll=(TAction @ 0000000004639DB0)
-	acStopAllForced=(TAction @ 000000000463A330)
-	N11=(TMenuItem @ 0000000004F7A620)
-	Virtulisgplelltsa2=(TMenuItem @ 00000000050290C0)
-	acStopAllForced1=(TMenuItem @ 0000000004F7A4A0)
-	N12=(TMenuItem @ 000000000465FAD0)
-	Azsszesvirtulisgplelltsa1=(TMenuItem @ 000000000465FC50)
-	Azsszesvirtulisgpknyszertettlelltsa1=(TMenuItem @ 000000000465FDD0)
-	TrayIcon=(TTrayIcon @ 000000000463D8D0)
-	AppEvents=(TApplicationEvents @ 00000000045C4000)
-	acClose=(TAction @ 000000000463CB10)
-	N13=(TMenuItem @ 000000000465FF50)
-	Kilps1=(TMenuItem @ 00000000046603D0)
-	N17=(TMenuItem @ 0000000004F7AF20)
-	KilpsaWinBoxfor86Boxalkalmazsbl1=(TMenuItem @ 0000000004F7B0A0)
-	acOpenPrinterTray=(TAction @ 000000000463AE30)
-	acOpenScreenshots=(TAction @ 000000000463ACD0)
-	acOpenWorkDir=(TAction @ 000000000463AF90)
-	N18=(TMenuItem @ 00000000046618D0)
-	Kpernykpekmegnyitsa1=(TMenuItem @ 0000000004661A50)
-	Kpernykpekmegnyitsa2=(TMenuItem @ 0000000004661BD0)
-	N19=(TMenuItem @ 0000000004661D50)
-	Munkaknyvtrmegnyitsa1=(TMenuItem @ 0000000004661ED0)
-	N20=(TMenuItem @ 0000000005027BC0)
-	Kpernykpekmegnyitsa3=(TMenuItem @ 0000000005027D40)
-	Nyomtattlcamegnyitsa1=(TMenuItem @ 0000000005027EC0)
-	N21=(TMenuItem @ 0000000005028340)
-	Munkaknyvtrmegnyitsa2=(TMenuItem @ 00000000050284C0)
-	acNewVM=(TAction @ 00000000046396D0)
-	acNewHDD=(TAction @ 0000000004639990)
-	tbGlobal=(TToolBar @ 0000000004670290)
-	tbNewVM=(TToolButton @ 000000000467F420)
-	tbNewHDD=(TToolButton @ 000000000467F790)
-	ToolButton3=(TToolButton @ 000000000467FB00)
-	tbStopAll=(TToolButton @ 000000000467FE70)
-	tbUpdateList=(TToolButton @ 00000000046801E0)
-	tbProgSettDlg=(TToolButton @ 0000000004680550)
-	ToolButton12=(TToolButton @ 00000000046808C0)
-	tbAbout2=(TToolButton @ 0000000004680C30)
-	tbVMs=(TToolBar @ 0000000004670900)
-	tbStart=(TToolButton @ 0000000004680FA0)
-	tbStop=(TToolButton @ 0000000004681310)
-	ToolButton4=(TToolButton @ 0000000004681680)
-	tbCtrlAltDel=(TToolButton @ 00000000046819F0)
-	tbHWReset=(TToolButton @ 0000000004681D60)
-	tbSettings=(TToolButton @ 00000000046820D0)
-	ToolButton9=(TToolButton @ 0000000004682440)
-	tbBringToFront=(TToolButton @ 00000000046827B0)
-	tbPrinterTray=(TToolButton @ 0000000004682B20)
-	ToolButton13=(TToolButton @ 0000000004682E90)
-	tbAbout1=(TToolButton @ 0000000004683200)
-	tmrUpdate=(TTimer @ 000000000460D5E0)
-	acDbgRTTILogFile=(TAction @ 0000000004638A70)
-	SaveLogDialog=(TSaveDialog @ 00000000045C41A0)
-	RTTIadatokmentsenaplfjlba1=(TMenuItem @ 0000000005024740)
-	N22=(TMenuItem @ 0000000005022640)
-	acDbgNameDefsFile=(TAction @ 0000000004639150)
-	acDbgLanguageFile=(TAction @ 000000000463CC70)
-	Nvdefincisfjlelmentse1=(TMenuItem @ 0000000005022040)
-	N23=(TMenuItem @ 00000000050245C0)
-	acDbgGetSysLocale=(TAction @ 0000000004639570)
-	acDbgGetProgLocale=(TAction @ 0000000004639410)
-	acDbgGetCmdLine=(TAction @ 00000000046392B0)
-	Jelenleginyelvifjlmentse1=(TMenuItem @ 00000000050221C0)
-	N24=(TMenuItem @ 0000000004665DD0)
-	Arendszernyelvneklekrdezse1=(TMenuItem @ 0000000004665AD0)
-	Aprogramnyelvneklekrdezse1=(TMenuItem @ 0000000004665C50)
-	N25=(TMenuItem @ 00000000046657D0)
-	N26=(TMenuItem @ 0000000004665950)
-	miPerfCPU1=(TMenuItem @ 0000000004663250)
-	miExportMetafile1=(TMenuItem @ 00000000046639D0)
-	miExportBitmap1=(TMenuItem @ 0000000004663850)
-	miPrint1=(TMenuItem @ 00000000046636D0)
-	N27=(TMenuItem @ 0000000004663550)
-	miShow1=(TMenuItem @ 00000000046633D0)
-	miPerfRAM1=(TMenuItem @ 0000000004663B50)
-	miExportMetafile2=(TMenuItem @ 00000000046642D0)
-	miExportBitmap2=(TMenuItem @ 0000000004664150)
-	miPrint2=(TMenuItem @ 0000000004663FD0)
-	N28=(TMenuItem @ 0000000004663E50)
-	miShow2=(TMenuItem @ 0000000004663CD0)
-	miPerfVMs1=(TMenuItem @ 0000000004664450)
-	miExportMetafile3=(TMenuItem @ 0000000004664BD0)
-	miExportBitmap3=(TMenuItem @ 0000000004664A50)
-	miPrint3=(TMenuItem @ 00000000046648D0)
-	N29=(TMenuItem @ 0000000004664750)
-	miShow3=(TMenuItem @ 00000000046645D0)
-	N30=(TMenuItem @ 0000000004664D50)
-	SaveBmp=(TSavePictureDialog @ 00000000045F82A0)
-	SaveEmf=(TSavePictureDialog @ 00000000045F8460)
-	PrintDialog=(TPrintDialog @ 000000000462B930)
-	acDbgFolderChg=(TAction @ 0000000004639C50)
-	FolderMonitorOnChangenaplzsa1=(TMenuItem @ 00000000050224C0)
-	N31=(TMenuItem @ 0000000005022340)
-	jvirtulisgpltrehozsa1=(TMenuItem @ 00000000050287C0)
-	jvirtulismerevlemezltrehozsa1=(TMenuItem @ 0000000005028940)
-	N32=(TMenuItem @ 0000000005028AC0)
-	jvirtulisgpltrehozsa2=(TMenuItem @ 000000000465F350)
-	jvirtulismerevlemezltrehozsa2=(TMenuItem @ 000000000465F4D0)
-	N33=(TMenuItem @ 000000000465F650)
-	ColorDialog=(TColorDialog @ 0000000004600380)
-	acChangeColor=(TAction @ 000000000463CF30)
-	acResetColor=(TAction @ 000000000463D090)
-	acUpdateFull=(TAction @ 000000000463CDD0)
-	Virtulisgpinformcikfrisstse1=(TMenuItem @ 0000000004662350)
-	N34=(TMenuItem @ 0000000004662950)
-	Httrsznmegvltoztatsa1=(TMenuItem @ 0000000004662650)
-	Httrsznvisszalltsa1=(TMenuItem @ 00000000046627D0)
-	Virtulisgpinformcikfrisstse2=(TMenuItem @ 0000000005027140)
-	Httrsznmegvltoztatsa2=(TMenuItem @ 00000000050278C0)
-	Httrsznvisszalltsa2=(TMenuItem @ 0000000005027A40)
-	acUpdateTools=(TAction @ 000000000463D1F0)
-	Felhasznlieszkzklistjnakfrisstse1=(TMenuItem @ 0000000004662C50)
-	miSepUserTools=(TMenuItem @ 0000000004665050)
-	miUserTools=(TMenuItem @ 00000000046651D0)
-	PerfMenu=(TPopupMenu @ 0000000004676B00)
-	miPerfCPU2=(TMenuItem @ 0000000004F7B3A0)
-	miExportMetafile4=(TMenuItem @ 0000000009787130)
-	miExportBitmap4=(TMenuItem @ 0000000009786FB0)
-	miPrint4=(TMenuItem @ 0000000009786E30)
-	N36=(TMenuItem @ 0000000004F7B6A0)
-	miShow4=(TMenuItem @ 0000000004F7B520)
-	miPerfRAM2=(TMenuItem @ 00000000097872B0)
-	miExportMetafile5=(TMenuItem @ 0000000009787A30)
-	miExportBitmap5=(TMenuItem @ 00000000097878B0)
-	miPrint5=(TMenuItem @ 0000000009787730)
-	N37=(TMenuItem @ 00000000097875B0)
-	miShow5=(TMenuItem @ 0000000009787430)
-	miPerfVMs2=(TMenuItem @ 0000000009787BB0)
-	miExportMetafile6=(TMenuItem @ 0000000009788330)
-	miExportBitmap6=(TMenuItem @ 00000000097881B0)
-	miPrint6=(TMenuItem @ 0000000009788030)
-	N38=(TMenuItem @ 0000000009787EB0)
-	miShow6=(TMenuItem @ 0000000009787D30)
-	acDeleteVM=(TAction @ 000000000463D350)
-	N39=(TMenuItem @ 0000000004660250)
-	Akijelltvirtulisgpeltvoltsa1=(TMenuItem @ 00000000046600D0)
-	DeleteDialog=(TTaskDialog @ 0000000004632EA0)
-	N40=(TMenuItem @ 00000000050272C0)
-	Akijelltvirtulisgpeltvoltsa2=(TMenuItem @ 00000000050281C0)
-	acDiskDatabase=(TAction @ 0000000004638650)
-	N41=(TMenuItem @ 0000000004665350)
-	Merevlemezadatbzismegnyitsa1=(TMenuItem @ 00000000046654D0)
-	acAutoUpdate=(TAction @ 00000000046387B0)
-	N42=(TMenuItem @ 00000000046630D0)
-	Emultorfrisstsekkeresse1=(TMenuItem @ 0000000004662F50)
-	N43=(TMenuItem @ 0000000005024D40)
-	miOnlineDocs1=(TMenuItem @ 0000000005024A40)
-	N44=(TMenuItem @ 0000000005025640)
-	miOnlineLinks2=(TMenuItem @ 0000000005025040)
-	miOnlineLinks4=(TMenuItem @ 0000000005025340)
-	miOnlineLinks1=(TMenuItem @ 0000000005024EC0)
-	miOnlineLinks5=(TMenuItem @ 00000000050254C0)
-	miOnlineLinks3=(TMenuItem @ 00000000050251C0)
-	acNewFloppy=(TAction @ 0000000004639830)
-	jhajlkonylemezkpfjlltrehozsa1=(TMenuItem @ 000000000465F950)
-	jhajlkonylemezkpfjlltrehozsa2=(TMenuItem @ 0000000005028DC0)
-	Emultorfrisstsekkeresse2=(TMenuItem @ 0000000004F7A7A0)
-	jvirtulismerevlemezltrehozsa3=(TMenuItem @ 0000000005027440)
-	jhajlkonylemezkpfjlltrehozsa3=(TMenuItem @ 00000000050275C0)
-	N35=(TMenuItem @ 0000000005028040)
-	N45=(TMenuItem @ 0000000005027740)
-	ovbbilehetsgek1=(TMenuItem @ 0000000005026E40)
-	Virtulisgpeklistjnakfrisstse2=(TMenuItem @ 00000000097887B0)
-	N46=(TMenuItem @ 00000000097884B0)
-	Programbelltsok2=(TMenuItem @ 0000000009788630)
-	Programbelltsok3=(TMenuItem @ 0000000004F7AC20)
-	Merevlemezadatbzismegnyitsa2=(TMenuItem @ 0000000004F7A920)
-	N49=(TMenuItem @ 0000000004F7AAA0)
-	miOnlineDocs2=(TMenuItem @ 0000000005024BC0)
-	KivtelfeldobsaEInvalidCast1=(TMenuItem @ 0000000005024140)
+	Actions=(TActionList @ 042FBBB0)
+	MainMenu=(TMainMenu @ 04302920)
+	acDbgProcList=(TAction @ 04329EB0)
+	acDbgDumpList=(TAction @ 0432A010)
+	acDbgProcUpd=(TAction @ 0432A0C0)
+	acDbgProcChg=(TAction @ 0432A170)
+	miDebug=(TMenuItem @ 04332C70)
+	acDbgDumpList1=(TMenuItem @ 04333700)
+	acDbgProcChg1=(TMenuItem @ 04333A40)
+	acDbgProcList1=(TMenuItem @ 04333630)
+	acDbgProcUpd1=(TMenuItem @ 04333970)
+	acDbgProcOps=(TAction @ 0432A220)
+	acDbgPrfAsgn=(TAction @ 0432A2D0)
+	N2=(TMenuItem @ 04333B10)
+	acDbgProcChg2=(TMenuItem @ 04333BE0)
+	acDbgProcChg3=(TMenuItem @ 04333D80)
+	acDbgMonData=(TAction @ 0432A380)
+	N3=(TMenuItem @ 043338A0)
+	acDbgMonData1=(TMenuItem @ 04333CB0)
+	acDbgMonQuery=(TAction @ 0432A430)
+	ProcessMonitorQuerykiratsa1=(TMenuItem @ 043337D0)
+	acDbgProfChg=(TAction @ 0432A4E0)
+	N1=(TMenuItem @ 04333E50)
+	ProcessProfileOnChangeesemnyhvsok1=(TMenuItem @ 04333F20)
+	List=(TListBox @ 04ABF650)
+	List.ItemIndex=0
+	List.Items.Count=3
+	Pages=(TPageControl @ 04336C10)
+	tabHome=(TTabSheet @ 0431F500)
+	lbWelcomeTip=(TLabel @ 042A2FD0)
+	lbWelcome=(TLabel @ 042A2DC0)
+	ImgWelcome=(TImage @ 042A3E40)
+	tabPerfMon=(TTabSheet @ 0431FAC0)
+	pgCharts=(TPageControl @ 043368F0)
+	tabCPU=(TTabSheet @ 0431FDA0)
+	ChartCPU=(TChart @ 04B30840)
+	tabRAM=(TTabSheet @ 04320080)
+	ChartRAM=(TChart @ 04B30DA0)
+	tabVMs=(TTabSheet @ 04320360)
+	ChartVMs=(TChart @ 04B31300)
+	pnpBottom=(TPanel @ 04320640)
+	pnpRight=(TPanel @ 04320920)
+	lbHRAM=(TLabel @ 042A4050)
+	pbRAM=(TProgressBar @ 04320C00)
+	pnpLeft=(TPanel @ 04320EE0)
+	lbHCPU=(TLabel @ 042A4260)
+	pbCPU=(TProgressBar @ 043211C0)
+	tab86Box=(TTabSheet @ 043214A0)
+	Splitter=(TSplitter @ 042932D0)
+	StatusBar=(TStatusBar @ 04321780)
+	ListImages=(TVirtualImageList @ 043532F0)
+	ImageCollection=(TImageCollection @ 043AADD0)
+	acProgramSettings=(TAction @ 0432A590)
+	acUpdateList=(TAction @ 0432A640)
+	miTools=(TMenuItem @ 04331680)
+	Programbelltsok1=(TMenuItem @ 04332860)
+	N4=(TMenuItem @ 043314E0)
+	acStart=(TAction @ 043295C0)
+	acStop=(TAction @ 043293B0)
+	acPause=(TAction @ 04329670)
+	acStopForced=(TAction @ 04329460)
+	miMachine=(TMenuItem @ 04330090)
+	acStart1=(TMenuItem @ 04330160)
+	acStart3=(TMenuItem @ 043307E0)
+	acStart4=(TMenuItem @ 04330230)
+	acProfileSettings=(TAction @ 04329F60)
+	acProfileSettings1=(TMenuItem @ 04330A50)
+	miFile=(TMenuItem @ 0432F050)
+	acImportVM=(TAction @ 043291A0)
+	acImportVM1=(TMenuItem @ 0432F940)
+	aDbgErrAccViol=(TAction @ 04329BF0)
+	aDbgErrExcept=(TAction @ 04329D50)
+	aDbgErrConvErr=(TAction @ 04329CA0)
+	aDbgErrSystem=(TAction @ 04329E00)
+	aDbgErrorMath=(TAction @ 0432A6F0)
+	acDbgErrInvCast=(TAction @ 0432A7A0)
+	miWinBoxMonitor=(TMenuItem @ 04333560)
+	miExceptions=(TMenuItem @ 04333FF0)
+	KivtelfeldobsaEAccessViolation1=(TMenuItem @ 04334400)
+	KivtelfeldobsaEConvertError1=(TMenuItem @ 043344D0)
+	KivtelfeldobsaException1=(TMenuItem @ 04334190)
+	KivtelfeldobsaException2=(TMenuItem @ 043340C0)
+	KivtelfeldobsaEMathError1=(TMenuItem @ 04334260)
+	miView=(TMenuItem @ 04330F30)
+	miHelp=(TMenuItem @ 04334740)
+	acAbout=(TAction @ 0432A850)
+	Nvjegy1=(TMenuItem @ 04334F60)
+	N5=(TMenuItem @ 04330300)
+	N6=(TMenuItem @ 043308B0)
+	ImageCollection1=(TImageCollection @ 043AAD68)
+	Icons32=(TVirtualImageList @ 04353230)
+	Icons16=(TVirtualImageList @ 04353170)
+	ac86BoxSettings=(TAction @ 0432A900)
+	acCtrlAltDel=(TAction @ 04329880)
+	acCtrlAltEsc=(TAction @ 043297D0)
+	acHWReset=(TAction @ 04329930)
+	acBringToFront=(TAction @ 04329720)
+	CtrlAltDelkldse1=(TMenuItem @ 043303D0)
+	Virtulisgplelltsa1=(TMenuItem @ 04330710)
+	N7=(TMenuItem @ 04330640)
+	CtrlAltEsckldse1=(TMenuItem @ 043304A0)
+	Virtulisgphardveresjraindtsa1=(TMenuItem @ 04330570)
+	Hardverbelltsok1=(TMenuItem @ 04330980)
+	Virtulisgpeltrbehozsa1=(TMenuItem @ 04331000)
+	N8=(TMenuItem @ 043311A0)
+	VMMenu=(TPopupMenu @ 042EEFB0)
+	Virtulisgpindtsa1=(TMenuItem @ 04335100)
+	Virtulisgpszneteltetse1=(TMenuItem @ 043351D0)
+	N14=(TMenuItem @ 043352A0)
+	MenuItem1=(TMenuItem @ 04335370)
+	MenuItem2=(TMenuItem @ 04335440)
+	MenuItem3=(TMenuItem @ 04335510)
+	N15=(TMenuItem @ 043355E0)
+	MenuItem4=(TMenuItem @ 043356B0)
+	Virtulisgpknyszertettlelltsa1=(TMenuItem @ 04335780)
+	N16=(TMenuItem @ 04335850)
+	MenuItem5=(TMenuItem @ 04335C60)
+	Hardverbelltsok2=(TMenuItem @ 04335920)
+	Profilbelltsok1=(TMenuItem @ 043359F0)
+	N9=(TMenuItem @ 04335AC0)
+	HomeMenu=(TPopupMenu @ 042EF040)
+	Meglvvirtulisgpimportlsa1=(TMenuItem @ 09837280)
+	N10=(TMenuItem @ 09837420)
+	Virtulisgpeklistjnakfrisstse1=(TMenuItem @ 04A8B960)
+	acStopAll=(TAction @ 04329300)
+	acStopAllForced=(TAction @ 04329510)
+	N11=(TMenuItem @ 09837690)
+	Virtulisgplelltsa2=(TMenuItem @ 098374F0)
+	acStopAllForced1=(TMenuItem @ 098375C0)
+	N12=(TMenuItem @ 0432FAE0)
+	Azsszesvirtulisgplelltsa1=(TMenuItem @ 0432FBB0)
+	Azsszesvirtulisgpknyszertettlelltsa1=(TMenuItem @ 0432FC80)
+	TrayIcon=(TTrayIcon @ 043530B0)
+	AppEvents=(TApplicationEvents @ 04A8BBD0)
+	acClose=(TAction @ 0432A9B0)
+	N13=(TMenuItem @ 0432FD50)
+	Kilps1=(TMenuItem @ 0432FFC0)
+	N17=(TMenuItem @ 04A8BA30)
+	KilpsaWinBoxfor86Boxalkalmazsbl1=(TMenuItem @ 04A8BB00)
+	acOpenPrinterTray=(TAction @ 04329A90)
+	acOpenScreenshots=(TAction @ 043299E0)
+	acOpenWorkDir=(TAction @ 04329B40)
+	N18=(TMenuItem @ 04330B20)
+	Kpernykpekmegnyitsa1=(TMenuItem @ 04330BF0)
+	Kpernykpekmegnyitsa2=(TMenuItem @ 04330CC0)
+	N19=(TMenuItem @ 04330D90)
+	Munkaknyvtrmegnyitsa1=(TMenuItem @ 04330E60)
+	N20=(TMenuItem @ 09836990)
+	Kpernykpekmegnyitsa3=(TMenuItem @ 09836A60)
+	Nyomtattlcamegnyitsa1=(TMenuItem @ 09836B30)
+	N21=(TMenuItem @ 09836DA0)
+	Munkaknyvtrmegnyitsa2=(TMenuItem @ 09836E70)
+	acNewVM=(TAction @ 04328F90)
+	acNewHDD=(TAction @ 043290F0)
+	tbGlobal=(TToolBar @ 04AE18E0)
+	tbNewVM=(TToolButton @ 042A4470)
+	tbNewHDD=(TToolButton @ 042A4680)
+	ToolButton3=(TToolButton @ 042A4890)
+	tbStopAll=(TToolButton @ 042A4AA0)
+	tbUpdateList=(TToolButton @ 042A4CB0)
+	tbProgSettDlg=(TToolButton @ 042A4EC0)
+	ToolButton12=(TToolButton @ 042A50D0)
+	tbAbout2=(TToolButton @ 042A52E0)
+	tbVMs=(TToolBar @ 04AE1CA0)
+	tbStart=(TToolButton @ 042A54F0)
+	tbStop=(TToolButton @ 042A5700)
+	ToolButton4=(TToolButton @ 042A5910)
+	tbCtrlAltDel=(TToolButton @ 042A5B20)
+	tbHWReset=(TToolButton @ 042A5D30)
+	tbSettings=(TToolButton @ 042A5F40)
+	ToolButton9=(TToolButton @ 042A6150)
+	tbBringToFront=(TToolButton @ 042A6360)
+	tbPrinterTray=(TToolButton @ 042A6570)
+	ToolButton13=(TToolButton @ 042A6780)
+	tbAbout1=(TToolButton @ 042A6990)
+	tmrUpdate=(TTimer @ 04391BC0)
+	acDbgRTTILogFile=(TAction @ 04328B70)
+	SaveLogDialog=(TSaveDialog @ 0430A150)
+	RTTIadatokmentsenaplfjlba1=(TMenuItem @ 04334670)
+	N22=(TMenuItem @ 04333490)
+	acDbgNameDefsFile=(TAction @ 04328CD0)
+	acDbgLanguageFile=(TAction @ 0432AA60)
+	Nvdefincisfjlelmentse1=(TMenuItem @ 04333150)
+	N23=(TMenuItem @ 043345A0)
+	acDbgGetSysLocale=(TAction @ 04328EE0)
+	acDbgGetProgLocale=(TAction @ 04328E30)
+	acDbgGetCmdLine=(TAction @ 04328D80)
+	Jelenleginyelvifjlmentse1=(TMenuItem @ 04333220)
+	N24=(TMenuItem @ 04333080)
+	Arendszernyelvneklekrdezse1=(TMenuItem @ 04332EE0)
+	Aprogramnyelvneklekrdezse1=(TMenuItem @ 04332FB0)
+	N25=(TMenuItem @ 04332D40)
+	N26=(TMenuItem @ 04332E10)
+	miPerfCPU1=(TMenuItem @ 043318F0)
+	miExportMetafile1=(TMenuItem @ 04331D00)
+	miExportBitmap1=(TMenuItem @ 04331C30)
+	miPrint1=(TMenuItem @ 04331B60)
+	N27=(TMenuItem @ 04331A90)
+	miShow1=(TMenuItem @ 043319C0)
+	miPerfRAM1=(TMenuItem @ 04331DD0)
+	miExportMetafile2=(TMenuItem @ 043321E0)
+	miExportBitmap2=(TMenuItem @ 04332110)
+	miPrint2=(TMenuItem @ 04332040)
+	N28=(TMenuItem @ 04331F70)
+	miShow2=(TMenuItem @ 04331EA0)
+	miPerfVMs1=(TMenuItem @ 043322B0)
+	miExportMetafile3=(TMenuItem @ 043326C0)
+	miExportBitmap3=(TMenuItem @ 043325F0)
+	miPrint3=(TMenuItem @ 04332520)
+	N29=(TMenuItem @ 04332450)
+	miShow3=(TMenuItem @ 04332380)
+	N30=(TMenuItem @ 04332790)
+	SaveBmp=(TSavePictureDialog @ 042B8750)
+	SaveEmf=(TSavePictureDialog @ 042B8650)
+	PrintDialog=(TPrintDialog @ 042E72C0)
+	acDbgFolderChg=(TAction @ 04329250)
+	FolderMonitorOnChangenaplzsa1=(TMenuItem @ 043333C0)
+	N31=(TMenuItem @ 043332F0)
+	jvirtulisgpltrehozsa1=(TMenuItem @ 09837010)
+	jvirtulismerevlemezltrehozsa1=(TMenuItem @ 098370E0)
+	N32=(TMenuItem @ 098371B0)
+	jvirtulisgpltrehozsa2=(TMenuItem @ 0432F6D0)
+	jvirtulismerevlemezltrehozsa2=(TMenuItem @ 0432F7A0)
+	N33=(TMenuItem @ 0432F870)
+	ColorDialog=(TColorDialog @ 042EF0D0)
+	acChangeColor=(TAction @ 0432ABC0)
+	acResetColor=(TAction @ 0432AC70)
+	acUpdateFull=(TAction @ 0432AB10)
+	Virtulisgpinformcikfrisstse1=(TMenuItem @ 043310D0)
+	N34=(TMenuItem @ 04331410)
+	Httrsznmegvltoztatsa1=(TMenuItem @ 04331270)
+	Httrsznvisszalltsa1=(TMenuItem @ 04331340)
+	Virtulisgpinformcikfrisstse2=(TMenuItem @ 04335D30)
+	Httrsznmegvltoztatsa2=(TMenuItem @ 04336140)
+	Httrsznvisszalltsa2=(TMenuItem @ 098368C0)
+	acUpdateTools=(TAction @ 0432AD20)
+	Felhasznlieszkzklistjnakfrisstse1=(TMenuItem @ 043315B0)
+	miSepUserTools=(TMenuItem @ 04332930)
+	miUserTools=(TMenuItem @ 04332A00)
+	PerfMenu=(TPopupMenu @ 042EF160)
+	miPerfCPU2=(TMenuItem @ 04A8BD70)
+	miExportMetafile4=(TMenuItem @ 04A8C180)
+	miExportBitmap4=(TMenuItem @ 04A8C0B0)
+	miPrint4=(TMenuItem @ 04A8BFE0)
+	N36=(TMenuItem @ 04A8BF10)
+	miShow4=(TMenuItem @ 04A8BE40)
+	miPerfRAM2=(TMenuItem @ 04A8C250)
+	miExportMetafile5=(TMenuItem @ 04A8C660)
+	miExportBitmap5=(TMenuItem @ 04A8C590)
+	miPrint5=(TMenuItem @ 04A8C4C0)
+	N37=(TMenuItem @ 04A8C3F0)
+	miShow5=(TMenuItem @ 04A8C320)
+	miPerfVMs2=(TMenuItem @ 04A8C730)
+	miExportMetafile6=(TMenuItem @ 04A8CB40)
+	miExportBitmap6=(TMenuItem @ 04A8CA70)
+	miPrint6=(TMenuItem @ 04A8C9A0)
+	N38=(TMenuItem @ 04A8C8D0)
+	miShow6=(TMenuItem @ 04A8C800)
+	acDeleteVM=(TAction @ 0432ADD0)
+	N39=(TMenuItem @ 0432FEF0)
+	Akijelltvirtulisgpeltvoltsa1=(TMenuItem @ 0432FE20)
+	DeleteDialog=(TTaskDialog @ 042B8550)
+	N40=(TMenuItem @ 04335E00)
+	Akijelltvirtulisgpeltvoltsa2=(TMenuItem @ 09836CD0)
+	acDiskDatabase=(TAction @ 04328C20)
+	N41=(TMenuItem @ 04332AD0)
+	Merevlemezadatbzismegnyitsa1=(TMenuItem @ 04332BA0)
+	acAutoUpdate=(TAction @ 04328AC0)
+	N42=(TMenuItem @ 04331820)
+	Emultorfrisstsekkeresse1=(TMenuItem @ 04331750)
+	N43=(TMenuItem @ 043349B0)
+	miOnlineDocs1=(TMenuItem @ 04334810)
+	N44=(TMenuItem @ 04334E90)
+	miOnlineLinks2=(TMenuItem @ 04334B50)
+	miOnlineLinks4=(TMenuItem @ 04334CF0)
+	miOnlineLinks1=(TMenuItem @ 04334A80)
+	miOnlineLinks5=(TMenuItem @ 04334DC0)
+	miOnlineLinks3=(TMenuItem @ 04334C20)
+	acNewFloppy=(TAction @ 04329040)
+	jhajlkonylemezkpfjlltrehozsa1=(TMenuItem @ 0432FA10)
+	jhajlkonylemezkpfjlltrehozsa2=(TMenuItem @ 09837350)
+	Emultorfrisstsekkeresse2=(TMenuItem @ 09837760)
+	jvirtulismerevlemezltrehozsa3=(TMenuItem @ 04335ED0)
+	jhajlkonylemezkpfjlltrehozsa3=(TMenuItem @ 04335FA0)
+	N35=(TMenuItem @ 09836C00)
+	N45=(TMenuItem @ 04336070)
+	ovbbilehetsgek1=(TMenuItem @ 04335B90)
+	Virtulisgpeklistjnakfrisstse2=(TMenuItem @ 04A8CDB0)
+	N46=(TMenuItem @ 04A8CC10)
+	Programbelltsok2=(TMenuItem @ 04A8CCE0)
+	Programbelltsok3=(TMenuItem @ 04A8B890)
+	Merevlemezadatbzismegnyitsa2=(TMenuItem @ 09837830)
+	N49=(TMenuItem @ 04A8B7C0)
+	miOnlineDocs2=(TMenuItem @ 043348E0)
+	KivtelfeldobsaEInvalidCast1=(TMenuItem @ 04334330)
 	HalfCharHeight=10
 	BorderThickness=4
 	clHighlight1=14120960
 	clHighlight2=16749325
 	clDisabled1=7039851
 	clDisabled2=8816262
-	SideRatio=0,29289099574089
-	IsAllStopped=True
-	IsAnyRunning=False
-	IsSelectedVM=True
+	SideRatio=0,300000011920929
+	IsAllStopped=False
+	IsAnyRunning=True
+	IsSelectedVM=False
 	FirstUpdateDone=True
-	Updater=(TUpdaterDlg @ 0000000004FABA30)
-	Monitor=(T86BoxMonitor @ 00000000050133D0)
+	UpdateCount=3
+	Updater=(TUpdaterDlg @ 0981A860)
+	Monitor=(T86BoxMonitor @ 04398250)
 	Profiles[0]=(
-		NameDefFile=C:\Users\laciba\AppData\Roaming\Laci bá'\WinBox\86Box\namedefs.inf
-		ConfigFile=D:\Virtuális gépek\WinBox\{C784E4D6-8CC2-4F09-A044-2AEAEDF4BC57}\86box.cfg
+		NameDefFile=C:\Users\laciba\Documents\WinBox for 86Box\Emulator Files\namedefs.inf
+		ConfigFile=C:\Users\laciba\Documents\WinBox for 86Box\Virtual Machines\{B00F8D77-F196-4A5F-A218-F83602D0F2A9}\86box.cfg
+		IDM_ACTION_SCREENSHOT=40012
+		IDM_ACTION_HRESET=40013
+		IDM_ACTION_RESET_CAD=40014
+		IDM_ACTION_EXIT=40015
+		IDM_ACTION_CTRL_ALT_ESC=40016
+		IDM_ACTION_PAUSE=40017
+		IDM_CONFIG=40020
 		HasPrinterTray=True
-		Screenshots=D:\Virtuális gépek\WinBox\{C784E4D6-8CC2-4F09-A044-2AEAEDF4BC57}\screenshots\
-		PrinterTray=D:\Virtuális gépek\WinBox\{C784E4D6-8CC2-4F09-A044-2AEAEDF4BC57}\printer\
-		DiskSize=3961439778
-		NameDefs=(TMemIniFile @ 000000000979FDA0)
+		Screenshots=C:\Users\laciba\Documents\WinBox for 86Box\Virtual Machines\{B00F8D77-F196-4A5F-A218-F83602D0F2A9}\screenshots\
+		PrinterTray=C:\Users\laciba\Documents\WinBox for 86Box\Virtual Machines\{B00F8D77-F196-4A5F-A218-F83602D0F2A9}\printer\
+		DiskSize=20818028
+		NameDefs=(TMemIniFile @ 04A71FB0)
 		ConfigData=(
-			Machine=r418
-			CPUType=i486dx2
-			GfxCard=virge375_vbe20_pci
-			SndCard=sb16
-			Midi=mt32
-			NetCard=ne2kpci
-			NetType=slirp
-			ScsiCard=none
-			Mouse=msserial
-			Joystick=none
-			Memory=131072
-			CPUSpeed=40000000
-			VoodooType=0
-			HasVoodoo=False
-			SLI=False
-			AspectRatio=(record)
-			Floppy=(array)
-			Serial=?
-			Parallel=?
-			HDD=(array)
-			CDROM=(array)
-			ZIP=(array)
-			MO=(array)
-		);
-		FIndexMap=(empty)
-		FStarted=0
-		FState=0
-		FMonitor=(T86BoxMonitor @ 00000000050133D0)
-		FChange=(method code=0000000000C0CD50, data=00000000045B0D30)
-		FWorkingDirectory=D:\Virtuális gépek\WinBox\{C784E4D6-8CC2-4F09-A044-2AEAEDF4BC57}\
-		ProfileID={C784E4D6-8CC2-4F09-A044-2AEAEDF4BC57}
-		FriendlyName=Retro PC
-		Description=
-		ExecutablePath=C:\Users\laciba\AppData\Roaming\Laci bá'\WinBox\86Box\86Box.exe
-		OptionalParams=
-		Color=536870911
-		EraseProt=True
-		Fullscreen=False
-		HasIcon=True
-		Icon=(TWICImage @ 000000000469B810)
-		LoggingMode=0
-		DebugMode=0
-		CrashDump=0
-	);
-	Profiles[1]=(
-		NameDefFile=C:\Users\laciba\AppData\Roaming\Laci bá'\WinBox\86Box\namedefs.inf
-		ConfigFile=C:\Users\laciba\86Box VMs\1\86box.cfg
-		HasPrinterTray=False
-		Screenshots=C:\Users\laciba\86Box VMs\1\screenshots\
-		PrinterTray=C:\Users\laciba\86Box VMs\1\printer\
-		DiskSize=806841
-		NameDefs=(TMemIniFile @ 000000000979FD20)
-		ConfigData=(
-			Machine=ami471
-			CPUType=i486sx
-			GfxCard=ht216_32
-			SndCard=none
+			Machine=ami486
+			CPUType=i386dx
+			GfxCard=tvga8900d
+			SndCard=sb16_pnp
 			Midi=none
 			NetCard=none
 			NetType=none
 			ScsiCard=none
-			Mouse=none
-			Joystick=standard_2button
+			Mouse=msserial
+			Joystick=none
 			Memory=8192
-			CPUSpeed=33333333
+			CPUSpeed=20000000
 			VoodooType=0
 			HasVoodoo=False
 			SLI=False
@@ -807,84 +687,32 @@ WinBoxMain=(
 			ZIP=(array)
 			MO=(array)
 		);
-		FIndexMap=(empty)
+		FIndexMap=(dynamic array)
 		FStarted=0
-		FState=0
-		FMonitor=(T86BoxMonitor @ 00000000050133D0)
-		FChange=(method code=0000000000C0CD50, data=00000000045B0D30)
-		FWorkingDirectory=C:\Users\laciba\86Box VMs\1\
-		ProfileID={25B3B001-3F96-4130-BDEB-956BF2C90266}
-		FriendlyName=Teszt PC
-		Description=teszt
-		ExecutablePath=C:\Users\laciba\AppData\Roaming\Laci bá'\WinBox\86Box\86Box.exe
+		FState=1
+		FMonitor=(T86BoxMonitor @ 04398250)
+		FChange=(method code=00968BA0, data=04AAD1C0)
+		FWorkingDirectory=C:\Users\laciba\Documents\WinBox for 86Box\Virtual Machines\{B00F8D77-F196-4A5F-A218-F83602D0F2A9}\
+		ProfileID={B00F8D77-F196-4A5F-A218-F83602D0F2A9}
+		FriendlyName=Windows 3.1
+		Description=
+		ExecutablePath=C:\Users\laciba\Documents\WinBox for 86Box\Emulator Files\86Box.exe
 		OptionalParams=
 		Color=536870911
 		EraseProt=False
 		Fullscreen=False
 		HasIcon=True
-		Icon=(TWICImage @ 000000000469B780)
+		Icon=(TWICImage @ 043927C0)
 		LoggingMode=0
 		DebugMode=0
 		CrashDump=0
+		GetFileVer(ExecutablePath)=v3.0.0.3065
 	);
-	Profiles[2]=(
-		NameDefFile=C:\Users\laciba\AppData\Roaming\Laci bá'\WinBox\86Box\namedefs.inf
-		ConfigFile=D:\Programok\Virtualizacio\86Box\vms\Duke3D\86box.cfg
-		HasPrinterTray=True
-		Screenshots=D:\Programok\Virtualizacio\86Box\vms\Duke3D\screenshots\
-		PrinterTray=D:\Programok\Virtualizacio\86Box\vms\Duke3D\printer\
-		DiskSize=528887383
-		NameDefs=(TMemIniFile @ 00000000097A7620)
-		ConfigData=(
-			Machine=vli486sv2g
-			CPUType=pentium_p24t
-			GfxCard=stealth64v_vlb
-			SndCard=sb16
-			Midi=fluidsynth
-			NetCard=pcnetvlb
-			NetType=slirp
-			ScsiCard=aha154xcf
-			Mouse=msserial
-			Joystick=none
-			Memory=16384
-			CPUSpeed=83333333
-			VoodooType=0
-			HasVoodoo=False
-			SLI=False
-			AspectRatio=(record)
-			Floppy=(array)
-			Serial=?
-			Parallel=?
-			HDD=(array)
-			CDROM=(array)
-			ZIP=(array)
-			MO=(array)
-		);
-		FIndexMap=(empty)
-		FStarted=0
-		FState=0
-		FMonitor=(T86BoxMonitor @ 00000000050133D0)
-		FChange=(method code=0000000000C0CD50, data=00000000045B0D30)
-		FWorkingDirectory=D:\Programok\Virtualizacio\86Box\vms\Duke3D\
-		ProfileID={DFE32BDB-E6B0-48D3-80EF-029332506914}
-		FriendlyName=Windows 95
-		Description=
-		ExecutablePath=C:\Users\laciba\AppData\Roaming\Laci bá'\WinBox\86Box\86Box.exe
-		OptionalParams=
-		Color=536870911
-		EraseProt=True
-		Fullscreen=False
-		HasIcon=False
-		Icon=(TWICImage @ 00000000096A06C0)
-		LoggingMode=0
-		DebugMode=0
-		CrashDump=0
-	);
-	Frame86Box=(TFrame86Box @ 000000000976DDD0)
-	Icons=(TObjectList<Vcl.Graphics.TWICImage> @ 00000000046B8B50)
+	Frame86Box=(TFrame86Box @ 04280870)
+	Icons=(TObjectList<Vcl.Graphics.TWICImage> @ 04398288)
 	FTaskbarHandler=(empty)
-	FActiveControl=(TListBox @ 0000000004590050)
-	FFocusedControl=(TListBox @ 0000000004590050)
+	FActiveControl=(empty)
+	FFocusedControl=(TWinBoxMain @ 04AAD1C0)
 	FBorderIcons=[biSystemMenu,biMinimize,biMaximize]
 	FBorderStyle=bsSizeable
 	FWindowState=wsNormal
@@ -897,11 +725,11 @@ WinBoxMain=(
 	FTileMode=tbHorizontal
 	FDropTarget=False
 	FPrintScale=poProportional
-	FCanvas=(TControlCanvas @ 0000000004658620)
+	FCanvas=(TControlCanvas @ 04318190)
 	FHelpFile=
-	FIcon=(TIcon @ 00000000046B4FD0)
+	FIcon=(TIcon @ 043A3E90)
 	FInCMParentBiDiModeChanged=False
-	FMenu=(TMainMenu @ 0000000004600290)
+	FMenu=(TMainMenu @ 04302920)
 	FModalResult=0
 	FDesigner=(empty)
 	FWindowMenu=(empty)
@@ -918,19 +746,19 @@ WinBoxMain=(
 	FOnActivate=(empty)
 	FOnAfterMonitorDpiChanged=(empty)
 	FOnBeforeMonitorDpiChanged=(empty)
-	FOnClose=(method code=0000000000C0B430, data=00000000045B0D30)
+	FOnClose=(method code=00967808, data=04AAD1C0)
 	FOnCloseQuery=(empty)
 	FOnDeactivate=(empty)
 	FOnHelp=(empty)
 	FOnHide=(empty)
 	FOnPaint=(empty)
 	FOnShortCut=(empty)
-	FOnShow=(method code=0000000000C0B9D0, data=00000000045B0D30)
-	FOnCreate=(method code=0000000000C0B480, data=00000000045B0D30)
-	FOnDestroy=(method code=0000000000C0B940, data=00000000045B0D30)
+	FOnShow=(method code=00967CD0, data=04AAD1C0)
+	FOnCreate=(method code=00967840, data=04AAD1C0)
+	FOnDestroy=(method code=00967C68, data=04AAD1C0)
 	FAlphaBlend=False
 	FAlphaBlendValue=255
-	FPopupChildren=(TList @ 00000000052BE930)
+	FPopupChildren=(TList @ 043677D0)
 	FPopupMode=pmNone
 	FPopupParent=(empty)
 	FRecreateChildren=(empty)
@@ -942,7 +770,7 @@ WinBoxMain=(
 	FTransparentColor=False
 	FTransparentColorValue=0
 	FCreatingMainForm=True
-	FGlassFrame=(TGlassFrame @ 00000000046ADF70)
+	FGlassFrame=(TGlassFrame @ 04395A80)
 	FRefreshGlassFrame=False
 	FOldCreateOrder=False
 	FClientHandle=0
@@ -950,10 +778,10 @@ WinBoxMain=(
 	FFormState=[]
 	FAutoRangeCount=0
 	FAutoScroll=False
-	FHorzScrollBar=(TControlScrollBar @ 00000000046A76A0)
+	FHorzScrollBar=(TControlScrollBar @ 043B2860)
 	FPanPoint=(record)
 	FUpdatingScrollBars=False
-	FVertScrollBar=(TControlScrollBar @ 00000000046A7640)
+	FVertScrollBar=(TControlScrollBar @ 043B2810)
 	FAlignControlList=(empty)
 	FAlignLevel=0
 	FBevelEdges=[beLeft,beTop,beRight,beBottom]
@@ -962,17 +790,17 @@ WinBoxMain=(
 	FBevelKind=bkNone
 	FBevelWidth=1
 	FBorderWidth=0
-	FPadding=(TPadding @ 00000000046BE710)
-	FBrush=(TBrush @ 00000000046BE6D0)
+	FPadding=(TPadding @ 04379D40)
+	FBrush=(TBrush @ 0435CAE0)
 	FDockClients=(empty)
 	FDockManager=(empty)
 	FImeMode=imDontCare
 	FImeName=
 	FParentWindow=0
-	FTabList=(TList @ 00000000046C6E20)
+	FTabList=(TList @ 04364998)
 	FTipMode=tipDontCare
-	FControls=(TList @ 00000000046C6D60)
-	FWinControls=(TList @ 00000000046C8200)
+	FControls=(TList @ 043644A0)
+	FWinControls=(TList @ 04364980)
 	FTabOrder=-1
 	FTabStop=False
 	FTIPIntf=(empty)
@@ -997,19 +825,19 @@ WinBoxMain=(
 	FMouseInClient=False
 	FMouseControl=(empty)
 	FTouchControl=(empty)
-	FDefWndProc=(pointer @ 00007FF992B2BA90)
-	FHandle=787698
-	FObjectInstance=(pointer @ 00000000001F0F99)
+	FDefWndProc=(pointer @ 0041AA18)
+	FHandle=1838598
+	FObjectInstance=(pointer @ 024C0FBB)
 	FDoubleBuffered=False
 	FInImeComposition=False
 	FDesignSize=(record)
 	FAsyncList=(empty)
 	FParent=(empty)
-	FWindowProc=(method code=0000000000837470, data=00000000045B0D30)
-	FLeft=307
-	FTop=197
+	FWindowProc=(method code=006C0EA4, data=04AAD1C0)
+	FLeft=421
+	FTop=131
 	FWidth=1077
-	FHeight=755
+	FHeight=758
 	FControlStyle=[csAcceptsControls,csCaptureMouse,csClickEvents,csSetCaption,csDoubleClicks,csPannable,csGestures,csPaintBlackOpaqueOnGlass]
 	FControlState=[]
 	FDesktopFont=False
@@ -1024,11 +852,11 @@ WinBoxMain=(
 	FBiDiMode=bdLeftToRight
 	FParentBiDiMode=True
 	FAnchors=[akLeft,akTop]
-	FFont=(TFont @ 00000000046AC620)
+	FFont=(TFont @ 04381340)
 	FActionLink=(empty)
 	FColor=-16777201
-	FConstraints=(TSizeConstraints @ 00000000046BE610)
-	FMargins=(TMargins @ 00000000046BE650)
+	FConstraints=(TSizeConstraints @ 04379C78)
+	FMargins=(TMargins @ 04379CA0)
 	FCursor=0
 	FDragCursor=-12
 	FPopupMenu=(empty)
@@ -1045,8 +873,8 @@ WinBoxMain=(
 	FUndockHeight=0
 	FLRDockWidth=0
 	FTBDockHeight=0
-	FFloatingDockSiteClass=(class 'TWinBoxMain' @ 0000000000C00FB8)
-	FTouchManager=(TTouchManager @ 00000000046AE0B0)
+	FFloatingDockSiteClass=(class 'TWinBoxMain' @ 0095F3C8)
+	FTouchManager=(TTouchManager @ 04379CF0)
 	FOnCanResize=(empty)
 	FOnConstrainedResize=(empty)
 	FOnMouseDown=(empty)
@@ -1054,7 +882,7 @@ WinBoxMain=(
 	FOnMouseUp=(empty)
 	FOnDragDrop=(empty)
 	FOnDragOver=(empty)
-	FOnResize=(method code=0000000000C0B9B0, data=00000000045B0D30)
+	FOnResize=(method code=00967CC0, data=04AAD1C0)
 	FOnStartDock=(empty)
 	FOnEndDock=(empty)
 	FOnStartDrag=(empty)
@@ -1083,121 +911,121 @@ WinBoxMain=(
 	FAnchorOrigin=(record)
 	FOriginalParentCalcType=ctNative
 	FOriginalParentSize=(record)
-	FExplicitLeft=307
-	FExplicitTop=197
+	FExplicitLeft=421
+	FExplicitTop=131
 	FExplicitWidth=1077
-	FExplicitHeight=755
+	FExplicitHeight=758
 	FReserved=(empty)
 	FScaleFactor=1,5
-	FOwner=(TApplication @ 000000000464E3F0)
+	FOwner=(TApplication @ 0434BDE0)
 	FName=WinBoxMain
 	FTag=0
-	FComponents=(TList<System.Classes.TComponent> @ 00000000046A73A0)
-	FFreeNotifies=(TList<System.Classes.TComponent> @ 0000000005012EF0)
+	FComponents=(TList<System.Classes.TComponent> @ 04381670)
+	FFreeNotifies=(TList<System.Classes.TComponent> @ 04A843A0)
 	FDesignInfo=0
 	FComponentState=[csFreeNotification]
 	FVCLComObject=(empty)
 	FObservers=(empty)
 	FOnGetDeltaStreams=(empty)
 	FComponentStyle=[csInheritable]
-	FSortedComponents=(TList<System.Classes.TComponent> @ 00000000046A7340)
+	FSortedComponents=(TList<System.Classes.TComponent> @ 043816D0)
 );
 
 Frame86Box=(
-	cgPanels=(TCategoryPanelGroup @ 00000000045915D0)
-	cpPorts=(TCategoryPanel @ 0000000004591B30)
-	lbParallel=(TLabel @ 0000000004685B40)
-	lbSerialDesc=(TLabel @ 00000000046850F0)
-	lbSerial=(TLabel @ 00000000046857D0)
-	lbParallelDesc=(TLabel @ 0000000004685460)
-	cpInput=(TCategoryPanel @ 0000000004592090)
-	edJoystick=(TEdit @ 0000000004645490)
-	lbMouseDesc=(TLabel @ 0000000004685EB0)
-	edMouse=(TEdit @ 0000000004645980)
-	lbJoystickDesc=(TLabel @ 0000000004686220)
-	cpNetwork=(TCategoryPanel @ 00000000045925F0)
-	edNetType=(TEdit @ 0000000004646360)
-	lbNetCardDesc=(TLabel @ 0000000004686590)
-	edNetCard=(TEdit @ 0000000004646850)
-	lbNetTypeDesc=(TLabel @ 0000000004686900)
-	cpStorage=(TCategoryPanel @ 0000000004592B50)
-	edSCSI=(TEdit @ 0000000004647230)
-	lbCDROM=(TLabel @ 0000000005002B50)
-	lbHDD=(TLabel @ 0000000005002EC0)
-	lbFloppy=(TLabel @ 0000000005003230)
-	lbFloppyDesc=(TLabel @ 0000000004686C70)
-	lbHDDDesc=(TLabel @ 0000000004686FE0)
-	lbCDROMDesc=(TLabel @ 0000000004687350)
-	lbSCSIDesc=(TLabel @ 00000000046876C0)
-	lbExStorDesc=(TLabel @ 0000000004687A30)
-	lbExStor=(TLabel @ 0000000004687DA0)
-	cpSound=(TCategoryPanel @ 00000000045930B0)
-	edMidi=(TEdit @ 0000000004647C10)
-	lbSndCardDesc=(TLabel @ 00000000050035A0)
-	edSndCard=(TEdit @ 0000000004648100)
-	lbMidiDesc=(TLabel @ 0000000005003910)
-	cpVideo=(TCategoryPanel @ 0000000004593610)
-	ed3dfx=(TEdit @ 0000000004648AE0)
-	lbGfxCardDesc=(TLabel @ 0000000005003C80)
-	edGfxCard=(TEdit @ 0000000004648FD0)
-	lb3dfxDesc=(TLabel @ 0000000005003FF0)
-	cpSystem=(TCategoryPanel @ 0000000004593B70)
-	edEmulator=(TEdit @ 00000000046499B0)
-	lbMachineDesc=(TLabel @ 0000000005004360)
-	edMachine=(TEdit @ 0000000004649EA0)
-	lbMemoryDesc=(TLabel @ 00000000050046D0)
-	lbMemory=(TLabel @ 0000000005005120)
-	edCPU=(TEdit @ 000000000464A390)
-	lbCPUDesc=(TLabel @ 0000000005004A40)
-	lbEmulatorDesc=(TLabel @ 0000000005004DB0)
-	bvBottom=(TBevel @ 0000000004684A10)
-	btnPrinter=(TButton @ 00000000045940D0)
-	lbStateDesc=(TLabel @ 0000000004684D80)
-	RightPanel=(TPanel @ 000000000464A880)
-	lbHostCPU=(TLabel @ 0000000005005800)
-	lbHostCPUDesc=(TLabel @ 0000000004FF6B20)
-	lbHostMemoryRAM=(TLabel @ 0000000004FF6E90)
-	lbHostRAM=(TLabel @ 0000000004FF7200)
-	lbScreenshots=(TLabel @ 0000000004FF7570)
-	lbDiskSizeDesc=(TLabel @ 0000000004FF78E0)
-	lbDiskSize=(TLabel @ 0000000004FF7C50)
-	pbHostCPU=(TProgressBar @ 000000000464AD70)
-	pbHostRAM=(TProgressBar @ 000000000464B260)
-	btnImgNext=(TButton @ 0000000004594630)
-	btnImgPrev=(TButton @ 0000000004594B90)
-	edState=(TEdit @ 00000000046445C0)
-	bvScreenshots=(TBevel @ 0000000004FF7FC0)
-	lbNone=(TLabel @ 0000000005005490)
-	TopPanel=(TPanel @ 000000000464B750)
-	lbFriendlyName=(TLabel @ 0000000004FF8330)
-	btnWorkDir=(TSpeedButton @ 0000000004FF86A0)
-	Splitter=(TSplitter @ 00000000045A61F0)
-	DelayPicture=(TTimer @ 000000000460D530)
+	cgPanels=(TCategoryPanelGroup @ 04337570)
+	cpPorts=(TCategoryPanel @ 04ABF9C0)
+	lbParallel=(TLabel @ 042A8040)
+	lbSerialDesc=(TLabel @ 042A7A10)
+	lbSerial=(TLabel @ 042A7E30)
+	lbParallelDesc=(TLabel @ 042A7C20)
+	cpInput=(TCategoryPanel @ 04ABFD30)
+	edJoystick=(TEdit @ 04322E80)
+	lbMouseDesc=(TLabel @ 042A8250)
+	edMouse=(TEdit @ 04323160)
+	lbJoystickDesc=(TLabel @ 042A8460)
+	cpNetwork=(TCategoryPanel @ 04AC00A0)
+	edNetType=(TEdit @ 04323720)
+	lbNetCardDesc=(TLabel @ 042A8670)
+	edNetCard=(TEdit @ 04323A00)
+	lbNetTypeDesc=(TLabel @ 042A8880)
+	cpStorage=(TCategoryPanel @ 04AC0410)
+	edSCSI=(TEdit @ 04323FC0)
+	lbCDROM=(TLabel @ 042A96F0)
+	lbHDD=(TLabel @ 042A9900)
+	lbFloppy=(TLabel @ 042A9B10)
+	lbFloppyDesc=(TLabel @ 042A8A90)
+	lbHDDDesc=(TLabel @ 042A8CA0)
+	lbCDROMDesc=(TLabel @ 042A8EB0)
+	lbSCSIDesc=(TLabel @ 042A90C0)
+	lbExStorDesc=(TLabel @ 042A92D0)
+	lbExStor=(TLabel @ 042A94E0)
+	cpSound=(TCategoryPanel @ 04AC0780)
+	edMidi=(TEdit @ 04324580)
+	lbSndCardDesc=(TLabel @ 042A9D20)
+	edSndCard=(TEdit @ 04324860)
+	lbMidiDesc=(TLabel @ 04B23130)
+	cpVideo=(TCategoryPanel @ 04AC0AF0)
+	ed3dfx=(TEdit @ 04324E20)
+	lbGfxCardDesc=(TLabel @ 04B23340)
+	edGfxCard=(TEdit @ 04325100)
+	lb3dfxDesc=(TLabel @ 04B23550)
+	cpSystem=(TCategoryPanel @ 04AC0E60)
+	edEmulator=(TEdit @ 043256C0)
+	lbMachineDesc=(TLabel @ 04B23760)
+	edMachine=(TEdit @ 043259A0)
+	lbMemoryDesc=(TLabel @ 04B23970)
+	lbMemory=(TLabel @ 04B23FA0)
+	edCPU=(TEdit @ 04325C80)
+	lbCPUDesc=(TLabel @ 04B23B80)
+	lbEmulatorDesc=(TLabel @ 04B23D90)
+	bvBottom=(TBevel @ 04313500)
+	btnPrinter=(TButton @ 04337890)
+	lbStateDesc=(TLabel @ 042A7800)
+	RightPanel=(TPanel @ 04325F60)
+	lbHostCPU=(TLabel @ 04B243C0)
+	lbHostCPUDesc=(TLabel @ 04B245D0)
+	lbHostMemoryRAM=(TLabel @ 04B247E0)
+	lbHostRAM=(TLabel @ 04B249F0)
+	lbScreenshots=(TLabel @ 04B24C00)
+	lbDiskSizeDesc=(TLabel @ 04B24E10)
+	lbDiskSize=(TLabel @ 04B25020)
+	pbHostCPU=(TProgressBar @ 04326240)
+	pbHostRAM=(TProgressBar @ 04326520)
+	btnImgNext=(TButton @ 04337BB0)
+	btnImgPrev=(TButton @ 04337ED0)
+	edState=(TEdit @ 043225E0)
+	bvScreenshots=(TBevel @ 04313140)
+	lbNone=(TLabel @ 04B241B0)
+	TopPanel=(TPanel @ 04326800)
+	lbFriendlyName=(TLabel @ 04B25230)
+	btnWorkDir=(TSpeedButton @ 04B25440)
+	Splitter=(TSplitter @ 04293090)
+	DelayPicture=(TTimer @ 043926A0)
 	PicturePager=(
-		FItemIndex=0
-		FImage=(TWICImage @ 00000000096A20A0)
-		FDisplay=(TWICImage @ 00000000096A21C0)
-		FList=(TStringList @ 000000000469B4B0)
+		FItemIndex=-1
+		FImage=(empty)
+		FDisplay=(empty)
+		FList=(TStringList @ 043B4750)
 		FUpdate=(empty)
-		FFolder=D:\Virtuális gépek\WinBox\{C784E4D6-8CC2-4F09-A044-2AEAEDF4BC57}\screenshots\
+		FFolder=
 		FStretch=smFixAspect
-		FAspY=720
-		FNext=(TButton @ 0000000004594630)
+		FAspY=3
+		FNext=(TButton @ 04337BB0)
 		FCenter=True
-		FAspX=960
-		FPrev=(TButton @ 0000000004594B90)
+		FAspX=4
+		FPrev=(TButton @ 04337ED0)
 		FFilter=*.png
 		L=0
 		T=0
-		W=240
-		H=180
-		FCanvas=(TControlCanvas @ 0000000004FCEBA0)
-		FParent=(TPanel @ 000000000464A880)
-		FWindowProc=(method code=0000000000887060, data=00000000045A65B0)
+		W=0
+		H=0
+		FCanvas=(TControlCanvas @ 0431BBC0)
+		FParent=(TPanel @ 04325F60)
+		FWindowProc=(method code=006F6984, data=04293990)
 		FLeft=18
 		FTop=57
 		FWidth=240
-		FHeight=181
+		FHeight=167
 		FControlStyle=[csCaptureMouse,csClickEvents,csSetCaption,csDoubleClicks,csGestures]
 		FControlState=[]
 		FDesktopFont=False
@@ -1212,11 +1040,11 @@ Frame86Box=(
 		FBiDiMode=bdLeftToRight
 		FParentBiDiMode=True
 		FAnchors=[akLeft,akTop,akRight,akBottom]
-		FFont=(TFont @ 000000000973D900)
+		FFont=(TFont @ 04A84970)
 		FActionLink=(empty)
 		FColor=-16777211
-		FConstraints=(TSizeConstraints @ 0000000005042900)
-		FMargins=(TMargins @ 0000000005043240)
+		FConstraints=(TSizeConstraints @ 0437DA80)
+		FMargins=(TMargins @ 0437D148)
 		FCursor=-21
 		FDragCursor=-12
 		FPopupMenu=(empty)
@@ -1233,8 +1061,8 @@ Frame86Box=(
 		FUndockHeight=0
 		FLRDockWidth=0
 		FTBDockHeight=0
-		FFloatingDockSiteClass=(class 'TCustomDockForm' @ 000000000082B658)
-		FTouchManager=(TTouchManager @ 000000000973D950)
+		FFloatingDockSiteClass=(class 'TCustomDockForm' @ 006B8720)
+		FTouchManager=(TTouchManager @ 0984D5A0)
 		FOnCanResize=(empty)
 		FOnConstrainedResize=(empty)
 		FOnMouseDown=(empty)
@@ -1247,9 +1075,9 @@ Frame86Box=(
 		FOnEndDock=(empty)
 		FOnStartDrag=(empty)
 		FOnEndDrag=(empty)
-		FOnClick=(method code=0000000000A16100, data=000000000976DDD0)
+		FOnClick=(method code=0080B7A0, data=04280870)
 		FOnDblClick=(empty)
-		FOnContextPopup=(method code=0000000000A16210, data=000000000976DDD0)
+		FOnContextPopup=(method code=0080B878, data=04280870)
 		FOnMouseActivate=(empty)
 		FOnMouseLeave=(empty)
 		FOnMouseEnter=(empty)
@@ -1269,7 +1097,7 @@ Frame86Box=(
 		FAnchorMove=False
 		FAnchorRules=(record)
 		FAnchorOrigin=(record)
-		FOriginalParentCalcType=ctWinApi
+		FOriginalParentCalcType=ctNative
 		FOriginalParentSize=(record)
 		FExplicitLeft=18
 		FExplicitTop=57
@@ -1291,11 +1119,11 @@ Frame86Box=(
 		FSortedComponents=(empty)
 	);
 	FolderMonitor=(
-		FThread=(TFolderThread @ 0000000004669100)
-		FFolder=D:\Virtuális gépek\WinBox\{C784E4D6-8CC2-4F09-A044-2AEAEDF4BC57}\
+		FThread=(empty)
+		FFolder=
 		FFilter=27
 		FSubFolders=1
-		FOnChange=(method code=0000000000A163B0, data=000000000976DDD0)
+		FOnChange=(method code=0080B9D0, data=04280870)
 		FOnActivate=(empty)
 		FOnDeactivate=(empty)
 		FOwner=(empty)
@@ -1311,14 +1139,14 @@ Frame86Box=(
 		FComponentStyle=[csInheritable]
 		FSortedComponents=(empty)
 	);
-	SideRatio=0,366255134344101
+	SideRatio=0,360000014305115
 	LastChange=0
 	FAutoRangeCount=0
 	FAutoScroll=False
-	FHorzScrollBar=(TControlScrollBar @ 00000000046A75E0)
+	FHorzScrollBar=(TControlScrollBar @ 043B42F0)
 	FPanPoint=(record)
 	FUpdatingScrollBars=False
-	FVertScrollBar=(TControlScrollBar @ 000000000504C720)
+	FVertScrollBar=(TControlScrollBar @ 043B4660)
 	FAlignControlList=(empty)
 	FAlignLevel=0
 	FBevelEdges=[beLeft,beTop,beRight,beBottom]
@@ -1327,22 +1155,22 @@ Frame86Box=(
 	FBevelKind=bkNone
 	FBevelWidth=1
 	FBorderWidth=0
-	FPadding=(TPadding @ 000000000502DFA0)
-	FBrush=(TBrush @ 000000000502E2E0)
+	FPadding=(TPadding @ 0437DB20)
+	FBrush=(TBrush @ 04360F00)
 	FDockClients=(empty)
 	FDockManager=(empty)
 	FImeMode=imDontCare
 	FImeName=
 	FParentWindow=0
-	FTabList=(TList @ 00000000046CEAA0)
+	FTabList=(TList @ 043664F8)
 	FTipMode=tipDontCare
-	FControls=(TList @ 00000000046CB0E0)
-	FWinControls=(TList @ 00000000046CEBC0)
+	FControls=(TList @ 04366420)
+	FWinControls=(TList @ 04366498)
 	FTabOrder=0
 	FTabStop=False
 	FTIPIntf=(empty)
 	FCtl3D=True
-	FShowing=True
+	FShowing=False
 	FUseDockManager=False
 	FDockSite=False
 	FParentCtl3D=True
@@ -1362,19 +1190,19 @@ Frame86Box=(
 	FMouseInClient=False
 	FMouseControl=(empty)
 	FTouchControl=(empty)
-	FDefWndProc=(pointer @ 00007FF992B2BA90)
-	FHandle=656880
-	FObjectInstance=(pointer @ 00000000001F0CCF)
+	FDefWndProc=(pointer @ 0041AA18)
+	FHandle=2165560
+	FObjectInstance=(pointer @ 024C0E01)
 	FDoubleBuffered=False
 	FInImeComposition=False
 	FDesignSize=(record)
 	FAsyncList=(empty)
-	FParent=(TTabSheet @ 0000000004642D10)
-	FWindowProc=(method code=000000000088D760, data=000000000976DDD0)
+	FParent=(TTabSheet @ 043214A0)
+	FWindowProc=(method code=006FB0BC, data=04280870)
 	FLeft=0
 	FTop=0
 	FWidth=729
-	FHeight=552
+	FHeight=555
 	FControlStyle=[csAcceptsControls,csCaptureMouse,csClickEvents,csSetCaption,csDoubleClicks,csPannable,csGestures]
 	FControlState=[]
 	FDesktopFont=False
@@ -1389,11 +1217,11 @@ Frame86Box=(
 	FBiDiMode=bdLeftToRight
 	FParentBiDiMode=True
 	FAnchors=[akLeft,akTop,akRight,akBottom]
-	FFont=(TFont @ 000000000503ED10)
+	FFont=(TFont @ 04B2A090)
 	FActionLink=(empty)
 	FColor=-16777211
-	FConstraints=(TSizeConstraints @ 0000000005031920)
-	FMargins=(TMargins @ 000000000502E4A0)
+	FConstraints=(TSizeConstraints @ 04A58170)
+	FMargins=(TMargins @ 0437DBE8)
 	FCursor=0
 	FDragCursor=-12
 	FPopupMenu=(empty)
@@ -1410,8 +1238,8 @@ Frame86Box=(
 	FUndockHeight=0
 	FLRDockWidth=0
 	FTBDockHeight=0
-	FFloatingDockSiteClass=(class 'TCustomDockForm' @ 000000000082B658)
-	FTouchManager=(TTouchManager @ 000000000503B1B0)
+	FFloatingDockSiteClass=(class 'TCustomDockForm' @ 006B8720)
+	FTouchManager=(TTouchManager @ 0437DB70)
 	FOnCanResize=(empty)
 	FOnConstrainedResize=(empty)
 	FOnMouseDown=(empty)
@@ -1419,7 +1247,7 @@ Frame86Box=(
 	FOnMouseUp=(empty)
 	FOnDragDrop=(empty)
 	FOnDragOver=(empty)
-	FOnResize=(method code=0000000000A159B0, data=000000000976DDD0)
+	FOnResize=(method code=0080B2D4, data=04280870)
 	FOnStartDock=(empty)
 	FOnEndDock=(empty)
 	FOnStartDrag=(empty)
@@ -1457,7 +1285,7 @@ Frame86Box=(
 	FOwner=(empty)
 	FName=Frame86Box
 	FTag=0
-	FComponents=(TList<System.Classes.TComponent> @ 00000000050132B0)
+	FComponents=(TList<System.Classes.TComponent> @ 042929B0)
 	FFreeNotifies=(empty)
 	FDesignInfo=0
 	FComponentState=[]
@@ -1465,7 +1293,7 @@ Frame86Box=(
 	FObservers=(empty)
 	FOnGetDeltaStreams=(empty)
 	FComponentStyle=[csInheritable]
-	FSortedComponents=(TList<System.Classes.TComponent> @ 0000000005013490)
+	FSortedComponents=(TList<System.Classes.TComponent> @ 042928F0)
 );
  
 ------------------------------------------------------------------------------
