@@ -277,8 +277,10 @@ begin
     FileName := ExtractFileName(Application.ExeName) + '-exception-' + FormatDateTime('yyyy-mm-dd_hh-mm-ss', Now) + '.log';
     Filter := _T(OpenDlgLogFiles);
     Options := [ofHideReadOnly,ofPathMustExist,ofNoReadOnlyReturn,ofEnableSizing,ofDontAddToRecent];
-    if Execute then
-      DetailsMemo.Lines.SaveToFile(FileName);
+    if Execute then begin
+      DetailsMemo.Lines.WriteBOM := false;
+      DetailsMemo.Lines.SaveToFile(FileName, TEncoding.UTF8);
+    end;
   finally
     Free;    
   end;
