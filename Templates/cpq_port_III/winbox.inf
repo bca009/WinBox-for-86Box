@@ -1,0 +1,50 @@
+[General]
+Manufacturer=Compaq
+Description=Compaq Portable III
+Year=1987
+Author=Laci bá'
+Type=86Box
+ConfigFile=86box.cfg
+Option0=%Options.CPUSpeed%|12 MHz=lo|16 MHz=hi
+Option1=%Options.Memory%|640 kB=noisa2|1152 kB=1mb|1664 kB=1_5mb|2176 kB=2mb
+option2=%Options.Mouse%|Input devices.mouse_type
+Option3=%Options.Display%|Video.gfxcard
+SupportedOS=Compaq MS-DOS 3.1-6.2, PC-DOS 3.1 - 6.1, OS/2 1.x, %Text.Early% Windows %Text.Versions%, Windows 3.x
+
+[Option0.lo]
+Machine.cpu_speed = 12500000
+Machine.cpu = 3
+
+[Option0.hi]
+Machine.cpu_speed = 16000000
+Machine.cpu = 4
+
+[Option1.noisa2]
+
+[Option1.1mb]
+Other peripherals.isamem0_type=ibmat
+
+[Option1.1_5mb]
+Other peripherals.isamem0_type=ibmat
+Other peripherals.isamem1_type=ibmat
+
+[Option1.2mb]
+Other peripherals.isamem0_type=ibmat
+Other peripherals.isamem1_type=ibmat
+Other peripherals.isamem2_type=ibmat
+
+[Option2]
+%Text.None%=none
+Microsoft %Mouse.Serial%=msserial
+Logitech %Mouse.Serial%=ltserial
+Mouse Systems %Mouse.Serial%=mssystems
+
+[Option3]
+%Displays.Compaq%=internal
+
+[HDD]
+Connector=MFM
+Slot=0
+C=615
+H=4
+S=17

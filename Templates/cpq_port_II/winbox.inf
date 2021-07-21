@@ -1,0 +1,47 @@
+[General]
+Manufacturer=Compaq
+Description=Compaq Portable II
+Year=1986
+Author=Laci bá'
+Type=86Box
+ConfigFile=86box.cfg
+Option0=%Options.CPUSpeed%|Machine.cpu_speed
+Option1=%Options.Memory%|640 kB=noisa2|1152 kB=1mb|1664 kB=1_5mb|2176 kB=2mb
+option2=%Options.Floppy%|Floppy and CD-ROM drives.fdd_01_type
+Option3=%Options.GfxCard%|Video.gfxcard
+SupportedOS=MS-DOS 2.12-3.30, PC-DOS 2.0-3.20, CP/M-86, UCSD-P, IBM BASIC, PC/IX, SCO Xenix, Minix
+
+[Option0]
+6 MHz=6000000
+8 MHz=8000000
+
+[Option1.noisa2]
+
+[Option1.1mb]
+Other peripherals.isamem0_type=ibmat
+
+[Option1.1_5mb]
+Other peripherals.isamem0_type=ibmat
+Other peripherals.isamem1_type=ibmat
+
+[Option1.2mb]
+Other peripherals.isamem0_type=ibmat
+Other peripherals.isamem1_type=ibmat
+Other peripherals.isamem2_type=ibmat
+
+[Option2]
+5,25'' 360 kB=525_2dd
+5,25'' 1,2 MB=525_2hd
+
+[Option3]
+Compaq CGA=compaq_cga_2
+Platronics ColorPlus=platronics
+Hercules Graphics Controller (HGC)=hercules
+Professional Graphics Controller (PGC)=pgc
+
+[HDD]
+Connector=MFM
+Slot=0
+C=615
+H=4
+S=17

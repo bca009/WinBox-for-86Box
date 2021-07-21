@@ -1,0 +1,60 @@
+[General]
+Manufacturer=(%Text.General% PC)
+Description=%Text.Networking% 386-%Text.Based% %Text.System%
+Year=1990
+Author=Laci bá'
+Type=86Box
+ConfigFile=86box.cfg
+Option0=%Options.CPUType%|Intel i386DX (20 MHz)=i386|AMD Am386DX (33 MHz)=am386|Cyrix Cx486DLC (40 MHz)=cx486
+Option1=%Options.Memory%|Machine.mem_size
+Option2=%Options.FPU%|Machine.fpu_type
+Option3=%Options.Printer%|Ports (COM & LPT).lpt1_device
+OptionCDROM=0
+DescOfCDROM=4x SCSI
+NoteForCDROM=%Text.Connector% BusLogic BT-545S (ISA)
+SupportedOS=MS-DOS 3.30-6.22, Windows for Workgroups 3.x, OS/2 2.x, Windows NT 3.x, Linux
+
+[Option0.i386]
+Machine.cpu_family = i386dx
+Machine.cpu_speed = 20000000
+Machine.cpu_multi = 1
+
+[Option0.am386]
+Machine.cpu_family = am386dx
+Machine.cpu_speed = 33333333
+Machine.cpu_multi = 1
+
+[Option0.cx486]
+Machine.cpu_family = cx486dlc
+Machine.cpu_speed = 40000000
+Machine.cpu_multi = 1
+
+[Option1]
+8 MB=8192
+10 MB=10240
+12 MB=12288
+14 MB=14336
+16 MB=16384 
+
+[Option2]
+%Text.None%=none
+Intel 80387=387
+
+[Option3]
+EPSON LQ-2500=dot_matrix
+Apple LaserWriter IIf=postscript
+Apple Color LW 12/660 PS=postscript
+%Printers.TextOnly%=text_prt
+%Text.None%=none
+
+[HDD]
+Connector=SCSI
+Slot=0
+C=1516
+H=4
+S=42
+
+[CDROM]
+Floppy and CD-ROM drives.cdrom_01_speed = 4
+Floppy and CD-ROM drives.cdrom_01_parameters = 1, scsi
+Floppy and CD-ROM drives.cdrom_01_scsi_id = 1

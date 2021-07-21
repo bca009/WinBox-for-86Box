@@ -1,0 +1,15 @@
+[General]
+Manufacturer=Packard Bell
+Description=Packard Bell Legend 760 Supreme (PB410A)
+Year=1989
+Author=Laci bá'
+Type=86Box
+ConfigFile=86box.cfg
+SupportedOS=MS-DOS 3.30-6.22, Windows 3.1, OS/2 2.x, Windows NT 3.x, Linux
+
+[HDD]
+Connector=IDE
+Slot=0:0
+C=1010
+H=16
+S=63

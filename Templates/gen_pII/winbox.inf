@@ -1,0 +1,70 @@
+[General]
+Manufacturer=(%Text.General% PC)
+Description=Intel Pentium II %Text.Based% PCI/AGP %Text.System%
+Year=2002
+Author=Laci bá'
+Type=86Box
+ConfigFile=86box.cfg
+Option0=%Options.CPUType%|Intel Celeron (133 MHz)=p133|Intel Pentium II (233 MHz)=p233|VIA Cyrix III (300 MHz)=p300
+Option1=%Options.Memory%|Machine.mem_size
+Option2=%Options.Build%|%Builds.3DMulti%=multi|%Builds.Network%=netw|%Builds.Full%=full|%Builds.Basic%=basic
+Option3=%Options.Printer%|Ports (COM & LPT).lpt1_device
+DescOfCDROM=52x ATAPI
+SupportedOS=Windows XP, Windows 2000, Windows ME, OS/2 Warp 4, Linux
+
+[Option0.p133]
+Machine.cpu_family = celeron_mendocino
+Machine.cpu_speed = 133333333
+Machine.cpu_multi = 2
+Machine.cpu_manufacturer = 1
+Machine.cpu = 2
+
+[Option0.p233]
+Machine.cpu_family = pentium2_deschutes
+Machine.cpu_speed = 233333333
+Machine.cpu_multi = 3.5
+Machine.cpu = 11
+
+[Option0.p300]
+Machine.cpu_family = c3_samuel
+Machine.cpu_speed = 300000000
+Machine.cpu_multi = 4.5
+Machine.cpu_manufacturer = 2
+Machine.cpu = 3
+
+[Option1]
+128 MB=131072
+192 MB=196607
+256 MB=262142
+
+[Option2.multi]
+Sound.sndcard=es1371
+
+[Option2.netw]
+Network.net_card=pcnetpci
+Network.net_type=slirp
+
+[Option2.full]
+Network.net_card=pcnetpci
+Network.net_type=slirp
+Sound.sndcard=es1371
+
+[Option2.basic]
+
+[Option3]
+Apple Color LW 12/660 PS=postscript
+Apple LaserWriter IIf=postscript
+EPSON LQ-2500=dot_matrix
+%Text.None%=none
+
+[HDD]
+Connector=IDE
+Slot=0:0
+C=13328
+H=15
+S=63
+
+[CDROM]
+Floppy and CD-ROM drives.cdrom_01_speed = 52
+Floppy and CD-ROM drives.cdrom_01_parameters = 1, atapi
+Floppy and CD-ROM drives.cdrom_01_ide_channel = 1:0

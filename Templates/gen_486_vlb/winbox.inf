@@ -1,0 +1,85 @@
+[General]
+Manufacturer=(%Text.General% PC)
+Description=%Text.General% 486-%Text.Based% ISA/VLB %Text.System%
+Year=1992
+Author=Laci bá'
+Type=86Box
+ConfigFile=86box.cfg
+Option0=%Options.CPUType%|Intel i486SX (33 MHz)=i486|AMD Am486DX2 (50 MHz)=am486|Cyrix Cx486DX2 (80 MHz)=cx486|Intel iDX4 (100 MHz)=idx4
+Option1=%Options.Memory%|Machine.mem_size
+Option2=%Options.Build%|Basic build=basic|Multimedia build=multi|Networking build=netw|Full build=full
+Option3=%Options.Printer%|Ports (COM & LPT).lpt1_device
+OptionCDROM=0
+DescOfCDROM=8x SCSI
+NoteForCDROM=%Text.Connector% Adaptec AHA-154xB (ISA)
+SupportedOS=MS-DOS 3.30-6.22, Windows for Workgroups 3.x, OS/2 2.x, Windows NT 3.x, Windows NT 4, Windows 95, Linux
+
+[Option0.i486]
+Machine.cpu_family = i486sx
+Machine.cpu_speed = 33333333
+Machine.cpu_multi = 1
+Machine.cpu_use_dynarec = 0
+Machine.cpu = 3
+
+[Option0.am486]
+Machine.cpu_family = am486dx2
+Machine.cpu_speed = 50000000
+Machine.cpu_multi = 2
+Machine.cpu_use_dynarec = 0
+Machine.cpu_manufacturer = 1
+Machine.cpu = 6
+Machine.fpu_type = internal
+
+[Option0.cx486]
+Machine.cpu_family = cx486dx2
+Machine.cpu_speed = 80000000
+Machine.cpu_multi = 2
+Machine.cpu_use_dynarec = 0
+Machine.fpu_type = internal
+Machine.cpu_manufacturer = 2
+Machine.cpu = 7
+
+[Option0.idx4]
+Machine.cpu_family = idx4
+Machine.cpu_speed = 100000000
+Machine.cpu_multi = 3
+Machine.cpu_use_dynarec = 0
+Machine.fpu_type = internal
+
+[Option1]
+16 MB=16384
+24 MB=24576
+32 MB=32768
+
+[Option2.multi]
+Sound.sndcard=sb16
+
+[Option2.netw]
+Network.net_card=ne2k
+Network.net_type=slirp
+
+[Option2.full]
+Network.net_card=ne2k
+Network.net_type=slirp
+Sound.sndcard=sb16
+
+[Option2.basic]
+
+[Option3]
+EPSON LQ-2500=dot_matrix
+Apple LaserWriter IIf=postscript
+Apple Color LW 12/660 PS=postscript
+%Printers.TextOnly%=text_prt
+%Text.None%=none
+
+[HDD]
+Connector=ESDI
+Slot=0
+C=1658
+H=11
+S=48
+
+[CDROM]
+Storage controllers.scsicard=aha154xb
+Floppy and CD-ROM drives.cdrom_01_parameters = 1, scsi
+Floppy and CD-ROM drives.cdrom_01_scsi_id = 1

@@ -1,0 +1,9 @@
+[General]
+Manufacturer=Toshiba
+Description=Toshiba T1000
+Year=1987
+Author=Laci bá'
+Type=86Box
+ConfigFile=86box.cfg
+SupportedOS=ROM MS-DOS 2.11
+WindowSize=960x360

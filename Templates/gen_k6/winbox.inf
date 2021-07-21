@@ -1,0 +1,71 @@
+[General]
+Manufacturer=(%Text.General% PC)
+Description=AMD K6 %Text.Based% PCI %Text.System%
+Year=1998
+Author=Laci bá'
+Type=86Box
+ConfigFile=86box.cfg
+Option0=%Options.CPUType%|AMD K6 (166 MHz)=k6|AMD K6-2 (233 MHz)=k62|AMD K6-III+ (400 MHz)=k63
+Option1=%Options.Memory%|Machine.mem_size
+Option2=%Options.Build%|%Builds.3DMulti%=multi|%Builds.Network%=netw|%Builds.Full%=full|%Builds.Basic%=basic
+Option3=%Options.Printer%|Ports (COM & LPT).lpt1_device
+DescOfCDROM=32x ATAPI
+SupportedOS=Windows ME, Windows 2000, Windows 98 Second Editon, OS/2 Warp 4, Linux
+
+[Option0.k6]
+Machine.cpu_family = k6_m6
+Machine.cpu_speed = 166666666
+Machine.cpu_multi = 2.5
+Machine.cpu_manufacturer = 2
+
+[Option0.k62]
+Machine.cpu_family = k6_2
+Machine.cpu_speed = 233333333
+Machine.cpu_multi = 3.5
+Machine.cpu_manufacturer = 2
+Machine.cpu = 7
+
+[Option0.k63]
+Machine.cpu_family = k6_3p
+Machine.cpu_speed = 400000000
+Machine.cpu_multi = 4
+Machine.cpu_manufacturer = 2
+Machine.cpu = 28
+
+[Option1]
+64 MB=65536
+96 MB=98302
+128 MB=131072
+
+[Option2.multi]
+Sound.sndcard=sbawe32_pnp
+
+[Option2.netw]
+Network.net_card=ne2kpci
+Network.net_type=slirp
+
+[Option2.full]
+Network.net_card=ne2kpci
+Network.net_type=slirp
+Sound.sndcard=sbawe32_pnp
+
+[Option2.basic]
+
+[Option3]
+Apple LaserWriter IIf=postscript
+Apple Color LW 12/660 PS=postscript
+EPSON LQ-2500=dot_matrix
+%Printers.TextOnly%=text_prt
+%Text.None%=none
+
+[HDD]
+Connector=IDE
+Slot=0:0
+C=4206
+H=16
+S=63
+
+[CDROM]
+Floppy and CD-ROM drives.cdrom_01_speed = 32
+Floppy and CD-ROM drives.cdrom_01_parameters = 1, atapi
+Floppy and CD-ROM drives.cdrom_01_ide_channel = 1:0

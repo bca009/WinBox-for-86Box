@@ -1,0 +1,22 @@
+[General]
+Manufacturer=IBM
+Description=IBM PS/ValuePoint 433DX/Si
+Year=1994
+Author=Laci bá'
+Type=86Box
+ConfigFile=86box.cfg
+SupportedOS=PC-DOS 6.30, Windows 3.1, Windows for Workgroups 3.11, OS/2 2.x, Linux
+NoteForCDROM=%Text.Connector%: Sound Blaster 16
+DescOfCDROM=8x ATAPI
+
+[HDD]
+Connector=IDE
+Slot=0:0
+C=1010
+H=9
+S=55
+
+[CDROM]
+Floppy and CD-ROM drives.cdrom_01_parameters = 1, atapi
+Floppy and CD-ROM drives.cdrom_01_ide_channel = 0:1
+Sound.sndcard=sb16

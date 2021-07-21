@@ -1,0 +1,21 @@
+[General]
+Manufacturer=Packard Bell
+Description=Packard Bell Legend 3540 (PB640)
+Year=1996
+Author=Laci bá'
+Type=86Box
+ConfigFile=86box.cfg
+DescOfCDROM=4x ATAPI
+SupportedOS=Windows 95, OS/2 Warp 3.x, Windows NT 4, Linux
+
+[HDD]
+Connector=IDE
+Slot=0:0
+C=2046
+H=16
+S=63
+
+[CDROM]
+Floppy and CD-ROM drives.cdrom_01_speed = 4
+Floppy and CD-ROM drives.cdrom_01_parameters = 1, atapi
+Floppy and CD-ROM drives.cdrom_01_ide_channel = 0:1

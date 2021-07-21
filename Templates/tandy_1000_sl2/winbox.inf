@@ -1,0 +1,8 @@
+[General]
+Manufacturer=Tandy
+Description=Tandy 1000 SL/2
+Year=1986
+Author=Laci bá'
+Type=86Box
+ConfigFile=86box.cfg
+SupportedOS=MS-DOS 3.30, GW-Basic, Personal DeskMate

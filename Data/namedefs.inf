@@ -1,0 +1,679 @@
+[patch]
+IDM_ACTION_SCREENSHOT=40012
+IDM_ACTION_HRESET=40013
+IDM_ACTION_RESET_CAD=40014
+IDM_ACTION_EXIT=40015
+IDM_ACTION_CTRL_ALT_ESC=40016
+IDM_ACTION_PAUSE=40017
+IDM_CONFIG=40020
+
+[machine]
+ibmpc=IBM PC (1981)
+ibmpc82=IBM PC (1982)
+ibmpcjr=IBM PCjr
+ibmxt=IBM XT (1982)
+ibmxt86=IBM XT (1986)
+americxt=American XT Computer
+amixt=AMI XT clone
+mpc1600=Columbia Data Products MPC-1600
+portable=Compaq Portable
+dtk=DTK XT clone
+pcspirit=Eagle PC Spirit
+genxt=Generic XT clone
+jukopc=Juko XT clone
+pc700=Multitech PC-700
+pc4i=NCR PC4i
+m19=Olivetti M19
+openxt=OpenXT
+p3105=Philips P3105/NMS9100
+pxxt=Phoenix XT clone
+europc=Schneider EuroPC
+pcxt=Super PC/Turbo XT
+tandy=Tandy 1000
+tandy1000hx=Tandy 1000 HX
+t1000=Toshiba T1000
+ltxt=VTech Laser Turbo XT
+xi8088=Xi8088
+zdsz151=Zenith Data Systems Z-151/152/161
+zdsz159=Zenith Data Systems Z-159
+zdsupers=Zenith Data Systems SupersPort (Z-184)
+
+p3120=Philips P3120
+pc1512=Amstrad PC1512
+pc1640=Amstrad PC1640
+pc2086=Amstrad PC2086
+pc3086=Amstrad PC3086
+pc200=Amstrad PC20(0)
+ppc512=Amstrad PPC512/640
+deskpro=Compaq Deskpro
+m24=Olivetti M21/24/24SP
+m240=Olivetti M240
+iskra3104=Schetmash Iskra-3104
+tandy1000sl2=Tandy 1000 SL/2
+t1200=Toshiba T1200
+lxt3=VTech Laser XT3
+
+hed919=Hedaka HED-919
+
+ibmat=IBM AT
+ibmps1es=IBM PS/1 model 2011
+ibmps2_m30_286=IBM PS/2 model 30-286
+ibmxt286=IBM XT Model 286
+ibmatami=AMI IBM AT
+cmdpc30=Commodore PC 30 III
+portableii=Compaq Portable II
+portableiii=Compaq Portable III
+mr286=MR 286 clone
+pc8=NCR PC8/810/710/3390/3392
+m290=Olivetti M290
+openat=OpenAT
+ibmatpx=Phoenix IBM AT
+ibmatquadtel=Quadtel IBM AT
+siemens=Siemens PCD-2L
+t3100e=Toshiba T3100e
+quadt286=Quadtel 286 clone
+tg286m=Trigem 286M
+ami286=AMI 286 clone
+3302=NCR 3302
+px286=Phoenix 286 clone
+award286=Award 286 clone
+gw286ct=GW-286CT GEAR
+gdc212m=Goldstar GDC-212M
+super286tr=Hyundai Super-286TR
+spc4200p=Samsung SPC-4200P
+spc4216p=Samsung SPC-4216P
+spc4620p=Samsung SPC-4620P
+deskmaster286=Samsung Deskmaster 286
+
+ibmps2_m50=IBM PS/2 model 50
+
+ibmps1_2121=IBM PS/1 model 2121
+ibmps1_2121_isa=IBM PS/1 m.2121+ISA
+pc916sx=NCR PC916SX
+arb1375=Acrosser AR-B1375
+pja511m=Acrosser PJ-A511M
+flytech386=Flytech 386
+ama932j=AMA-932J
+adi386sx=ADI 386SX
+shuttle386sx=Shuttle 386SX
+megapc=Amstrad MegaPC
+cbm_sl386sx25=Commodore SL386SX
+dtk386=DTK 386SX clone
+m30008=Olivetti M300-08
+m30015=Olivetti M300-15
+awardsx=DTK PPM-3333P
+spc6033p=Samsung SPC-6033P
+kmxc02=KMX-C-02
+megapc=Amstrad MegaPC
+
+ibmps2_m55sx=IBM PS/2 model 55SX
+
+acc386=AMI 386DX clone
+ecs386=ECS 386/32
+spc6000a=Samsung SPC-6000A
+portableiii386=Compaq Portable III (386)
+micronics386=Micronics 386 clone
+asus386=ASUS ISA-386C
+ibmps2_m70_type3=IBM PS/2 model 70 (type 3)
+ibmps2_m80=IBM PS/2 model 80
+ibmps2_m80_type3=IBM PS/2 model 80 (type 3)
+
+award486=Award 486 clone
+ami486=Dataexpert SX495 (486)
+mr486=MR 486 clone
+
+ali1429=Olystar LIL1429
+cs4031=AMI 486 CS4031
+pcs46c=Olivetti PCS-46C
+mvi486=Mylex MVI486
+486vchd=FIC 486-VC-HD
+vect486vl=HP Vectra 486VL
+d824=Siemens Nixdorf D824
+
+pb410a=Packard Bell PB410A
+acera1g=Acer A1G
+win486=AMI WinBIOS 486
+403tg=Jetway J-403TG
+sis401=AMI 486 Clone
+isa486=ASUS ISA-486
+av4=ABIT AV4
+valuepoint433=IBM PS/ValuePoint 433DX/Si
+ami471=AMI 486 Clone
+win471=AMI WinBIOS 486 clone
+vi15g=AOpen Vi15G
+vli486sv2g=ASUS VL/I-486SV2G (GX4)
+dtk486=DTK PKM-0038S E-2
+px471=Phoenix SiS 471
+
+abpb4=ABIT AB-PB4
+win486pci=AMI WinBIOS 486 PCI
+pc330_6573=IBM PC 330 (type 6573)
+486ap4=ASUS PVI-486AP4
+486sp3g=ASUS PCI/I-486SP3G
+486sp3=ASUS PCI/I-486SP3
+alfredo=Intel Classic/PCI
+486sp3c=ASUS PVI-486SP3C
+ls486e=Lucky Star LS-486E
+m4li=Micronics M4Li
+r418=Rise Computer R418
+4sa2=Soyo 4SA2
+4dps=Zida Tomato 4DP
+atc1415=A-Trend ATC-1415
+ecs486=ECS Elite UM8810PAIO
+hot433=Shuttle HOT-433A
+486vipio2=FIC VIP-IO2
+
+rycleopardlx=RYC Leopard LX
+
+itoxstar=ITOX STAR
+arb1479=Acrosser AR-B1479
+pcm9340=Advantech PCM-9340
+pcm5330=AAEON PCM-5330
+
+p5mp3=ASUS P/I-P5MP3
+dellxp60=Dell Dimension XPS P60
+opti560l=Dell OptiPlex 560/L
+ambradp60=AMBRA DP60 PCI
+valuepointp60=IBM PS/ValuePoint P60
+revenge=Intel Premiere/PCI
+586mc1=Micro Star 586MC1
+pb520r=Packard Bell PB520R
+
+excalibur=AMI Excalibur VLB
+
+p5sp4=ASUS PCI/I-P5SP4
+
+plato=Intel Premiere/PCI II
+ambradp90=AMBRA DP90 PCI
+430nx=Gigabyte GA-586IP
+
+acerv30=Acer V30
+apollo=AMI Apollo
+vectra54=HP Vectra VL 5 Series 4
+zappa=Intel Advanced/ZP
+powermatev=NEC PowerMate V
+mb500n=PC Partner MB500N
+
+pat54pv=TMC PAT54PV
+
+hot543=Shuttle HOT-543
+p54vl=Supermicro P54VL-PCI
+
+p54sp4=ASUS PCI/I-P54SP4
+sq588=BCM SQ-588
+
+hot539=Shuttle HOT-539
+
+p54tp4xe=ASUS P/I-P54TP4XE
+mr586=ASUS P/I-P54TP4XE (MR BIOS)
+gw2katx=Gateway 2000 Thor
+thor=Intel Advanced/ATX
+mrthor=Intel Advanced/ATX (MR BIOS)
+endeavor=Intel Advanced/EV
+pb640=Packard Bell PB640
+chariot=QDI Chariot
+
+acerm3a=Acer M3A
+ap53=AOpen AP53
+8500tuc=Biostar MB-8500TUC
+p55t2s=SuperMicro Super P55T2S
+gw2kte=Gateway 2000 Tigereye
+ap5s=AOpen AP5S
+
+acerv35n=Acer V35N
+p55t2p4=ASUS P/I-P55T2P4
+m7shi=Micronics M7S-Hi
+tc430hx=Intel TC430HX
+equium5200=Toshiba Equium 5200D
+pcv240=Sony Vaio PCV-240
+p65up5_cp55t2d=ASUS P/I-P65UP5 (C-P55T2D)
+p55tvp4=ASUS P/I-P55TVP4
+5ivg=Azza 5IVG
+8500tvxa=Biostar MB-8500TVX-A
+presario2240=Compaq Presario 2240
+presario4500=Compaq Presario 4500
+p55va=Epox P55-VA
+brio80xx=HP Brio 80xx
+pb680=Packard Bell PB680
+mb520n=PC Partner MB520N
+430vx=Shuttle HOT-557
+
+nupro592=ADLink NuPRO-592
+tx97=ASUS TX97
+an430tx=Intel AN430TX
+ym430tx=Intel YM430TX
+mb540n=PC Partner MB540N
+p5mms98=SuperMicro Super P5MMS98
+
+ficva502=FIC VA-502
+
+ficpa2012=FIC PA-2012
+
+r534f=Rise R534F
+ms5146=MSI MS-5146
+
+sp97xv=ASUS SP97-XV
+m571=PC Chips M571
+
+m560=PC Chips M560
+ms5164=MSI MS-5164
+
+ax59pro=AOpen AX59 Pro
+ficva503p=FIC VA-503+
+ficva503a=FIC VA-503A
+
+p6rp4=ASUS P/I-P6RP4
+
+v60n=Acer V60N
+p65up5_cp6nd=ASUS P/I-P65UP5 (C-P6ND)
+8600ttc=Biostar MB-8600TTC
+686nx=Gigabyte GA-686NX
+ap440fx=Intel AP440FX
+vs440fx=Intel VS440FX
+m6mi=Micronics M6Mi
+mb600n=PC Partner MB600N
+
+p65up5_cpknd=ASUS P/I-P65UP5 (C-PKND)
+kn97=ASUS KN97
+
+lx6=ABIT LX6
+spitfire=Micronics Spitfire
+
+p6i440e2=QDI EXCELLENT II
+
+p2bls=ASUS P2B-LS
+p3bf=ASUS P3B-F
+bf6=ABIT BF6
+ax6bc=AOpen AX6BC
+686bx=Gigabyte GA-686BX
+vei8=HP Vectra VEi 8
+tsunamiatx=Tyan Tsunami ATX
+p6sba=SuperMicro Super P6SBA
+ergox365=Fujitsu ErgoPro x365
+
+ms6168=MSI MS-6168
+borapro=Packard Bell Bora Pro
+
+atc6310bxii=A-Trend ATC6310BXII
+
+ficka6130=FIC KA-6130
+p3v133=ASUS P3V133
+p3v4x=ASUS P3V4X
+
+fw6400gx=Freeway FW-6400GX
+
+6gxu=Gigabyte GA-6GXU
+s2dge=SuperMicro Super S2DGE
+
+s370slm=SuperMicro Super 370SLM
+
+awo671r=AEWIN AW-O671R
+cubx=ASUS CUBX
+ambx133=AmazePC AM-BX133
+trinity371=Tyan Trinity 371
+
+63a=Soltek SL-63A1
+
+atc7020bxii=A-Trend ATC7020BXII
+
+apas3=PC Partner APAS3
+p6bap=ECS P6BAP
+wcf681=AEWIN WCF-681
+cuv4xls=ASUS CUV4X-LS
+6via90ap=Acorp 6VIA90AP
+603tcf=Jetway 603TCF
+
+vpc2007=Microsoft Virtual PC 2007
+
+[cpu_family]
+8088=Intel 8088
+8088_europc=Intel 8088 for EuroPC
+8086=Intel 8086
+286=Intel 80286
+i386sx=Intel i386SX
+am386sx=AMD Am386SX
+i386dx=Intel i386DX
+rapidcad=Intel RapidCAD
+am386dx=AMD Am386DX
+m6117=ALi M6117
+ibm386slc=IBM 386SLC
+cx486slc=Cyrix Cx486SLC
+cx486srx2=Cyrix Cx486SRx2
+ibm486slc=IBM 486SLC
+ibm486slc2=IBM 486SLC2
+ibm486slc3=IBM 486SLC3
+ibm486bl2=IBM 486BL2
+ibm486bl3=IBM 486BL3
+cx486dlc=Cyrix Cx486DLC
+cx486drx2=Cyrix Cx486DRx2
+i486sx=Intel i486SX
+i486sx_slenh=Intel i486SX (SL-Enhanced)
+i486sx2=Intel i486SX2
+i486dx=Intel i486DX
+i486dx_slenh=Intel i486DX (SL-Enhanced)
+i486dx2=Intel i486DX2
+i486dx2_slenh=Intel i486DX2 (SL-Enhanced)
+i486dx2_pc330=Intel i486DX2 for IBM PC 330
+idx4=Intel iDX4
+pentium_p24t=Intel Pentium OverDrive (P24T)
+am486sx=AMD Am486SX
+am486sx2=AMD Am486SX2
+am486dx=AMD Am486DX
+am486dx2=AMD Am486DX2
+am486dxl=AMD Am486DXL
+am486dxl2=AMD Am486DXL2
+am486dx4=AMD Am486DX4
+enh_am486dx2=AMD Am486DX2 (Enhanced)
+enh_am486dx4=AMD Am486DX4 (Enhanced)
+am5x86=AMD Am5x86
+cx486s=Cyrix Cx486S
+cx486dx=Cyrix Cx486DX
+cx486dx2=Cyrix Cx486DX2
+cx486dx4=Cyrix Cx486DX4
+cx5x86=Cyrix Cx5x86
+stpc_dx=ST STPC-DX
+stpc_dx2=ST STPC-DX2
+pentium_p5=Intel Pentium (P5)
+pentium_p54c_od5v=Intel Pentium OverDrive (P54C 5V)
+pentium_p54c=Intel Pentium (P54C)
+pentium_p55c=Intel Pentium MMX (P55C)
+pentium_tillamook=Intel Mobile Pentium MMX (Tillamook)
+pentium_p54c_od3v=Intel Pentium OverDrive (P54C 3.3V)
+pentium_p55c_od=Intel Pentium OverDrive MMX (P55C)
+winchip=IDT WinChip
+winchip2=IDT WinChip 2
+winchip2a=IDT WinChip 2A
+k5_5k86=AMD K5 (5k86)
+k5_ssa5=AMD K5 (SSA/5)
+k6_m6=AMD K6 (Model 6)
+k6_m7=AMD K6 (Model 7)
+k6_2=AMD K6-2
+k6_2p=AMD K6-2+
+k6_3=AMD K6-III
+k6_3p=AMD K6-III+
+cx6x86=Cyrix Cx6x86
+cx6x86l=Cyrix Cx6x86L
+cx6x86mx=Cyrix Cx6x86MX
+mii=Cyrix MII
+pentiumpro=Intel Pentium Pro
+pentium2_od=Intel Pentium II OverDrive
+pentium2_klamath=Intel Pentium II (Klamath)
+pentium2_deschutes=Intel Pentium II (Deschutes)
+pentium2_xeon=Intel Pentium II Xeon
+celeron_mendocino=Intel Celeron (Mendocino)
+c3_samuel=VIA Cyrix III
+
+[gfxcard]
+none=None		
+internal=Internal
+ami_s3_924=AMI S3 86c924 ISA
+ati18800=ATI VGA Edge-16 (ATI-18800-5)
+ati18800v=ATI VGA-88 (ATI-18800-1)
+ati18800w=ATI VGA Wonder (ATI-18800)
+ati28800=ATI VGA Charger (ATI-28800-5)
+ati28800k=ATI Korean VGA (ATI-28800-5)
+ati28800w=ATI VGA Wonder XL24 (ATI-28800-6)
+bahamas64_pci=Paradise Bahamas 64 (S3 Vision864) PCI
+bahamas64_vlb=Paradise Bahamas 64 (S3 Vision864) VLB
+cga=Color Graphics Adapter
+cl_gd5401_isa=Cirrus Logic GD-5401 (ACUMOS AVGA1)
+cl_gd5402_isa=Cirrus Logic GD-5402 (ACUMOS AVGA2)
+cl_gd5420_isa=Cirrus Logic GD-5420
+cl_gd5422_isa=Cirrus Logic GD-5422
+cl_gd5424_vlb=Cirrus Logic GD-5424
+cl_gd5426_vlb=Diamond SpeedStar PRO (CL-GD 5426 VLB)
+cl_gd5428_isa=Cirrus Logic CL-GD 5428 ISA
+cl_gd5428_vlb=Cirrus Logic CL-GD 5428 VLB
+cl_gd5429_isa=Cirrus Logic CL-GD 5429 ISA
+cl_gd5429_vlb=Cirrus Logic CL-GD 5429 VLB
+cl_gd5430_pci=Cirrus Logic CL-GD 5430 PCI
+cl_gd5430_vlb=Diamond SpeedStar PRO SE (CL-GD 5430 VLB)
+cl_gd5434_isa=Cirrus Logic CL-GD 5434 ISA
+cl_gd5434_pci=Cirrus Logic CL-GD 5434 PCI
+cl_gd5434_vlb=Cirrus Logic CL-GD 5434 VLB
+cl_gd5436_pci=Cirrus Logic CL-GD 5436 PCI
+cl_gd5440_pci=Cirrus Logic CL-GD 5440 PCI
+cl_gd5446_pci=Cirrus Logic CL-GD 5446 PCI
+cl_gd5446_stb_pci=STB Nitro 64V (CL-GD 5446 PCI)
+cl_gd5480_pci=Cirrus Logic CL-GD 5480 PCI
+compaq_ati28800=Compaq ATI VGA Wonder XL (ATI-28800-5)
+compaq_cga=Compaq CGA
+compaq_cga_2=Compaq CGA 2
+compaq_ega=Compaq EGA
+ctl3d_banshee_pci=Creative 3D Blaster Banshee PCI
+ega=Enhanced Graphics Adapter
+egawonder800=ATI EGA Wonder 800+
+elsawin2kprox_pci=ELSA Winner 2000 Pro/X (S3 Vision968) PCI
+elsawin2kprox_vlb=ELSA Winner 2000 Pro/X (S3 Vision968) VLB
+elsawin2kprox_964_pci=ELSA Winner 2000 Pro/X (S3 Vision964) PCI
+elsawin2kprox_964_vlb=ELSA Winner 2000 Pro/X (S3 Vision964) VLB
+et2000=Tseng Labs ET2000		
+et4000ax=Tseng Labs ET4000AX ISA
+et4000mca=Tseng Labs ET4000AX MCA
+et4000w32=Tseng Labs ET4000/w32
+et4000w32i=Tseng Labs ET4000/w32i ISA	
+et4000w32i_vlb=Tseng Labs ET4000/w32i VLB
+et4000w32p_nc_pci=Tseng Labs ET4000/w32p PCI	
+et4000w32p_nc_vlb=Tseng Labs ET4000/w32p VLB
+et4000w32p_revc_pci=Tseng Labs ET4000/w32p Rev. C PCI (Cardex)
+et4000w32p_revc_vlb=Tseng Labs ET4000/w32p Rev. C VLB (Cardex)
+et4000w32p_vlb=Tseng Labs ET4000/w32p VLB (Cardex)
+et4000w32p_pci=Tseng Labs ET4000/w32p PCI (Cardex)
+g2_gc205=G2 GC205
+genius=Genius VHR
+hercules=Hercules
+hercules_plus=Hercules Plus
+ht216_32=Headland HT216-32
+ibm1mbsvga=IBM 1MB SVGA Adapter/A (CL-GD 5428 MCA)
+im1024=ImageManager 1024
+incolor=Hercules InColor
+iskra_ega=Schetmash Iskra EGA (Cyrillic ROM)
+kasan16vga=Kasan Hangulmadang-16 VGA (Tseng Labs ET4000AX)
+mach64gx_isa=ATI Graphics Pro Turbo (Mach64 GX ISA)
+mach64gx_pci=ATI Graphics Pro Turbo (Mach64 GX PCI)
+mach64gx_vlb=ATI Graphics Pro Turbo (Mach64 GX VLB)
+mach64vt2=ATI Video Xpression (Mach64 VT2)
+mda=Monochrome Display Adapter
+metheus928_isa=Metheus Premier 928 (S3 86c928) ISA
+metheus928_vlb=Metheus Premier 928 (S3 86c928) VLB
+mystique=Matrox Mystique PCI
+mystique_220=Matrox Mystique 220 PCI
+n9_9fx_pci=Number 9 9FX (S3 Trio64) PCI
+n9_9fx_vlb=Number 9 9FX (S3 Trio64) VLB
+nga=NCR NGA
+ogc=Olivetti OGC (GO708)
+orchid_s3_911=Orchid Fahrenheit 1280 (S3 86c911) ISA
+oti037c=Oak OTI-037C
+oti067=Oak OTI-067
+oti077=Oak OTI-077
+pgc=Professional Graphics Controller
+plantronics=Plantronics ColorPlus
+pvga1a=Paradise PVGA1A
+px_86c805_vlb=Phoenix S3 86c805 VLB
+px_s3_v7_801_isa=SPEA V7 Mirage (S3 86c801) ISA
+px_trio32_pci=Phoenix S3 Trio32 PCI
+px_trio32_vlb=Phoenix S3 Trio32 VLB
+px_trio64vplus_pci=Phoenix S3 Trio64V+ PCI
+px_trio64vplus_vlb=Phoenix S3 Trio64V+ VLB
+px_trio64_pci=Phoenix S3 Trio64 PCI
+px_trio64_vlb=Phoenix S3 Trio64 VLB
+px_vision864_pci=Phoenix S3 Vision864 PCI
+px_vision864_vlb=Phoenix S3 Vision864 VLB
+px_vision868_pci=Phoenix S3 Vision868 PCI
+px_vision868_vlb=Phoenix S3 Vision868 VLB
+radius_isa=Radius SVGA Multiview ISA (HT209)
+radius_mc=Radius SVGA Multiview MCA (HT209)	
+rtg3106=Realtek RTG3106 (ISA)
+sigma400=Sigma Color 400
+stealth32_pci=Diamond Stealth 32 (Tseng Labs ET4000/w32p PCI)
+stealth32_vlb=Diamond Stealth 32 (Tseng Labs ET4000/w32p VLB)
+stealth3d_2000_pci=Diamond Stealth 3D 2000 (S3 ViRGE PCI)
+stealth3d_2000_vlb=Diamond Stealth 3D 2000 (S3 ViRGE VLB)
+stealth3d_3000_pci=Diamond Stealth 3D 3000 (S3 ViRGE/VX PCI)
+stealth3d_3000_vlb=Diamond Stealth 3D 3000 (S3 ViRGE/VX VLB)
+stealth64d_pci=Diamond Stealth 64 DRAM (S3 Trio64 PCI)
+stealth64d_vlb=Diamond Stealth 64 DRAM (S3 Trio64 VLB)
+stealth64v_pci=Diamond Stealth 64 VRAM (S3 Vision964 PCI)
+stealth64v_vlb=Diamond Stealth 64 VRAM (S3 Vision964 VLB)
+stealthse_pci=Diamond Stealth SE (S3 Trio32) PCI	
+stealthse_vlb=Diamond Stealth SE (S3 Trio32) VLB
+stealthvram_isa=Diamond Stealth VRAM (S3 86c911) ISA
+superega=Chips & Technologies SuperEGA
+tgkorvga=Trigem Korean VGA (Tseng Labs ET4000AX)
+tgui9400cxi_vlb=Trident TGUI 9400CXi VLB
+tgui9440_pci=Trident TGUI 9440 PCI
+tgui9440_vlb=Trident TGUI 9440 VLB
+trio3d2x=S3 Trio3D/2X PCI
+trio64v2dx_pci=S3 Trio64V2/DX PCI
+tvga8900b=Trident TVGA 8900B
+tvga8900d=Trident TVGA 8900D
+tvga9000b=Trident TVGA 9000B
+v7_vga_1024i=Video 7 VGA 1024i (HT208)
+vga=Video Graphics Adapter
+virge325_pci=S3 ViRGE (325) PCI
+virge325_vlb=S3 ViRGE (325) VLB
+virge375_pci=S3 ViRGE/DX PCI
+virge375_vbe20_pci=S3 ViRGE/DX (VBE 2.0) PCI
+virge375_vbe20_vlb=S3 ViRGE/DX (VBE 2.0) VLB
+virge375_vlb=S3 ViRGE/DX VLB
+voodoo_banshee_pci=3Dfx Voodoo Banshee PCI
+voodoo3_2k_pci=3dfx Voodoo3 2000 PCI
+voodoo3_3k_pci=3dfx Voodoo3 3000 PCI
+voodoo3_2k_agp=3dfx Voodoo3 2000 AGP
+voodoo3_3k_agp=3dfx Voodoo3 3000 AGP
+wd90c11=Paradise WD90C11-LR
+wd90c30=Paradise WD90C30-LR
+wy700=Wyse 700
+
+[voodoo]
+0=3dfx Voodoo Graphics
+1=Quantum3D Obsidian SB50 w. Amethyst
+2=3dfx Voodoo 2
+
+[sndcard]
+none=None
+internal=Internal
+adlib=AdLib
+adlibgold=AdLib Gold
+adlib_mca=Adlib MCA
+azt2316a=Aztech Sound Galaxy Pro 16 AB (Washington)
+azt1605=Aztech Sound Galaxy Nova 16 Extra (Clinton)
+cms=Creative Music System/Game Blaster
+cs4236b=Crystal CS4236B
+cs4237b=Crystal CS4237B
+cs4238b=Crystal CS4238B
+es1371=Ensoniq AudioPCI (ES1371)
+ncraudio=NCR Business Audio
+pas16=Pro Audio Spectrum 16
+sb=Sound Blaster 1.0	
+sb1.5=Sound Blaster 1.5
+sb2.0=Sound Blaster 2.0
+sb16=Sound Blaster 16
+sb16_pnp=Sound Blaster 16 PnP
+sb32_pnp=Sound Blaster 32 PnP
+sbawe32=Sound Blaster AWE32
+sbawe32_pnp=Sound Blaster AWE32 PnP
+sbmcv=Sound Blaster Pro MCV
+sbpromcv=Sound Blaster Pro MCV
+sbprov1=Sound Blaster Pro v1
+sbprov2=Sound Blaster Pro v2
+wss=Windows Sound System
+
+[midi_device]
+none=None
+cm32l=Roland CM-32L emulation
+fluidsynth=FluidSynth
+mt32=Roland MT-32 emulation
+system_midi=Pass to MIDI output
+
+[floppy]
+none=None
+525_1dd=5.25'' 180k
+525_2dd=5.25'' 360k
+525_2qd=5.25'' 720k
+525_2hd_ps2=5.25'' 1.2M PS/2
+525_2hd=5.25'' 1.2M
+525_2hd_dualrpm=5.25'' 1.2M 300/360 RPM
+35_1dd=3.5'' 360k
+35_2dd=3.5'' 720k
+35_2hd_ps2=3.5'' 1.44M PS/2
+35_2hd=3.5'' 1.44M
+35_2hd_nec=3.5'' 1.25M PC-98
+35_2hd_3mode=3.5'' 1.44M 300/360 RPM
+35_2ed=3.5'' 2.88M
+
+[scsicard]
+none=None
+internal=Internal
+aha154xa=Adaptec AHA-154xA
+aha154xb=Adaptec AHA-154xB
+aha154xc=Adaptec AHA-154xC
+aha154xcf=Adaptec AHA-154xCF
+aha154xcp=Adaptec AHA-154xCP
+aha1640=Adaptec AHA-1640
+bt445s=BusLogic BT-445S VLB
+bt542b=BusLogic BT-542B ISA
+bt542bh=BusLogic BT-542BH ISA
+bt545s=BusLogic BT-545S ISA
+bt640a=BusLogic BT-640A MCA
+bt958d=BusLogic BT-958D PCI
+dc390=Tekram DC-390 PCI
+lcs6821n=Longshine LCS-6821N
+ncr53c810=Symbios Logic/NCR 53c810
+ncr53c815=Symbios Logic/NCR 53c815
+ncr53c820=Symbios Logic/NCR 53c820
+ncr53c825a=Symbios Logic/NCR 53c825A
+ncr53c860=Symbios Logic/NCR 53c860
+ncr53c875=Symbios Logic/NCR 53c875
+rt1000b=Rancho RT1000B
+scsiat=Sumo SCSI AT
+spock=IBM PS/2 SCSI Adapter (Spock)
+t130b=Trantor T130B
+wd33c93=Western Digital WDC33C93
+
+[net_card]
+none=None
+internal=Internal
+3c503=3Com EtherLink II	(3C503)	
+ne1k=Novell NE1000 compatible
+ne2k=Novell NE2000 compatible
+ne2kpnp=Realtek RTL8019AS
+ne2kpci=Realtek RTL8029AS
+wd8003e=Western Digital WD8003E
+wd8003eb=Western Digital WD8003EB
+wd8013ebt=Western Digital WD8013EBT
+plip=Parallel Line Internet Protocol
+ethernextmc=NetWorth EtherNext/MC
+wd8003eta=Western Digital WD8003ET/A
+wd8003ea=Western Digital WD8003E/A
+pcnetisa=AMD PCnet-ISA (Am79c960)
+pcnetisaplus=AMD PCnet-ISA+ (Am79c961)
+pcnetfast=AMD PCnet-FAST III (Am79c973)
+pcnetpci=AMD PCnet-PCI II (Am79c970a)
+pcnetvlb=AMD PCnet-VL (Am79c960)
+pcnetracal=Racal Interlan EtherBlaster
+
+[net_type]
+none=None
+pcap=PCap
+slirp=SLiRP
+
+[mouse_type]
+none=None
+logibus=Logitech/Microsoft bus mouse
+ltserial=Logitech serial mouse
+msbus=Microsoft bus mouse (InPort)
+msserial=Microsoft serial mouse
+mssystems=Mouse Systems serial mouse
+ps2=Standard PS/2 mouse
+
+[joystick]
+none=None
+standard_2button=Standard 2-button joystick(s)
+standard_4button=Standard 4-button joystick
+standard_6button=Standard 6-button joystick
+standard_8button=Standard 8-button joystick
+4axis_4button=4-axis 4-button joystick
+ch_flighstick_pro=CH Flightstick Pro
+sidewinder_pad=Microsoft SideWinder Pad
+thrustmaster_fcs=Thrustmaster Flight Control System

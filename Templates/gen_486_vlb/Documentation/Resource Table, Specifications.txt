@@ -1,0 +1,122 @@
+Basic Informations
+------------------
+Motherboard: AMI 486 CS4031
+Processor: Intel i486SX @ 33 MHz
+           AMD Am486DX2 @ 50 MHz
+           Cyrix Cx486DX2 @ 80 MHz
+           Intel iDX4 @ 100 Mhz
+
+Memory: 16/24/32 MB
+
+Storage
+-------
+Contoller: ESDI
+Adapter-type: Western Digital WD1007V-SE1 (ISA)
+BIOS entry point: C800:0005
+
+SCSI-adapter: Adaptec AHA-154xB (only with CD option!)
+  I/O space: 0x334-0x337
+  IRQ: 11
+  DMA: 6
+  Host adapter ID: 7
+  BIOS entry point: D800:0005
+
+Network
+-------
+Adapter-type: Novell NE2000 (only with network option!)
+  I/O space: 0x300-0x31F
+  IRQ: 10
+Network-type: SLiRP
+DHCP-support: yes
+Static settings:
+  IP-address:	10.0.2.15
+  Subnet Mask:	255.255.255.0
+  Gateway:	10.0.2.2
+  DNS-server:	10.0.2.3
+
+Sound card
+----------
+Device Type: Sound Blaster 16 (only with multimedia option!)
+  I/O space: 0x220-0x280, 0x330-0x331, 0x388-0x389
+  IRQ: 5
+
+Graphics card
+------------
+Type: Trident TGUI 9440 (VLB)
+Memory: 2 MB VRAM
+
+Connectors:
+------------
+  COM1: 
+    I/O space: 0x3F8 - 0x3FF
+    IRQ: 4
+    Device: Microsoft Mouse
+  COM2: 
+    I/O space: 0x2F8 - 0x2FF   
+    IRQ: 3
+  LPT1:
+    I/O space: 0x3BC - 0x3BF 
+                   0x378 - 0x37F (?)
+    IRQ: 7
+    Device: printer
+
+Floppy:
+------
+  I/O space: 0x3F2-0x3F5
+  IRQ: 6
+  DMA: 2
+
+I/O space table
+---------------
+0x220-0x280: Sound Blaster 16 (ISA)
+0x2F8-0x2FF: COM2
+0x300-0x31F: Novell NE2000 (ISA)
+0x320-0x333: -
+0x330-0x331: Sound Blaster 16 MPU-401
+0x332-0x333: -
+0x334-0x337: Adaptec AHA-154xB (ISA)
+0x338-0x387: -
+0x388-0x389: Sound Blaster 16 FM
+0x390-0x3BB: -
+0x3BC-0x3BF: LPT1, printer
+0x3C0-0x3F7: -
+0x3F8-0x3FF: COM1, Microsoft Mouse
+
+IRQ table
+---------
+0	Timer
+1	Keyboard
+2	Secondary PIC branch
+3	COM2
+4	COM1, Microsoft Mouse
+5       Sound Blaster 16 (ISA)
+6	Floppy
+7	LPT1, printer
+8	Real Time Clock
+9	System Calls
+10	Novell NE2000 (ISA)
+11	Adaptec AHA-154xB (ISA)
+12	-
+13	FPU (if present)
+14	Western Digital WD1007V-SE1 (ISA)
+15	–
+
+DMA table
+---------
+0	-
+1	Sound Blaster 16 Low-DMA
+2	Floppy
+3	-
+4	DMA controller branch
+5	Sound Blaster 16 High-DMA
+6	Western Digital WD1007V-SE1 (ISA)
+7	Adaptec AHA-154xB (ISA)
+
+Memory (by blocks of 16K)
+-------------------------
+C800H-CC00H: Western Digital WD1007V-SE1 (ISA)
+CC00H-D000H: -
+D000H-D400H: -
+D400H-D800H: -
+D800H-DC00H: Adaptec AHA-154xB (ISA)
+DC00H-E000H: -

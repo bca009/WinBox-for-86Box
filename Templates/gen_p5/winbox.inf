@@ -1,0 +1,75 @@
+[General]
+Manufacturer=(%Text.General% PC)
+Description=Intel Pentium %Text.Based% PCI %Text.System%
+Year=1995
+Author=Laci bá'
+Type=86Box
+ConfigFile=86box.cfg
+Option0=%Options.CPUType%|Intel Pentium (90 MHz)=p90|Intel Pentium MMX (166 MHz)=pmmx|IDT WinChip 2A (233 MHz)=winchip
+Option1=%Options.Memory%|Machine.mem_size
+Option2=%Options.Build%|%Builds.3DAccel%=3d|%Builds.Multi%=multi|%Builds.Network%=netw|%Builds.Full%=full|%Builds.Basic%=basic
+Option3=%Options.Printer%|Ports (COM & LPT).lpt1_device
+DescOfCDROM=32x ATAPI
+SupportedOS=Windows 98, Windows NT 4, OS/2 Warp 4, Windows 95, OS/2 Warp 3, Linux
+
+[Option0.p90]
+Machine.cpu_family = pentium_p54c
+Machine.cpu_speed = 90000000
+Machine.cpu_multi = 1.5
+Machine.cpu = 2
+
+[Option0.pmmx]
+Machine.cpu_family = pentium_p55c
+Machine.cpu_speed = 166666666
+Machine.cpu_multi = 2.5
+Machine.cpu = 10
+
+[Option0.winchip]
+Machine.cpu_family = winchip2a
+Machine.cpu_speed = 233333333
+Machine.cpu_multi = 3.5
+Machine.cpu_manufacturer = 1
+Machine.cpu = 16
+
+[Option1]
+32 MB=32768
+48 MB=49152
+64 MB=65536
+
+[Option2.3d]
+Video.voodoo=1
+Sound.sndcard=sb16_pnp
+
+[Option2.multi]
+Sound.sndcard=sb16_pnp
+
+[Option2.netw]
+Network.net_card=ne2kpci
+Network.net_type=slirp
+
+[Option2.full]
+Network.net_card=ne2kpci
+Network.net_type=slirp
+Sound.sndcard=sb16_pnp
+Video.voodoo=1
+
+[Option2.basic]
+
+[Option3]
+EPSON LQ-2500=dot_matrix
+Apple LaserWriter IIf=postscript
+Apple Color LW 12/660 PS=postscript
+%Printers.TextOnly%=text_prt
+%Text.None%=none
+
+[HDD]
+Connector=IDE
+Slot=0:0
+C=2594
+H=16
+S=63
+
+[CDROM]
+Floppy and CD-ROM drives.cdrom_01_speed = 32
+Floppy and CD-ROM drives.cdrom_01_parameters = 1, atapi
+Floppy and CD-ROM drives.cdrom_01_ide_channel = 1:0

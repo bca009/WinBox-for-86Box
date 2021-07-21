@@ -1,0 +1,46 @@
+[General]
+Manufacturer=Compaq
+Description=Compaq Portable 386
+Year=1988
+Author=Laci bá'
+Type=86Box
+ConfigFile=86box.cfg
+Option0=%Options.CPUType%|Intel i386DX (20 MHz)=i386|Cyrix Cx486DRx2 (40 MHz)=cx486
+Option1=%Options.Memory%|Machine.mem_size
+option2=%Options.Mouse%|Input devices.mouse_type
+Option3=%Options.Display%|Video.gfxcard
+SupportedOS=Compaq MS-DOS 3.3-6.2, PC-DOS 3.1 - 6.1, OS/2 2.x, Windows 3.x, Linux
+
+[Option0.i386]
+Machine.cpu_family = i386dx
+Machine.cpu_multi = 1
+Machine.cpu_speed = 20000000
+Machine.cpu = 1
+
+[Option0.cx486]
+Machine.cpu_family = cx486drx2
+Machine.cpu_multi = 2
+Machine.cpu_speed = 40000000
+Machine.cpu_manufacturer = 2
+Machine.cpu = 4
+
+[Option1]
+2 MB=2048
+4 MB=4096
+8 MB=8192
+
+[Option2]
+%Text.None%=none
+Microsoft %Mouse.Serial%=msserial
+Logitech %Mouse.Serial%=ltserial
+Mouse Systems serial mouse=mssystems
+
+[Option3]
+%Displays.Compaq%=internal
+
+[HDD]
+Connector=MFM
+Slot=0
+C=805
+H=6
+S=17

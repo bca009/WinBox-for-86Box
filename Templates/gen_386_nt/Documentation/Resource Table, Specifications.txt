@@ -1,0 +1,110 @@
+Basic informations
+------------------
+Motherboard: Dataexpert SX495 (OPTi 495)
+Processor: 	Intel i386DX @ 20 MHz
+		AMD Am386DX @ 33 MHz
+		Cyrix Cx486DLC @ 40 MHz
+FPU: 387 (if present)
+Memory: 8/10/12/14/16 MB
+
+Storage
+-------
+Controller: SCSI
+Host adapter: BusLogic BT-545S (ISA)
+  I/O space: 0x334-0x337
+  IRQ: 11
+  DMA: 6 
+  BIOS: D800H
+Note:
+  The host adapter can only boot from
+  FAT file system partitions.
+
+Network
+-------
+Adapter-type: Novell NE2000 (ISA)
+  I/O space: 0x300-0x31F
+  IRQ: 10
+Network type: SLiRP
+DHCP-support: yes
+Static settings:
+  IP-address:	10.0.2.15
+  Subnet mask:	255.255.255.0
+  Gateway:	10.0.2.2
+  DNS-server:	10.0.2.3
+ 
+Graphics Card
+-------------
+Type: Trident TVGA 8900D (ISA)
+Memory: 256 kB/512 kB/1024 kB
+Default: 1024 kB
+
+Connectors
+----------
+  COM1: 
+    I/O space: 0x3F8 - 0x3FF
+    IRQ: 4
+    Device: Microsoft Mouse
+  COM2: 
+    I/O space: 0x2F8 - 0x2FF   
+    IRQ: 3
+  LPT1:
+    I/O space: 0x3BC - 0x3BF 
+                   0x378 - 0x37F (?)
+    IRQ: 7
+    Device: printer
+
+Floppy:
+------
+  I/O space: 0x3F2-0x3F5
+  IRQ: 6
+  DMA: 2
+
+I/O space table
+---------------
+0x2F8-0x2FF: COM2
+0x300-0x31F: Novell NE2000 (ISA)
+0x320-0x333: -
+0x334-0x337: BusLogic BT-545S (ISA)
+0x338-0x3BB: -
+0x3BC-0x3BF: LPT1, printer
+0x3C0-0x3F7: -
+0x3F8-0x3FF: COM1, Microsoft Mouse
+
+IRQ table
+---------
+0	Timer
+1	Keyboard
+2	Secondary PIC-branch
+3	COM2
+4	COM1, Microsoft Mouse
+5       -
+6	Floppy
+7	LPT1, printer
+8	Real Time Clock
+9	System Calls
+10	Novell NE2000 (ISA)
+11	BusLogic BT-545S (ISA)
+12	-
+13	FPU (if present)
+14	-
+15	–
+
+DMA table
+---------
+0	-
+1	-
+2	Floppy
+3	-
+4	DMA controller branch
+5	-
+6	BusLogic BT-545S (ISA)
+7	-
+
+Memory (by blocks of 16K)
+-------------------------
+C800H-CC00H: -
+CC00H-D000H: -
+D000H-D400H: -
+D400H-D800H: -
+D800H-DC00H: BusLogic BT-545S (ISA)
+DC00H-E000H: -

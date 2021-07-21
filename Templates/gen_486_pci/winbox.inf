@@ -1,0 +1,80 @@
+[General]
+Manufacturer=(%Text.General% PC)
+Description=%Text.General% 486-%Text.Based% PCI/ISA %Text.System%
+Year=1993
+Author=Laci bá'
+Type=86Box
+ConfigFile=86box.cfg
+Option0=%Options.CPUType%|Intel i486DX2 (66 MHz)=idx2|AMD Am486DX4+ (75 MHz)=amdx4|Cyrix Cx5x86 (80 MHz)=cxdx5|Intel Pentium OverDrive (83 MHz)=pentium
+Option1=%Options.Memory%|Machine.mem_size
+Option2=%Options.Build%|%Builds.Multi%=multi|%Builds.Network%=netw|%Builds.Full%=full|%Builds.Basic%=basic
+Option3=%Options.Printer%|Ports (COM & LPT).lpt1_device
+OptionCDROM=0
+DescOfCDROM=16x ATAPI
+SupportedOS=Windows 95, Windows NT 4, OS/2 Warp 3, MS-DOS 3.30-6.22, Windows 3.x, Windows for Workgroups 3.x, Linux
+
+[Option0.idx2]
+Machine.cpu_family = i486dx2
+Machine.cpu_speed = 66666666
+Machine.cpu_multi = 2
+Machine.cpu_use_dynarec = 0
+Machine.cpu = 11
+
+[Option0.amdx4]
+Machine.cpu_family = enh_am486dx4
+Machine.cpu_speed = 75000000
+Machine.cpu_multi = 3
+Machine.cpu_use_dynarec = 0
+
+[Option0.cxdx5]
+Machine.cpu_family = cx5x86
+Machine.cpu_speed = 120000000
+Machine.cpu_multi = 3
+Machine.cpu_use_dynarec = 1
+Machine.cpu_manufacturer = 2
+Machine.cpu = 12
+
+[Option0.pentium]
+Machine.cpu_family = pentium_p24t
+Machine.cpu_speed = 83333333
+Machine.cpu_multi = 2.5
+Machine.cpu_use_dynarec = 1
+Machine.cpu = 17
+
+[Option1]
+16 MB=16384
+24 MB=24576
+32 MB=32768
+
+[Option2.multi]
+Sound.sndcard=sb16_pnp
+
+[Option2.netw]
+Network.net_card=ne2kpci
+Network.net_type=slirp
+
+[Option2.full]
+Network.net_card=ne2kpci
+Network.net_type=slirp
+Sound.sndcard=sb16_pnp
+
+[Option2.basic]
+
+[Option3]
+EPSON LQ-2500=dot_matrix
+Apple LaserWriter IIf=postscript
+Apple Color LW 12/660 PS=postscript
+%Printers.TextOnly%=text_prt
+%Text.None%=none
+
+[HDD]
+Connector=IDE
+Slot=0:0
+C=1365
+H=16
+S=63
+
+[CDROM]
+Floppy and CD-ROM drives.cdrom_01_speed = 16
+Floppy and CD-ROM drives.cdrom_01_parameters = 1, atapi
+Floppy and CD-ROM drives.cdrom_01_ide_channel = 1:0

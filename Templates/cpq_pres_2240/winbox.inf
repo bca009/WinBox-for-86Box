@@ -1,0 +1,21 @@
+[General]
+Manufacturer=Compaq
+Description=Compaq Presario 2240
+Year=1995
+Author=Laci bá'
+Type=86Box
+ConfigFile=86box.cfg
+DescOfCDROM=20x ATAPI
+SupportedOS=Windows 95 w. Internet Explorer 4.0, Windows 98, OS/2 Warp 3, Linux
+
+[HDD]
+Connector=IDE
+Slot=0
+C=4092
+H=16
+S=63
+
+[CDROM]
+Floppy and CD-ROM drives.cdrom_01_speed = 20
+Floppy and CD-ROM drives.cdrom_01_parameters = 1, atapi
+Floppy and CD-ROM drives.cdrom_01_ide_channel = 0:1

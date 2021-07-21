@@ -1,0 +1,56 @@
+[General]
+Manufacturer=IBM
+Description=IBM PC 330 (Model 6573)
+Year=1995
+Author=Laci bá'
+Type=86Box
+ConfigFile=86box.cfg
+Option0=%Options.CPUType%|Intel 486DX2 (50 MHz)=idx2|Intel 486DX2 (66 MHz)=idx2_66|Intel iDX4 (100 MHz)=idx4
+Option1=%Options.Memory%|Machine.mem_size
+Option2=%Options.Build%|Input devices.mouse_type
+
+Option3=%Options.Printer%|Ports (COM & LPT).lpt1_device
+SupportedOS=PC-DOS 6.30, Windows 3.1, Windows for Workgroups 3.11, OS/2 2.x, Linux
+NoteForCDROM=%Text.Connector%: Sound Blaster 16
+DescOfCDROM=8x ATAPI
+
+[Option0.idx2]
+Machine.cpu_family = i486dx2_pc330
+Machine.cpu_multi = 2
+Machine.cpu_speed = 50000000
+
+[Option0.idx2_66]
+Machine.cpu_family = i486dx2_pc330
+Machine.cpu_multi = 2
+Machine.cpu_speed = 66666666
+
+[Option0.idx4]
+Machine.cpu_family = idx4
+Machine.cpu_speed = 100000000
+Machine.cpu_multi = 3
+
+[Option1]
+8 MB=8192
+4 MB=4096
+
+[Option2]
+%Builds.Full%=ps2
+
+[Option3]
+EPSON LQ-2500=dot_matrix
+Apple LaserWriter IIf=postscript
+Apple Color LW 12/660 PS=postscript
+%Printers.TextOnly%=text_prt
+%Text.None%=none
+
+[HDD]
+Connector=IDE
+Slot=0:0
+C=1049
+H=16
+S=63
+
+[CDROM]
+Floppy and CD-ROM drives.cdrom_01_parameters = 1, atapi
+Floppy and CD-ROM drives.cdrom_01_ide_channel = 0:1
+Sound.sndcard=sb16

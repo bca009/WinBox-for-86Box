@@ -1,0 +1,53 @@
+[General]
+Manufacturer=(%Text.General% PC)
+Description=%Text.General% PC/AT %Text.Compatible%
+Year=1984
+Author=Laci bá'
+Type=86Box
+ConfigFile=86box.cfg
+option0=%Options.CPUSpeed%:|Machine.cpu_speed
+option1=%Options.Memory%|1024 kB=1mb|512 kB=noisa|640 kB=noisa_max|1640 kB=1_6mb|2048 kB=2mb
+option2=%Options.Floppy%|Floppy and CD-ROM drives.fdd_01_type
+option3=%Options.GfxCard%|Video.gfxcard
+SupportedOS=PC DOS 3.0 %Text.OrNewer%, OS/2 1.x, PC/IX 1.1, IBM-SCO Xenix, MS-DOS, CP/M-86, %Text.Early% Windows %Text.Versions%, %Text.Other% %Text.SuchAs% UCSD-P
+
+[Option0]
+8 MHz=8000000
+6 MHz=6000000
+
+[Option1.noisa]
+Machine.mem_size = 512
+
+[Option1.noisa_max]
+Machine.mem_size = 640
+
+[Option1.1mb]
+Machine.mem_size = 512
+Other peripherals.isamem0_type=ibmat
+
+[Option1.1_6mb]
+Machine.mem_size = 640
+Other peripherals.isamem0_type=ibmat
+Other peripherals.isamem1_type=ibmat
+
+[Option1.2mb]
+Machine.mem_size = 2048
+
+[Option2]
+3,5'' 720 kB=35_2dd
+5,25'' 1,2 MB=525_2hd
+
+[Option3]
+Enhanced Graphics Adapter (EGA)=ega
+ATI EGA Wonder 800+=egawonder800
+Chips & Technologies SuperEGA=superega
+Hercules Graphics Card Plus (HGC+)=hercules_plus
+Hercules InColor Card=incolor
+Professional Graphics Controller (PGC)=pgc
+
+[HDD]
+Connector=MFM
+Slot=0
+C=977
+H=5
+S=17

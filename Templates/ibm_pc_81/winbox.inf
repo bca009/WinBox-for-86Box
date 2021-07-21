@@ -1,0 +1,34 @@
+[General]
+Manufacturer=IBM
+Description=IBM PC 5150 (1981)
+Year=1981
+Author=Laci bá'
+Type=86Box
+ConfigFile=86box.cfg
+Option0=%Options.CPUSpeed%|Machine.cpu_speed
+Option1=%Options.Memory%|Machine.mem_size
+Option2=%Options.GfxCard%|Video.gfxcard
+Option3=%Options.Monitor%|General.video_grayscale
+SupportedOS=PC DOS 1.0-3.20, IBM BASIC, CP/M-86, UCSD-P
+
+[Option0]
+4.77 MHz=4772728
+7.16 MHz=7159092
+
+[Option1]
+64 kB=64
+16 kB=16
+32 kB=32
+
+[Option2]
+Color Graphics Adapter (CGA)=cga
+Monochrome Display Adapter (MDA)=mda
+Platronics ColorPlus=platronics
+Hercules Graphics Controller (HGC)=hercules
+Professional Graphics Controller (PGC)=pgc
+
+[Option3]
+%Displays.Color%=0
+%Displays.Amber%=2
+%Displays.Green%=3
+%Displays.White%=4

@@ -1,0 +1,8 @@
+[General]
+Manufacturer=Tandy
+Description=Tandy 1000 HX
+Year=1984
+Author=Laci bá'
+Type=86Box
+ConfigFile=86box.cfg
+SupportedOS=ROM MS-DOS 2.11, Personal DeskMate for Tandy 1000 HX

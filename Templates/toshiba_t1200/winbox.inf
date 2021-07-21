@@ -1,0 +1,9 @@
+[General]
+Manufacturer=Toshiba
+Description=Toshiba T1200 (dual-FDD)
+Year=1987
+Author=Laci bá'
+Type=86Box
+ConfigFile=86box.cfg
+SupportedOS=MS-DOS 3.30, PC-GEOS
+WindowSize=960x360

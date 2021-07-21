@@ -1,0 +1,43 @@
+object WinBoxSplash: TWinBoxSplash
+  Left = 0
+  Top = 0
+  BorderStyle = bsNone
+  Caption = 'WinBoxSplash'
+  ClientHeight = 250
+  ClientWidth = 355
+  Color = clBtnFace
+  DoubleBuffered = True
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  FormStyle = fsStayOnTop
+  OldCreateOrder = False
+  Position = poScreenCenter
+  OnClose = FormClose
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object imgSplash: TImage
+    Left = 0
+    Top = 0
+    Width = 355
+    Height = 250
+    Align = alClient
+    ExplicitLeft = 136
+    ExplicitTop = 64
+    ExplicitWidth = 105
+    ExplicitHeight = 105
+  end
+  object rcBorder: TShape
+    Left = 0
+    Top = 0
+    Width = 355
+    Height = 250
+    Align = alClient
+    Brush.Style = bsClear
+    Pen.Color = clSilver
+    ExplicitTop = 6
+  end
+end

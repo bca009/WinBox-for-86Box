@@ -1,0 +1,69 @@
+[General]
+Manufacturer=(%Text.General% PC)
+Description=Intel Pentium Pro %Text.Based% PCI %Text.System%
+Year=1999
+Author=Laci bá'
+Type=86Box
+ConfigFile=86box.cfg
+Option0=%Options.CPUType%|Intel Pentium Pro (90 MHz)=p90|Intel Pentium Pro (166 MHz)=p166|Intel Pentium II OverDrive (233 MHz)=p233
+Option1=%Options.Memory%|Machine.mem_size
+Option2=%Options.Build%|%Builds.3DMulti%=multi|%Builds.Network%=netw|%Builds.Full%=full|%Builds.Basic%=basic
+Option3=%Options.Printer%|Ports (COM & LPT).lpt1_device
+DescOfCDROM=48x ATAPI
+SupportedOS=Windows ME, Windows 2000, Windows 98 Second Editon, OS/2 Warp 4, Linux
+
+[Option0.p90]
+Machine.cpu_family = pentiumpro
+Machine.cpu_speed = 90000000
+Machine.cpu_multi = 1.5
+Machine.cpu = 4
+
+[Option0.p166]
+Machine.cpu_family = pentiumpro
+Machine.cpu_speed = 166666666
+Machine.cpu_multi = 2.5
+Machine.cpu = 5
+
+[Option0.p233]
+Machine.cpu_family = pentium2_od
+Machine.cpu_speed = 233333333
+Machine.cpu_multi = 3.5
+Machine.cpu = 13
+
+[Option1]
+64 MB=65536
+96 MB=98302
+128 MB=131072
+
+[Option2.multi]
+Sound.sndcard=sbawe32_pnp
+
+[Option2.netw]
+Network.net_card=ne2kpci
+Network.net_type=slirp
+
+[Option2.full]
+Network.net_card=ne2kpci
+Network.net_type=slirp
+Sound.sndcard=sbawe32_pnp
+
+[Option2.basic]
+
+[Option3]
+EPSON LQ-2500=dot_matrix
+Apple LaserWriter IIf=postscript
+Apple Color LW 12/660 PS=postscript
+%Printers.TextOnly%=text_prt
+%Text.None%=none
+
+[HDD]
+Connector=IDE
+Slot=0:0
+C=6256
+H=16
+S=63
+
+[CDROM]
+Floppy and CD-ROM drives.cdrom_01_speed = 48
+Floppy and CD-ROM drives.cdrom_01_parameters = 1, atapi
+Floppy and CD-ROM drives.cdrom_01_ide_channel = 1:0

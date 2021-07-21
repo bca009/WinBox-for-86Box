@@ -1,0 +1,24 @@
+[General]
+Manufacturer=IBM
+Description=IBM PS/2 Model 80
+Year=1993
+Author=Laci bá'
+Type=86Box
+ConfigFile=86box.cfg
+SupportedOS=PC-DOS 3.30-5.0, Windows 3.1, OS/2 2.x, Linux
+OptionCDROM=0
+DescOfCDROM=4x SCSI
+
+[HDD]
+Connector=ESDI
+Filter=ESDI PS/2
+Slot=0
+C=1120
+H=2
+S=38
+
+[CDROM]
+Floppy and CD-ROM drives.cdrom_01_speed = 4
+Floppy and CD-ROM drives.cdrom_01_parameters = 1, scsi
+Floppy and CD-ROM drives.cdrom_01_scsi_id = 0
+Other peripherals.scsicard = spock

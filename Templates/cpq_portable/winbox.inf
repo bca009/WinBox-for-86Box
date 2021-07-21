@@ -1,0 +1,52 @@
+[General]
+Manufacturer=Compaq
+Description=Compaq Portable
+Year=1983
+Author=Laci bá'
+Type=86Box
+ConfigFile=86box.cfg
+Option0=%Options.CPUSpeed%|Machine.cpu_speed
+Option1=%Options.Memory%|128 kB=lo|256 kB=ems1|384 kB=ems2|512 kB=ems3|640 kB=ems4
+Option2=%Options.GfxCard%|Video.gfxcard
+Option3=%Options.Monitor%|General.video_grayscale
+SupportedOS=MS-DOS 2.12-3.30, PC-DOS 2.0-3.20, CP/M-86, UCSD-P, IBM BASIC, PC/IX, SCO Xenix, Minix
+
+[Option0]
+4.77 MHz=4772728
+7.16 MHz=7159092
+
+[Option1.lo]
+
+[Option1.ems1]
+Other peripherals.isamem0_type = p5pak
+
+[Option1.ems2]
+Other peripherals.isamem0_type = p5pak
+Other peripherals.isamem1_type = p5pak
+
+[Option1.ems3]
+Other peripherals.isamem0_type = p5pak
+Other peripherals.isamem1_type = p5pak
+Other peripherals.isamem2_type = p5pak
+
+[Option1.ems4]
+Other peripherals.isamem0_type = p5pak
+Other peripherals.isamem1_type = p5pak
+Other peripherals.isamem2_type = p5pak
+Other peripherals.isamem3_type = p5pak
+
+[Option2]
+Compaq CGA=compaq_cga
+Platronics ColorPlus=platronics
+Hercules Graphics Controller (HGC)=hercules
+Professional Graphics Controller (PGC)=pgc
+
+[Option3]
+%Displays.Green%=3
+
+[HDD]
+Connector=MFM
+Slot=0
+C=306
+H=4
+S=17

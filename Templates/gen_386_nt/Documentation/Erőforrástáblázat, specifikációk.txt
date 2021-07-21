@@ -1,0 +1,110 @@
+Alapinformációk
+---------------
+Alaplap: Dataexpert SX495 (OPTi 495)
+Processzor: 	Intel i386DX @ 20 MHz
+		AMD Am386DX @ 33 MHz
+		Cyrix Cx486DLC @ 40 MHz
+Matematikai-koprocesszor: 387 (ha van)
+Memória: 8/10/12/14/16 MB
+
+Tárolók
+-------
+Tárolóvezérlõ: SCSI
+Gazdaadapter-típusa: BusLogic BT-545S (ISA)
+  I/O tartomány: 0x334-0x337
+  IRQ: 11
+  DMA: 6 
+  BIOS: D800H
+Megjegyzés:
+  A gazdaadapter csak a FAT fájlrendszert 
+  kezeli rendszerindításkor.
+
+Hálózat:
+--------
+Adapter-típusa: Novell NE2000 (ISA)
+  I/O tartomány: 0x300-0x31F
+  IRQ: 10
+Hálózat-típusa: SLiRP
+DHCP-elérhetõ: igen
+Statikus-beállítások:
+  IP-cím:	10.0.2.15
+  Maszk:	255.255.255.0
+  Átjáró:	10.0.2.2
+  DNS-szerver:	10.0.2.3
+ 
+Videókártya:
+------------
+Típus: Trident TVGA 8900D (ISA)
+Memória: 256 kB/512 kB/1024 kB
+Alapértelmezett: 1024 kB
+
+Csatolakozók:
+------------
+  COM1: 
+    I/O tartomány: 0x3F8 - 0x3FF
+    IRQ: 4
+    Csatl. eszköz: Microsoft Mouse
+  COM2: 
+    I/O tartomány: 0x2F8 - 0x2FF   
+    IRQ: 3
+  LPT1:
+    I/O tartomány: 0x3BC - 0x3BF 
+                   0x378 - 0x37F (?)
+    IRQ: 7
+    Csatl. eszköz: nyomtató
+
+Floppy:
+------
+  I/O tartomány: 0x3F2-0x3F5
+  IRQ: 6
+  DMA: 2
+
+I/O erõforrások:
+---------------
+0x2F8-0x2FF: COM2
+0x300-0x31F: Novell NE2000 (ISA)
+0x320-0x333: -
+0x334-0x337: BusLogic BT-545S (ISA)
+0x338-0x3BB: -
+0x3BC-0x3BF: LPT1, nyomtató
+0x3C0-0x3F7: -
+0x3F8-0x3FF: COM1, Microsoft Mouse
+
+IRQ kiosztás:
+-------------
+0	Idõzítõ
+1	Billentyûzet
+2	Másodlagos PIC-ág
+3	COM2
+4	COM1, Microsoft Mouse
+5       -
+6	Floppy
+7	LPT1, nyomtató
+8	Valós idejû óra
+9	Rendszerhívások
+10	Novell NE2000 (ISA)
+11	BusLogic BT-545S (ISA)
+12	-
+13	Matematikai koprocesszor (ha van)
+14	-
+15	–
+
+DMA kiosztás:
+-------------
+0	-
+1	-
+2	Floppy
+3	-
+4	DMA vezérlõ-ág
+5	-
+6	BusLogic BT-545S (ISA)
+7	-
+
+Memória (16K blokkokban):
+------------------------
+C800H-CC00H: -
+CC00H-D000H: -
+D000H-D400H: -
+D400H-D800H: -
+D800H-DC00H: BusLogic BT-545S (ISA)
+DC00H-E000H: -

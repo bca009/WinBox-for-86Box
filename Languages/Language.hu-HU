@@ -1,0 +1,242 @@
+[Templates]
+Text.None=Nincs
+Text.And=és
+Text.Connector=Csatoló
+Text.OrNewer=vagy újabb
+Text.Early=korai
+Text.Versions=verziók
+Text.Other=továbbiak
+Text.SuchAs=mint
+Text.General=Általános
+Text.Compatible=kompatibilis
+Text.Based=alapú
+Text.System=rendszer
+Text.Mouse=egér
+Text.Networking=Hálózati
+Text.Multimedia=Multimédia
+Options.CPUSpeed=&CPU sebesség:
+Options.CPUType=&Processzor:
+Options.Build=&Kiépítés:
+Options.FPU=&FPU-egység:
+Options.Memory=&Memória:
+Options.Mouse=&Egér:
+Options.GfxCard=&Videókártya:
+Options.GfxRAM=&Videómemória:
+Options.Printer=&Nyomtató:
+Options.Floppy=&Floppy meghajtó:
+Options.Display=Meg&jelenítő:
+Options.Monitor=Mo&nitor típus:
+Displays.Monitor=Monitor (RGBI)
+Displays.Television=Televízió (NTSC)
+Displays.Color=Színes (RGBI)
+Displays.Amber=Monokróm (gyömbér)
+Displays.Green=Monokróm (zöld)
+Displays.White=Monokróm (fehér)
+Displays.Compaq=Gyömbér gázplazma kijelző
+Builds.3DMulti=3D-multimédia kiépítés
+Builds.3DAccel=3D-gyorsított kiépítés
+Builds.Multi=Multimédiás kiépítés
+Builds.Network=Hálózati kiépítés
+Builds.Full=Teljes kiépítés
+Builds.Basic=Alapvető kiépítés
+Printers.TextOnly=Szöveges mátrixnyomtató
+Mouse.Serial=soros egér
+Mouse.Bus=busz egér
+Note.NoCDOldHDD=A korabeli merevlemezek nem kezelik jól.
+
+[Strings]
+ProgSettDlg.lvTools.Column[0]=Név
+ProgSettDlg.lvTools.Column[1]=Elérési út
+ProgSettDlg.AskNewVMPath=Válassza ki az új virtuális gépek tárolási helyét:
+ProgSettDlg.AskTemplatePath=Válassza ki az egyedi virtuális gép sablonok tárolási helyét:
+ProgSettDlg.AskSaveChanges=Módosítások történtek az eszközlistán. Kívánja menteni?
+ProgSettDlg.EOpenConfigLocked=A megnyitni kívánt fájl (\"%s\") egy másik program által használatban van.
+
+ProfSettDlg.AskVmIconDel=Jelenleg be van kapcsolva a fájlok védelme ennél a virtuális gépnél és ezzel a művelettel felülírja/törli a \"vm-icon.png\" fájlt a munkakönyvtárban.\r\n\r\nKívánja folytatni?
+
+OpenDialog.86Box=86Box binárisok (86Box*.exe)|86Box*.*|Futtatható fájlok (*.exe; *.com; *.bat; *.cmd)|*.exe; *.com; *.bat; *.cmd|Minden fájl (*.*)|*.*
+OpenDialog.Executables=Futtatható fájlok (*.exe; *.com; *.bat; *.cmd)|*.exe; *.com; *.bat; *.cmd|Minden fájl (*.*)|*.*
+OpenDialog.LogFiles=Naplófájlok (*.log)|*.log|Szövegfájlok (*.txt)|*.txt|Minden fájl (*.*)|*.*
+OpenDialog.WICImage=Támogatott formátumok (*.bmp; *.gif; *.jpeg; *.jpg; *.exif; *.png; *.tif; *.tiff)|*.bmp; *.gif; *.jpeg; *.jpg; *.exif; *.png; *.tif; *.tiff|Bitképek (*.bmp)|*.bmp|GIF-képek (*.gif)|*.gif|JPEG-képek (*.jpg; *.jpeg)|*.jpg;*.jpeg|EXIF-képek (*.exif)|*.exif|PNG-képek (*.png)|*.png|TIFF-képek (*.tif; *.tiff)|*.tif; *.tiff|Minden fájl (*.*)|*.*
+OpenDialog.Config=86Box konfigurációs fájlok (86box.cfg)|86box.cfg|Minden fájl (*.*)|*.*
+OpenDialog.BmpImage=Bitképek (*.bmp)|*.bmp|Minden fájl (*.*)|*.*
+OpenDialog.EmfImage=Metafájlok (*.emf; *.wmf)|*.emf;*.wmf|Minden fájl (*.*)|*.*
+OpenDialog.Floppy=Hajlékonylemez képfájlok (*.ima; *.vfd)|*.ima;*.vfd|Nyers lemezképfájlok (*.im?; *.vfd)|*.im?;*.vfd|Minden fájl (*.*)|*.*
+OpenDialog.RawDisk=Merevlemez képfájlok (*.img)|*.img|Nyers lemezképfájlok (*.im?)|*.im?|Minden fájl (*.*)|*.*
+OpenDialog.VhdDisk=Virtuális merevlemezek (*.vhd)|*.vhd|Minden fájl (*.*)|*.*
+
+Strings.Unknown=Ismeretlen
+Strings.Version=Verzió: %s
+Strings.SwitchText[0]=Kikapcsolva
+Strings.SwitchText[1]=Bekapcsolva
+Strings.Standard=Szabványos
+
+ImportVM.EDuplicateWorkDir=A megadott konfigurációhoz már tartozik virtuális gép.\r\n\r\nVálasszon másik konfigurációs fájlt.
+ImportVM.ENoSelectedItems=Nincs egyetlen elem sem kijelölve.
+ImportVM.InfoRemovedVMs=A jelenlegi %s konfigurációja tartalmaz olyan virtuális gépeket melyek jelenleg nem importálhatóak.\r\n\r\n%s\r\nEzek a gépek már importálásra kerültek, vagy problémákat hordoznak az elérési utak tekintetében.
+ImportVM.ImportedVM=Importált virtuális gép #%d
+ImportVM.lvImport.Column[0]=Név
+ImportVM.lvImport.Column[1]=Munkakönyvtár
+
+WinBox.EInvalidRegProfile=A profil a megadott regisztrációs-adatbázis kulcsnál \"%s\" érvénytelen értékeket tartalmaz (%s).
+WinBox.EInvalid86MgrVersion=A program csak a 86Box Manager v.1.7.2.0 verziójával készült profilokat képes importálni, más verziók nem támogatottak.
+WinBox.EInvEmulatorPath=Az emulátor nem található a profilban definiált elérési úton.\r\n\r\nEllenőrizze hogy letöltötte-e már az emulátort, vagy egyedi elérési út esetén, valóban helyes adatokat adott meg a program, illetve a profil beállításokban.
+WinBox.EInvWorkingDirectory=A profilhoz tartozó munkakönyvtár nem elérhető, így az emulátor indítása nem lehetséges.
+WinBox.EProcessPending=Egy másik folyamat indítása függőben van.
+WinBox.EProcessRunning=Ebből a profilból jelenleg is fut egy példány.
+WinBox.ELockedHardDisk=A virtuális gép nem indítható el, mivel egy vagy több merevlemez képfájl használatban van más programok által.\r\n\r\nEllenőrizze hogy a gazdagépen nincs-e csatlakoztatva, vagy valamely programban megnyitva egyetlen lemezkép sem.
+
+WinBox.ProfileStates[-1]=Ismeretlen
+WinBox.ProfileStates[0]=Leállítva
+WinBox.ProfileStates[1]=Fut
+WinBox.ProfileStates[2]=Szüneteltetve
+WinBox.ProfileStates[3]=Több példány!
+WinBox.ProfileStates[4]=Függőben
+
+WinBox.HostRAM=Memória: %.1f%%\r\n(%s)
+WinBox.HostCPU=CPU: %.1f%%
+
+WinBox.TerminateConfirm=A virtuális gép(ek) ilyen módon történő leállítása adatvesztést okozhat. Biztos benne?
+WinBox.UnableToDelete=A fájlok eltávolítása nem sikerült, mivel használatban vannak. A munkakönyvtárat majd később kell manuálisan el kell távolítani.\r\n\r\nKívánja megnyitni ehhez most a munkakönyvtárat?
+WinBox.WorkDirRemoved=A virtuális gép munkakönyvtárát külsőleg eltávolították.\r\n\r\nKívánja a megmaradt bejegyzést is törölni?
+
+DeleteDialog.Title=Virtuális gép eltávolítása
+DeleteDialog.Text=Jelenleg a \"%s\" nevű virtuális gép eltávolítására készül, amihez a munkakönyvtárban %s mennyiségű fájl is tartozik.\r\n\r\nMiként kívánja elvégezni a törlési feladatot?
+DeleteDialog.Buttons[0]=Törlés csak a listából
+DeleteDialog.Buttons[0].Hint=A virtuális gép törlése, a fájlok megtartása mellett.
+DeleteDialog.Buttons[1]=Minden adat eltávolítása
+DeleteDialog.Buttons[1].Hint=A virtuális gép és a fájlok egyidejű törlése.
+DeleteDialog.ExpandedText=Belső azonosító: %s\r\nMunkakönyvtár: %s\r\nTörlés elleni védelem: %s
+DeleteDialog.FooterText=A művelet nem visszafordítható, célszerű előtte biztonsági másolatot készíteni.
+
+PerfMon.ChartCPU=A virtuális gépek terhelése a gazdagépen
+PerfMon.ChartCPU.AxisX=Idő [s]
+PerfMon.ChartCPU.AxisY=Terhelés [%]
+PerfMon.ChartRAM=A virtuális gépek memóriája a gazdagépen
+PerfMon.ChartRAM.AxisX=Idő [s]
+PerfMon.ChartRAM.AxisY=Terhelés [%]
+PerfMon.ChartVMs=Egyidejűleg futó virtuális gépek
+PerfMon.ChartVMs.AxisX=Idő [s]
+PerfMon.ChartVMs.AxisY=Virtuális gépek [db]
+
+Imaging.ECantGetFreeSpace=Hiba történt a kötet szabad területének lekérdezése közben.
+Imaging.ENoSupportedFloppy=A WinBox nem képes kezelni a kijelölt virtuális géphez tartozó elsődleges floppy meghajtót, így ehelyett a 3,5\'\' DS HD 1.44M opció kerül automatikusan kiválasztásra.\r\n\r\nHa ez az opció nem felel meg, és a listában szereplő többi sem, akkor próbálja meg a képfájl 86Box alóli létrehozását, és manuális formázását.
+Imaging.ENoSupportedHDD=A WinBox nem képes felismerni a kijelölt virtuális géphez tartozó elsődleges merevlemez típusát, így az MFM csatolóhoz tartozó beállítások kerülnek automatikusan kiválasztásra.\r\n\r\nMielőtt létrehozná a merevlemezt érdemes megnézni a merevlemez-vezérlő típusát, és felderíteni a BIOS képességeit az inkompatibilitási problémák elkerülése végett.
+Imaging.ECantCreateFloppy=Nem sikerült a megadott adatokkal a floppy képfájl létrehozása. Próbáljon ki másik elérési utat, vagy beállításokat.
+Imaging.ECantCreateSparse=A kötet nem támogatja a ritka fájlok létrehozását.\r\n\r\nA WinBox megkísérelheti a fájl szokványos létrehozását, de ez hosszabb ideig is eltarthat.\r\n\r\nKívánja szokványos módon létrehozni a képfájlt?
+Imaging.ECantCreateVHD=Nem sikerült virtuális merevlemezképfájlt létrehozni. Ezt okozhatja ha a kötet tömörített, vagy titkosított, vagy nincsenek meg a szükséges jogosultságok a fájl létrehozásához.\r\n\r\nKívánja megpróbálni nyers merevlemezképfájl létrehozását?
+Imaging.AskFullAlloc=A kiválasztott merevlemez olyan csatolóval rendelkezik, aminél nem feltétlenül előnyös a dinamikus helyfoglalás alkalmazása.\r\n\r\nEngedélyezi a WinBox számára hogy a kiválasztott merevlemezt inkább foglalja le előre teljesen?
+Imaging.AskFileExists=A megadott helyen már létezik fájl, kívánja felülírni?\r\n\r\nA művelet nem fordítható vissza.
+Imaging.FullReport=Fájlnév: %s\r\nNévleges kapacitás: %s\r\nModellnév: %s %s\r\nFizikai geometria:  C: %d H: %d S: %d B: 512\r\nMegadandó geometria:  C: %d H: %d S: %d B: 512\r\nCsatolófelület: %s\r\nÍrás-előkompenzáció (WPCom): %d\r\nFej parkolópozíció (LZone): %d
+Imaging.LiteReport=Fájlnév: %s\r\nKapacitás: %s\r\nGeometria:  C: %d H: %d S: %d B: 512\r\nCsatolófelület: %s\r\nÍrás-előkompenzáció (WPCom): %d\r\nFej parkolópozíció (LZone): %d
+Imaging.MinReport=Fájlnév: %s\r\nKapacitás: %s\r\nGeometria:  C: %d H: %d S: %d B: 512\r\nÍrás-előkompenzáció (WPCom): %d\r\nFej parkolópozíció (LZone): %d
+Imaging.IsSparse=Dinamikus bővülő lemezkép kerül kialakításra.
+
+UpdateDlg.ECantAccessServer=A távoli kiszolgáló jelenleg nem elérhető. Ellenőrizze az internetkapcsolatot.
+UpdateDlg.AskFirstDownload=A WinBox nem érzékelt telepített 86Box verziót az alapértelmezett helyen.\r\nKívánja letölteni és telepíteni a legfrissebbet?
+UpdateDlg.AskAllowUpdate=A program által használt 86Box emulátorhoz frissítés érhető el.\r\nKívánja letölteni és telepíteni?
+UpdateDlg.AskUnknownVer=A jelenleg használt 86Box emulátor verziója nem lekérhető.\r\nKívánja ellenőrzés nélkül is lecserélni a legfrissebbre?
+UpdateDlg.AskLocalNewer=A jelenleg használt 86Box verzió azonos vagy újabb mint a letölthető.\r\nKívánja ennek tudatában is a jelenlegi verziót lecserélni?
+UpdateDlg.DetailsText=Letöltési forrás: <a href=\"%s\">Link</a>\r\nTelepítési hely: %s
+UpdateDlg.DetailsInfo=Build szám: %d\r\nKiadási dátum: %s
+UpdateDlg.DetailsChanges=Legfrissebb változások:
+UpdateDlg.FooterText=A jelenlegi 86Box verzió a frissítés során eltávolításra kerül.
+
+UpdateDlg.Progress.Preparing=Előkészítés...
+UpdateDlg.Progress.Download=Csomagok letöltése...
+UpdateDlg.Progress.Extract=Csomagok kibontása...
+UpdateDlg.Progress.RemovePrev=A korábbi verzió eltávolítása...
+UpdateDlg.Progress.CleanUp=Ideiglenes fájlok eltávolítása...
+UpdateDlg.Progress.Terminated=A műveletet a felhasználó megszakította.
+
+SelectHDD.AnyManufacturer=(Bármely gyártó)
+SelectHDD.AnyConnector=(Bármely csatoló)
+SelectHDD.ClientDataSet.FieldDefs[0]=Index
+SelectHDD.ClientDataSet.FieldDefs[1]=Gyártó
+SelectHDD.ClientDataSet.FieldDefs[2]=Modell
+SelectHDD.ClientDataSet.FieldDefs[3]=Méret
+SelectHDD.ClientDataSet.FieldDefs[4]=C
+SelectHDD.ClientDataSet.FieldDefs[5]=H
+SelectHDD.ClientDataSet.FieldDefs[6]=S
+SelectHDD.ClientDataSet.FieldDefs[7]=WPCom
+SelectHDD.ClientDataSet.FieldDefs[8]=LZone
+SelectHDD.ClientDataSet.FieldDefs[9]=Csatoló
+SelectHDD.ClientDataSet.FieldDefs[10]=TC
+SelectHDD.ClientDataSet.FieldDefs[11]=TH
+SelectHDD.ClientDataSet.FieldDefs[12]=TS
+SelectHDD.EFailedToAddRow = Nem sikerült a sort hozzáadni: \"%s\", száma: %d.
+SelectHDD.EInvalidRecord = Hibás rekord a fájlban: sor: %d, mező: %d, %s.
+
+WizardVM.NoManufaturer=(Ismeretlen gyártó)
+WizardVM.NewVM=Új virtuális gép #%d
+WizardVM.SelectWorkDir=Válassza ki a használni kívánt munkakönyvtárat:
+
+[UpdateDlg]
+btnTerminate.Hint=&Kilépés
+btnTerminate=&Megszakítás
+
+[WinBoxMain]
+tbStart=&Indítás
+tbStop=&Leállítás
+tbAbout1=&Névjegy
+tbCtrlAltDel=Ctrl+Alt+&Del
+tbHWReset=H/W &Reset
+tbSettings=&Beállítások
+tbBringToFront=&Előtérbe hozás
+tbPrinterTray=Nyomtató&tálca
+tbNewVM=&Új gép
+tbNewHDD=Új merev&lemez
+tbProgSettDlg=&Beállítások
+tbUpdateList=Lista &frissítése
+tbStopAll=Teljes &leállítás
+tbAbout2=&Névjegy
+
+[NameDefs]
+machine.amixt=AMI XT hasonmás
+machine.dtk=DTK XT hasonmás
+machine.genxt=Általános XT hasonmás
+machine.jukopc=Juko XT hasonmás
+machine.pxxt=Phoenix XT hasonmás
+machine.mr286=MR 286 hasonmás
+machine.quadt286=Quadtel 286 hasonmás
+machine.ami286=AMI 286 hasonmás
+machine.px286=Phoenix 286 hasonmás
+machine.award286=Award 286 hasonmás
+machine.dtk386=DTK 386SX hasonmás
+machine.acc386=AMI 386DX hasonmás
+machine.micronics386=Micronics 386 hasonmás
+machine.award486=Award 486 hasonmás
+machine.mr486=MR 486 hasonmás
+machine.sis401=AMI 486 hasonmás
+machine.ami471=AMI 486 hasonmás
+machine.win471=AMI WinBIOS 486 hasonmás
+gfxcard.none=Nincs
+gfxcard.internal=Integrált
+sndcard.none=Nincs
+sndcard.internal=Integrált
+midi_device.none=Nincs
+midi_device.cm32l=Roland CM-32L emuláció
+midi_device.mt32=Roland MT-32 emuláció
+midi_device.system_midi=Továbbítás MIDI kimenetre
+floppy.none=Nincs
+scsicard.none=Nincs
+scsicard.internal=Integrált
+net_card.none=Nincs
+net_card.internal=Integrált
+net_card.ne1k=Novell NE1000 kompatibilis
+net_card.ne2k=Novell NE2000 kompatibilis
+net_card.plip=Párhuzamos vonalú internetprotokoll
+net_type.none=Nincs
+mouse_type.none=Nincs
+mouse_type.logibus=Logitech/Microsoft busz egér
+mouse_type.ltserial=Logitech soros egér
+mouse_type.msbus=Microsoft busz egér (InPort)
+mouse_type.msserial=Microsoft soros egér
+mouse_type.mssystems=Mouse Systems soros egér
+mouse_type.ps2=Szabványos PS/2 egér
+joystick.none=Nincs
+joystick.standard_2button=Szabványos 2-gombos játékvezérlő(k)
+joystick.standard_4button=Szabványos 4-gombos játékvezérlő
+joystick.standard_6button=Szabványos 6-gombos játékvezérlő
+joystick.standard_8button=Szabványos 8-gombos játékvezérlő
+joystick.4axis_4button=4-tengelyű 4-gombos játékvezérlő
