@@ -97,6 +97,10 @@ object WizardHDD: TWizardHDD
       Caption = 'tabFormat'
       ImageIndex = 6
       TabVisible = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object lbFormatTitle: TLabel
         Left = 16
         Top = 16
@@ -690,6 +694,10 @@ object WizardHDD: TWizardHDD
       ImageIndex = 5
       ParentDoubleBuffered = False
       TabVisible = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
     end
   end
   object btnNext: TButton

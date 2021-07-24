@@ -298,6 +298,7 @@ end;
 procedure TExceptionDialog.CreateDetails;
 begin
   Screen.Cursor := crHourGlass;
+  Application.ProcessMessages;
   DetailsMemo.Lines.BeginUpdate;
   try
     CreateReport;

@@ -36,6 +36,7 @@ procedure TWinBoxSplash.FormCreate(Sender: TObject);
 begin
   LoadImage('SPLASH', imgSplash);
   Screen.Cursor := crAppStart;
+  Application.ProcessMessages;
 end;
 
 end.

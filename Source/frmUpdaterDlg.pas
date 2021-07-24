@@ -85,7 +85,7 @@ implementation
 {$R *.dfm}
 
 uses uConfigMgr, uCommUtil, uCommText, uWebUtils, frmMainForm, DateUtils,
-     IOUtils, ShellAPI, NetworkList_TLB;
+     IOUtils, ShellAPI;
 
 resourcestring
   StrProgressCleanUp    = 'UpdateDlg.Progress.CleanUp';
@@ -409,16 +409,13 @@ end;
 procedure TUpdaterDlg.Refresh;
 var
   List: TStringList;
-  Network: INetworkListManager;
 begin
-  Network := CoNetworkListManager.Create;
-  if Assigned(Network) and not Network.IsConnectedToInternet then begin
+  if not CheckForAccess(Config.Repository) then begin
     LocalDate := 0;
     BuildDate := 0;
     Build := -1;
     exit;
   end;
-  Network := nil;
 
   if FileExists(Config.EmulatorPath) then
     LocalDate := GetFileTime(Config.EmulatorPath)

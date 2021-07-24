@@ -112,6 +112,10 @@ object WinBoxMain: TWinBoxMain
     object tabPerfMon: TTabSheet
       Caption = 'Teljes'#237'tm'#233'nyfigyel'#337
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object pgCharts: TPageControl
         AlignWithMargins = True
         Left = 10
@@ -127,6 +131,10 @@ object WinBoxMain: TWinBoxMain
         TabOrder = 0
         object tabCPU: TTabSheet
           Caption = 'Gazdag'#233'p processzor'
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object ChartCPU: TChart
             Left = 0
             Top = 0
@@ -172,6 +180,10 @@ object WinBoxMain: TWinBoxMain
         object tabRAM: TTabSheet
           Caption = 'Gazdag'#233'p mem'#243'ria'
           ImageIndex = 1
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object ChartRAM: TChart
             Left = 0
             Top = 0
@@ -217,6 +229,10 @@ object WinBoxMain: TWinBoxMain
         object tabVMs: TTabSheet
           Caption = 'Fut'#243' virtu'#225'lis g'#233'pek'
           ImageIndex = 2
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object ChartVMs: TChart
             Left = 0
             Top = 0
@@ -327,6 +343,10 @@ object WinBoxMain: TWinBoxMain
     object tab86Box: TTabSheet
       Caption = '86Box VM-ek'
       ImageIndex = 2
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
     end
   end
   object StatusBar: TStatusBar

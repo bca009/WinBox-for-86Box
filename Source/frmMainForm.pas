@@ -597,12 +597,10 @@ begin
            if AskUpdateAction then
              ShowModal;
          end;
-      4: with THDSelect.Create(Self) do
-           try
-             ShowModal;
-           finally
-             Free;
-           end;
+      4: with HDSelect do begin
+           SetConnectorFilter(false);
+           ShowModal;
+         end;
       5: with TNewFloppy.Create(Self) do
            try
              if IsSelectedVM then
@@ -678,6 +676,7 @@ procedure TWinBoxMain.acSaveLangFile(Sender: TObject);
 begin
   try
     Screen.Cursor := crHourGlass;
+    Application.ProcessMessages;
     try
       Self.GetTranslation(Language);
 
@@ -932,6 +931,7 @@ var
   FWorkingDirectory: string;
 begin
   Screen.Cursor := crHourGlass;
+  Application.ProcessMessages;
   try
     if not IsSelectedVM then
       exit;

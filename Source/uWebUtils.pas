@@ -23,7 +23,7 @@ unit uWebUtils;
 
 interface
 
-uses Windows, WinINet, SysUtils, Classes, DateUtils, IdHttp;
+uses Windows, Winsock, WinINet, Dialogs, SysUtils, Classes, DateUtils, IdHttp;
 
 type
   TDownloader = class
@@ -40,15 +40,47 @@ type
     property Downloading: boolean read FDownloading;
   end;
 
-var
-  Downloader: TDownloader;
+const
+  iphlpapi = 'iphlpapi.dll';
+
+type
+  IP_OPTION_INFORMATION = record
+    Ttl: UCHAR;
+    Tos: UCHAR;
+    Flags: UCHAR;
+    OptionsSize: UCHAR;
+    OptionsData: PUCHAR;
+  end;
+  PIP_OPTION_INFORMATION = ^IP_OPTION_INFORMATION;
+  TIpOptionInformation = IP_OPTION_INFORMATION;
+  PIpOptionInformation = PIP_OPTION_INFORMATION;
+
+  ICMP_ECHO_REPLY = record
+    Address: u_long;
+    Status: ULONG;
+    RoundTripTime: ULONG;
+    DataSize: USHORT;
+    Reserved: USHORT;
+    Data: LPVOID;
+    Options: IP_OPTION_INFORMATION;
+  end;
+  PICMP_ECHO_REPLY = ^ICMP_ECHO_REPLY;
+  TIcmpEchoReply = ICMP_ECHO_REPLY;
+  PIcmpEchoReply = PICMP_ECHO_REPLY;
+
+function IcmpCreateFile: THandle; stdcall; external iphlpapi;
+function IcmpCloseHandle(icmpHandle: THandle): Boolean; stdcall; external iphlpapi;
+function IcmpSendEcho(IcmpHandle: THandle;
+  DestinationAddress: u_long; RequestData: Pointer;
+  RequestSize: Smallint; RequestOptions: pointer; ReplyBuffer: Pointer;
+  ReplySize: DWORD; Timeout: DWORD): DWORD; stdcall; external iphlpapi;
 
 //URL: tetszõleges
 function httpsGet(URL: string; Stream: TStream): boolean; overload;
 function httpsGet(URL, FileName: string): boolean; overload;
 function httpGet(AURL: string; Stream: TStream): boolean; overload;
 function httpGet(AURL, FileName: string): boolean; overload;
-function httpsGet(URL: string): string; overload;
+function httpsGet(const URL: string): string; overload;
 
 //URL: pl. http://ci.86box.net/job/86Box-Dev
 function jenkinsLastBuild(URL: string): integer;
@@ -65,10 +97,28 @@ function XmlFind(const Tag, XML: string): string;
 function XmlFindEx(const Tag, XML: string; var Offset: integer): string;
 procedure XmlFindAll(const Tag, XML: string; List: TStringList);
 
+//Ping (from szStart Reloaded)
+function ResolveHost(const Host: String; out HostName: String): u_long;
+function IPAddrToStr(const Address: u_long): string;
+function Ping(const Address: u_long; const Timeout: Cardinal = 1000): DWORD;
+
+//Internetelérés ellenõrzése
+function ExtractHost(const URL: string): string;
+function CheckForAccess(const URL: string): boolean;
+
 var
+  Downloader: TDownloader;
   DownloadProgress: TNotifyEvent = nil;
 
 implementation
+
+uses NetworkList_TLB;
+
+var
+  IcmpInitializated: boolean = false;
+  IcmpHandle: THandle;
+
+  WSAData: TWSAData = ();
 
 resourcestring
   SJenkinsGetXML = '%s/%d/api/xml';
@@ -76,6 +126,96 @@ resourcestring
   SJenkinsLastBuild = '%s/lastSuccessfulBuild/buildNumber';
   SJenkinsGetTimeStamp = '%s/%d/api/xml?wrapper=changes&xpath=//changeSet//timestamp';
   SJenkinsGetComment = '%s/%d/api/xml?wrapper=changes&xpath=//changeSet//comment';
+
+function ExtractHost(const URL: string): string;
+var
+  P, Q: integer;
+begin
+  P := pos('//', URL);
+  if P = 0 then
+    P := pos('\\', URL);
+
+  if P = 0 then
+    Result := URL
+  else begin
+    Q := pos('/', URL, P + 2);
+    if Q = 0 then
+      Q := pos('\', URL, P + 2);
+
+    if Q = 0 then
+      Result := Copy(URL, P + 2, MaxInt)
+    else
+      Result := Copy(URL, P + 2, Q - P - 2);
+  end;
+end;
+
+function CheckForAccess(const URL: string): boolean;
+var
+  Network: INetworkListManager;
+  IPAddr: u_long;
+  HostName: string;
+begin
+  Network := CoNetworkListManager.Create;
+  if Assigned(Network) then
+    Result := Network.IsConnectedToInternet
+  else
+    Result := true;
+
+  Network := nil;
+
+  if Result then begin
+    IPAddr := ResolveHost(ExtractHost(URL), HostName);
+    Result := IPAddr <> u_long(INADDR_NONE);
+    if Result then
+      Result := Ping(IPAddr) <> DWORD(-1);
+  end;
+end;
+
+function ResolveHost(const Host: String; out HostName: String): u_long;
+var
+  Data: PHostEnt;
+type
+  PU_LONG = ^u_long;
+begin
+  Result := u_long(INADDR_NONE);
+  HostName := '';
+
+  if (Host <> '') and IcmpInitializated then begin
+     Result := Inet_addr(PAnsiChar(AnsiString(Host)));
+
+     if Result = u_long(INADDR_NONE) then begin
+       Data := GetHostByName(PAnsiChar(AnsiString(Host)));
+       if Assigned(Data) then begin
+         Result := PU_LONG(Data^.h_addr_list^)^;
+         HostName := String(AnsiString(Data^.h_name));
+       end;
+     end
+     else begin
+       Data := GetHostByAddr(@Result, SizeOf(u_long), AF_INET);
+       if Assigned(Data) then
+         HostName := String(AnsiString(Data^.h_name));
+     end;
+   end;
+end;
+
+function IPAddrToStr(const Address: u_long): string;
+begin
+  Result := String(AnsiString(Inet_ntoa(TInAddr(Address))));
+end;
+
+function Ping(const Address: u_long; const Timeout: Cardinal): DWORD;
+var
+  rep: array [1..32] of DWORD;
+begin
+  Result := DWORD(-1);
+  if (not IcmpInitializated) or (IcmpHandle = INVALID_HANDLE_VALUE) then
+    exit;
+
+  if IcmpSendEcho(IcmpHandle, Address, nil, 0, nil, @rep, 128, Timeout) = 0 then
+    Result := DWORD(-1)
+  else
+    Result := PIcmpEchoReply(@rep[1])^.RoundTripTime;
+end;
 
 function jenkinsCheckUpdate(URL: string; const LocalDate: TDateTime): boolean;
 var
@@ -147,7 +287,7 @@ begin
     Result := format(SJenkinsDownload, [URL, Build, Result]);
 end;
 
-function httpsGet(URL: string): string; overload;
+function httpsGet(const URL: string): string; overload;
 var
   AStream: TStringStream;
 begin
@@ -327,7 +467,17 @@ end;
 initialization
   Downloader := TDownloader.Create;
 
+  IcmpInitializated := WSAStartup($101, WSAData) = 0;
+
+  IcmpHandle := IcmpCreateFile;
+  IcmpInitializated := IcmpInitializated and (IcmpHandle <> INVALID_HANDLE_VALUE);
+
 finalization
   Downloader.Free;
+
+   if IcmpInitializated then
+     IcmpCloseHandle(IcmpHandle);
+   if WSAData.wVersion <> 0 then
+     WSACleanup;
 
 end.

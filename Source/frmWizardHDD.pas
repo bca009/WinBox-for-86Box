@@ -218,22 +218,27 @@ begin
            case cbParamMode.ItemIndex of
              2: ActivePage := tabParameters;
              1: begin
-                  SelectDlg := THDSelect.Create(Self) as ISelectHDD;
-                  SelectDlg.DiskData := FDiskData;
-                  if not FDiskData.dgPhysicalGeometry.IsEmpty then
-                    SelectDlg.LocatePhysCHS
-                  else if not FDiskData.dgTranslatedGeometry.IsEmpty then
-                    SelectDlg.LocateTransCHS;
-                  SelectDlg.SetConnectorFilter(not cbSparse.Enabled);
-                  if SelectDlg.Execute(false) then begin
-                    pcPages.ActivePageIndex := pcPages.ActivePageIndex + 2;
-                    FDiskData := SelectDlg.DiskData;
-                    FDiskChanged := true;
-                  end
-                  else
-                    exit;
-                  SelectDlg := nil;
-                  ActivePage := tabResults;
+                  SelectDlg := HDSelect as ISelectHDD;
+                  Cursor := crHourGlass;
+                  try
+                    SelectDlg.DiskData := FDiskData;
+                    if not FDiskData.dgPhysicalGeometry.IsEmpty then
+                      SelectDlg.LocatePhysCHS
+                    else if not FDiskData.dgTranslatedGeometry.IsEmpty then
+                      SelectDlg.LocateTransCHS;
+                    SelectDlg.SetConnectorFilter(not cbSparse.Enabled);
+                    if SelectDlg.Execute(false) then begin
+                      pcPages.ActivePageIndex := pcPages.ActivePageIndex + 2;
+                      FDiskData := SelectDlg.DiskData;
+                      FDiskChanged := true;
+                    end
+                    else
+                      exit;
+                    SelectDlg := nil;
+                    ActivePage := tabResults;
+                  finally
+                    Cursor := crDefault;
+                  end;
                 end;
              0: ActivePage := tabCapacity;
            end;

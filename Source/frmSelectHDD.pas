@@ -92,7 +92,10 @@ type
 
     FStandard: string;
   protected
+  public
+    procedure LoadTable;
     function Execute(const Silent: boolean): boolean; stdcall;
+
     function GetDiskData: TDiskData; stdcall;
     procedure SetDiskData(const Data: TDiskData); stdcall;
     procedure SetConnectorFilter(const Lock: boolean); stdcall;
@@ -100,8 +103,6 @@ type
 
     function LocatePhysCHS: boolean; stdcall;
     function LocateTransCHS: boolean; stdcall;
-  public
-    procedure LoadTable;
 
     procedure GetTranslation(Language: TLanguage); stdcall;
     procedure Translate; stdcall;
@@ -109,8 +110,6 @@ type
 
 var
   HDSelect: THDSelect;
-
-function CreateSelectHDD(const AOwner: TComponent): ISelectHDD; stdcall;
 
 implementation
 
@@ -125,11 +124,6 @@ resourcestring
   StrAnyManufacturer = 'SelectHDD.AnyManufacturer';
   StrAnyConnector    = 'SelectHDD.AnyConnector';
 
-function CreateSelectHDD(const AOwner: TComponent): ISelectHDD; stdcall;
-begin
-  Result := THDSelect.Create(AOwner) as ISelectHDD;
-end;
-
 procedure THDSelect.btnShowFilterClick(Sender: TObject);
 begin
   pnBottom.Visible := not pnBottom.Visible;
@@ -143,6 +137,9 @@ begin
     ClientHeight := ClientHeight + gbFilter.Height - pnBottom.Height;
     Top := Top - (pnBottom.Height + gbFilter.Height) div 2;
   end;
+
+  if Top < 0 then
+    Top := 0;
 end;
 
 procedure THDSelect.btnOKClick(Sender: TObject);
@@ -412,28 +409,40 @@ function THDSelect.LocatePhysCHS: boolean;
 var
   A: Variant;
 begin
-  if FDiskData.dgPhysicalGeometry.IsEmpty then
-    exit(false);
+  Screen.Cursor := crHourGlass;
+  Application.ProcessMessages;
+  try
+    if FDiskData.dgPhysicalGeometry.IsEmpty then
+      exit(false);
 
-  A := VarArrayCreate([0, 2], varVariant);
-  A[0] := FDiskData.dgPhysicalGeometry.C;
-  A[1] := FDiskData.dgPhysicalGeometry.H;
-  A[2] := FDiskData.dgPhysicalGeometry.S;
-  Result := ClientDataSet.Locate('C;H;S', A, []);
+    A := VarArrayCreate([0, 2], varVariant);
+    A[0] := FDiskData.dgPhysicalGeometry.C;
+    A[1] := FDiskData.dgPhysicalGeometry.H;
+    A[2] := FDiskData.dgPhysicalGeometry.S;
+    Result := ClientDataSet.Locate('C;H;S', A, []);
+  finally
+    Screen.Cursor := crDefault;
+  end;
 end;
 
 function THDSelect.LocateTransCHS: boolean;
 var
   A: Variant;
 begin
-  if FDiskData.dgTranslatedGeometry.IsEmpty then
-    exit(false);
+  Screen.Cursor := crHourGlass;
+  Application.ProcessMessages;
+  try
+    if FDiskData.dgTranslatedGeometry.IsEmpty then
+      exit(false);
 
-  A := VarArrayCreate([0, 2], varVariant);
-  A[0] := FDiskData.dgTranslatedGeometry.C;
-  A[1] := FDiskData.dgTranslatedGeometry.H;
-  A[2] := FDiskData.dgTranslatedGeometry.S;
-  Result := ClientDataSet.Locate('TC;TH;TS', A, []);
+    A := VarArrayCreate([0, 2], varVariant);
+    A[0] := FDiskData.dgTranslatedGeometry.C;
+    A[1] := FDiskData.dgTranslatedGeometry.H;
+    A[2] := FDiskData.dgTranslatedGeometry.S;
+    Result := ClientDataSet.Locate('TC;TH;TS', A, []);
+  finally
+    Screen.Cursor := crDefault;
+  end;
 end;
 
 procedure THDSelect.SetCHSFilter(const Enabled: boolean);

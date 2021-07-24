@@ -138,7 +138,7 @@ begin
         DefaultFolder := Directory;
         FileName := Directory;
 
-        Result := Execute;
+        Result := Execute(Parent.Handle);
         if Result then
           Directory := FileName;
       finally

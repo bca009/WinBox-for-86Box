@@ -229,35 +229,42 @@ begin
              end;
            end;
        3: with lbModel.Items.Objects[lbModel.ItemIndex] as TVMSample do begin
-            ADiskData := DiskDataHDD;
+            Cursor := crHourGlass;
+            btnNext.Enabled := false;
+            Application.ProcessMessages;
+            try
+              ADiskData := DiskDataHDD;
 
-            cbHDD.Enabled := HasDefHDD;
-            cbHDD.Checked := cbHDD.Enabled and OptionHDD;
-            btnHDD.Enabled := cbHDD.Checked;
-            if cbHDD.Enabled then begin
-              with CreateSelectHDD(nil) do begin
-                 DiskData := ADiskData;
-                 LocatePhysCHS;
-                 SetConnectorFilter(false);
-                 SetCHSFilter(true);
-                 if Execute(true) then
-                   ADiskData := DiskData;
+              cbHDD.Enabled := HasDefHDD;
+              cbHDD.Checked := cbHDD.Enabled and OptionHDD;
+              btnHDD.Enabled := cbHDD.Checked;
+              if cbHDD.Enabled then begin
+                  with HDSelect as ISelectHDD do begin
+                     DiskData := ADiskData;
+                     LocatePhysCHS;
+                     SetConnectorFilter(false);
+                     SetCHSFilter(true);
+                     if Execute(true) then
+                       ADiskData := DiskData;
+                  end;
+
+                DiskTool.DiskData := ADiskData;
+                DiskTool.FileName := PChar(NextImageName(edPath.Text) + Extensions[DiskTool.GetIsVHD]);
+                DiskTool.SetConnectorFilter(true);
               end;
 
-              DiskTool.DiskData := ADiskData;
-              DiskTool.FileName := PChar(NextImageName(edPath.Text) + Extensions[DiskTool.GetIsVHD]);
-              DiskTool.SetConnectorFilter(true);
+              UpdateCHS;
+
+              lbCDROM.Caption := DescOfCDROM;
+              lbNoteCDROM.Caption := NoteForCDROM;
+
+              cbCDROM.Enabled := HasDefCDROM;
+              cbCDROM.Checked := cbCDROM.Enabled and OptionCDROM;
+
+              ActivePage := tabStorage;
+            finally
+              Cursor := crDefault;
             end;
-
-            UpdateCHS;
-
-            lbCDROM.Caption := DescOfCDROM;
-            lbNoteCDROM.Caption := NoteForCDROM;
-
-            cbCDROM.Enabled := HasDefCDROM;
-            cbCDROM.Checked := cbCDROM.Enabled and OptionCDROM;
-
-            ActivePage := tabStorage;
           end;
        5: if (not FAutoCreate) or TryCreate then
             ModalResult := mrOK
