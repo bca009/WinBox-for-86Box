@@ -83,6 +83,10 @@ object WizardVM: TWizardVM
     object tabWelcome: TTabSheet
       Caption = 'tabWelcome'
       TabVisible = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       DesignSize = (
         329
         253)
@@ -121,6 +125,10 @@ object WizardVM: TWizardVM
       Caption = 'tabBasic'
       ImageIndex = 6
       TabVisible = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       DesignSize = (
         329
         253)
@@ -318,6 +326,10 @@ object WizardVM: TWizardVM
       Caption = 'tabOptions'
       ImageIndex = 4
       TabVisible = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       DesignSize = (
         329
         253)
@@ -439,6 +451,10 @@ object WizardVM: TWizardVM
       Caption = 'tabStorage'
       ImageIndex = 5
       TabVisible = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       DesignSize = (
         329
         253)
@@ -575,6 +591,10 @@ object WizardVM: TWizardVM
       Caption = 'tabFinish'
       ImageIndex = 4
       TabVisible = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       DesignSize = (
         329
         253)

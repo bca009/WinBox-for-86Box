@@ -23,8 +23,8 @@ unit uCommUtil;
 
 interface
 
-uses Windows, SysUtils, Classes, Graphics, ExtCtrls, WinCodec, Registry,
-     ComCtrls, ShellAPI, IniFiles;
+uses Windows, SysUtils, Classes, Controls, Dialogs, Graphics, ExtCtrls,
+     WinCodec, Registry, ComCtrls, ShellAPI, IniFiles;
 
 type
   TRegHelper = class helper for TRegistry
@@ -110,7 +110,8 @@ procedure ColorProgress(const Control: TProgressBar); inline;
 
 function NextImageName(Directory: string; const ImageBase: string = 'vdisk'): string;
 
-function OpenPatchTable: TMemIniFile;
+function SelectDirectory(const Caption: string; const Root: WideString;
+  var Directory: string; Parent: TWinControl): Boolean;
 
 //színek a háttérszín alapján
 function GetTextColor(const Color: TColor): TColor;
@@ -121,15 +122,31 @@ procedure ShowSysPopup(aFile: string; x, y: integer; HND: HWND);
 
 implementation
 
-uses ComObj, ShlObj, ActiveX;
+uses ComObj, ShlObj, ActiveX, FileCtrl;
 
 resourcestring
   InfWinBox = 'WinBox.inf';
 
-function OpenPatchTable: TMemIniFile;
+function SelectDirectory(const Caption: string; const Root: WideString;
+  var Directory: string; Parent: TWinControl): Boolean;
 begin
-  Result := TMemIniFile.Create(ExtractFilePath(paramstr(0)) + InfWinBox,
-                               TEncoding.UTF8);
+  if Win32MajorVersion >= 6 then
+    with TFileOpenDialog.Create(nil) do
+      try
+        Options := [fdoPickFolders, fdoPathMustExist, fdoForceFileSystem];
+
+        DefaultFolder := Directory;
+        FileName := Directory;
+
+        Result := Execute;
+        if Result then
+          Directory := FileName;
+      finally
+        Free;
+      end
+    else
+      Result := FileCtrl.SelectDirectory(Caption, Root, Directory,
+                                         [sdNewUI, sdNewFolder], Parent);
 end;
 
 function NextImageName(Directory: string; const ImageBase: string): string;
@@ -321,7 +338,7 @@ begin
   Buffer := CommandLineToArgvW(PChar(CommandLine), Count);
   if Buffer <> nil then
     for I := 0 to Count - 1 do
-      Result.Add(PPWideChar(Integer(Buffer) + I * SizeOf(Pointer))^);
+      Result.Add(PPWideChar(NativeInt(Buffer) + I * SizeOf(Pointer))^);
   LocalFree(THandle(Buffer));
 end;
 
@@ -484,7 +501,7 @@ begin
       if Result then
         while Temp^ <> #0 do begin
           Strings.Add(Temp);
-          Temp := PChar(Pointer(Integer(Temp) + (lstrlen(Temp) + 1) * SizeOf(Char)));
+          Temp := PChar(Pointer(NativeInt(Temp) + (lstrlen(Temp) + 1) * SizeOf(Char)));
         end;
     finally
       FreeMem(Buffer, ValueLen);

@@ -1,4 +1,4 @@
-(*
+﻿(*
 
     WinBox for 86Box - An alternative manager for 86Box VMs
 

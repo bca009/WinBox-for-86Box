@@ -276,7 +276,7 @@ begin
                SetSize(GetDataSize(AFriendlyName));
                ReadBinaryData(AFriendlyName, Memory^, Size);
 
-               if not CompareMem(Pointer(Integer(Memory) + VersionOffset),
+               if not CompareMem(Pointer(NativeInt(Memory) + VersionOffset),
                                  @Version[0], length(Version)) then
                  raise Exception.Create(_T(EInvalid86MgrVersion));
 

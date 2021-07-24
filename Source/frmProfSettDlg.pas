@@ -119,7 +119,8 @@ var
 begin
   case (Sender as TComponent).Tag of
     1: begin
-         od86Box.FileName := ed86Box.Text;
+         od86Box.InitialDir := ExtractFilePath(ed86Box.Text);
+         od86Box.FileName := ExtractFileName(ed86Box.Text);
          if od86Box.Execute then
            ed86Box.Text := od86Box.FileName;
        end;

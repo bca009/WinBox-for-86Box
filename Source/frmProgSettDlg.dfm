@@ -25,15 +25,11 @@ object ProgSettDlg: TProgSettDlg
     Top = 8
     Width = 444
     Height = 458
-    ActivePage = tabAppearance
+    ActivePage = tabEmulator
     Anchors = [akLeft, akTop, akRight, akBottom]
     TabOrder = 0
     object tabGeneral: TTabSheet
       Caption = #193'ltal'#225'nos'
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       DesignSize = (
         436
         430)
@@ -223,10 +219,6 @@ object ProgSettDlg: TProgSettDlg
     object tabEmulator: TTabSheet
       Caption = 'Emul'#225'tor'
       ImageIndex = 3
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       DesignSize = (
         436
         430)
@@ -562,10 +554,6 @@ object ProgSettDlg: TProgSettDlg
     object tabTools: TTabSheet
       Caption = 'Eszk'#246'z'#246'k'
       ImageIndex = 2
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object grpTools: TGroupBox
         Left = 16
         Top = 16
@@ -723,10 +711,6 @@ object ProgSettDlg: TProgSettDlg
     object tabSpecial: TTabSheet
       Caption = 'Speci'#225'lis'
       ImageIndex = 4
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object grpExtraPaths: TGroupBox
         Left = 16
         Top = 16

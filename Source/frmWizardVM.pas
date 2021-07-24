@@ -34,9 +34,9 @@ interface
 
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  StdCtrls, Vcl.Samples.Spin, ComCtrls, ExtCtrls, FileCtrl, uBaseProfile,
-  uVMSample, frmSelectHDD, frmWizardHDD, ShellAPI, IniFiles, Zip,
-  uLang, Registry, uImaging;
+  StdCtrls, Vcl.Samples.Spin, ComCtrls, ExtCtrls, uBaseProfile, uVMSample,
+  frmSelectHDD, frmWizardHDD, ShellAPI, IniFiles, Zip, uLang, Registry,
+  uImaging;
 
 type
   IWizardVM = interface
@@ -297,7 +297,7 @@ var
 begin
   SysUtils.ForceDirectories(edPath.Text);
   Directory := ExcludeTrailingPathDelimiter(edPath.Text);
-  if SelectDirectory(_T(WizSelectWorkDir), '', Directory, [sdNewUI], Self) then
+  if SelectDirectory(_T(WizSelectWorkDir), '', Directory, Self) then
     edPath.Text := IncludeTrailingPathDelimiter(Directory);
 end;
 

@@ -1030,6 +1030,7 @@ begin
   clHighlight2 := ColorHLSToRGB(H, L, S);
   clDisabled2 := ColorHLSToRGB(H, L, 0);
   Translate;
+
   tbVMs.ShowCaptions := true;
   tbGlobal.ShowCaptions := true;
 

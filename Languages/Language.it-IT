@@ -71,7 +71,8 @@ Strings.SwitchText[0]=Disabilitato
 Strings.SwitchText[1]=Abilitato
 Strings.Standard=Standard
 
-ImportVM.EDuplicateWorkDir=Esiste una macchina virtuale che è già stata creata dalla configurazione specificata.\r\n\r\nSeleziona un altro file di configurazione. ImportVM.ENoSelectedItems=Nessun elemento selezionato.
+ImportVM.EDuplicateWorkDir=Esiste una macchina virtuale che è già stata creata dalla configurazione specificata.\r\n\r\nSeleziona un altro file di configurazione.
+ImportVM.ENoSelectedItems=Nessun elemento selezionato.
 ImportVM.ImportedVM=Macchina virtuale importata n.%d
 ImportVM.InfoRemovedVMs=L\'attuale configurazione di %s contiene macchine virtuali che non possono essere importate in questo momento.\r\n\r\n%s\r\nQueste macchine sono già state importate o hanno problemi con il routing.
 ImportVM.lvImport.Column[0]=Nome
@@ -441,7 +442,7 @@ grpAppearance=Aspetto di nuove Macchine Virtuali
 lbAppearance=Qua puoi specificare l\'apparenze di nuove macchine 86Box. Questo può essere personalizzato per macchina.
 lbDefaultDisplay=Finestra ridimensionata fissa (e.g. 960x720) e aspetto 4:3 in schermo intero.
 lbFullscreenSizing=&Ridimensione schermo intero: 
-lbWindowSizing=&Modialità ridimensione finestra:
+lbWindowSizing=&Modalità ridimensione finestra:
 rbDefaultDisplay=Impostazioni apparenza pre&definite
 rbCustomDisplay=Impostazioni &personalizzate:
 clbCustomOptions.Items[0]=Forza aspetto 4:3
@@ -691,7 +692,7 @@ btnPrintReport=&Stampa...
 WizardVM=Nuova macchina virtuale
 btnNext=&Successivo >
 btnPrev=< &Indietro
-lbWelcome=Nuova macchina virtuale - benvenuti al wizard !
+lbWelcome=Nuova macchina virtuale - benvenuti al wizard!
 lbGreetings=Questo wizard ti guiderà attraverso il processo di creazione di una nuova macchina virtuale 86Box.\r\n\r\nAnche se i modelli prescelti lo rendono facile creare la macchina ideale per le tue necessità, potresti ancora aver bisogno una conoscenza base dell\'architettura computer e hardware.\r\n\r\nClicca il pulsante Successivo per iniziare.
 lbBasicInfo=Informazioni essenziali
 lbName=&Nome:

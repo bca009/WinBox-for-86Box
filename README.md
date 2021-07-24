@@ -3,7 +3,7 @@
 
 This program has been created to simplify the way I use [86Box](https://github.com/86Box/86Box) x86 emulator. 
 
-The software currently is the successor of [WinBox Reloaded](https://github.com/laciba96/WinBox-Reloaded).
+Currently this software is the successor of [WinBox Reloaded](https://github.com/laciba96/WinBox-Reloaded).
 
 <p align="center"><img src="https://github.com/laciba96/WinBox-for-86Box/blob/6be9b55daa445b1864c36bd31b092e4bd815d071/Images/Wiki/Screenshot.PNG" width="500" height="353"></img></p>
 

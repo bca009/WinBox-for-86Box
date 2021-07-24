@@ -26,7 +26,7 @@ interface
 uses
   Types, Windows, SysUtils, Classes, Controls, Forms, Dialogs, StdCtrls,
   ComCtrls, Buttons, ExtCtrls, Vcl.Samples.Spin, CheckLst, Menus, Registry,
-  FileCtrl, ShellAPI, uLang;
+  ShellAPI, uLang;
 
 type
   TProgSettDlg = class(TForm, ILanguageSupport)
@@ -182,26 +182,29 @@ begin
   case (Sender as TComponent).Tag of
     1: begin
          Directory := ExcludeTrailingPathDelimiter(edPath.Text);
-         if SelectDirectory(_T(LangName + AskNewVMPath), '', Directory, [sdNewUI], Self) then
+         if SelectDirectory(_T(LangName + AskNewVMPath), '', Directory, Self) then
            edPath.Text := IncludeTrailingPathDelimiter(Directory);
        end;
     2: begin
-         od86Box.FileName := ed86Box.Text;
+         od86Box.InitialDir := ExtractFilePath(ed86Box.Text);
+         od86Box.FileName := ExtractFileName(ed86Box.Text);
          if od86Box.Execute then
            ed86Box.Text := od86Box.FileName;
        end;
     3: begin
          Directory := ExcludeTrailingPathDelimiter(edCustomTemplates.Text);
-         if SelectDirectory(_T(LangName + AskTemplatePath), '', Directory, [sdNewUI], Self) then
+         if SelectDirectory(_T(LangName + AskTemplatePath), '', Directory, Self) then
            edCustomTemplates.Text := IncludeTrailingPathDelimiter(Directory);
        end;
     4: begin
-         odLogFiles.FileName := edGlobalLog.Text;
+         odLogFiles.InitialDir := ExtractFilePath(edGlobalLog.Text);
+         odLogFiles.FileName := ExtractFileName(edGlobalLog.Text);
          if odLogFiles.Execute then
            edGlobalLog.Text := odLogFiles.FileName;
        end;
     5: begin
-         odTools.FileName := mmToolPath.Text;
+         odTools.InitialDir := ExtractFilePath(mmToolPath.Text);
+         odTools.FileName := ExtractFileName(mmToolPath.Text);
          if odTools.Execute then begin
            if (edToolName.Text = '') or (WideLowerCase(
                ChangeFileExt(ExtractFileName(mmToolPath.Text), ''))

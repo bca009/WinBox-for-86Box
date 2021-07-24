@@ -34,6 +34,7 @@ WizardImageStretch=true
 SolidCompression=yes
 WizardStyle=modern
 VersionInfoVersion={#MyAppVersion}
+MinVersion=6.1sp1
 ; ArchitecturesAllowed=x64
 ; ArchitecturesInstallIn64BitMode=x64
 
@@ -57,9 +58,9 @@ Source: "LICENSE.TXT"; DestDir: "{app}"; Flags: ignoreversion;
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
-Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\WinBox.exe"; Check: Is64BitInstallMode   
-Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\WinBox.exe"; Tasks: desktopicon; Check: Is64BitInstallMode   
+Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\WinBox.exe";
+Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\WinBox.exe"; Tasks: desktopicon; 
 
 [Run]
-Filename: "{app}\WinBox.exe"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent; Check: Is64BitInstallMode 
+Filename: "{app}\WinBox.exe"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent;
 

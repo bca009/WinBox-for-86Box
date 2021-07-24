@@ -770,11 +770,4 @@ begin
     end;
 end;
 
-initialization
-  with OpenPatchTable do
-    try
-      finally
-      Free;
-    end;
-
 end.
