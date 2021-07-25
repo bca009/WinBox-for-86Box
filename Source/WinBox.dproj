@@ -105,8 +105,8 @@
         <VerInfo_Locale>1038</VerInfo_Locale>
         <DCC_IntegerOverflowCheck>true</DCC_IntegerOverflowCheck>
         <DCC_RangeChecking>true</DCC_RangeChecking>
-        <VerInfo_Build>562</VerInfo_Build>
-        <VerInfo_Keys>CompanyName=Laci bá&apos;;FileDescription=WinBox for 86Box;FileVersion=1.0.0.562;InternalName=WinBox for 86Box;LegalCopyright=Laci bá&apos;;LegalTrademarks=Laci bá&apos;;OriginalFilename=WinBox.exe;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=WinBox for 86Box;ProductVersion=1.0;Comments=</VerInfo_Keys>
+        <VerInfo_Build>592</VerInfo_Build>
+        <VerInfo_Keys>CompanyName=Laci bá&apos;;FileDescription=WinBox for 86Box;FileVersion=1.0.0.592;InternalName=WinBox for 86Box;LegalCopyright=Laci bá&apos;;LegalTrademarks=Laci bá&apos;;OriginalFilename=WinBox.exe;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=WinBox for 86Box;ProductVersion=1.0;Comments=</VerInfo_Keys>
         <VerInfo_Debug>true</VerInfo_Debug>
         <Icon_MainIcon>WinBox_Icon.ico</Icon_MainIcon>
         <Debugger_RunParams>-lang it-IT</Debugger_RunParams>
