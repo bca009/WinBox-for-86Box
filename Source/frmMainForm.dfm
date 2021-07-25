@@ -62,6 +62,8 @@ object WinBoxMain: TWinBoxMain
     TabOrder = 1
     object tabHome: TTabSheet
       Caption = 'Kezd'#337'lap'
+      ExplicitLeft = 6
+      ExplicitTop = 22
       DesignSize = (
         483
         297)
@@ -112,10 +114,6 @@ object WinBoxMain: TWinBoxMain
     object tabPerfMon: TTabSheet
       Caption = 'Teljes'#237'tm'#233'nyfigyel'#337
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object pgCharts: TPageControl
         AlignWithMargins = True
         Left = 10
@@ -131,10 +129,6 @@ object WinBoxMain: TWinBoxMain
         TabOrder = 0
         object tabCPU: TTabSheet
           Caption = 'Gazdag'#233'p processzor'
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object ChartCPU: TChart
             Left = 0
             Top = 0
@@ -180,10 +174,6 @@ object WinBoxMain: TWinBoxMain
         object tabRAM: TTabSheet
           Caption = 'Gazdag'#233'p mem'#243'ria'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object ChartRAM: TChart
             Left = 0
             Top = 0
@@ -229,10 +219,6 @@ object WinBoxMain: TWinBoxMain
         object tabVMs: TTabSheet
           Caption = 'Fut'#243' virtu'#225'lis g'#233'pek'
           ImageIndex = 2
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object ChartVMs: TChart
             Left = 0
             Top = 0
@@ -343,10 +329,6 @@ object WinBoxMain: TWinBoxMain
     object tab86Box: TTabSheet
       Caption = '86Box VM-ek'
       ImageIndex = 2
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
     end
   end
   object StatusBar: TStatusBar
@@ -50839,5 +50821,26 @@ object WinBoxMain: TWinBoxMain
     Title = 'Virtu'#225'lis g'#233'p elt'#225'vol'#237't'#225'sa'
     Left = 480
     Top = 328
+  end
+  object MissingDiskDlg: TTaskDialog
+    Buttons = <
+      item
+        Caption = 'Hi'#225'nyz'#243' el'#233'r'#233'si utak &elt'#225'vol'#237't'#225'sa'
+        ModalResult = 101
+      end>
+    CommonButtons = [tcbCancel]
+    DefaultButton = tcbCancel
+    FooterIcon = 1
+    FooterText = 
+      'A m'#369'velet nem visszaford'#237'that'#243', c'#233'lszer'#369' el'#337'tte biztons'#225'gi m'#225'sol' +
+      'atot k'#233'sz'#237'teni.'
+    MainIcon = 2
+    RadioButtons = <>
+    Text = 
+      'A "%s" nev'#369' virtu'#225'lis g'#233'p elind'#237't'#225'sa nem lehets'#233'ges, mivel az el' +
+      'ind'#237't'#225's'#225'hoz sz'#252'ks'#233'ges lemezk'#233'pek hi'#225'nyozni'
+    Title = 'Hi'#225'nyz'#243' lemezk'#233'pek'
+    Left = 552
+    Top = 344
   end
 end

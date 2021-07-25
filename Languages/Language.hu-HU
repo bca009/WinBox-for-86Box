@@ -109,6 +109,12 @@ DeleteDialog.Buttons[1].Hint=A virtuális gép és a fájlok egyidejű törlése
 DeleteDialog.ExpandedText=Belső azonosító: %s\r\nMunkakönyvtár: %s\r\nTörlés elleni védelem: %s
 DeleteDialog.FooterText=A művelet nem visszafordítható, célszerű előtte biztonsági másolatot készíteni.
 
+MissingDiskDlg.Title=Hiányzó merevlemez képfájlok
+MissingDiskDlg.Text=A művelet nem végezhető el, mivel a \"%s\" nevű virtuális gép egy/több merevlemez képfájlját külsőleg eltávolítottak.\r\n\r\nA WinBox képes törölni a hiányzó referenciákat, ezzel lehetővé tenni a folytatást. Ez később maga után vonhatja kézi beállítások szükségességét.\r\n\r\nHa el kívánja kerülni a konfigurációs változtatásokat, válassza a Mégse lehetőséget.
+MissingDiskDlg.Buttons[0]=Hiányzó referenciák &eltávolítása
+MissingDiskDlg.ExpandedText=Hiányzó lemezképfájlok:
+MissingDiskDlg.FooterText=A művelet nem visszafordítható, célszerű előtte biztonsági másolatot készíteni.
+
 PerfMon.ChartCPU=A virtuális gépek terhelése a gazdagépen
 PerfMon.ChartCPU.AxisX=Idő [s]
 PerfMon.ChartCPU.AxisY=Terhelés [%]

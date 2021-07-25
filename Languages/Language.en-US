@@ -107,7 +107,13 @@ DeleteDialog.Buttons[0].Hint=Delete the machine, but keep the files.
 DeleteDialog.Buttons[1]=Delete with the files
 DeleteDialog.Buttons[1].Hint=Delete both the machine and the files.
 DeleteDialog.ExpandedText=Internal ID: %s\r\nWorking Directory: %s\r\nErase Protection: %s
-DeleteDialog.FooterText=This operation is unreversible, and worth to create a backup before the removal.
+DeleteDialog.FooterText=This operation is irreversible, and it's recommended to create a backup before the removal.
+
+MissingDiskDlg.Title=Missing Hard Disk Images
+MissingDiskDlg.Text=This operation cannot be completed because one or more hard disk images for the VM named \"%s\" have been removed externally.\r\n\r\nWinBox is able to delete missing references, allowing you to continue. This can require manual adjustments later.\r\n\r\nTo avoid changes in the configuration, select Cancel. 
+MissingDiskDlg.Buttons[0]=&Remove Missing References
+MissingDiskDlg.ExpandedText=Missing Image Files:
+MissingDiskDlg.FooterText=This operation is irreversible, and it's recommended to create a backup before the removal.
 
 PerfMon.ChartCPU=Host CPU Load by Virtual Machines
 PerfMon.ChartCPU.AxisX=Time [s]

@@ -33,6 +33,8 @@ type
     Size: uint64;
   end;
 
+  T86BoxResolve = function (const NameTable, Value: string): string of object;
+
   T86BoxConfig = record
     Machine,
     CPUType,
@@ -41,7 +43,6 @@ type
     Midi,
     NetCard,
     NetType,
-    ScsiCard,
     Mouse,
     Joystick: string;
 
@@ -50,6 +51,7 @@ type
 
     AspectRatio: TPoint;
 
+    ScsiCard: array [1..4] of string;
     Floppy: array [1..4] of string;
     Serial: array [1..4] of boolean;
     Parallel: array [1..3] of boolean;
@@ -69,11 +71,14 @@ type
       const ID: integer; var Storage: T86BoxStorage);
     procedure GetAspectRatio(Config: TCustomIniFile; var Result: TPoint);
 
+    procedure RemoveHDDs(const ConfigFile: string; Indices: TList<integer>);
+
     function FormatHDDs: string;
     function FormatCDROMs: string;
     function FormatExStors: string;
     function FormatCOMs: string;
     function FormatLPTs: string;
+    function FormatSCSI(const ResolveProc: T86BoxResolve): string;
   end;
 
   T86BoxProfile = class(TWinBoxProfile)
@@ -148,7 +153,6 @@ const
     Midi:     'none';
     NetCard:  'none';
     NetType:  'none';
-    ScsiCard: 'none';
     Mouse:    'none';
     Joystick: 'none';
 
@@ -160,6 +164,7 @@ const
 
     AspectRatio: (X: 4; Y: 3);
 
+    ScsiCard: ('none', 'none', 'none', 'none');
     Floppy: ('525_2dd', '525_2dd', 'none', 'none');
     Serial: (true, true, false, false);
     Parallel: (true, false, false));
@@ -170,7 +175,7 @@ resourcestring
 
 implementation
 
-uses uProcProfile, uConfigMgr, uCommUtil, uLang;
+uses uProcProfile, uConfigMgr, uCommUtil, uLang, frmMainForm;
 
 resourcestring
   StrNameDefsInf = 'namedefs.inf';
@@ -377,8 +382,13 @@ end;
 function T86BoxProfile.Start(const Parameters: string;
   const nShow: integer): boolean;
 var
-  CommandLine, LogFile: string;
+  CommandLine, LogFile, Temp, Line: string;
   Device: T86BoxStorage;
+
+  Files: TStringList;
+  Indices: TList<integer>;
+  Buffer: array [0..50] of char;
+  I: integer;
 begin
   CommandLine := format('-P "%s" %s',
     [ExcludeTrailingPathDelimiter(WorkingDirectory), Parameters]);
@@ -399,10 +409,46 @@ begin
          CommandLine := format('-L "%s" %s', [LogFile, CommandLine]);
       end;
 
-  for Device in ConfigData.HDD do
-    if (Device.FileName <> '') and
-      not CanLockFile(ExpandFileNameTo(Device.FileName, WorkingDirectory)) then
-        raise Exception.Create(_T('WinBox.ELockedHardDisk'));
+  Files := TStringList.Create;
+  Indices := TList<integer>.Create;
+  try
+    for I := Low(ConfigData.HDD) to High(ConfigData.HDD) do begin
+      Device := ConfigData.HDD[I];
+      if (Device.FileName <> '') then begin
+        Temp := ExpandFileNameTo(Device.FileName, WorkingDirectory);
+        if not FileExists(Temp) then begin
+          Files.Add(Temp);
+          Indices.Add(I);
+        end
+        else if not CanLockFile(Temp) then
+          raise Exception.Create(_T('WinBox.ELockedHardDisk'));
+      end;
+    end;
+
+    if Files.Count > 0 then
+      with WinBoxMain.MissingDiskDlg do begin
+        Line := _T(StrMissingDiskDlg + '.ExpandedText');
+        for Temp in Files do
+          if PathCompactPathExW(@Buffer[0], PChar(Temp), 50, 0) then begin
+            Buffer[50] := #0;
+            Line := Line + #13#10'   ' + String(Buffer);
+          end
+          else
+            Line := Line + #13#10'   ' + ExtractFileName(Temp);
+
+        ExpandedText := Line;
+        Text := _T(StrMissingDiskDlg + '.Text', [FriendlyName]);
+
+        Execute;
+        case ModalResult of
+          101: ConfigData.RemoveHDDs(ConfigFile, Indices);
+          else exit(false);
+        end;
+      end;
+  finally
+    Indices.Free;
+    Files.Free;
+  end;
 
   Result := inherited Start(CommandLine, nShow);
 end;
@@ -610,6 +656,28 @@ begin
   Result := Copy(Result, 3, MaxInt);
 end;
 
+function T86BoxConfig.FormatSCSI(const ResolveProc: T86BoxResolve): string;
+var
+  I, C: integer;
+begin
+  Result := '';
+  C := 0;
+  for I := Low(ScsiCard) to High(ScsiCard) do
+    if ScsiCard[I] <> 'none' then begin
+      Result := Result + ', ' + ResolveProc('scsicard', ScsiCard[I]);
+      inc(C);
+      if C = 2 then begin
+        Result := Result + ', ...';
+        break;
+      end;
+    end;
+
+  Result := Copy(Result, 3, MaxInt);
+
+  if Result = '' then
+    Result := ResolveProc('scsicard', 'none')
+end;
+
 procedure T86BoxConfig.GetAspectRatio(Config: TCustomIniFile;
   var Result: TPoint);
 var
@@ -707,7 +775,7 @@ end;
 procedure T86BoxConfig.Reload(const ConfigFile: string);
 var
   Config: TMemIniFile;
-  I: integer;
+  I, J: integer;
 begin
   Self := DefConfig;
 
@@ -730,9 +798,20 @@ begin
         Midi       := ReadString('Sound',                 'midi_device',       Midi);
         NetCard    := ReadString('Network',               'net_card',       NetCard);
         NetType    := ReadString('Network',               'net_type',       NetType);
-        ScsiCard   := ReadString('Storage controllers',   'scsicard',      ScsiCard);
         Mouse      := ReadString('Input devices',         'mouse_type',       Mouse);
         Joystick   := ReadString('Input devices',         'joystick_type', Joystick);
+
+        J := 0;
+        for I := Low(ScsiCard) to High(ScsiCard) do begin
+          ScsiCard[I] := ReadString('Storage controllers',
+                         'scsicard_' + IntToStr(I),   ScsiCard[I]);
+          if ScsiCard[I] <> 'none' then
+            inc(J);
+        end;
+
+        if J = 0 then
+          ScsiCard[1] := ReadString('Storage controllers',
+                         'scsicard', ScsiCard[1]);
 
         for I := Low(Floppy) to High(Floppy) do
           Floppy[I] := ReadString('Floppy and CD-ROM drives',
@@ -768,6 +847,33 @@ begin
     finally
       Free;
     end;
+end;
+
+procedure T86BoxConfig.RemoveHDDs(const ConfigFile: string;
+  Indices: TList<integer>);
+var
+  I: integer;
+  Config: TMemIniFile;
+begin
+  try
+    Config := TMemIniFile.Create(ConfigFile, TEncoding.UTF8);
+  except
+    FreeAndNil(Config);
+    raise;
+  end;
+
+  if Assigned(Config) then
+    with Config do
+      try
+        for I in Indices do begin
+          Config.DeleteKey('Hard disks', 'hdd_0' + IntToStr(I) + '_fn');
+          Config.DeleteKey('Hard disks', 'hdd_0' + IntToStr(I) + '_parameters');
+          HDD[I] := DefStorage;
+        end;
+        Config.UpdateFile;
+      finally
+        Config.Free;
+      end;
 end;
 
 end.

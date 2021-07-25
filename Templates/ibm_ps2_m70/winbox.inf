@@ -21,4 +21,4 @@ S=38
 Floppy and CD-ROM drives.cdrom_01_speed = 4
 Floppy and CD-ROM drives.cdrom_01_parameters = 1, scsi
 Floppy and CD-ROM drives.cdrom_01_scsi_id = 0
-Other peripherals.scsicard = spock
+Other peripherals.scsicard_1 = spock

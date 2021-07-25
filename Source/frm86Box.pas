@@ -108,20 +108,21 @@ type
     lbFriendlyName: TLabel;
     btnWorkDir: TSpeedButton;
     Splitter: TSplitter;
-    DelayPicture: TTimer;
+    DelayChange: TTimer;
     procedure cgPanelsResize(Sender: TObject);
     procedure PicturePagerContextPopup(Sender: TObject; MousePos: TPoint;
       var Handled: Boolean);
     procedure FrameResize(Sender: TObject);
     procedure PicturePagerClick(Sender: TObject);
     procedure btnWorkDirClick(Sender: TObject);
-    procedure DelayPictureTimer(Sender: TObject);
+    procedure DelayChangeTimer(Sender: TObject);
   private
+    DirectoryChange: string;
+    DirectoryChgType: Cardinal;
   public
     PicturePager: TPicturePager;
     FolderMonitor: TFolderMonitor;
     SideRatio: single;
-    LastChange: Cardinal;
 
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
@@ -231,7 +232,6 @@ begin
     OnClick := PicturePagerClick;
   end;
 
-  LastChange := 0;
   FolderMonitor := TFolderMonitor.Create(nil);
   FolderMonitor.OnChange := OnDirectoryChange;
 
@@ -239,10 +239,30 @@ begin
     Log('FolderMonitor initialized.');
 end;
 
-procedure TFrame86Box.DelayPictureTimer(Sender: TObject);
+procedure TFrame86Box.DelayChangeTimer(Sender: TObject);
+var
+  Profile: T86BoxProfile;
 begin
-  DelayPicture.Enabled := false;
-  PicturePager.UpdateList;
+  DelayChange.Enabled := false;
+
+  if WinBoxMain.IsSelectedVM then begin
+    Profile := WinBoxMain.Profiles[WinBoxMain.List.ItemIndex - 2];
+    Profile.OnDirectoryChange(Sender, DirectoryChange, DirectoryChgType);
+    if (DirectoryChange = '86BOX.CFG') then begin
+      if dbgLogFolderChanges then
+        Log('Calling UpdateData');
+
+      UpdateData(Profile);
+    end
+    else if DirectoryChange = 'PRINTER' then
+      btnPrinter.Enabled := Profile.HasPrinterTray
+    else if DirectoryChange = 'SCREENSHOTS' then
+      PicturePager.UpdateList;
+  end;
+
+  DirectoryChange := '';
+  DirectoryChgType := 0;
+  DelayChange.Enabled := false;
 end;
 
 destructor TFrame86Box.Destroy;
@@ -328,15 +348,8 @@ end;
 procedure TFrame86Box.OnDirectoryChange(Sender: TObject; FileName: string;
   ChangeType: Cardinal);
 var
-  Profile: T86BoxProfile;
-  Time: Cardinal;
-
   I: integer;
-const
-  ChangeDelta = 1000; //for too frequent 86BOX.CFG changes on Resizeable Window mode
 begin
-  Time := GetTickCount;
-
   FileName := UpperCase(FileName);
   I := pos(PathDelim, FileName);
   if I <> 0 then
@@ -345,22 +358,9 @@ begin
   if dbgLogFolderChanges then
     Log('File Changed: %s', [FileName]);
 
-  if WinBoxMain.IsSelectedVM then begin
-    Profile := WinBoxMain.Profiles[WinBoxMain.List.ItemIndex - 2];
-    Profile.OnDirectoryChange(Sender, FileName, ChangeType);
-    if (FileName = '86BOX.CFG') and (Time - LastChange > ChangeType) then begin
-      if dbgLogFolderChanges then
-        Log('Calling UpdateData');
-
-      UpdateData(Profile);
-      LastChange := Time;
-    end
-    else if FileName = 'PRINTER' then
-      btnPrinter.Enabled := Profile.HasPrinterTray
-    else if FileName = 'SCREENSHOTS' then begin
-      DelayPicture.Enabled := true;
-    end;
-  end;
+  DirectoryChange := FileName;
+  DirectoryChgType := ChangeType;
+  DelayChange.Enabled := true;
 end;
 
 procedure TFrame86Box.OnEnterSizeMove(Sender: TObject);
@@ -448,7 +448,7 @@ begin
         lbHDD.Caption := ResolveIfEmpty(FormatHDDs);
         lbCDROM.Caption := ResolveIfEmpty(FormatCDROMs);
         lbExStor.Caption := ResolveIfEmpty(FormatExStors);
-        edSCSI.Text := Resolve('scsicard', ScsiCard);
+        edSCSI.Text := FormatSCSI(Resolve);
 
         edNetCard.Text := Resolve('net_card', NetCard);
         edNetType.Text := Resolve('net_type', NetType);

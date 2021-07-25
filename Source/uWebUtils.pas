@@ -23,7 +23,7 @@ unit uWebUtils;
 
 interface
 
-uses Windows, Winsock, WinINet, Dialogs, SysUtils, Classes, DateUtils, IdHttp;
+uses Windows, Winsock, WinINet, SysUtils, Classes, DateUtils, IdHttp;
 
 type
   TDownloader = class
@@ -418,7 +418,7 @@ begin
 
     if hURL = nil then begin
       InternetCloseHandle(hSession);
-      exit(false);
+      RaiseLastOSError;
     end;
 
     FBytesRead := 0;

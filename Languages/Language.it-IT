@@ -107,7 +107,13 @@ DeleteDialog.Buttons[0].Hint=Elimina la macchina, ma mantieni i file.
 DeleteDialog.Buttons[1]=Elimina con i file
 DeleteDialog.Buttons[1].Hint=Elimina sia la macchina e i suoi file.
 DeleteDialog.ExpandedText=ID Interno: %s\r\nPercorso: %s\r\nGuardia di eliminazione: %s
-DeleteDialog.FooterText=Questa operazione è irreversibile e vale la pena creare un backup prima della rimozione.
+DeleteDialog.FooterText=Questa operazione è irreversibile, ed è raccomandato creare un punto di ripristino prima della rimozione.
+
+MissingDiskDlg.Title=Immagini Hard Disk Mancanti
+MissingDiskDlg.Text=Questa operazione non può essere completata perchè uno o più immagini hard disk per la macchina virtuale chiamata \"%s\" sono stati rimossi esternamente.\r\n\r\nWinBox può eliminare il riferimento mancante, che permette di continuare. Questa operazione potrebbe richiedere delle regolazioni manuali dopo.\r\n\r\nPer evitare cambiamenti nella configurazione, scegli Cancella. 
+MissingDiskDlg.Buttons[0]=&Rimuovi Riferimenti Mancanti
+MissingDiskDlg.ExpandedText=Immagini Mancanti:
+MissingDiskDlg.FooterText=Questa operazione è irreversibile, ed è raccomandato creare un punto di ripristino prima della rimozione.
 
 PerfMon.ChartCPU=Carico della CPU host dalle macchine virtuali
 PerfMon.ChartCPU.AxisX=Tempo [s]

@@ -331,6 +331,7 @@ type
     N49: TMenuItem;
     miOnlineDocs2: TMenuItem;
     KivtelfeldobsaEInvalidCast1: TMenuItem;
+    MissingDiskDlg: TTaskDialog;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure acDebugExecute(Sender: TObject);
@@ -404,10 +405,14 @@ type
     procedure Translate; stdcall;
 
     procedure GetRttiReport(Result: TStrings);
+    procedure DoFirstUpdate(var Msg: TMessage); message WM_USER;
   end;
 
 var
   WinBoxMain: TWinBoxMain;
+
+resourcestring
+  StrMissingDiskDlg = 'MissingDiskDlg';
 
 implementation
 
@@ -963,6 +968,26 @@ begin
   end;
 end;
 
+procedure TWinBoxMain.DoFirstUpdate(var Msg: TMessage);
+begin
+  inherited;
+  if (Msg.LParam = 7) and (Msg.WParam = 13) and Assigned(WinBoxSplash) then begin //Validity Test
+    List.Enabled := true;
+    Pages.Enabled := true;
+
+    Screen.Cursor := crDefault;
+
+    WinBoxSplash.OnClose := nil;
+    WinBoxSplash.Close;
+    FreeAndNil(WinBoxSplash);
+
+    if IsAllStopped and Updater.AskAutoUpdate then
+      Updater.ShowModal;
+
+    FirstUpdateDone := true;
+  end;
+end;
+
 procedure TWinBoxMain.DummyUpdate(Sender: TObject);
 begin
   ;
@@ -1055,6 +1080,7 @@ begin
   SideRatio := DefSideRatio;
   Icons32.GetIcon(6, DeleteDialog.CustomMainIcon);
   DeleteDialog.Caption := Application.Title;
+  MissingDiskDlg.Caption := Application.Title;
 
   Updater := TUpdaterDlg.Create(nil);
 
@@ -1333,19 +1359,7 @@ begin
     else
       Monitor.OnUpdate := nil;
 
-    List.Enabled := true;
-    Pages.Enabled := true;
-
-    Screen.Cursor := crDefault;
-
-    WinBoxSplash.OnClose := nil;
-    WinBoxSplash.Close;
-    WinBoxSplash.Free;
-
-    if IsAllStopped and Updater.AskAutoUpdate then
-      Updater.ShowModal;
-
-    FirstUpdateDone := true;
+    PostMessage(Handle, WM_USER, 13, 7);
   end
   else
     inc(UpdateCount);
@@ -1550,9 +1564,14 @@ begin
         Caption := _T(StrDeleteDialog + format('.Buttons[%d]', [I]));
         CommandLinkHint := _T(StrDeleteDialog + format('.Buttons[%d].Hint', [I]));
       end;
-
     DeleteDialog.Title := _T(StrDeleteDialog + '.Title');
     DeleteDialog.FooterText := _T(StrDeleteDialog + '.FooterText');
+
+    for I := 0 to MissingDiskDlg.Buttons.Count - 1 do
+      with MissingDiskDlg.Buttons[I] as TTaskDialogButtonItem do
+        Caption := _T(StrMissingDiskDlg + format('.Buttons[%d]', [I]));
+    MissingDiskDlg.Title := _T(StrMissingDiskDlg + '.Title');
+    MissingDiskDlg.FooterText := _T(StrMissingDiskDlg + '.FooterText');
 
     ChartCPU.Title.Text.Text := _T(format(StrChartBase, ['CPU']));
     ChartCPU.BottomAxis.Title.Caption := _T(format(StrChartAxisBase, ['CPU', 'X']));

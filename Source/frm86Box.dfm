@@ -674,8 +674,9 @@ object Frame86Box: TFrame86Box
       ExplicitWidth = 436
     end
   end
-  object DelayPicture: TTimer
-    OnTimer = DelayPictureTimer
+  object DelayChange: TTimer
+    Interval = 500
+    OnTimer = DelayChangeTimer
     Left = 248
     Top = 168
   end
