@@ -11,7 +11,7 @@ Option2=%Options.FPU%|Machine.fpu_type
 Option3=%Options.Printer%|Ports (COM & LPT).lpt1_device
 OptionCDROM=0
 DescOfCDROM=4x SCSI
-NoteForCDROM=%Text.Connector% BusLogic BT-545S (ISA)
+NoteForCDROM=%Text.Connector%: BusLogic BT-545S (ISA)
 SupportedOS=MS-DOS 3.30-6.22, Windows for Workgroups 3.x, OS/2 2.x, Windows NT 3.x, Linux
 
 [Option0.i386]

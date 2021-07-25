@@ -11,7 +11,7 @@ Option2=%Options.Build%|Basic build=basic|Multimedia build=multi|Networking buil
 Option3=%Options.Printer%|Ports (COM & LPT).lpt1_device
 OptionCDROM=0
 DescOfCDROM=8x SCSI
-NoteForCDROM=%Text.Connector% Adaptec AHA-154xB (ISA)
+NoteForCDROM=%Text.Connector%: Adaptec AHA-154xB (ISA)
 SupportedOS=MS-DOS 3.30-6.22, Windows for Workgroups 3.x, OS/2 2.x, Windows NT 3.x, Windows NT 4, Windows 95, Linux
 
 [Option0.i486]
@@ -80,6 +80,6 @@ H=11
 S=48
 
 [CDROM]
-Storage controllers.scsicard_1=aha154xb
+Storage controllers.scsicard=aha154xb
 Floppy and CD-ROM drives.cdrom_01_parameters = 1, scsi
 Floppy and CD-ROM drives.cdrom_01_scsi_id = 1
