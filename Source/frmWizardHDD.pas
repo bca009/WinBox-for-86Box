@@ -375,7 +375,15 @@ begin
 end;
 
 procedure TWizardHDD.FormCreate(Sender: TObject);
+var
+  Data: TDiskData;
 begin
+  FillChar(Data, SizeOf(Data), #0);
+  HDSelect.SetDiskData(Data);
+  HDSelect.SetConnectorFilter(false);
+  HDSelect.rbNoFilter.Checked := true;
+  HDSelect.FilterChange(HDSelect.rbNoFilter);
+
   FDiskChanged := false;
   FFirst := true;
   LoadImage('BANNER_HDD', imgBanner);

@@ -59,6 +59,10 @@ object WizardHDD: TWizardHDD
     object tabWelcome: TTabSheet
       Caption = 'tabWelcome'
       TabVisible = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       DesignSize = (
         329
         253)
@@ -192,6 +196,10 @@ object WizardHDD: TWizardHDD
       Caption = 'tabBasic'
       ImageIndex = 1
       TabVisible = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       DesignSize = (
         329
         253)
@@ -304,6 +312,10 @@ object WizardHDD: TWizardHDD
       Caption = 'tabCapacity'
       ImageIndex = 2
       TabVisible = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       DesignSize = (
         329
         253)
@@ -454,6 +466,10 @@ object WizardHDD: TWizardHDD
       Caption = 'tabParameters'
       ImageIndex = 3
       TabVisible = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       DesignSize = (
         329
         253)
