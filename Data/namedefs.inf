@@ -573,6 +573,7 @@ sb16_pnp=Sound Blaster 16 PnP
 sb32_pnp=Sound Blaster 32 PnP
 sbawe32=Sound Blaster AWE32
 sbawe32_pnp=Sound Blaster AWE32 PnP
+sbawe64_gold=Sound Blaster AWE64 Gold
 sbmcv=Sound Blaster Pro MCV
 sbpromcv=Sound Blaster Pro MCV
 sbprov1=Sound Blaster Pro v1
