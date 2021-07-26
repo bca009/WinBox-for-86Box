@@ -32,7 +32,7 @@ Add your new language as a pull request and I most probably include it with the 
 **System Requirements:**
 
   - **Minimum**: Windows 7 SP1 or Windows 8.1, with the latest updates.  
-  - **Recommended**: Windows 10, but in theory Windows 11 also supported.
+  - **Recommended**: Windows 10, and in theory Windows 11 also supported.
 
 **The program is written in Delphi 10.3.**
 
