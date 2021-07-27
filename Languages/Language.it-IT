@@ -70,6 +70,8 @@ Strings.Version=Versione: %s
 Strings.SwitchText[0]=Disabilitato
 Strings.SwitchText[1]=Abilitato
 Strings.Standard=Standard
+Strings.Cassette=Musicassetta
+Strings.Cartridge=Cartuccia ROM
 
 ImportVM.EDuplicateWorkDir=Esiste una macchina virtuale che è già stata creata dalla configurazione specificata.\r\n\r\nSeleziona un altro file di configurazione.
 ImportVM.ENoSelectedItems=Nessun elemento selezionato.

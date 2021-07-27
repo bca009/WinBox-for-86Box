@@ -70,6 +70,8 @@ Strings.Version=Verzió: %s
 Strings.SwitchText[0]=Kikapcsolva
 Strings.SwitchText[1]=Bekapcsolva
 Strings.Standard=Szabványos
+Strings.Cassette=Magnókazetta
+Strings.Cartridge=ROM-kazetta
 
 ImportVM.EDuplicateWorkDir=A megadott konfigurációhoz már tartozik virtuális gép.\r\n\r\nVálasszon másik konfigurációs fájlt.
 ImportVM.ENoSelectedItems=Nincs egyetlen elem sem kijelölve.

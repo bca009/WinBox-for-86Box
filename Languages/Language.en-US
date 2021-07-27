@@ -70,6 +70,8 @@ Strings.Version=Version: %s
 Strings.SwitchText[0]=Disabled
 Strings.SwitchText[1]=Enabled
 Strings.Standard=Standard
+Strings.Cassette=Cassette Tape
+Strings.Cartridge=ROM-Cartridge
 
 ImportVM.EDuplicateWorkDir=There is a virtual machine which already created by the specified configuration.\r\n\r\nSelect another configuration file. 
 ImportVM.ENoSelectedItems=No items selected.

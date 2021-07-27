@@ -47,7 +47,7 @@ type
     Joystick: string;
 
     Memory, CPUSpeed, VoodooType: integer;
-    HasVoodoo, SLI: boolean;
+    HasVoodoo, SLI, HasCassette: boolean;
 
     AspectRatio: TPoint;
 
@@ -156,11 +156,12 @@ const
     Mouse:    'none';
     Joystick: 'none';
 
-    Memory:     256;
-    CPUSpeed:   4772728;
-    VoodooType: 0;
-    HasVoodoo:  false;
-    SLI:        false;
+    Memory:      256;
+    CPUSpeed:    4772728;
+    VoodooType:  0;
+    HasVoodoo:   false;
+    SLI:         false;
+    HasCassette: true;
 
     AspectRatio: (X: 4; Y: 3);
 
@@ -605,10 +606,13 @@ var
   I: integer;
 begin
   Result := '';
+  if HasCassette then
+    Result := Result + ', ' + _T('Text.Cassette');
+
   for I := Low(ZIP) to High(ZIP) do
     with ZIP[I] do
       if Connector <> '' then begin
-        Result := format(', %s ZIP', [Connector]);
+        Result := Result + format(', %s ZIP', [Connector]);
         break;
       end;
 
@@ -817,11 +821,12 @@ begin
           Floppy[I] := ReadString('Floppy and CD-ROM drives',
                          'fdd_0' + IntToStr(I) + '_type', Floppy[I]);
 
-        Memory     := ReadInteger('Machine',              'mem_size',        Memory);
-        CPUSpeed   := ReadInteger('Machine',              'cpu_speed',     CPUSpeed);
-        VoodooType := ReadInteger('3DFX Voodoo Graphics', 'type',        VoodooType);
-        HasVoodoo  := ReadInteger('Video',                'voodoo',  ord(HasVoodoo)) <> 0;
-        SLI        := ReadInteger('3DFX Voodoo Graphics', 'sli',           ord(SLI)) <> 0;
+        Memory      := ReadInteger('Machine',              'mem_size',         Memory);
+        CPUSpeed    := ReadInteger('Machine',              'cpu_speed',        CPUSpeed);
+        VoodooType  := ReadInteger('3DFX Voodoo Graphics', 'type',             VoodooType);
+        HasVoodoo   := ReadInteger('Video',                'voodoo',           ord(HasVoodoo)) <> 0;
+        SLI         := ReadInteger('3DFX Voodoo Graphics', 'sli',              ord(SLI)) <> 0;
+        HasCassette := ReadInteger('Storage controllers',  'cassette_enabled', ord(HasCassette)) <> 0;
 
         GetAspectRatio(Config, AspectRatio);
 
