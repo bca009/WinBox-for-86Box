@@ -61,6 +61,8 @@ type
     ZIP: array [1..4] of T86BoxStorage;
     MO: array [1..4] of T86BoxStorage;
 
+    function IsAT: boolean; //assumption for 86Box's IS_AT at src\config.c
+
     procedure Reload(const ConfigFile: string);
 
     procedure GetCDROM(Config: TCustomIniFile; const ID: integer;
@@ -607,7 +609,7 @@ var
 begin
   Result := '';
   if HasCassette then
-    Result := Result + ', ' + _T('Text.Cassette');
+    Result := Result + ', ' + _T('Strings.Cassette');
 
   for I := Low(ZIP) to High(ZIP) do
     with ZIP[I] do
@@ -776,6 +778,25 @@ begin
   end;
 end;
 
+function T86BoxConfig.IsAT: boolean;
+begin
+  //The default value is dependent by the IS_AT macro of 86Box src\config.c.
+  //However while WinBox don't know the flags from the machines table, it's
+  // rather just an assumption.
+
+  if Machine = 'xi8088' then
+    exit(true)
+  else if Machine = 'hed919' then
+    exit(false)
+  else
+    Result := (CPUType <> '8088') and
+              (CPUType <> '8088_europc') and
+              (CPUType <> '8086');
+
+  //Also the call of IsAT assumes, that tha Machine, and CPUType fields
+  // have been read correctly before.
+end;
+
 procedure T86BoxConfig.Reload(const ConfigFile: string);
 var
   Config: TMemIniFile;
@@ -826,7 +847,7 @@ begin
         VoodooType  := ReadInteger('3DFX Voodoo Graphics', 'type',             VoodooType);
         HasVoodoo   := ReadInteger('Video',                'voodoo',           ord(HasVoodoo)) <> 0;
         SLI         := ReadInteger('3DFX Voodoo Graphics', 'sli',              ord(SLI)) <> 0;
-        HasCassette := ReadInteger('Storage controllers',  'cassette_enabled', ord(HasCassette)) <> 0;
+        HasCassette := ReadInteger('Storage controllers',  'cassette_enabled', ord(not IsAT)) <> 0;
 
         GetAspectRatio(Config, AspectRatio);
 
