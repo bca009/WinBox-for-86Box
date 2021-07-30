@@ -25,11 +25,15 @@ object ProgSettDlg: TProgSettDlg
     Top = 8
     Width = 444
     Height = 458
-    ActivePage = tabEmulator
+    ActivePage = tabAppearance
     Anchors = [akLeft, akTop, akRight, akBottom]
     TabOrder = 0
     object tabGeneral: TTabSheet
       Caption = #193'ltal'#225'nos'
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       DesignSize = (
         436
         430)
@@ -463,6 +467,7 @@ object ProgSettDlg: TProgSettDlg
             'Line'#225'ris sk'#225'l'#225'z'#225's alkalmaz'#225'sa (ha lehets'#233'ges)'
             'Kontraszt megn'#246'vel'#233'se (monokr'#243'm kijelz'#337'n'#233'l)'
             #193'llapotsori ikonok friss'#237't'#233'se'
+            #193'llapotsor elrejt'#233'se'
             'Inform'#225'ci'#243'k megjelen'#237't'#233'se teljes k'#233'perny'#337're v'#225'lt'#225'skor'
             'Kil'#233'p'#233'si meger'#337's'#237't'#233's k'#233'r'#233'se'
             'Discord t'#225'mogat'#225's enged'#233'lyez'#233'se')
@@ -554,6 +559,10 @@ object ProgSettDlg: TProgSettDlg
     object tabTools: TTabSheet
       Caption = 'Eszk'#246'z'#246'k'
       ImageIndex = 2
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object grpTools: TGroupBox
         Left = 16
         Top = 16
@@ -711,6 +720,10 @@ object ProgSettDlg: TProgSettDlg
     object tabSpecial: TTabSheet
       Caption = 'Speci'#225'lis'
       ImageIndex = 4
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object grpExtraPaths: TGroupBox
         Left = 16
         Top = 16

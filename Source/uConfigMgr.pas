@@ -75,7 +75,7 @@ type
   end;
 
 const
-  CheckListKeys: array [0..8] of TCheckListKey =
+  CheckListKeys: array [0..9] of TCheckListKey =
     (//(Name: 'window_remember';     Default: 0),
      //   Cause a deadlock since makes 86Box continously write to the INI file.
      //   WinBox can handle it, since it reads the INI when the monitor notifies
@@ -89,6 +89,7 @@ const
      (Name: 'video_filter_method';    Default: 1),
      (Name: 'vid_cga_contrast';       Default: 0),
      (Name: 'update_icons';           Default: 1),
+     (Name: 'hide_status_bar';        Default: 0),
      (Name: 'video_fullscreen_first'; Default: 1),
      (Name: 'confirm_exit';           Default: 1),
      (Name: 'enable_discord';         Default: 0));

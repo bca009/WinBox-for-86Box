@@ -47,11 +47,11 @@ type
     Joystick: string;
 
     Memory, CPUSpeed, VoodooType: integer;
-    HasVoodoo, SLI, HasCassette: boolean;
+    HasVoodoo, SLI, HasCassette, HasCartridge: boolean;
 
     AspectRatio: TPoint;
 
-    ScsiCard: array [1..4] of string;
+    ScsiCard: array [0..4] of string;
     Floppy: array [1..4] of string;
     Serial: array [1..4] of boolean;
     Parallel: array [1..3] of boolean;
@@ -63,7 +63,7 @@ type
 
     function IsAT: boolean; //assumption for 86Box's IS_AT at src\config.c
 
-    procedure Reload(const ConfigFile: string);
+    procedure Reload(const ConfigFile: string; NameDefs: TMemIniFile);
 
     procedure GetCDROM(Config: TCustomIniFile; const ID: integer;
       var Storage: T86BoxStorage);
@@ -163,11 +163,12 @@ const
     VoodooType:  0;
     HasVoodoo:   false;
     SLI:         false;
-    HasCassette: true;
+    HasCassette:  true;
+    HasCartridge: false;
 
     AspectRatio: (X: 4; Y: 3);
 
-    ScsiCard: ('none', 'none', 'none', 'none');
+    ScsiCard: ('none', 'none', 'none', 'none', 'none');
     Floppy: ('525_2dd', '525_2dd', 'none', 'none');
     Serial: (true, true, false, false);
     Parallel: (true, false, false));
@@ -258,7 +259,7 @@ var
   L: TStringList;
 begin
   if (FileName = '86BOX.CFG') and CanLockFile(ConfigFile, GENERIC_READ) then
-    ConfigData.Reload(ConfigFile)
+    ConfigData.Reload(ConfigFile, NameDefs)
   else if FileName = 'PRINTER' then
     HasPrinterTray := DirectoryExists(PrinterTray);
 
@@ -611,6 +612,9 @@ begin
   if HasCassette then
     Result := Result + ', ' + _T('Strings.Cassette');
 
+  if HasCartridge then
+    Result := Result + ', ' + _T('Strings.Cartridge');
+
   for I := Low(ZIP) to High(ZIP) do
     with ZIP[I] do
       if Connector <> '' then begin
@@ -797,12 +801,20 @@ begin
   // have been read correctly before.
 end;
 
-procedure T86BoxConfig.Reload(const ConfigFile: string);
+procedure T86BoxConfig.Reload(const ConfigFile: string; NameDefs: TMemIniFile);
 var
   Config: TMemIniFile;
   I, J: integer;
+
+  Config_SCSI,
+  Config_Cassette,
+  Config_Cartridge: integer;
 begin
   Self := DefConfig;
+
+  Config_SCSI      := NameDefs.ReadInteger('config', 'Mode.SCSI', 2);
+  Config_Cassette  := NameDefs.ReadInteger('config', 'Mode.Cassette', 2);
+  Config_Cartridge := NameDefs.ReadInteger('config', 'Mode.Cartridge', 1);
 
   try
     Config := TMemIniFile.Create(ConfigFile, TEncoding.UTF8);
@@ -826,18 +838,6 @@ begin
         Mouse      := ReadString('Input devices',         'mouse_type',       Mouse);
         Joystick   := ReadString('Input devices',         'joystick_type', Joystick);
 
-        J := 0;
-        for I := Low(ScsiCard) to High(ScsiCard) do begin
-          ScsiCard[I] := ReadString('Storage controllers',
-                         'scsicard_' + IntToStr(I),   ScsiCard[I]);
-          if ScsiCard[I] <> 'none' then
-            inc(J);
-        end;
-
-        if J = 0 then
-          ScsiCard[1] := ReadString('Storage controllers',
-                         'scsicard', ScsiCard[1]);
-
         for I := Low(Floppy) to High(Floppy) do
           Floppy[I] := ReadString('Floppy and CD-ROM drives',
                          'fdd_0' + IntToStr(I) + '_type', Floppy[I]);
@@ -847,7 +847,6 @@ begin
         VoodooType  := ReadInteger('3DFX Voodoo Graphics', 'type',             VoodooType);
         HasVoodoo   := ReadInteger('Video',                'voodoo',           ord(HasVoodoo)) <> 0;
         SLI         := ReadInteger('3DFX Voodoo Graphics', 'sli',              ord(SLI)) <> 0;
-        HasCassette := ReadInteger('Storage controllers',  'cassette_enabled', ord(not IsAT)) <> 0;
 
         GetAspectRatio(Config, AspectRatio);
 
@@ -870,6 +869,45 @@ begin
 
         for I := Low(MO) to High(MO) do
           GetExStor(Config, 'mo', I, MO[I]);
+
+        //Config_SCSI:
+        // 0: csak scsicard -> [1]
+        // 1: mind az öt scsicard -> [0..4]
+        // 2: négy scsicard, alap felülírja -> [1..4]
+
+        J := 0;
+        if Config_SCSI > 0 then
+          for I := Low(ScsiCard) to High(ScsiCard) do begin
+            ScsiCard[I] := ReadString('Storage controllers',
+                           'scsicard_' + IntToStr(I),   ScsiCard[I]);
+            if ScsiCard[I] <> 'none' then
+              inc(J);
+          end;
+
+        if J = 0 then
+          ScsiCard[ord(boolean(Config_SCSI = 2))] :=
+            ReadString('Storage controllers', 'scsicard', ScsiCard[ord(boolean(Config_SCSI = 2))]);
+
+        //Config_Cassette:
+        // 0: letiltva
+        // 1: alapból engedélyezve, implicit letiltás
+        // 2: alapból engedélyezve AT gépeken, implicit letiltás
+
+        case Config_Cassette of
+          0: HasCassette := false;
+          1: HasCassette := ReadInteger('Storage controllers',  'cassette_enabled', ord(HasCassette)) <> 0;
+          2: HasCassette := ReadInteger('Storage controllers',  'cassette_enabled', ord(not IsAT)) <> 0;
+        end;
+
+        //Config_Cartridge:
+        // 0: letiltva
+        // 1: engedélyezve ha MACHINE_CARTRIDGE flag benn van
+        //     (egyelőre csak IBM PCjr)
+
+        case Config_Cartridge of
+          0: HasCartridge := false;
+          1: HasCartridge := Machine = 'ibmpcjr';
+        end;
     finally
       Free;
     end;
