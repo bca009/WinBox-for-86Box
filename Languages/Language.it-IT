@@ -42,7 +42,7 @@ Builds.Basic=Costruzione di base
 Printers.TextOnly=Stampante ad aghi di solo testo
 Mouse.Serial=mouse seriale 
 Mouse.Bus=mouse bus
-Note.NoCDOldHDD=L\'hard disk contemporaneo non è in grado di gestire.
+Note.NoCDOldHDD=Incompatibile con dischi rigidi adatti all'età. 
 
 [Strings]
 ProgSettDlg.lvTools.Column[0]=Nome

@@ -42,7 +42,7 @@ Builds.Basic=Basic Build
 Printers.TextOnly=Text-Only Dot-Matrix Printer
 Mouse.Serial=Serial Mouse
 Mouse.Bus=Bus Mouse
-Note.NoCDOldHDD=Contemporary Hard Disk can\'t handle well.
+Note.NoCDOldHDD=Age-appropriate Hard Disk can\'t handle well.
 
 [Strings]
 ProgSettDlg.lvTools.Column[0]=Name
