@@ -7,7 +7,7 @@ Type=86Box
 ConfigFile=86box.cfg
 Option0=%Options.CPUType%|Intel i486SX (33 MHz)=i486|AMD Am486DX2 (50 MHz)=am486|Cyrix Cx486DX2 (80 MHz)=cx486|Intel iDX4 (100 MHz)=idx4
 Option1=%Options.Memory%|Machine.mem_size
-Option2=%Options.Build%|Basic build=basic|Multimedia build=multi|Networking build=netw|Full build=full
+Option2=%Options.Build%|%Builds.Multi%=multi|%Builds.Network%=netw|%Builds.Full%=full|%Builds.Basic%=basic
 Option3=%Options.Printer%|Ports (COM & LPT).lpt1_device
 OptionCDROM=0
 DescOfCDROM=8x SCSI
