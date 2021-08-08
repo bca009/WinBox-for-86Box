@@ -392,6 +392,8 @@ am486dxl2=AMD Am486DXL2
 am486dx4=AMD Am486DX4
 enh_am486dx2=AMD Am486DX2 (Enhanced)
 enh_am486dx4=AMD Am486DX4 (Enhanced)
+am486dx2_slenh=AMD Am486DX2 (SL-Enhanced)
+am486dx4_slenh=AMD Am486DX4 (SL-Enhanced)
 am5x86=AMD Am5x86
 cx486s=Cyrix Cx486S
 cx486dx=Cyrix Cx486DX
@@ -429,6 +431,8 @@ pentium2_deschutes=Intel Pentium II (Deschutes)
 pentium2_xeon=Intel Pentium II Xeon
 celeron_mendocino=Intel Celeron (Mendocino)
 c3_samuel=VIA Cyrix III
+pentium3_katmai=Intel Pentium III (Katmai)
+pentium3_coppermine=Intel Pentium III (Coppermine)
 
 [gfxcard]
 none=None		

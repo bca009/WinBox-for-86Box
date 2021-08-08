@@ -54,7 +54,7 @@ ProgSettDlg.EOpenConfigLocked=A megnyitni kívánt fájl (\"%s\") egy másik pro
 
 ProfSettDlg.AskVmIconDel=Jelenleg be van kapcsolva a fájlok védelme ennél a virtuális gépnél és ezzel a művelettel felülírja/törli a \"vm-icon.png\" fájlt a munkakönyvtárban.\r\n\r\nKívánja folytatni?
 
-OpenDialog.86Box=86Box binárisok (86Box*.exe)|86Box*.*|Futtatható fájlok (*.exe; *.com; *.bat; *.cmd)|*.exe; *.com; *.bat; *.cmd|Minden fájl (*.*)|*.*
+OpenDialog.86Box=86Box binárisok (??Box*.exe)|??Box*.exe|Futtatható fájlok (*.exe; *.com; *.bat; *.cmd)|*.exe; *.com; *.bat; *.cmd|Minden fájl (*.*)|*.*
 OpenDialog.Executables=Futtatható fájlok (*.exe; *.com; *.bat; *.cmd)|*.exe; *.com; *.bat; *.cmd|Minden fájl (*.*)|*.*
 OpenDialog.LogFiles=Naplófájlok (*.log)|*.log|Szövegfájlok (*.txt)|*.txt|Minden fájl (*.*)|*.*
 OpenDialog.WICImage=Támogatott formátumok (*.bmp; *.gif; *.jpeg; *.jpg; *.exif; *.png; *.tif; *.tiff)|*.bmp; *.gif; *.jpeg; *.jpg; *.exif; *.png; *.tif; *.tiff|Bitképek (*.bmp)|*.bmp|GIF-képek (*.gif)|*.gif|JPEG-képek (*.jpg; *.jpeg)|*.jpg;*.jpeg|EXIF-képek (*.exif)|*.exif|PNG-képek (*.png)|*.png|TIFF-képek (*.tif; *.tiff)|*.tif; *.tiff|Minden fájl (*.*)|*.*

@@ -54,7 +54,7 @@ ProgSettDlg.EOpenConfigLocked=Il file che volevi aprire (\"%s\") è utilizzato d
 
 ProfSettDlg.AskVmIconDel=La protezione dei file è attualmente abilitata su questa macchina virtuale e questo sovrascriverà o eliminerà il file \"vm-icon.png\" nella directory di lavoro.\r\n\r\nVuoi continuare? 
 
-OpenDialog.86Box=86Box binaries (86Box*.exe)|86Box*.*|Executable files (*.exe; *.com; *.bat; *.cmd)|*.exe; *.com; *.bat; *.cmd|All files (*.*)|*.*
+OpenDialog.86Box=86Box binaries (??Box*.exe)|??Box*.exe|Executable files (*.exe; *.com; *.bat; *.cmd)|*.exe; *.com; *.bat; *.cmd|All files (*.*)|*.*
 OpenDialog.Executables=File Eseguibili (*.exe; *.bat; *.cmd; *.com)|*.exe;*.bat;*.cmd;*.com|Tutti i file (*.*)|*.*
 OpenDialog.LogFiles=File log (*.log)|*.log|File di Testo (*.txt)|*.txt|Tutti i file (*.*)|*.*
 OpenDialog.WICImage=Formati supportati (*.bmp; *.gif; *.jpeg; *.jpg; *.exif; *.png; *.tif; *.tiff)|*.bmp; *.gif; *.jpeg; *.jpg; *.exif; *.png; *.tif; *.tiff|Bitmap (*.bmp)|*.bmp|Immagini GIF (*.gif)|*.gif|Immagini JPEG (*.jpg; *.jpeg)|*.jpg;*.jpeg|Immagini EXIF (*.exif)|*.exif|Immagini PNG (*.png)|*.png|Immagini TIFF (*.tif; *.tiff)|*.tif; *.tiff|Tutti i file (*.*)|*.*
