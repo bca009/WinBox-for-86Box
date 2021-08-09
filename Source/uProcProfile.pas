@@ -176,7 +176,7 @@ end;
 function TProcessProfile.Start(const Parameters: string;
   const nShow: integer): boolean;
 var
-  szAppName, szWorkDir, szCmdLine: string;
+  szWorkDir, szCmdLine: string;
   siStartup: TStartupInfo;
   piProcess: TProcessInformation;
 begin
@@ -192,7 +192,6 @@ begin
   if length(FIndexMap) > 0 then
     raise Exception.Create(_T(EProcessRunning));
 
-  szAppName := #0;
   szCmdLine := format('"%s" %s %s'#0, [ExecutablePath, Parameters, OptionalParams]);
   szWorkDir := ExcludeTrailingPathDelimiter(ExtractFilePath(ExecutablePath)) + #0;
 
