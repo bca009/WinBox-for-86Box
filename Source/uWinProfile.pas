@@ -270,8 +270,10 @@ begin
   if Force then
     Terminate(true)
   else
-    for I := 0 to Count - 1 do
+    for I := 0 to Count - 1 do begin
+      BringToFront(I);
       Result := Result and Close(I);
+    end;
 
   if dbgLogProcessOp then
     Log('TWinBoxProfile.Stop, Force: %d, Result: %d', [ord(Force), ord(Result)]);
