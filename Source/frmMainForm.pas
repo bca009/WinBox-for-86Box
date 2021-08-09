@@ -366,6 +366,7 @@ type
     procedure acURLExecute(Sender: TObject);
     procedure ListContextPopup(Sender: TObject; MousePos: TPoint;
       var Handled: Boolean);
+    procedure ListDblClick(Sender: TObject);
   private
     //Lista kirajzolásához szükséges cuccok
     HalfCharHeight, BorderThickness: integer;
@@ -1183,6 +1184,16 @@ begin
       1: PerfMenu.Popup(Mouse.X, Mouse.Y);
       else VMMenu.Popup(Mouse.X, Mouse.Y);
     end;
+end;
+
+procedure TWinBoxMain.ListDblClick(Sender: TObject);
+begin
+  if IsSelectedVM then
+    with Profiles[List.ItemIndex - 2] do
+      case State of
+        PROFILE_STATE_STOPPED: Start();
+        else BringToFront();
+      end;
 end;
 
 procedure TWinBoxMain.ListDrawItem(Control: TWinControl; Index: Integer;

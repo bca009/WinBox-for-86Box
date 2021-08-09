@@ -660,7 +660,7 @@ Label5=Specificare la posizione del file immagine del disco floppy.
 lbFileName=&Nome del file:
 lbNoteFileName=Se sai già su quale macchina virtuale vuoi montarla, posizionala nella sua directory di lavoro. 
 lbType=Seleziona il formato del file immagine dall\'&elenco seguente:
-lbNoteDMF=I formati DMF non sono supportati sui sistemi Windows NT.
+lbNoteDMF=I formati 1.72M non sono supportati sui sistemi Windows NT.
 cbFormat=&Formatta file immagine con file system FAT12
 
 [WizardHDD]

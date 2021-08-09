@@ -401,7 +401,7 @@ lbSndCardDesc=&Sound Card:
 lbMidiDesc=M&IDI Device:
 cpVideo=Display
 lbGfxCardDesc=&Graphics Card:
-lb3dfxDesc=&3D Accelertn.:
+lb3dfxDesc=&3D Accel.:
 cpSystem=System
 lbMachineDesc=&Type:
 lbMemoryDesc=Memory:
@@ -657,7 +657,7 @@ Label5=Specify the location of the floppy disk image file.
 lbFileName=&File Name:
 lbNoteFileName=If you already know which virtual machine you want to mount it to, place it in its working directory.
 lbType=Select the format of the image file from the &list below: 
-lbNoteDMF=DMF formats are not supported by Windows NT systems.
+lbNoteDMF=The 1.72M format is not supported by Windows NT systems.
 cbFormat=&Format image file with FAT12 file system 
 
 [WizardHDD]

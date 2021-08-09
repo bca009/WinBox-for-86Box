@@ -139,9 +139,9 @@ object NewFloppy: TNewFloppy
       object lbNoteDMF: TLabel
         Left = 16
         Top = 225
-        Width = 289
+        Width = 292
         Height = 13
-        Caption = 'A DMF form'#225'tumokat a Windows NT rendszerek nem kezelik.'
+        Caption = 'Az 1.72M form'#225'tumot a Windows NT rendszerek nem kezelik.'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -11
@@ -185,8 +185,8 @@ object NewFloppy: TNewFloppy
           '5.25'#39#39' DS HD 1.2M'
           '3.5'#39#39' DS DD 720k'
           '3.5'#39#39' DS HD 1.44M'
-          '3.5'#39#39' DS DMF 1.68M'
-          '3.5'#39#39' DS DMF 1.72M'
+          '3.5'#39#39' DS HD 1.68M'
+          '3.5'#39#39' DS HD 1.72M'
           '3.5'#39#39' DS ED 2.88M')
       end
       object cbFormat: TCheckBox

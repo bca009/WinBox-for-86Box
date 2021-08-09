@@ -40,6 +40,7 @@ object WinBoxMain: TWinBoxMain
     ItemHeight = 48
     TabOrder = 0
     OnContextPopup = ListContextPopup
+    OnDblClick = ListDblClick
     OnDrawItem = ListDrawItem
     OnKeyDown = ListKeyDown
     OnKeyUp = ListKeyUp
@@ -62,8 +63,6 @@ object WinBoxMain: TWinBoxMain
     TabOrder = 1
     object tabHome: TTabSheet
       Caption = 'Kezd'#337'lap'
-      ExplicitLeft = 6
-      ExplicitTop = 22
       DesignSize = (
         483
         297)
