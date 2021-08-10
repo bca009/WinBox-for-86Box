@@ -124,6 +124,7 @@ end;
 
 function TWinProfile.Close(const Index: integer): boolean;
 begin
+  BringToFront(Index);
   Result := Perform(WM_CLOSE, 0, 0, Index) = 0;
 
   if dbgLogProcessOp then
@@ -270,10 +271,8 @@ begin
   if Force then
     Terminate(true)
   else
-    for I := 0 to Count - 1 do begin
-      BringToFront(I);
+    for I := 0 to Count - 1 do
       Result := Result and Close(I);
-    end;
 
   if dbgLogProcessOp then
     Log('TWinBoxProfile.Stop, Force: %d, Result: %d', [ord(Force), ord(Result)]);
