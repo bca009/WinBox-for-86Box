@@ -113,6 +113,9 @@ function NextImageName(Directory: string; const ImageBase: string = 'vdisk'): st
 function SelectDirectory(const Caption: string; const Root: WideString;
   var Directory: string; Parent: TWinControl): Boolean;
 
+function TryLoadIni(const FileName: string): TMemIniFile;
+procedure TryLoadList(Stream: TStream; List: TStrings; const Origin: int64 = 0);
+
 //színek a háttérszín alapján
 function GetTextColor(const Color: TColor): TColor;
 function GetLinkColor(Color: TColor): TColor;
@@ -126,6 +129,43 @@ uses ComObj, ShlObj, ActiveX, FileCtrl;
 
 resourcestring
   InfWinBox = 'WinBox.inf';
+
+function TryLoadIni(const FileName: string): TMemIniFile;
+begin
+  try
+    Result := TMemIniFile.Create(FileName, TEncoding.UTF8);
+  except
+    on E: EEncodingError do
+      try
+        FreeAndNil(Result);
+        Result := TMemIniFile.Create(FileName);
+      except
+        on E: EFOpenError do
+          FreeAndNil(Result);
+        else
+          raise;
+      end;
+    on E: EFOpenError do
+      FreeAndNil(Result);
+    else
+      raise;
+  end;
+end;
+
+procedure TryLoadList(Stream: TStream; List: TStrings; const Origin: int64 = 0);
+begin
+  try
+    List.LoadFromStream(Stream, TEncoding.UTF8);
+	except
+	  on E: EEncodingError do begin
+	    List.Clear;
+		  Stream.Position := Origin;
+      List.LoadFromStream(Stream);
+    end
+    else
+      raise;
+  end;
+end;
 
 function SelectDirectory(const Caption: string; const Root: WideString;
   var Directory: string; Parent: TWinControl): Boolean;

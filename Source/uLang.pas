@@ -65,7 +65,31 @@ function _T(const Key: string; const Args: array of const): string; overload;
 function _P(const Key: string): PChar; overload;
 function _P(const Key: string; const Args: array of const): PChar; overload;
 
+function TryLoadLang(const FileName: string): TLanguage;
+
 implementation
+
+function TryLoadLang(const FileName: string): TLanguage;
+begin
+  try
+    Result := TLanguage.Create(FileName, TEncoding.UTF8);
+  except
+    on E: EEncodingError do
+      try
+        FreeAndNil(Result);
+        Result := TLanguage.Create(FileName);
+      except
+        on E: EFOpenError do
+          FreeAndNil(Result);
+        else
+          raise;
+      end;
+    on E: EFOpenError do
+      FreeAndNil(Result);
+    else
+      raise;
+  end;
+end;
 
 resourcestring
   StrStrings = 'Strings';
@@ -117,7 +141,7 @@ begin
     FileName := '';
   end;
 
-  Language := TLanguage.Create(FileName, TEncoding.UTF8);
+  Language := TryLoadLang(FileName);
 end;
 
 const

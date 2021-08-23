@@ -517,7 +517,7 @@ begin
           DeleteWithShell(edPath.Text + 'winbox.*', false);
         end;
 
-        Config := TMemIniFile.Create(edPath.Text + Sample.ConfigFile, TEncoding.UTF8);
+        Config := TryLoadIni(edPath.Text + Sample.ConfigFile);
         try
           if not CustomSample then begin
             if cbOption1.ItemIndex <> -1 then

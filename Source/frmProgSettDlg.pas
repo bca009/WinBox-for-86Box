@@ -244,7 +244,7 @@ begin
   if odConfigFiles.Execute then begin
     if FileExists(odConfigFiles.FileName) and
        CanLockFile(odConfigFiles.FileName, GENERIC_READ) then begin
-           Config := TMemIniFile.Create(odConfigFiles.FileName, TEncoding.UTF8);
+           Config := TryLoadIni(odConfigFiles.FileName);
            try
              with Config do begin
                mmManualOptions.Clear;

@@ -303,7 +303,7 @@ begin
 
   if FileExists(NameDefFile) then
     try
-      NameDefs := TMemIniFile.Create(NameDefFile, TEncoding.UTF8);
+      NameDefs := TryLoadIni(NameDefFile);
     except
       FreeAndNil(NameDefs);
     end;
@@ -314,7 +314,7 @@ begin
     try
       Stream := TResourceStream.Create(hInstance, 'NAMEDEFS', RT_RCDATA);
       try
-        List.LoadFromStream(Stream, TEncoding.UTF8);
+        TryLoadList(Stream, List);
         NameDefs.SetStrings(List);
       finally
         Stream.Free;
@@ -816,14 +816,7 @@ begin
   Config_Cassette  := NameDefs.ReadInteger('config', 'Mode.Cassette', 2);
   Config_Cartridge := NameDefs.ReadInteger('config', 'Mode.Cartridge', 1);
 
-  try
-    Config := TMemIniFile.Create(ConfigFile, TEncoding.UTF8);
-  except
-    on E: EFOpenError do
-      FreeAndNil(Config);
-    else
-      raise;
-  end;
+  Config := TryLoadIni(ConfigFile);
 
   if Assigned(Config) then
     with Config do
@@ -920,7 +913,7 @@ var
   Config: TMemIniFile;
 begin
   try
-    Config := TMemIniFile.Create(ConfigFile, TEncoding.UTF8);
+    Config := TryLoadIni(ConfigFile);
   except
     FreeAndNil(Config);
     raise;
