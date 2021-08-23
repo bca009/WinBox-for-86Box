@@ -137,7 +137,6 @@ begin
   except
     on E: EEncodingError do
       try
-        FreeAndNil(Result);
         Result := TMemIniFile.Create(FileName);
       except
         on E: EFOpenError do

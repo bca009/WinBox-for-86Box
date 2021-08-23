@@ -75,17 +75,7 @@ begin
     Result := TLanguage.Create(FileName, TEncoding.UTF8);
   except
     on E: EEncodingError do
-      try
-        FreeAndNil(Result);
-        Result := TLanguage.Create(FileName);
-      except
-        on E: EFOpenError do
-          FreeAndNil(Result);
-        else
-          raise;
-      end;
-    on E: EFOpenError do
-      FreeAndNil(Result);
+      Result := TLanguage.Create(FileName);
     else
       raise;
   end;
