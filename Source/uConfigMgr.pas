@@ -31,7 +31,8 @@ type
     MachineRoot: string;
     EraseProtLvl: integer;
 
-    TrayBehavior: integer;
+    TrayBehavior,
+    WinBoxUpdate: integer;
     MinimizeOnStart: boolean;
     LaunchTimeout: integer;
 
@@ -138,6 +139,7 @@ resourcestring
   KeyMachineRoot     = 'MachineRoot';
   KeyEraseProtLvl    = 'EraseProtLvl';
   KeyTrayBehavior    = 'TrayBehavior';
+  KeyWinBoxUpdate    = 'WinBoxUpdate';
   KeyMinimizeOnStart = 'MinimizeOnStart';
   KeyLaunchTimeout   = 'LaunchTimeout';
   KeyEmulatorPath    = 'EmulatorPath';
@@ -190,6 +192,7 @@ begin
           EraseProtLvl    := ReadIntegerDef(KeyEraseProtLvl, EraseProtLvl);
 
           TrayBehavior    := ReadIntegerDef(KeyTrayBehavior, TrayBehavior);
+          WinBoxUpdate    := ReadIntegerDef(KeyWinBoxUpdate, WinBoxUpdate);
           MinimizeOnStart := ReadBoolDef(KeyMinimizeOnStart, MinimizeOnStart);
           LaunchTimeout   := ReadIntegerDef(KeyLaunchTimeout, LaunchTimeout);
 
@@ -251,6 +254,8 @@ begin
           WriteIntegerChk(KeyEraseProtLvl, EraseProtLvl, Defaults.EraseProtLvl);
 
           WriteIntegerChk(KeyTrayBehavior, TrayBehavior, Defaults.TrayBehavior);
+          WriteIntegerChk(KeyWinBoxUpdate, WinBoxUpdate, Defaults.WinBoxUpdate);
+
           WriteBoolChk(KeyMinimizeOnStart, MinimizeOnStart, Defaults.MinimizeOnStart);
           WriteIntegerChk(KeyLaunchTimeout, LaunchTimeout, Defaults.LaunchTimeout);
 
@@ -293,6 +298,8 @@ begin
   EraseProtLvl := 1;
 
   TrayBehavior := 0;
+  WinBoxUpdate := 3;
+
   MinimizeOnStart := false;
   LaunchTimeout := 5000;
 
@@ -350,7 +357,6 @@ begin
       Repository := ReadString('Configuration.86Box', 'Repository', Repository);
       AutoUpdate := ReadInteger('Configuration.86Box', 'AutoUpdate', ord(AutoUpdate)) <> 0;
       GetSource := ReadInteger('Configuration.86Box', 'DownloadSource', ord(GetSource)) <> 0;
-
 
       case ReadInteger('Configuration.86Box', 'AutoAppearance', 1) of
         0: DisplayMode := 3;

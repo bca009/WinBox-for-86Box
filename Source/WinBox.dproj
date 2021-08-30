@@ -105,13 +105,13 @@
         <VerInfo_Locale>1038</VerInfo_Locale>
         <DCC_IntegerOverflowCheck>true</DCC_IntegerOverflowCheck>
         <DCC_RangeChecking>true</DCC_RangeChecking>
-        <VerInfo_Build>634</VerInfo_Build>
-        <VerInfo_Keys>CompanyName=Laci bá&apos;;FileDescription=WinBox for 86Box;FileVersion=1.0.0.634;InternalName=WinBox for 86Box;LegalCopyright=Laci bá&apos;;LegalTrademarks=Laci bá&apos;;OriginalFilename=WinBox.exe;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=WinBox for 86Box;ProductVersion=1.0;Comments=</VerInfo_Keys>
+        <VerInfo_Build>714</VerInfo_Build>
+        <VerInfo_Keys>CompanyName=Laci bá&apos;;FileDescription=WinBox for 86Box;FileVersion=1.0.0.714;InternalName=WinBox for 86Box;LegalCopyright=Laci bá&apos;;LegalTrademarks=Laci bá&apos;;OriginalFilename=WinBox.exe;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=WinBox for 86Box;ProductVersion=1.0;Comments=</VerInfo_Keys>
         <VerInfo_Debug>true</VerInfo_Debug>
         <Icon_MainIcon>WinBox_Icon.ico</Icon_MainIcon>
-        <Debugger_RunParams>-lang it-IT</Debugger_RunParams>
         <DCC_ExeOutput>..\$(Platform)\$(Config)</DCC_ExeOutput>
         <DCC_DcuOutput>..\$(Platform)\$(Config)</DCC_DcuOutput>
+        <Debugger_RunParams>-lang it-IT</Debugger_RunParams>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win64)'!=''">
         <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
@@ -191,6 +191,11 @@
         <DCCReference Include="frmSplash.pas">
             <Form>WinBoxSplash</Form>
             <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="dmWinBoxUpd.pas">
+            <Form>WinBoxUpd</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
         </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>

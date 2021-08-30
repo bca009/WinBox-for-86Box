@@ -332,6 +332,8 @@ type
     miOnlineDocs2: TMenuItem;
     KivtelfeldobsaEInvalidCast1: TMenuItem;
     MissingDiskDlg: TTaskDialog;
+    acWinBoxUpdate: TAction;
+    Programfrisstsekkeresse1: TMenuItem;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure acDebugExecute(Sender: TObject);
@@ -367,6 +369,7 @@ type
     procedure ListContextPopup(Sender: TObject; MousePos: TPoint;
       var Handled: Boolean);
     procedure ListDblClick(Sender: TObject);
+    procedure acWinBoxUpdateExecute(Sender: TObject);
   private
     //Lista kirajzolásához szükséges cuccok
     HalfCharHeight, BorderThickness: integer;
@@ -420,7 +423,7 @@ implementation
 uses JclDebug, uProcessMon, uProcProfile, uCommUtil, frmProgSettDlg,
   frmProfSettDlg, frmImportVM, uWinProfile, uConfigMgr, ShellAPI,
   uCommText, Rtti, frmErrorDialog, frmAboutDlg, frmSelectHDD, frmNewFloppy,
-  frmWizardHDD, frmWizardVM, uBaseProfile, frmSplash;
+  frmWizardHDD, frmWizardVM, uBaseProfile, frmSplash, dmWinBoxUpd;
 
 const
   MaxPoints = 60;
@@ -775,6 +778,8 @@ begin
               1: with TProfSettDlg.Create(Self) do
                    try
                      Profile := Profiles[List.ItemIndex - 2];
+                     edFriendlyName.Enabled :=
+                       Profiles[List.ItemIndex - 2].State = PROFILE_STATE_STOPPED;
                      if ShowModal = mrOK then
                        acUpdateList.Execute
                      else
@@ -863,6 +868,15 @@ end;
 procedure TWinBoxMain.acWaitFirstUpdate(Sender: TObject);
 begin
   (Sender as TAction).Enabled := FirstUpdateDone;
+end;
+
+procedure TWinBoxMain.acWinBoxUpdateExecute(Sender: TObject);
+begin
+  with WinBoxUpd do begin
+    Refresh;
+    if AskUpdateAction then
+      Execute;
+  end;
 end;
 
 procedure TWinBoxMain.AddSeries(Chart: TChart; AColor: TColor;

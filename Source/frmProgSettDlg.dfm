@@ -25,15 +25,11 @@ object ProgSettDlg: TProgSettDlg
     Top = 8
     Width = 444
     Height = 458
-    ActivePage = tabAppearance
+    ActivePage = tabGeneral
     Anchors = [akLeft, akTop, akRight, akBottom]
     TabOrder = 0
     object tabGeneral: TTabSheet
       Caption = #193'ltal'#225'nos'
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       DesignSize = (
         436
         430)
@@ -158,12 +154,12 @@ object ProgSettDlg: TProgSettDlg
         Left = 16
         Top = 263
         Width = 401
-        Height = 138
+        Height = 154
         Anchors = [akLeft, akTop, akRight]
         Caption = 'A WinBox viselked'#233'se'
         TabOrder = 1
         object lbTrayBehavior: TLabel
-          Left = 16
+          Left = 18
           Top = 32
           Width = 107
           Height = 13
@@ -171,23 +167,31 @@ object ProgSettDlg: TProgSettDlg
           FocusControl = cbTrayBehavior
         end
         object lbLaunchTimeout: TLabel
-          Left = 16
-          Top = 66
-          Width = 136
+          Left = 18
+          Top = 95
+          Width = 144
           Height = 13
           Caption = 'Emul'#225'tor ind'#237't'#225'si &id'#337't'#250'll'#233'p'#233's:'
           FocusControl = spLaunchTimeout
         end
         object lbMilliseconds: TLabel
           Left = 285
-          Top = 68
+          Top = 95
           Width = 68
           Height = 13
           Caption = 'ezredm'#225'sodp.'
         end
+        object lbWinBoxUpdate: TLabel
+          Left = 18
+          Top = 63
+          Width = 98
+          Height = 13
+          Caption = '&Friss'#237't'#233'sek kezel'#233'se:'
+          FocusControl = cbWinBoxUpdate
+        end
         object cbMinimizeOnStart: TCheckBox
           Left = 16
-          Top = 97
+          Top = 121
           Width = 369
           Height = 17
           Caption = 'A WinBox &kis m'#233'ret'#369'v'#233' t'#233'tele egy virtu'#225'lis g'#233'p elind'#237't'#225'sakor'
@@ -210,13 +214,28 @@ object ProgSettDlg: TProgSettDlg
         end
         object spLaunchTimeout: TSpinEdit
           Left = 168
-          Top = 63
+          Top = 90
           Width = 111
           Height = 22
           MaxValue = 60000
           MinValue = 1000
           TabOrder = 1
           Value = 5000
+        end
+        object cbWinBoxUpdate: TComboBox
+          Left = 131
+          Top = 59
+          Width = 246
+          Height = 21
+          Style = csDropDownList
+          ItemIndex = 3
+          TabOrder = 3
+          Text = 'Telep'#237't'#337' let'#246'lt'#233'se, automatikus telep'#237't'#233's'
+          Items.Strings = (
+            'Ne keressen '#250'j WinBox verzi'#243'kat'
+            'K'#233'zi let'#246'lt'#233'si lehet'#337's'#233'g, egy'#233'ni friss'#237't'#233's'
+            'Telep'#237't'#337' let'#246'lt'#233'se, v'#233'gigk'#237's'#233'rt telep'#237't'#233's'
+            'Telep'#237't'#337' let'#246'lt'#233'se, automatikus telep'#237't'#233's')
         end
       end
     end
@@ -559,10 +578,6 @@ object ProgSettDlg: TProgSettDlg
     object tabTools: TTabSheet
       Caption = 'Eszk'#246'z'#246'k'
       ImageIndex = 2
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object grpTools: TGroupBox
         Left = 16
         Top = 16
@@ -720,10 +735,6 @@ object ProgSettDlg: TProgSettDlg
     object tabSpecial: TTabSheet
       Caption = 'Speci'#225'lis'
       ImageIndex = 4
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object grpExtraPaths: TGroupBox
         Left = 16
         Top = 16

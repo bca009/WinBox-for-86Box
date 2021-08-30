@@ -884,6 +884,12 @@ object WinBoxMain: TWinBoxMain
       OnExecute = acDeleteVMExecute
       OnUpdate = acVMsUpdate
     end
+    object acWinBoxUpdate: TAction
+      Category = 'Eszk'#246'z'#246'k'
+      Caption = 'Programfri&ss'#237't'#233'sek keres'#233'se...'
+      ShortCut = 24661
+      OnExecute = acWinBoxUpdateExecute
+    end
   end
   object MainMenu: TMainMenu
     Images = Icons16
@@ -1014,6 +1020,9 @@ object WinBoxMain: TWinBoxMain
       Caption = '&Eszk'#246'z'#246'k'
       object Emultorfrisstsekkeresse1: TMenuItem
         Action = acAutoUpdate
+      end
+      object Programfrisstsekkeresse1: TMenuItem
+        Action = acWinBoxUpdate
       end
       object N42: TMenuItem
         Caption = '-'

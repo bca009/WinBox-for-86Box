@@ -33,8 +33,13 @@ type
     FDownloading: boolean;
   public
     constructor Create;
-    function Download(URL, User, Pass: string; Stream: TStream; const Port: LongWord = INTERNET_DEFAULT_HTTPS_PORT): boolean; overload;
-    function Download(URL, User, Pass, FileName: string; const Port: LongWord = INTERNET_DEFAULT_HTTPS_PORT): boolean; overload;
+    function Download(URL, User, Pass: string;
+                Header: PChar; const HeaderLen: LongWord;
+                Stream: TStream; const Port: LongWord = INTERNET_DEFAULT_HTTPS_PORT): boolean; overload;
+    function Download(URL, User, Pass: string;
+                Stream: TStream; const Port: LongWord = INTERNET_DEFAULT_HTTPS_PORT): boolean; overload; inline;
+    function Download(URL, User, Pass, FileName: string;
+                const Port: LongWord = INTERNET_DEFAULT_HTTPS_PORT): boolean; overload;
     property OnProgress: TNotifyEvent read FProgress write FProgress;
     property BytesRead: Int64 read FBytesRead;
     property Downloading: boolean read FDownloading;
@@ -81,6 +86,8 @@ function httpsGet(URL, FileName: string): boolean; overload;
 function httpGet(AURL: string; Stream: TStream): boolean; overload;
 function httpGet(AURL, FileName: string): boolean; overload;
 function httpsGet(const URL: string): string; overload;
+
+function httpsGetEx(const URL: string; Headers: string): string;
 
 //URL: pl. http://ci.86box.net/job/86Box-Dev
 function jenkinsLastBuild(URL: string): integer;
@@ -287,6 +294,22 @@ begin
     Result := format(SJenkinsDownload, [URL, Build, Result]);
 end;
 
+function httpsGetEx(const URL: string; Headers: string): string; overload;
+var
+  AStream: TStringStream;
+begin
+  Headers := Headers + #0;
+  AStream := TStringStream.Create;
+  try
+    if Downloader.Download(URL, '', '', @Headers[1], length(Headers), AStream) then
+      Result := AStream.DataString
+    else
+      Result := '';
+  finally
+    AStream.Free;
+  end;
+end;
+
 function httpsGet(const URL: string): string; overload;
 var
   AStream: TStringStream;
@@ -398,6 +421,7 @@ end;
 { TDownloader }
 
 function TDownloader.Download(URL, User, Pass: string;
+  Header: PChar; const HeaderLen: LongWord;
   Stream: TStream; const Port: LongWord): boolean;
 const
   BufferSize = 1024;
@@ -414,7 +438,7 @@ begin
      INTERNET_SERVICE_HTTP, 0, 0);
 
   try
-    hURL := InternetOpenURL(hSession, PChar(URL), nil, 0, 0, 0);
+    hURL := InternetOpenURL(hSession, PChar(URL), Header, HeaderLen, 0, 0);
 
     if hURL = nil then begin
       InternetCloseHandle(hSession);
@@ -462,6 +486,12 @@ begin
   S := TFileStream.Create(FileName, fmCreate);
   Result := Download(URL, User, Pass, S, Port);
   S.Free;
+end;
+
+function TDownloader.Download(URL, User, Pass: string; Stream: TStream;
+  const Port: LongWord): boolean;
+begin
+  Result := Download(URL, User, Pass, nil, 0, Stream, Port);
 end;
 
 initialization

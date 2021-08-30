@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "WinBox for 86Box"
-#define MyAppVersion "1.0.0.634"
+#define MyAppVersion "1.0.0.714"
 #define MyAppPublisher "Laci bá'"
 #define MyAppURL "https://users.atw.hu/laciba/"    
 
@@ -35,6 +35,8 @@ SolidCompression=yes
 WizardStyle=modern
 VersionInfoVersion={#MyAppVersion}
 MinVersion=6.1sp1
+UninstallDisplayIcon={app}\WinBox.exe
+CloseApplications=yes
 ; ArchitecturesAllowed=x64
 ; ArchitecturesInstallIn64BitMode=x64
 
@@ -62,5 +64,23 @@ Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\WinBox.exe";
 Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\WinBox.exe"; Tasks: desktopicon; 
 
 [Run]
-Filename: "{app}\WinBox.exe"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent;
+Filename: "{app}\WinBox.exe"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall runasoriginaluser skipifsilent;   
+Filename: "{app}\WinBox.exe"; Flags: nowait postinstall runasoriginaluser skipifnotsilent; Check: CheckParam('/EXEC');
+
+[Code]
+function CheckParam(Param: string): boolean;
+var
+  I: integer;
+begin
+  Result := false;
+ 
+  if paramcount > 0 then begin
+    Param := UpperCase(Param);
+    for I := 1 to paramcount do
+      if UpperCase(paramstr(I)) = Param then begin
+        Result := true;
+        exit;
+      end;
+  end;
+end;
 

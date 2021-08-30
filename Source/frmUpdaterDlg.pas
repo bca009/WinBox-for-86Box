@@ -100,14 +100,11 @@ resourcestring
   FileJenkins           = '86box-jenkins.zip';
   FileEmpty             = '-';
   DlgFooterText         = 'UpdateDlg.FooterText';
-  DlgDetailsText        = 'UpdateDlg.DetailsText';
-  DlgDetailsInfo        = 'UpdateDlg.DetailsInfo';
-  DlgDetailsChanges     = 'UpdateDlg.DetailsChanges';
   DlgAskAllowUpdate     = 'UpdateDlg.AskAllowUpdate';
   DlgAskLocalNewer      = 'UpdateDlg.AskLocalNewer';
   DlgAskUnknown         = 'UpdateDlg.AskUnknownVer';
   DlgAskFirstDownload   = 'UpdateDlg.AskFirstDownload';
-  ECantAccessServer     = 'UpdateDlg.ECantAccessServer';
+  DlgDetailsInfo        = 'UpdateDlg.DetailsInfo';
 
 function TUpdaterDlg.AskUpdateAction: boolean;
 var

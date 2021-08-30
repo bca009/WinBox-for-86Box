@@ -23,7 +23,8 @@ uses
   frmWaitForm in 'frmWaitForm.pas' {WaitForm},
   frmWizardHDD in 'frmWizardHDD.pas' {WizardHDD},
   frmWizardVM in 'frmWizardVM.pas' {WizardVM},
-  frmSplash in 'frmSplash.pas' {WinBoxSplash};
+  frmSplash in 'frmSplash.pas' {WinBoxSplash},
+  dmWinBoxUpd in 'dmWinBoxUpd.pas' {WinBoxUpd: TDataModule};
 
 {$R *.res}
 {$R '..\Data\rcWinBox.RES'}
@@ -49,6 +50,7 @@ begin
   Application.MainFormOnTaskbar := True;
   Application.Title := 'WinBox for 86Box';
   Application.ActionUpdateDelay := 50;
+  Application.CreateForm(TWinBoxUpd, WinBoxUpd);
   Application.CreateForm(TWinBoxMain, WinBoxMain);
   Application.CreateForm(THDSelect, HDSelect);
   Application.Run;

@@ -157,6 +157,11 @@ UpdateDlg.Progress.Extract=Estrazione del pacchetto...
 UpdateDlg.Progress.CleanUp=Rimuovi i file temporanei...
 UpdateDlg.Progress.Terminated=Il processo è stato interrotto dall\'utente. 
 
+WinBoxUpd.DetailsInfo=Versione: %s\r\nData di rilascio: %s
+WinBoxUpd.DialogTitle=Aggiornamento del programma disponibile
+WinBoxUpd.AskAllowUpdate=C\'è un aggiornamento per il programma WinBox per 86Box.\r\nVuoi scaricare e installare? 
+WinBoxUpd.AskLocalNewer=La versione WinBox for 86Box attualmente in uso è la stessa o più recente di quella scaricabile.\r\nVuoi sostituire la versione attuale?
+
 SelectHDD.AnyManufacturer=(Qualsiasi Produttore)
 SelectHDD.AnyConnector=(Qualsiasi Connettore)
 SelectHDD.ClientDataSet.FieldDefs[0]=Indice
@@ -296,6 +301,7 @@ acUpdateList=&Aggiorna Elenco Macchine
 acUpdateTools=Aggiorna Elenco di Strumenti &Utente
 
 acAutoUpdate=Cerca emulatore e &aggiornamenti...
+acWinBoxUpdate=Cerca a&ggiornamenti del programma... 
 acProgramSettings=&Impostazioni Programma...
 acDiskDatabase=Apri il &database del disco rigido...
 
@@ -436,6 +442,11 @@ cbTrayBehavior.Items[0]=Nessuna icona di notifica, ridotta a icona sulla barra d
 cbTrayBehavior.Items[1]=Ha un\'icona di notifica, ridotta a icona sulla barra delle applicazioni 
 cbTrayBehavior.Items[2]=Riduci a icona nell\'area di notifica
 cbTrayBehavior.Items[3]=Esci nell\'area di notifica
+lbWinBoxUpdate=Gestione &aggiorn.:
+cbWinBoxUpdate.Items[0]=Non cercare nuove versioni di WinBox
+cbWinBoxUpdate.Items[1]=Apri l'opzione di download, aggiornamento manuale
+cbWinBoxUpdate.Items[2]=Scarica il programma di inst., installazione manuale
+cbWinBoxUpdate.Items[3]=Scarica il programma di inst., installazione silenziosa 
 tabEmulator=Emulatore
 grpDefEmulator=Impostazioni predefinite dell\'emulatore
 lbDefEmulator=In questa scheda è possibile specificare le informazioni dell\'emulatore 86Box utilizzato di default dalle macchine virtuali.

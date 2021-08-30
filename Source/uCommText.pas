@@ -1,4 +1,4 @@
-(*
+﻿(*
 
     WinBox for 86Box - An alternative manager for 86Box VMs
 
@@ -44,6 +44,10 @@ resourcestring
   ImFileExists       = 'Imaging.AskFileExists';
 
   StrDateTimeAsLogName = 'yyyy_mm_dd-hh_nn_ss';
+
+  DlgDetailsText        = 'UpdateDlg.DetailsText';
+  DlgDetailsChanges     = 'UpdateDlg.DetailsChanges';
+  ECantAccessServer     = 'UpdateDlg.ECantAccessServer';
 
 implementation
 

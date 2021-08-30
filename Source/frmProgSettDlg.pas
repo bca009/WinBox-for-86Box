@@ -130,6 +130,8 @@ type
     N1: TMenuItem;
     miDefaults: TMenuItem;
     odConfigFiles: TOpenDialog;
+    lbWinBoxUpdate: TLabel;
+    cbWinBoxUpdate: TComboBox;
     procedure Reload(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure cbLoggingChange(Sender: TObject);
@@ -313,6 +315,7 @@ begin
 
     EraseProtLvl := cbEraseProt.ItemIndex;
     TrayBehavior := cbTrayBehavior.ItemIndex;
+    WinBoxUpdate := cbWinBoxUpdate.ItemIndex;
     LoggingMode := cbLogging.ItemIndex;
 
     Repository := cbRepositories.Text;
@@ -661,6 +664,7 @@ begin
 
     cbEraseProt.ItemIndex := EraseProtLvl;
     cbTrayBehavior.ItemIndex := TrayBehavior;
+    cbWinBoxUpdate.ItemIndex := WinBoxUpdate;
 
     cbLogging.ItemIndex := LoggingMode;
     cbLoggingChange(Self);

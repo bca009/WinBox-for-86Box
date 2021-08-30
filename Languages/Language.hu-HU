@@ -157,6 +157,11 @@ UpdateDlg.Progress.RemovePrev=A korábbi verzió eltávolítása...
 UpdateDlg.Progress.CleanUp=Ideiglenes fájlok eltávolítása...
 UpdateDlg.Progress.Terminated=A műveletet a felhasználó megszakította.
 
+WinBoxUpd.DetailsInfo=Verzió: %s\r\nKiadási dátum: %s
+WinBoxUpd.DialogTitle=Programfrissítés elérhető
+WinBoxUpd.AskAllowUpdate=A WinBox for 86Box alkalmazáshoz frissítés érhető el.\r\nKívánja letölteni és telepíteni?
+WinBoxUpd.AskLocalNewer=A jelenleg használt WinBox for 86Box verzió azonos vagy újabb mint a letölthető.\r\nKívánja ennek tudatában is a jelenlegi verziót lecserélni?
+
 SelectHDD.AnyManufacturer=(Bármely gyártó)
 SelectHDD.AnyConnector=(Bármely csatoló)
 SelectHDD.ClientDataSet.FieldDefs[0]=Index
