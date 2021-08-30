@@ -397,6 +397,9 @@ begin
   CommandLine := format('-P "%s" %s',
     [ExcludeTrailingPathDelimiter(WorkingDirectory), Parameters]);
 
+  if NameDefs.ReadInteger('params', 'Support.VmName', 1) <> 0 then
+    CommandLine := format('-V "%s"', [FriendlyName]) + CommandLine;
+
   if Fullscreen then
     CommandLine := '-F ' + CommandLine;
 
