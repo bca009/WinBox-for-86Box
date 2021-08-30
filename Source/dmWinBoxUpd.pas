@@ -29,7 +29,7 @@ var
 implementation
 
 uses uWebUtils, uCommUtil, uConfigMgr, uLang, uCommText, frmWaitForm,
-     Generics.Collections, JSON, DateUtils, ShellAPI, IOUtils, Threading;
+     Generics.Collections, JSON, DateUtils, ShellAPI, IOUtils;
 
 resourcestring
   WinBoxRepo =   'https://api.github.com/repos/laciba96/WinBox-for-86Box/releases/latest';
@@ -38,6 +38,10 @@ resourcestring
   StrInstaller = 'WinBox-for-86Box-Installer.exe';
   StrParams1   = '/CLOSEAPPLICATIONS';
   StrParams2   = '/VERYSILENT /EXEC';
+  WbuDialogTitle = 'WinBoxUpd.DialogTitle';
+  WbuAskAllowUpdate = 'WinBoxUpd.AskAllowUpdate';
+  WbuAskLocalNewer = 'WinBoxUpd.AskLocalNewer';
+  WbuDetailsInfo = 'WinBoxUpd.DetailsInfo';
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
@@ -95,11 +99,11 @@ begin
     else if (Self.URL = '') or (Installer = '') then
       raise Exception.Create(SysErrorMessage(ERROR_INVALID_DATA))
     else if Build = Current then begin
-      Text     := _T('WinBoxUpd.AskLocalNewer');
+      Text     := _T(WbuAskLocalNewer);
       MainIcon := tdiWarning;
     end
     else begin
-      Text     := _T('WinBoxUpd.AskAllowUpdate');
+      Text     := _T(WbuAskAllowUpdate);
       MainIcon := tdiInformation;
     end;
 
@@ -107,7 +111,7 @@ begin
 
     if BuildDate <> 0 then
       ExpandedText := ExpandedText + #13#10#13#10 +
-        _T('WinBoxUpd.DetailsInfo', [Build, DateTimeToStr(BuildDate)]);
+        _T(WbuDetailsInfo, [Build, DateTimeToStr(BuildDate)]);
 
     if (Changes <> '') and (MainIcon = tdiInformation) then
       ExpandedText := ExpandedText + #13#10#13#10 +
@@ -133,7 +137,7 @@ begin
 
   with AskUpdateDialog do begin
     Caption := Application.Title;
-    Title := _T('WinBoxUpd.DialogTitle');
+    Title := _T(WbuDialogTitle);
   end;
 
   if Config.WinBoxUpdate <> 0 then
@@ -146,30 +150,23 @@ end;
 procedure TWinBoxUpd.DoUpdate;
 var
   FFileName, FInstaller: string;
-  FMode: integer;
-
-  FParams: PChar;
 begin
   TThread.Synchronize(nil,
     procedure
     begin
       FFileName := FileName;
       FInstaller := Installer;
-      FMode := Config.WinBoxUpdate;
     end);
 
-  if FMode = 2 then
-    FParams := PChar(StrParams1)
-  else
-    FParams := PChar(StrParams2);
-
   httpsGet(FInstaller, FFileName);
-  ShellExecute(0, 'open', PChar(FFileName), FParams, nil, SW_SHOWNORMAL);
+
+  EndThread(0);
 end;
 
 procedure TWinBoxUpd.Execute;
 var
-  Thread: ITask;
+  Thread: TThread;
+  Params: PChar;
 begin
   if Config.WinBoxUpdate < 2 then begin
     ShellExecute(0, 'open', PChar(URL), nil, nil, SW_SHOWNORMAL);
@@ -182,18 +179,24 @@ begin
       ProgressBar.Style := pbstMarquee;
       Application.ProcessMessages;
 
-      Thread := nil;
-      Thread := TTask.Create(DoUpdate);
+      Thread := TThread.CreateAnonymousThread(DoUpdate);
+      Thread.Suspended := false;
 
-      Thread := Thread.Start;
-      while Thread.Wait(100) do
+      while WaitForSingleObject(Thread.Handle, 10) <> WAIT_OBJECT_0 do
         Application.ProcessMessages;
-
     finally
       Free;
     end;
 
-  Thread := nil;
+  Thread.Free;
+
+  if Config.WinBoxUpdate = 2 then
+    Params := PChar(StrParams1)
+  else
+    Params := PChar(StrParams2);
+
+  ShellExecute(0, 'open', PChar(FileName), Params, nil, SW_SHOWNORMAL);
+
   Application.Terminate;
 end;
 
