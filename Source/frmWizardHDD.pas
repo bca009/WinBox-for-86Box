@@ -163,7 +163,7 @@ implementation
 
 {$R *.dfm}
 
-uses uCommUtil, uCommText, frmSelectHDD, frmWaitForm, Printers, frmMainForm;
+uses uCommUtil, uCommText, frmSelectHDD, Printers, frmMainForm;
 
 resourcestring
   OpenDlgVhdDisk = 'OpenDialog.VhdDisk';

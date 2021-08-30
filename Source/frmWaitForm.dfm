@@ -16,7 +16,10 @@ object WaitForm: TWaitForm
   GlassFrame.SheetOfGlass = True
   OldCreateOrder = False
   Position = poOwnerFormCenter
+  OnClose = FormClose
+  OnDestroy = FormDestroy
   OnMouseDown = FormMouseDown
+  OnShow = FormShow
   DesignSize = (
     419
     63)

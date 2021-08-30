@@ -32,10 +32,13 @@ type
     ProgressBar: TProgressBar;
     procedure FormMouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormShow(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
   private
     { Private declarations }
   public
-    { Public declarations }
+    WinPtr: Pointer;
   end;
 
 var
@@ -45,11 +48,26 @@ implementation
 
 {$R *.dfm}
 
+procedure TWaitForm.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  Action := caNone;
+end;
+
+procedure TWaitForm.FormDestroy(Sender: TObject);
+begin
+  EnableTaskWindows(WinPtr);
+end;
+
 procedure TWaitForm.FormMouseDown(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
   ReleaseCapture;
   Perform(WM_SYSCOMMAND, SC_MOVE + 2, 0);
+end;
+
+procedure TWaitForm.FormShow(Sender: TObject);
+begin
+  WinPtr := DisableTaskWindows(Handle);
 end;
 
 end.
