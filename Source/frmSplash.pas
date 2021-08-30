@@ -34,6 +34,9 @@ end;
 
 procedure TWinBoxSplash.FormCreate(Sender: TObject);
 begin
+  if IsDebuggerPresent then
+    FormStyle := fsNormal;
+
   LoadImage('SPLASH', imgSplash);
   Screen.Cursor := crAppStart;
   Application.ProcessMessages;
