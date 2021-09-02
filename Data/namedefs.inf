@@ -1,6 +1,3 @@
-[params]
-Support.VmName=0
-
 [patch]
 IDM_ACTION_SCREENSHOT=40012
 IDM_ACTION_HRESET=40013
