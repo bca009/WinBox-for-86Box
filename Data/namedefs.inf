@@ -1,3 +1,11 @@
+[params]
+Support.VmName=1
+
+[config]
+Mode.SCSI=2
+Mode.Cassette=2
+Mode.Cartridge=1
+
 [patch]
 IDM_ACTION_SCREENSHOT=40012
 IDM_ACTION_HRESET=40013

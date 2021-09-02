@@ -397,7 +397,7 @@ begin
   CommandLine := format('-P "%s" %s',
     [ExcludeTrailingPathDelimiter(WorkingDirectory), Parameters]);
 
-  if NameDefs.ReadInteger('params', 'Support.VmName', 1) <> 0 then
+  if NameDefs.ReadInteger('params', 'Support.VmName', 0) <> 0 then
     CommandLine := format('-V "%s"', [FriendlyName]) + CommandLine;
 
   if Fullscreen then
@@ -815,9 +815,9 @@ var
 begin
   Self := DefConfig;
 
-  Config_SCSI      := NameDefs.ReadInteger('config', 'Mode.SCSI', 2);
-  Config_Cassette  := NameDefs.ReadInteger('config', 'Mode.Cassette', 2);
-  Config_Cartridge := NameDefs.ReadInteger('config', 'Mode.Cartridge', 1);
+  Config_SCSI      := NameDefs.ReadInteger('config', 'Mode.SCSI', 0);
+  Config_Cassette  := NameDefs.ReadInteger('config', 'Mode.Cassette', 0);
+  Config_Cartridge := NameDefs.ReadInteger('config', 'Mode.Cartridge', 0);
 
   Config := TryLoadIni(ConfigFile);
 
