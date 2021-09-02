@@ -131,7 +131,7 @@ resourcestring
   SJenkinsGetXML = '%s/%d/api/xml';
   SJenkinsDownload = '%s/%d/artifact/%s';
   SJenkinsLastBuild = '%s/lastSuccessfulBuild/buildNumber';
-  SJenkinsGetTimeStamp = '%s/%d/api/xml?wrapper=changes&xpath=//changeSet//timestamp';
+  SJenkinsGetTimeStamp = '%s/%d/api/xml?wrapper=changes&tree=timestamp';
   SJenkinsGetComment = '%s/%d/api/xml?wrapper=changes&xpath=//changeSet//comment';
 
 function ExtractHost(const URL: string): string;
