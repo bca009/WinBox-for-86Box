@@ -670,6 +670,7 @@ ncr53c875=Symbios Logic/NCR 53c875
 rt1000b=Rancho RT1000B
 scsiat=Sumo SCSI AT
 spock=IBM PS/2 SCSI Adapter (Spock)
+t128=Trantor T128
 t130b=Trantor T130B
 wd33c93=Western Digital WDC33C93
 
