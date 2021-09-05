@@ -578,6 +578,7 @@ virge375_vlb=S3 ViRGE/DX VLB
 voodoo_banshee_pci=3Dfx Voodoo Banshee PCI
 voodoo3_2k_pci=3dfx Voodoo3 2000 PCI
 voodoo3_3k_pci=3dfx Voodoo3 3000 PCI
+velocity100_agp=3dfx Velocity 100
 voodoo3_2k_agp=3dfx Voodoo3 2000 AGP
 voodoo3_3k_agp=3dfx Voodoo3 3000 AGP
 wd90c11=Paradise WD90C11-LR
