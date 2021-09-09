@@ -191,6 +191,16 @@ var
   I: integer;
   Path: string;
 begin
+
+(*
+    Note!
+
+    If the short parameters will change again in 86box.c,
+    you have to keep this section up-to-date. The other
+    sections are fine with long parameters.
+
+*)
+
   Path := '';
   with CommandLineToArgs(Process.CommandLine) do
     try
