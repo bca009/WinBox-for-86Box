@@ -202,7 +202,15 @@ begin
                ExpandFileNameTo(
                  ExcludeTrailingPathDelimiter(Strings[I + 1]),
                  ExtractFilePath(Process.ExecutablePath)));
-           end;
+           end
+        else if ((UpperCase(Strings[I]) = '-Z') or
+                 (UpperCase(Strings[I]) = '--LASTVMPATH'))
+                and (I < Count - 1) then begin
+                  Path := IncludeTrailingPathDelimiter(
+                             ExpandFileNameTo(
+                               ExcludeTrailingPathDelimiter(Strings[Count - 1]),
+                               ExtractFilePath(Process.ExecutablePath)));
+                end;
     finally
       Free;
     end;
