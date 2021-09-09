@@ -375,7 +375,7 @@ begin
     Result := Execute(IDM_CONFIG);
   end
   else if State = PROFILE_STATE_STOPPED then
-    Result := Start('-S -N')
+    Result := Start('--settings --noconfirm')
   else
     Result := false;
 
@@ -394,26 +394,26 @@ var
   Buffer: array [0..50] of char;
   I: integer;
 begin
-  CommandLine := format('-P "%s" %s',
+  CommandLine := format('--vmpath "%s" %s',
     [ExcludeTrailingPathDelimiter(WorkingDirectory), Parameters]);
 
   if NameDefs.ReadInteger('params', 'Support.VmName', 0) <> 0 then
-    CommandLine := format('-V "%s"', [FriendlyName]) + CommandLine;
+    CommandLine := format('--vmname "%s" %s', [FriendlyName, CommandLine]);
 
   if Fullscreen then
-    CommandLine := '-F ' + CommandLine;
+    CommandLine := '--fullscreen ' + CommandLine;
 
   if (DebugMode = 2) or ((DebugMode = 0) and Config.DebugMode) then
-    CommandLine := '-D ' + CommandLine;
+    CommandLine := '--debug ' + CommandLine;
 
   if (CrashDump = 2) or ((CrashDump = 0) and Config.CrashDump) then
-    CommandLine := '-R ' + CommandLine;
+    CommandLine := '--crashdump ' + CommandLine;
 
   if not ((LoggingMode = 1) or
       ((LoggingMode = 0) and (Config.LoggingMode = 0))) then begin
          LogFile := GetLogFile;
          ForceDirectories(ExtractFilePath(LogFile));
-         CommandLine := format('-L "%s" %s', [LogFile, CommandLine]);
+         CommandLine := format('--logfile "%s" %s', [LogFile, CommandLine]);
       end;
 
   Files := TStringList.Create;
