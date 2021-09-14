@@ -222,7 +222,6 @@ tab86Box=Macchine 86Box
 machine.amixt=AMI XT clone
 machine.dtk=DTK XT clone
 machine.genxt=Generic XT clone
-machine.jukopc=Juko XT clone
 machine.pxxt=Phoenix XT clone
 machine.mr286=MR 286 clone
 machine.quadt286=Quadtel 286 clone
