@@ -166,7 +166,7 @@ begin
   if Assigned(Network) then
     Result := Network.IsConnectedToInternet
   else
-    Result := true;
+    Result := false;
 
   Network := nil;
 
