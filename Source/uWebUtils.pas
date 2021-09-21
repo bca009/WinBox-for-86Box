@@ -170,11 +170,11 @@ begin
 
   Network := nil;
 
-  if Result then begin
+  if not Result then begin
     IPAddr := ResolveHost(ExtractHost(URL), HostName);
     Result := IPAddr <> u_long(INADDR_NONE);
-    if Result then
-      Result := Ping(IPAddr) <> DWORD(-1);
+    //if Result then
+    //  Result := Ping(IPAddr) <> DWORD(-1);
   end;
 end;
 
