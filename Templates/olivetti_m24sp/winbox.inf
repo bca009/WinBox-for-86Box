@@ -1,0 +1,36 @@
+[General]
+Manufacturer=Olivetti
+Description=Olivetti M24SP
+Year=1985
+Author=Laci bá'
+Type=86Box
+ConfigFile=86box.cfg
+Option0=%Options.CPUSpeed%|Machine.cpu_speed
+Option1=%Options.Memory%|Machine.mem_size
+Option2=%Options.GfxCard%|Video.gfxcard
+Option3=%Options.Monitor%|Olivetti M21/M24/M28 (GO317/318/380/709) video card.rgb_type
+SupportedOS=DOS, Concurrent DOS, UCSD-P, GW-BASIC
+
+[Option0]
+10 MHz=10000000
+12 MHz=12000000
+
+[Option1]
+512 kB=512
+640 kB=640
+
+[Option2]
+Olivetti Internal Video=internal
+
+[Option3]
+%Displays.Green%=3
+%Displays.Amber%=2
+%Displays.White%=4
+%Displays.Color%=0
+
+[HDD]
+Connector=MFM
+Slot=0
+C=615
+H=4
+S=17
