@@ -226,8 +226,6 @@ begin
     AspectX := 4;
     AspectY := 3;
 
-    Cursor := crHandPoint;
-
     OnContextPopup := PicturePagerContextPopup;
     OnClick := PicturePagerClick;
   end;

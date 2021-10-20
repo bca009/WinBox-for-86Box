@@ -324,12 +324,15 @@ begin
         H := 1;
 
       ScaleWIC(FDisplay, W, H);
+      Cursor := crHandPoint;
       Invalidate;
     except
       FreeAndNil(FDisplay);
       raise;
     end;
-  end;
+  end
+  else
+    Cursor := crDefault;
 end;
 
 procedure TPicturePager.Resize;
