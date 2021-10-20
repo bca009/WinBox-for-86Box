@@ -29,7 +29,7 @@ dtk=DTK XT clone
 pcspirit=Eagle PC Spirit
 genxt=Generic XT clone
 jukopc=Juko ST
-multitech_pc500=Multitech PC-500
+pc500=Multitech PC-500
 pc700=Multitech PC-700
 pc4i=NCR PC4i
 m19=Olivetti M19
@@ -328,15 +328,15 @@ atc7020bxii=A-Trend ATC7020BXII
 
 apas3=PC Partner APAS3
 p6bap=ECS P6BAP
-wcf681=AEWIN WCF-681
+gt694va=BCM GT694VA
 cuv4xls=ASUS CUV4X-LS
 6via90ap=Acorp 6VIA90AP
-603tcf=Jetway 603TCF
 
 vpc2007=Microsoft Virtual PC 2007
 
 8500ttc=Biostar MB-8600TTC
 eagle_pcspirit=Eagle PC Spirit
+multitech_pc500=Multitech PC-500
 multitech_pc700=Multitech PC-700
 ncr_pc4i=NCR PC4i
 olivetti_m19=Olivetti M19
@@ -361,6 +361,8 @@ fw6400gx_s1=Freeway FW-6400GX
 president=President Award 430FX PCI
 j656vxd=Jetway J656VXD
 p55r2p4=ASUS P/I-P55T2P4
+wcf681=AEWIN WCF-681
+603tcf=Jetway 603TCF
 
 [cpu_family]
 8088=Intel 8088
