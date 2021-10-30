@@ -8,7 +8,7 @@ Currently this software is the successor of [WinBox Reloaded](https://github.com
 <p align="center"><img src="https://github.com/laciba96/WinBox-for-86Box/blob/6be9b55daa445b1864c36bd31b092e4bd815d071/Images/Wiki/Screenshot.PNG" width="500" height="353"></img></p>
 
 **It's most noticeable features are:**
-- It automatically updates the emulators from Jenkins.
+- It automatically updates 86Box from Jenkins.
 - It collects all your VMs in a slick brand new list, with some customization options.
 - It has a very user friendly UI.
 - It has a template based virtual machine creation wizard, which makes life so much easier.
