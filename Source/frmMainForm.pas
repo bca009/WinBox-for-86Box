@@ -1060,6 +1060,9 @@ var
   I: integer;
 begin
   //GUI part
+  Icons16.SetSize(GetSystemMetrics(SM_CXSMICON),
+                  GetSystemMetrics(SM_CYSMICON));
+
   HalfCharHeight := Canvas.TextHeight('W');
   BorderThickness := (List.ItemHeight - ListImages.Height) div 2;
 
