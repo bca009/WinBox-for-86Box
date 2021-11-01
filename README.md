@@ -36,6 +36,6 @@ Add your new language as a pull request and I most probably include it with the 
 
 *Note: Under Windows 7 there are known [problems](https://github.com/laciba96/WinBox-for-86Box/issues/3#issuecomment-886091172) with the updater due to missing cryptographic capabilities by default. These problems can be solved by installing Internet Explorer 11 and the latest updates after SP1.*
 
-The program is written in **Delphi 10.3** and uses the [JEDI Code Library (JCL)](https://github.com/project-jedi/jcl).
+The program is written in **Delphi 11** and uses the [JEDI Code Library (JCL)](https://github.com/project-jedi/jcl).
 
 **The application is licensed under the GNU GPL v3.0 license.**

@@ -11,7 +11,6 @@ object WinBoxMain: TWinBoxMain
   Font.Name = 'Tahoma'
   Font.Style = []
   Menu = MainMenu
-  OldCreateOrder = False
   Position = poScreenCenter
   OnClose = FormClose
   OnCreate = FormCreate
@@ -370,6 +369,7 @@ object WinBoxMain: TWinBoxMain
       Width = 8
       Caption = 'ToolButton1'
       ImageIndex = 13
+      ImageName = '13 - move'
       Style = tbsSeparator
     end
     object tbStopAll: TToolButton
@@ -396,6 +396,7 @@ object WinBoxMain: TWinBoxMain
       Width = 8
       Caption = 'ToolButton7'
       ImageIndex = 0
+      ImageName = '0 - warning'
       Style = tbsSeparator
     end
     object tbAbout2: TToolButton
@@ -438,6 +439,7 @@ object WinBoxMain: TWinBoxMain
       Width = 8
       Caption = 'ToolButton1'
       ImageIndex = 13
+      ImageName = '13 - move'
       Style = tbsSeparator
     end
     object tbCtrlAltDel: TToolButton
@@ -464,6 +466,7 @@ object WinBoxMain: TWinBoxMain
       Width = 8
       Caption = 'ToolButton11'
       ImageIndex = 13
+      ImageName = '13 - move'
       Style = tbsSeparator
     end
     object tbBringToFront: TToolButton
@@ -484,6 +487,7 @@ object WinBoxMain: TWinBoxMain
       Width = 8
       Caption = 'ToolButton7'
       ImageIndex = 0
+      ImageName = '0 - warning'
       Style = tbsSeparator
     end
     object tbAbout1: TToolButton
@@ -502,6 +506,7 @@ object WinBoxMain: TWinBoxMain
       Category = 'Eszk'#246'z'#246'k'
       Caption = 'Emul'#225'tor &friss'#237't'#233'sek keres'#233'se...'
       ImageIndex = 27
+      ImageName = '27 - update'
       ShortCut = 16469
       OnExecute = acFileExecute
       OnUpdate = acGlobalUpdate
@@ -511,6 +516,7 @@ object WinBoxMain: TWinBoxMain
       Category = 'Hibakeres'#233's'
       Caption = 'R&TTI-adatok ment'#233'se napl'#243'f'#225'jlba...'
       ImageIndex = 33
+      ImageName = '33 - debug_start'
       OnExecute = acDebugExecute
     end
     object acDiskDatabase: TAction
@@ -518,6 +524,7 @@ object WinBoxMain: TWinBoxMain
       Category = 'Eszk'#246'z'#246'k'
       Caption = 'Merevlemez &adatb'#225'zis megnyit'#225'sa...'
       ImageIndex = 10
+      ImageName = '10 - hdd'
       OnExecute = acFileExecute
       OnUpdate = acWaitFirstUpdate
     end
@@ -551,6 +558,7 @@ object WinBoxMain: TWinBoxMain
       Category = 'F'#225'jl'
       Caption = '&'#218'j virtu'#225'lis g'#233'p l'#233'trehoz'#225'sa...'
       ImageIndex = 14
+      ImageName = '14 - new'
       ShortCut = 24654
       OnExecute = acFileExecute
       OnUpdate = acWaitFirstUpdate
@@ -560,6 +568,7 @@ object WinBoxMain: TWinBoxMain
       Category = 'F'#225'jl'
       Caption = #218'j &hajl'#233'konylemez k'#233'pf'#225'jl l'#233'trehoz'#225'sa...'
       ImageIndex = 34
+      ImageName = '34 - new_floppy'
       ShortCut = 41030
       OnExecute = acFileExecute
       OnUpdate = acWaitFirstUpdate
@@ -569,6 +578,7 @@ object WinBoxMain: TWinBoxMain
       Category = 'F'#225'jl'
       Caption = #218'j virtu'#225'lis merev&lemez l'#233'trehoz'#225'sa...'
       ImageIndex = 28
+      ImageName = '28 - new_hdd'
       ShortCut = 41038
       OnExecute = acFileExecute
       OnUpdate = acWaitFirstUpdate
@@ -586,6 +596,7 @@ object WinBoxMain: TWinBoxMain
       Category = 'WinBox-folyamatmonitor'
       Caption = 'T&FolderMonitor.OnChange esem'#233'nyh'#237'v'#225'sok'
       ImageIndex = 33
+      ImageName = '33 - debug_start'
       OnExecute = acDebugExecute
     end
     object acStopAll: TAction
@@ -594,6 +605,7 @@ object WinBoxMain: TWinBoxMain
       Caption = 'Az &'#246'sszes virtu'#225'lis g'#233'p le'#225'll'#237't'#225'sa...'
       HelpContext = 1
       ImageIndex = 20
+      ImageName = '20 - stop_all'
       OnExecute = acGlobalExecute
       OnUpdate = acGlobalUpdate
     end
@@ -601,6 +613,7 @@ object WinBoxMain: TWinBoxMain
       Category = 'G'#233'p'
       Caption = 'Virtu'#225'lis g'#233'p &le'#225'll'#237't'#225'sa...'
       ImageIndex = 19
+      ImageName = '19 - stop'
       ShortCut = 115
       OnExecute = acVMsExecute
       OnUpdate = acVMsUpdate
@@ -626,6 +639,7 @@ object WinBoxMain: TWinBoxMain
       Category = 'G'#233'p'
       Caption = 'Virtu'#225'lis g'#233'p &ind'#237't'#225'sa...'
       ImageIndex = 18
+      ImageName = '18 - start'
       ShortCut = 114
       OnExecute = acVMsExecute
       OnUpdate = acVMsUpdate
@@ -644,6 +658,7 @@ object WinBoxMain: TWinBoxMain
       Caption = 'Virtu'#225'lis g'#233'p &el'#337't'#233'rbe hoz'#225'sa...'
       HelpContext = 1
       ImageIndex = 24
+      ImageName = '24 - bringtofront'
       ShortCut = 8306
       OnExecute = acVMsExecute
       OnUpdate = acVMsUpdate
@@ -663,6 +678,7 @@ object WinBoxMain: TWinBoxMain
       Caption = 'Ctrl+Alt+&Del k'#252'ld'#233'se...'
       HelpContext = 2
       ImageIndex = 2
+      ImageName = '2 - cad'
       ShortCut = 16430
       OnExecute = acVMsExecute
       OnUpdate = acVMsUpdate
@@ -673,6 +689,7 @@ object WinBoxMain: TWinBoxMain
       Caption = 'Virtu'#225'lis g'#233'p hardveres &'#250'jraind'#237't'#225'sa...'
       HelpContext = 4
       ImageIndex = 25
+      ImageName = '25 - hwreset'
       ShortCut = 16466
       OnExecute = acVMsExecute
       OnUpdate = acVMsUpdate
@@ -689,6 +706,7 @@ object WinBoxMain: TWinBoxMain
       Category = 'G'#233'p'
       Caption = '&Nyomtat'#243't'#225'lca megnyit'#225'sa...'
       ImageIndex = 15
+      ImageName = '15 - print'
       OnExecute = acVMsExecute
       OnUpdate = acVMsUpdate
     end
@@ -697,6 +715,7 @@ object WinBoxMain: TWinBoxMain
       Category = 'G'#233'p'
       Caption = '&Munkak'#246'nyvt'#225'r megnyit'#225'sa...'
       ImageIndex = 8
+      ImageName = '8 - folder'
       ShortCut = 119
       OnExecute = acVMsExecute
       OnUpdate = acVMsUpdate
@@ -791,6 +810,7 @@ object WinBoxMain: TWinBoxMain
       Category = 'Eszk'#246'z'#246'k'
       Caption = 'P&rogrambe'#225'll'#237't'#225'sok...'
       ImageIndex = 29
+      ImageName = '29 '
       ShortCut = 49165
       OnExecute = acProgramSettingsExecute
       OnUpdate = acWaitFirstUpdate
@@ -799,6 +819,7 @@ object WinBoxMain: TWinBoxMain
       Category = 'N'#233'zet'
       Caption = 'Virtu'#225'lis g'#233'pek list'#225'j'#225'nak &friss'#237't'#233'se'
       ImageIndex = 16
+      ImageName = '16 - reload'
       ShortCut = 16500
       OnExecute = acUpdateListExecute
       OnUpdate = acWaitFirstUpdate
@@ -820,6 +841,7 @@ object WinBoxMain: TWinBoxMain
       Category = 'S'#250'g'#243
       Caption = '&N'#233'vjegy...'
       ImageIndex = 12
+      ImageName = '12 - logo_v2'
       ShortCut = 112
       OnExecute = acFileExecute
       OnUpdate = acWaitFirstUpdate
@@ -830,6 +852,7 @@ object WinBoxMain: TWinBoxMain
       Caption = '&Hardverbe'#225'll'#237't'#225'sok...'
       HelpContext = 2
       ImageIndex = 9
+      ImageName = '9 - gears'
       ShortCut = 32781
       OnExecute = acVMsExecute
       OnUpdate = acVMsUpdate
@@ -838,6 +861,7 @@ object WinBoxMain: TWinBoxMain
       Category = 'F'#225'jl'
       Caption = '&Kil'#233'p'#233's a WinBox for 86Box alkalmaz'#225'sb'#243'l'
       ImageIndex = 4
+      ImageName = '4 - close2'
       OnExecute = acCloseExecute
     end
     object acDbgLanguageFile: TAction
@@ -858,6 +882,7 @@ object WinBoxMain: TWinBoxMain
       Category = 'G'#233'p'
       Caption = '&H'#225'tt'#233'rsz'#237'n megv'#225'ltoztat'#225'sa...'
       ImageIndex = 5
+      ImageName = '5 - colorsphere'
       OnExecute = acVMsExecute
       OnUpdate = acVMsUpdate
     end
@@ -880,6 +905,7 @@ object WinBoxMain: TWinBoxMain
       Category = 'F'#225'jl'
       Caption = 'A kijel'#246'lt virtu'#225'lis g'#233'p &elt'#225'vol'#237't'#225'sa...'
       ImageIndex = 6
+      ImageName = '6 - delete'
       ShortCut = 24622
       OnExecute = acDeleteVMExecute
       OnUpdate = acVMsUpdate
@@ -1030,6 +1056,7 @@ object WinBoxMain: TWinBoxMain
       object miPerfCPU1: TMenuItem
         Caption = '&Processzorterhel'#233's'
         ImageIndex = 22
+        ImageName = '22 - cpu'
         object miShow1: TMenuItem
           Caption = '&Megjelen'#237't'#233's...'
           HelpContext = 1
@@ -1043,6 +1070,7 @@ object WinBoxMain: TWinBoxMain
           Caption = '&Nyomtat'#225's...'
           HelpContext = 2
           ImageIndex = 15
+          ImageName = '15 - print'
           OnClick = btnChartClick
         end
         object miExportBitmap1: TMenuItem
@@ -1059,6 +1087,7 @@ object WinBoxMain: TWinBoxMain
       object miPerfRAM1: TMenuItem
         Caption = 'Lefoglalt &mem'#243'ria'
         ImageIndex = 23
+        ImageName = '23 - memory'
         object miShow2: TMenuItem
           Tag = 1
           Caption = '&Megjelen'#237't'#233's...'
@@ -1074,6 +1103,7 @@ object WinBoxMain: TWinBoxMain
           Caption = '&Nyomtat'#225's...'
           HelpContext = 2
           ImageIndex = 15
+          ImageName = '15 - print'
           OnClick = btnChartClick
         end
         object miExportBitmap2: TMenuItem
@@ -1092,6 +1122,7 @@ object WinBoxMain: TWinBoxMain
       object miPerfVMs1: TMenuItem
         Caption = 'Fut'#243' virtu'#225'lis g'#233'pek &sz'#225'ma'
         ImageIndex = 21
+        ImageName = '21 - empty'
         object miShow3: TMenuItem
           Tag = 2
           Caption = '&Megjelen'#237't'#233's...'
@@ -1107,6 +1138,7 @@ object WinBoxMain: TWinBoxMain
           Caption = '&Nyomtat'#225's...'
           HelpContext = 2
           ImageIndex = 15
+          ImageName = '15 - print'
           OnClick = btnChartClick
         end
         object miExportBitmap3: TMenuItem
@@ -1146,6 +1178,7 @@ object WinBoxMain: TWinBoxMain
       object N25: TMenuItem
         Action = acDbgGetCmdLine
         ImageIndex = 11
+        ImageName = '11 - info'
       end
       object N26: TMenuItem
         Caption = '-'
@@ -1239,7 +1272,6 @@ object WinBoxMain: TWinBoxMain
       end
       object RTTIadatokmentsenaplfjlba1: TMenuItem
         Action = acDbgRTTILogFile
-        ImageIndex = 32
       end
     end
     object miHelp: TMenuItem
@@ -1248,12 +1280,14 @@ object WinBoxMain: TWinBoxMain
         Caption = 'Online dokument'#225'ci'#243': &WinBox for 86Box'
         Hint = 'https://github.com/laciba96/WinBox-for-86Box/wiki'
         ImageIndex = 7
+        ImageName = '7 - earth'
         OnClick = acURLExecute
       end
       object miOnlineDocs2: TMenuItem
         Caption = 'Online dokument'#225'ci'#243': &86Box, x86 emulator'
         Hint = 'https://86box.readthedocs.io/en/latest/'
         ImageIndex = 7
+        ImageName = '7 - earth'
         OnClick = acURLExecute
       end
       object N43: TMenuItem
@@ -1263,30 +1297,35 @@ object WinBoxMain: TWinBoxMain
         Caption = 'All&BootDisks: ind'#237't'#243'lemez let'#246'lt'#233'sek'
         Hint = 'https://www.allbootdisks.com/'
         ImageIndex = 26
+        ImageName = '26 - download'
         OnClick = acURLExecute
       end
       object miOnlineLinks2: TMenuItem
         Caption = '&ClassicDOSGames: r'#233'gi j'#225't'#233'k let'#246'lt'#233'sek'
         Hint = 'https://www.classicdosgames.com/'
         ImageIndex = 26
+        ImageName = '26 - download'
         OnClick = acURLExecute
       end
       object miOnlineLinks3: TMenuItem
         Caption = '&Linux Distros: telep'#237't'#337'lemez let'#246'lt'#233'sek'
         Hint = 'https://www.linux-distros.com/'
         ImageIndex = 26
+        ImageName = '26 - download'
         OnClick = acURLExecute
       end
       object miOnlineLinks4: TMenuItem
         Caption = '&Vogon'#39's Drivers: illeszt'#337'program let'#246'lt'#233'sek'
         Hint = 'http://vogonsdrivers.com/'
         ImageIndex = 26
+        ImageName = '26 - download'
         OnClick = acURLExecute
       end
       object miOnlineLinks5: TMenuItem
         Caption = 'W&inWorldPC: r'#233'gi szoftver let'#246'lt'#233'sek'
         Hint = 'https://winworldpc.com'
         ImageIndex = 26
+        ImageName = '26 - download'
         OnClick = acURLExecute
       end
       object N44: TMenuItem
@@ -1298,25 +1337,20 @@ object WinBoxMain: TWinBoxMain
     end
   end
   object ListImages: TVirtualImageList
-    DisabledGrayscale = False
-    DisabledSuffix = '_Disabled'
     Images = <
       item
         CollectionIndex = 0
         CollectionName = 'home'
-        Disabled = False
         Name = 'home'
       end
       item
         CollectionIndex = 1
         CollectionName = 'perfmon'
-        Disabled = False
         Name = 'perfmon'
       end
       item
         CollectionIndex = 2
         CollectionName = '21 - empty'
-        Disabled = False
         Name = '21 - empty'
       end>
     ImageCollection = ImageCollection
@@ -50070,217 +50104,180 @@ object WinBoxMain: TWinBoxMain
     Top = 240
   end
   object Icons32: TVirtualImageList
-    DisabledGrayscale = False
-    DisabledSuffix = '_Disabled'
     Images = <
       item
         CollectionIndex = 0
         CollectionName = '0 - warning'
-        Disabled = False
         Name = '0 - warning'
       end
       item
         CollectionIndex = 1
         CollectionName = '1 - backup'
-        Disabled = False
         Name = '1 - backup'
       end
       item
         CollectionIndex = 2
         CollectionName = '2 - cad'
-        Disabled = False
         Name = '2 - cad'
       end
       item
         CollectionIndex = 3
         CollectionName = '3 - clone'
-        Disabled = False
         Name = '3 - clone'
       end
       item
         CollectionIndex = 4
         CollectionName = '4 - close2'
-        Disabled = False
         Name = '4 - close2'
       end
       item
         CollectionIndex = 5
         CollectionName = '5 - colorsphere'
-        Disabled = False
         Name = '5 - colorsphere'
       end
       item
         CollectionIndex = 6
         CollectionName = '6 - delete'
-        Disabled = False
         Name = '6 - delete'
       end
       item
         CollectionIndex = 7
         CollectionName = '7 - earth'
-        Disabled = False
         Name = '7 - earth'
       end
       item
         CollectionIndex = 8
         CollectionName = '8 - folder'
-        Disabled = False
         Name = '8 - folder'
       end
       item
         CollectionIndex = 9
         CollectionName = '9 - gears'
-        Disabled = False
         Name = '9 - gears'
       end
       item
         CollectionIndex = 10
         CollectionName = '10 - hdd'
-        Disabled = False
         Name = '10 - hdd'
       end
       item
         CollectionIndex = 11
         CollectionName = '11 - info'
-        Disabled = False
         Name = '11 - info'
       end
       item
         CollectionIndex = 12
         CollectionName = '12 - logo_v2'
-        Disabled = False
         Name = '12 - logo_v2'
       end
       item
         CollectionIndex = 13
         CollectionName = '13 - move'
-        Disabled = False
         Name = '13 - move'
       end
       item
         CollectionIndex = 14
         CollectionName = '14 - new'
-        Disabled = False
         Name = '14 - new'
       end
       item
         CollectionIndex = 15
         CollectionName = '15 - print'
-        Disabled = False
         Name = '15 - print'
       end
       item
         CollectionIndex = 16
         CollectionName = '16 - reload'
-        Disabled = False
         Name = '16 - reload'
       end
       item
         CollectionIndex = 17
         CollectionName = '17 - restore'
-        Disabled = False
         Name = '17 - restore'
       end
       item
         CollectionIndex = 18
         CollectionName = '18 - start'
-        Disabled = False
         Name = '18 - start'
       end
       item
         CollectionIndex = 19
         CollectionName = '19 - stop'
-        Disabled = False
         Name = '19 - stop'
       end
       item
         CollectionIndex = 20
         CollectionName = '20 - stop_all'
-        Disabled = False
         Name = '20 - stop_all'
       end
       item
         CollectionIndex = 21
         CollectionName = '21 - empty'
-        Disabled = False
         Name = '21 - empty'
       end
       item
         CollectionIndex = 22
         CollectionName = '22 - cpu'
-        Disabled = False
         Name = '22 - cpu'
       end
       item
         CollectionIndex = 23
         CollectionName = '23 - memory'
-        Disabled = False
         Name = '23 - memory'
       end
       item
         CollectionIndex = 24
         CollectionName = '24 - bringtofront'
-        Disabled = False
         Name = '24 - bringtofront'
       end
       item
         CollectionIndex = 25
         CollectionName = '25 - hwreset'
-        Disabled = False
         Name = '25 - hwreset'
       end
       item
         CollectionIndex = 26
         CollectionName = '26 - download'
-        Disabled = False
         Name = '26 - download'
       end
       item
         CollectionIndex = 27
         CollectionName = '27 - update'
-        Disabled = False
         Name = '27 - update'
       end
       item
         CollectionIndex = 28
         CollectionName = '28 - new_hdd'
-        Disabled = False
         Name = '28 - new_hdd'
       end
       item
         CollectionIndex = 29
         CollectionName = '29 '
-        Disabled = False
         Name = '29 '
       end
       item
         CollectionIndex = 30
         CollectionName = '30 - appearance'
-        Disabled = False
         Name = '30 - appearance'
       end
       item
         CollectionIndex = 31
         CollectionName = '31 - emulator'
-        Disabled = False
         Name = '31 - emulator'
       end
       item
         CollectionIndex = 32
         CollectionName = '32 - tools'
-        Disabled = False
         Name = '32 - tools'
       end
       item
         CollectionIndex = 33
         CollectionName = '33 - debug_start'
-        Disabled = False
         Name = '33 - debug_start'
       end
       item
         CollectionIndex = 34
         CollectionName = '34 - new_floppy'
-        Disabled = False
         Name = '34 - new_floppy'
       end>
     ImageCollection = ImageCollection1
@@ -50290,217 +50287,180 @@ object WinBoxMain: TWinBoxMain
     Top = 200
   end
   object Icons16: TVirtualImageList
-    DisabledGrayscale = False
-    DisabledSuffix = '_Disabled'
     Images = <
       item
         CollectionIndex = 0
         CollectionName = '0 - warning'
-        Disabled = False
         Name = '0 - warning'
       end
       item
         CollectionIndex = 1
         CollectionName = '1 - backup'
-        Disabled = False
         Name = '1 - backup'
       end
       item
         CollectionIndex = 2
         CollectionName = '2 - cad'
-        Disabled = False
         Name = '2 - cad'
       end
       item
         CollectionIndex = 3
         CollectionName = '3 - clone'
-        Disabled = False
         Name = '3 - clone'
       end
       item
         CollectionIndex = 4
         CollectionName = '4 - close2'
-        Disabled = False
         Name = '4 - close2'
       end
       item
         CollectionIndex = 5
         CollectionName = '5 - colorsphere'
-        Disabled = False
         Name = '5 - colorsphere'
       end
       item
         CollectionIndex = 6
         CollectionName = '6 - delete'
-        Disabled = False
         Name = '6 - delete'
       end
       item
         CollectionIndex = 7
         CollectionName = '7 - earth'
-        Disabled = False
         Name = '7 - earth'
       end
       item
         CollectionIndex = 8
         CollectionName = '8 - folder'
-        Disabled = False
         Name = '8 - folder'
       end
       item
         CollectionIndex = 9
         CollectionName = '9 - gears'
-        Disabled = False
         Name = '9 - gears'
       end
       item
         CollectionIndex = 10
         CollectionName = '10 - hdd'
-        Disabled = False
         Name = '10 - hdd'
       end
       item
         CollectionIndex = 11
         CollectionName = '11 - info'
-        Disabled = False
         Name = '11 - info'
       end
       item
         CollectionIndex = 12
         CollectionName = '12 - logo_v2'
-        Disabled = False
         Name = '12 - logo_v2'
       end
       item
         CollectionIndex = 13
         CollectionName = '13 - move'
-        Disabled = False
         Name = '13 - move'
       end
       item
         CollectionIndex = 14
         CollectionName = '14 - new'
-        Disabled = False
         Name = '14 - new'
       end
       item
         CollectionIndex = 15
         CollectionName = '15 - print'
-        Disabled = False
         Name = '15 - print'
       end
       item
         CollectionIndex = 16
         CollectionName = '16 - reload'
-        Disabled = False
         Name = '16 - reload'
       end
       item
         CollectionIndex = 17
         CollectionName = '17 - restore'
-        Disabled = False
         Name = '17 - restore'
       end
       item
         CollectionIndex = 18
         CollectionName = '18 - start'
-        Disabled = False
         Name = '18 - start'
       end
       item
         CollectionIndex = 19
         CollectionName = '19 - stop'
-        Disabled = False
         Name = '19 - stop'
       end
       item
         CollectionIndex = 20
         CollectionName = '20 - stop_all'
-        Disabled = False
         Name = '20 - stop_all'
       end
       item
         CollectionIndex = 21
         CollectionName = '21 - empty'
-        Disabled = False
         Name = '21 - empty'
       end
       item
         CollectionIndex = 22
         CollectionName = '22 - cpu'
-        Disabled = False
         Name = '22 - cpu'
       end
       item
         CollectionIndex = 23
         CollectionName = '23 - memory'
-        Disabled = False
         Name = '23 - memory'
       end
       item
         CollectionIndex = 24
         CollectionName = '24 - bringtofront'
-        Disabled = False
         Name = '24 - bringtofront'
       end
       item
         CollectionIndex = 25
         CollectionName = '25 - hwreset'
-        Disabled = False
         Name = '25 - hwreset'
       end
       item
         CollectionIndex = 26
         CollectionName = '26 - download'
-        Disabled = False
         Name = '26 - download'
       end
       item
         CollectionIndex = 27
         CollectionName = '27 - update'
-        Disabled = False
         Name = '27 - update'
       end
       item
         CollectionIndex = 28
         CollectionName = '28 - new_hdd'
-        Disabled = False
         Name = '28 - new_hdd'
       end
       item
         CollectionIndex = 29
         CollectionName = '29 '
-        Disabled = False
         Name = '29 '
       end
       item
         CollectionIndex = 30
         CollectionName = '30 - appearance'
-        Disabled = False
         Name = '30 - appearance'
       end
       item
         CollectionIndex = 31
         CollectionName = '31 - emulator'
-        Disabled = False
         Name = '31 - emulator'
       end
       item
         CollectionIndex = 32
         CollectionName = '32 - tools'
-        Disabled = False
         Name = '32 - tools'
       end
       item
         CollectionIndex = 33
         CollectionName = '33 - debug_start'
-        Disabled = False
         Name = '33 - debug_start'
       end
       item
         CollectionIndex = 34
         CollectionName = '34 - new_floppy'
-        Disabled = False
         Name = '34 - new_floppy'
       end>
     ImageCollection = ImageCollection1
@@ -50701,6 +50661,7 @@ object WinBoxMain: TWinBoxMain
     object miPerfCPU2: TMenuItem
       Caption = '&Processzorterhel'#233's'
       ImageIndex = 22
+      ImageName = '22 - cpu'
       object miShow4: TMenuItem
         Caption = '&Megjelen'#237't'#233's...'
         HelpContext = 1
@@ -50714,6 +50675,7 @@ object WinBoxMain: TWinBoxMain
         Caption = '&Nyomtat'#225's...'
         HelpContext = 2
         ImageIndex = 15
+        ImageName = '15 - print'
         OnClick = btnChartClick
       end
       object miExportBitmap4: TMenuItem
@@ -50730,6 +50692,7 @@ object WinBoxMain: TWinBoxMain
     object miPerfRAM2: TMenuItem
       Caption = 'Lefoglalt &mem'#243'ria'
       ImageIndex = 23
+      ImageName = '23 - memory'
       object miShow5: TMenuItem
         Tag = 1
         Caption = '&Megjelen'#237't'#233's...'
@@ -50745,6 +50708,7 @@ object WinBoxMain: TWinBoxMain
         Caption = '&Nyomtat'#225's...'
         HelpContext = 2
         ImageIndex = 15
+        ImageName = '15 - print'
         OnClick = btnChartClick
       end
       object miExportBitmap5: TMenuItem
@@ -50763,6 +50727,7 @@ object WinBoxMain: TWinBoxMain
     object miPerfVMs2: TMenuItem
       Caption = '&Fut'#243' virtu'#225'lis g'#233'pek sz'#225'ma'
       ImageIndex = 21
+      ImageName = '21 - empty'
       object miShow6: TMenuItem
         Tag = 2
         Caption = '&Megjelen'#237't'#233's...'
@@ -50778,6 +50743,7 @@ object WinBoxMain: TWinBoxMain
         Caption = '&Nyomtat'#225's...'
         HelpContext = 2
         ImageIndex = 15
+        ImageName = '15 - print'
         OnClick = btnChartClick
       end
       object miExportBitmap6: TMenuItem
