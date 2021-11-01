@@ -25,7 +25,7 @@ interface
 
 uses
   Types, UITypes, Windows, Messages, SysUtils, Classes, Controls, Forms, Graphics,
-  Dialogs, Actions, ActnList, Menus, StdCtrls, ExtCtrls, VclTee.TeeGDIPlus,
+  TypInfo, Dialogs, Actions, ActnList, Menus, StdCtrls, ExtCtrls, VclTee.TeeGDIPlus,
   ComCtrls, VCLTee.TeEngine, VCLTee.TeeProcs, VCLTee.Chart, VCLTee.Series,
   BaseImageCollection, ImageCollection, ImageList, ImgList, VirtualImageList,
   GraphUtil, Generics.Collections, u86Box, Vcl.ToolWin, uLang, AppEvnts, frm86Box,
@@ -986,21 +986,22 @@ end;
 procedure TWinBoxMain.DoFirstUpdate(var Msg: TMessage);
 begin
   inherited;
-  if (Msg.LParam = 7) and (Msg.WParam = 13) and Assigned(WinBoxSplash) then begin //Validity Test
-    List.Enabled := true;
-    Pages.Enabled := true;
+  if (Msg.LParam = 7) and (Msg.WParam = 13) and Assigned(WinBoxSplash) then
+    try //Validity Test
+      List.Enabled := true;
+      Pages.Enabled := true;
 
-    Screen.Cursor := crDefault;
+      Screen.Cursor := crDefault;
 
-    WinBoxSplash.OnClose := nil;
-    WinBoxSplash.Close;
-    FreeAndNil(WinBoxSplash);
+      WinBoxSplash.OnClose := nil;
+      WinBoxSplash.Close;
+      FreeAndNil(WinBoxSplash);
 
-    if IsAllStopped and Updater.AskAutoUpdate then
-      Updater.ShowModal;
-
-    FirstUpdateDone := true;
-  end;
+      if IsAllStopped and Updater.AskAutoUpdate then
+        Updater.ShowModal;
+    finally
+      FirstUpdateDone := true;
+    end;
 end;
 
 procedure TWinBoxMain.DummyUpdate(Sender: TObject);
