@@ -442,7 +442,8 @@ begin
 
     if hURL = nil then begin
       InternetCloseHandle(hSession);
-      RaiseLastOSError;
+      raise Exception.Create(
+        SysErrorMessage(GetLastError, GetModuleHandle('wininet.dll')));
     end;
 
     FBytesRead := 0;
