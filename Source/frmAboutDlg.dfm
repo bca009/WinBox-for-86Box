@@ -7,14 +7,17 @@ object AboutDlg: TAboutDlg
   ClientHeight = 357
   ClientWidth = 358
   Color = clWhite
-  ParentFont = True
-  OldCreateOrder = False
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
   Position = poMainFormCenter
   OnCreate = FormCreate
+  PixelsPerInch = 96
   DesignSize = (
     358
     357)
-  PixelsPerInch = 96
   TextHeight = 13
   object imgSplash: TImage
     Left = 0
@@ -140,7 +143,7 @@ object AboutDlg: TAboutDlg
     ParentFont = False
   end
   object lb86Box: TLabel
-    Left = 160
+    Left = 157
     Top = 240
     Width = 100
     Height = 13
@@ -178,7 +181,7 @@ object AboutDlg: TAboutDlg
     OnClick = lbWebApplicationClick
   end
   object lbJCL: TLabel
-    Left = 160
+    Left = 157
     Top = 259
     Width = 114
     Height = 13
@@ -209,7 +212,6 @@ object AboutDlg: TAboutDlg
     Height = 13
     Anchors = [akLeft, akBottom]
     Caption = 'A program szabad szoftver GNU GPL v3 alatt.'
-    ExplicitTop = 285
   end
   object edVersion: TEdit
     Left = 94
