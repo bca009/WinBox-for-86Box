@@ -187,7 +187,7 @@ SelectHDD.EFailedToAddRow=Falha ao adicionar linha: \"%s\", número: %d.
 SelectHDD.EInvalidRecord=Gravação inválida no arquivo: linha: %d, campo: %d, %s.
 
 WizardVM.NoManufaturer=(Fabricante desconhecido)
-WizardVM.NewVM=Nova máquina virtual #%d
+WizardVM.NewVM=Nova máquina virtual Nº%d
 WizardVM.SelectWorkDir=Selecione o diretório de trabalho desejado:
 
 [UpdateDlg]
