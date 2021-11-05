@@ -525,7 +525,7 @@ cbCrashDump=Permitir criação de &despejo de erros
 btnDefGlobalLog=&Padrão
 btnOK=&OK
 btnCancel=&Cancelar
-btnImport=&Importar \u25B
+btnImport=&Importar \u25BC
 
 [pmImport]
 miImport86Mgr=Transferir configurações do 86Box &Manager
