@@ -47,7 +47,7 @@ Builds.Full=Construção completa
 Builds.Basic=Construção básica
 Printers.TextOnly=Impressora de texto matricial
 Mouse.Serial=Mouse serial
-Mouse.Bus=Mouse bus
+Mouse.Bus=Mouse de barramento
 Note.NoCDOldHDD=Incompatível com discos rígidos apropriados à idade.
 
 [Strings]
@@ -262,9 +262,9 @@ net_card.ne2k=Compatível Novell NE2000
 net_card.plip=Protocolo de Internet de Linha Paralela
 net_type.none=Nenhum
 mouse_type.none=Nenhum
-mouse_type.logibus=Mouse bus Logitech/Microsoft
+mouse_type.logibus=Mouse de barramento Logitech/Microsoft
 mouse_type.ltserial=Mouse serial Logitech
-mouse_type.msbus=Mouse bus Microsoft (InPort)
+mouse_type.msbus=Mouse de barramento Microsoft (InPort)
 mouse_type.msserial=Mouse serial Microsoft
 mouse_type.mssystems=Mouse serial Mouse Systems
 mouse_type.ps2=Mouse padrão PS/2
@@ -320,15 +320,15 @@ acDbgLanguageFile=Salvar arquivo de &idioma atual...
 acDbgFolderChg=T&FolderMonitor.OnChange Chamadas de evento
 acDbgRTTILogFile=Salvar dados &RTTI no arquivo de de registro...
 
-acDbgProcList=TProcessMonitor: &Dump Process List
-acDbgDumpList=TProcessMonitor: &Full Process Informations
-acDbgMonQuery=TProcessMonitor: Dump &Query Field
-acDbgProcUpd=TProcessMonitor.On&Update Event Calls
-acDbgProcChg=TProcessMonitor.On&Change Event Calls
-acDbgProcOps=TProfile.Start, Stop, ...: Generate &Events
-acDbgMonData=TProfile.Create&DataField: Log Matches
-acDbgPrfAsgn=TProfile.UpdatePIDs: Track &Assignments
-acDbgProfChg=TProcess&Profile.OnChange Event Calls
+acDbgProcList=TProcessMonitor: &Despejar lista de processos
+acDbgDumpList=TProcessMonitor: &Informação completa do processo
+acDbgMonQuery=TProcessMonitor: Despejar campo \"Query\" 
+acDbgProcUpd=TProcessMonitor.On&Update: Chamadas de evento
+acDbgProcChg=TProcessMonitor.On&Change: Chamadas de evento
+acDbgProcOps=TProfile.Start, Stop, ...: Gerar eventos
+acDbgMonData=TProfile.Create&DataField: Combinações de registros
+acDbgPrfAsgn=TProfile.UpdatePIDs: Faixa de atribuição
+acDbgProfChg=TProcess&Profile.OnChange: Chamadas de evento
 
 aDbgErrExcept=Exceção de lançamento: &Exception...
 aDbgErrSystem=Exceção de lançamento: E&OSError...
