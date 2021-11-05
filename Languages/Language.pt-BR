@@ -79,7 +79,7 @@ Strings.Standard=Padrão
 Strings.Cassette=Fita cassete
 Strings.Cartridge=Cartucho de ROM
 
-ImportVM.EDuplicateWorkDir=Já existe uma máquina virtual que foi criada com a configuração especificada.\r\n\r\nSelecione outro arquivo de configuração. 
+ImportVM.EDuplicateWorkDir=Já existe uma máquina virtual criada com a configuração especificada.\r\n\r\nSelecione outro arquivo de configuração. 
 ImportVM.ENoSelectedItems=Nenhum item selecionado.
 ImportVM.InfoRemovedVMs=A configuração atual de %s contém máquinas virtuais que não podem ser importadas no momento.\r\n\r\n%s\r\nEstas máquinas já foram importadas ou têm problemas com os caminhos.
 ImportVM.ImportedVM=Máquina virtual importada #%d
