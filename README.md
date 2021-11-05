@@ -19,9 +19,9 @@ Currently this software is the successor of [WinBox Reloaded](https://github.com
 - It can create floppy images, and VHD and IMG hard disk images.
 
 **The program currently supports these display languages:**
-- Hungarian (hu-HU)
-- English (en-US)
-- Italian (it-IT)
+  Hungarian (hu-HU), English (en-US), Italian (it-IT), Portuguese Brazilian (pt-BR)
+
+Special thanks to explorerdotexe, and Altieres Lima da Silva for translating the program.
 
 If you want to add your language to the supported list, you can find the language files under the Translations folder.
 These files are simple UTF-8 encoded C-style escape sequenced INI-files, can be created by any kind of text editor.
