@@ -20,7 +20,7 @@ Currently this software is the successor of [WinBox Reloaded](https://github.com
 
 **The program currently supports these display languages:**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hungarian (hu-HU), English (en-US), Italian (it-IT), Portuguese Brazilian (pt-BR)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hungarian (hu-HU), English (en-US), Italian (it-IT), Portuguese Brazilian (pt-BR), German (de-DE)
 
 Special thanks to explorerdotexe, and Altieres Lima da Silva for translating the program.
 
