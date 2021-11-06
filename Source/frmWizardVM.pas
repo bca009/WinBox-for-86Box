@@ -96,7 +96,7 @@ type
     lbOption4: TLabel;
     tabStorage: TTabSheet;
     lbStorageTitle: TLabel;
-    Label12: TLabel;
+    lbStorageDesc: TLabel;
     cbHDD: TCheckBox;
     lbType1: TLabel;
     lbGeometry: TLabel;

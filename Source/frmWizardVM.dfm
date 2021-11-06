@@ -11,15 +11,14 @@ object WizardVM: TWizardVM
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  OldCreateOrder = False
   Position = poOwnerFormCenter
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnShow = FormShow
+  PixelsPerInch = 96
   DesignSize = (
     479
     309)
-  PixelsPerInch = 96
   TextHeight = 13
   object bvBottom: TBevel
     Left = 0
@@ -77,7 +76,7 @@ object WizardVM: TWizardVM
     Top = 0
     Width = 337
     Height = 263
-    ActivePage = tabTemplates
+    ActivePage = tabStorage
     Align = alClient
     TabOrder = 2
     object tabWelcome: TTabSheet
@@ -455,7 +454,7 @@ object WizardVM: TWizardVM
         Font.Style = [fsBold]
         ParentFont = False
       end
-      object Label12: TLabel
+      object lbStorageDesc: TLabel
         Left = 16
         Top = 48
         Width = 297
@@ -546,7 +545,7 @@ object WizardVM: TWizardVM
       object cbHDD: TCheckBox
         Left = 16
         Top = 79
-        Width = 97
+        Width = 281
         Height = 17
         Caption = '&Merevlemez'
         TabOrder = 0
@@ -555,7 +554,7 @@ object WizardVM: TWizardVM
       object cbCDROM: TCheckBox
         Left = 16
         Top = 140
-        Width = 97
+        Width = 289
         Height = 17
         Caption = 'CD-meghajt'#243
         TabOrder = 1
@@ -620,10 +619,6 @@ object WizardVM: TWizardVM
       ImageIndex = 5
       ParentDoubleBuffered = False
       TabVisible = False
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
     end
   end
 end

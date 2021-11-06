@@ -12,13 +12,12 @@ object NewFloppy: TNewFloppy
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  OldCreateOrder = False
   Position = poOwnerFormCenter
   OnCreate = FormCreate
+  PixelsPerInch = 96
   DesignSize = (
     479
     309)
-  PixelsPerInch = 96
   TextHeight = 13
   object bvBottom: TBevel
     Left = 0
@@ -98,7 +97,7 @@ object NewFloppy: TNewFloppy
         Font.Style = [fsBold]
         ParentFont = False
       end
-      object Label5: TLabel
+      object lbDescFileName: TLabel
         Left = 16
         Top = 46
         Width = 297
