@@ -669,6 +669,7 @@ begin
     cbLogging.ItemIndex := LoggingMode;
     cbLoggingChange(Self);
 
+    cbRepositories.ItemIndex := cbRepositories.Items.IndexOf(Repository);
     cbRepositories.Text := Repository;
 
     cbMinimizeOnStart.Checked := MinimizeOnStart;
