@@ -163,7 +163,7 @@ implementation
 
 {$R *.dfm}
 
-uses uCommUtil, uCommText, frmSelectHDD, Printers, frmMainForm;
+uses uCommUtil, uCommText, frmSelectHDD, Printers, frmMainForm, frmErrorDialog;
 
 resourcestring
   OpenDlgVhdDisk = 'OpenDialog.VhdDisk';
@@ -540,8 +540,11 @@ function TWizardHDD.TryCreate: boolean;
 var
   FreeAvail,
   TotalSpace: Int64;
+
+  Input: integer;
 begin
-  //Result := false;
+  Result := false;
+  Input := -1;
 
   if (edFileName.Text = '') or DirectoryExists(edFileName.Text) then begin
     pcPages.ActivePage := tabBasic;
@@ -562,27 +565,38 @@ begin
 
   try
     if rbVhdDisk.Checked then begin
+      Input := 0;
       Result := CreateVHDImage(edFileName.Text, FDiskData.dgTranslatedGeometry, cbSparse.Checked);
-      if not Result and (MessageBox(Handle, _P(ECantCreateVhd),
-        PChar(Application.Title), MB_YESNO or MB_ICONQUESTION) = mrYes) then begin
-          rbVhdDisk.Checked := false;
-          rbImgDisk.Checked := true;
-          rbVhdDiskClick(rbVhdDisk);
-          exit(TryCreate);
-        end;
     end
-    else if not cbSparse.Checked then
-      Result := CreateDiskImage(edFileName.Text, FDiskData.dgTranslatedGeometry)
+    else if not cbSparse.Checked then begin
+      Input := 1;
+      Result := CreateDiskImage(edFileName.Text, FDiskData.dgTranslatedGeometry);
+    end
     else begin
+      Input := 2;
       Result := CreateSparseImage(edFileName.Text, FDiskData.dgTranslatedGeometry);
-      if not Result and (MessageBox(Handle, _P(ECantCreateSparse),
-        PChar(Application.Title), MB_YESNO or MB_ICONQUESTION) = mrYes) then
-          Result := CreateDiskImage(edFileName.Text, FDiskData.dgTranslatedGeometry)
     end;
   except
     on E: Exception do begin
-      MessageBox(Handle, PChar(E.Message), PChar(Application.Title), MB_OK or MB_ICONERROR);
-      Result := false;
+      TExceptionDialog.ExceptionHandler(Self, E);
+
+      case Input of
+        0: if MessageBox(Handle, _P(ECantCreateVhd), PChar(Application.Title),
+                MB_YESNO or MB_ICONQUESTION) = mrYes then begin
+             rbVhdDisk.Checked := false;
+             rbImgDisk.Checked := true;
+             rbVhdDiskClick(rbVhdDisk);
+             exit(TryCreate);
+           end;
+        2: if MessageBox(Handle, _P(ECantCreateSparse), PChar(Application.Title),
+                MB_YESNO or MB_ICONQUESTION) = mrYes then begin
+              Result := CreateDiskImage(edFileName.Text,
+                                        FDiskData.dgTranslatedGeometry);
+              exit;
+           end;
+        else
+          Result := false;
+      end;
     end;
   end;
 end;

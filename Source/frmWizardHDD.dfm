@@ -11,14 +11,13 @@ object WizardHDD: TWizardHDD
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  OldCreateOrder = False
   Position = poOwnerFormCenter
   OnCreate = FormCreate
   OnShow = FormShow
+  PixelsPerInch = 96
   DesignSize = (
     479
     309)
-  PixelsPerInch = 96
   TextHeight = 13
   object imgBanner: TImage
     AlignWithMargins = True
@@ -59,10 +58,6 @@ object WizardHDD: TWizardHDD
     object tabWelcome: TTabSheet
       Caption = 'tabWelcome'
       TabVisible = False
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       DesignSize = (
         329
         253)
@@ -101,10 +96,6 @@ object WizardHDD: TWizardHDD
       Caption = 'tabFormat'
       ImageIndex = 6
       TabVisible = False
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object lbFormatTitle: TLabel
         Left = 16
         Top = 16
@@ -196,10 +187,6 @@ object WizardHDD: TWizardHDD
       Caption = 'tabBasic'
       ImageIndex = 1
       TabVisible = False
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       DesignSize = (
         329
         253)
@@ -312,10 +299,6 @@ object WizardHDD: TWizardHDD
       Caption = 'tabCapacity'
       ImageIndex = 2
       TabVisible = False
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       DesignSize = (
         329
         253)
@@ -466,10 +449,6 @@ object WizardHDD: TWizardHDD
       Caption = 'tabParameters'
       ImageIndex = 3
       TabVisible = False
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       DesignSize = (
         329
         253)
@@ -710,10 +689,6 @@ object WizardHDD: TWizardHDD
       ImageIndex = 5
       ParentDoubleBuffered = False
       TabVisible = False
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
     end
   end
   object btnNext: TButton
