@@ -1578,6 +1578,8 @@ var
 begin
   with Language do begin
     Translate('WinBoxMain', Self);
+    Application.Title := Caption;
+
     Translate('Actions', Actions);
     Translate('MainMenu', MainMenu.Items);
     Translate('HomeMenu', HomeMenu.Items);
