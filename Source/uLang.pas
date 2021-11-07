@@ -106,11 +106,38 @@ begin
   Result := PChar(_T(Key, Args));
 end;
 
+type
+  TInitLocaleHelper = record
+    Input, Root, RetVal: string;
+  end;
+  PInitLocaleHelper = ^TInitLocaleHelper;
+
+
+function EnumLocaleProcEx(Locale: PChar;
+  Flags: DWORD; Data: PInitLocaleHelper): Integer; stdcall;
+var
+  Temp: string;
+begin
+  Temp := String(Locale);
+
+  with Data^ do
+    if (pos(Input, Temp) = 1) and FileExists(Root + Temp) then begin
+      RetVal := Temp;
+      Result := ord(false);
+    end
+    else
+      Result := ord(true);
+end;
+
 procedure InitLanguage;
 var
-  FileName: string;
+  FileRoot, FileName: string;
   I: integer;
+
+  Helper: TInitLocaleHelper;
 begin
+  //First of all decide what language we want to load.
+  //We can use the system language, or use the one from -lang.
   Locale := GetSystemLanguage;
   if ParamCount > 1 then
     for I := 1 to ParamCount - 1 do
@@ -119,18 +146,36 @@ begin
         break;
       end;
 
-  FileName := ExtractFilePath(paramstr(0)) + PfLanguagesPath + StrFileNameBase + Locale;
+  //Try to use the determined language
+  FileRoot := ExtractFilePath(paramstr(0)) + PfLanguagesPath + StrFileNameBase;
+  FileName := FileRoot + Locale;
 
   if not FileExists(FileName) then begin
-    Locale := 'en-US';
-    FileName := ExtractFilePath(paramstr(0)) + PfLanguagesPath +  StrFileNameBase + Locale;
+    //If there is no such language file, try to use any from same group
+    //If no any similar languages, fallback to en-US
+    with Helper do begin
+      Input := Copy(Locale, 1, pos('-', Locale) - 1);
+      Root := FileRoot;
+      RetVal := 'en-US';
+    end;
+
+    EnumSystemLocalesEx(@EnumLocaleProcEx, LOCALE_ALL, LParam(@Helper), nil);
+
+    //If the en-US is used as fallback we have to check that file is exists
+    //  and if not then use hu-HU, since it's the program's base language
+    with Helper do begin
+      if (RetVal = 'en-US') and not FileExists(Root + RetVal) then begin
+        Locale := 'hu-HU';
+        FileName := '';
+      end
+      else begin
+        Locale := RetVal;
+        FileName := Root + RetVal;
+      end;
+    end;
   end;
 
-  if not FileExists(FileName) then begin
-    Locale := 'hu-HU';
-    FileName := '';
-  end;
-
+  //Finally load the selected language file.
   Language := TryLoadLang(FileName);
 end;
 

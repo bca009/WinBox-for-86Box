@@ -36,7 +36,7 @@ type
     pcPages: TPageControl;
     tabData: TTabSheet;
     lbTitle: TLabel;
-    Label5: TLabel;
+    lbDescFileName: TLabel;
     lbFileName: TLabel;
     edFileName: TEdit;
     btnBrowse: TButton;
