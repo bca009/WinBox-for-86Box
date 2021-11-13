@@ -158,7 +158,7 @@ const
     Mouse:    'none';
     Joystick: 'none';
 
-    Memory:      256;
+    Memory:      64;
     CPUSpeed:    4772728;
     VoodooType:  0;
     HasVoodoo:   false;
