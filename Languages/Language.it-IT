@@ -226,23 +226,15 @@ tab86Box=Macchine 86Box
 
 [NameDefs]
 machine.amixt=AMI XT clone
-machine.dtk=DTK XT clone
 machine.genxt=Generic XT clone
 machine.pxxt=Phoenix XT clone
 machine.mr286=MR 286 clone
 machine.quadt286=Quadtel 286 clone
-machine.ami286=AMI 286 clone
-machine.px286=Phoenix 286 clone
-machine.award286=Award 286 clone
 machine.dtk386=DTK 386SX clone
 machine.acc386=AMI 386DX clone
-machine.micronics386=Micronics 386 clone
 machine.award486=Award 486 clone
 machine.mr486=MR 486 clone
-machine.sis401=AMI 486 clone
-machine.ami471=AMI 486 clone
-machine.win471=AMI WinBIOS 486 clone
-machine.award386=Award 386DX clone
+machine.award386dx=Award 386DX clone
 machine.mr386dx=MR 386DX clone
 gfxcard.none=Niente
 gfxcard.internal=Interno

@@ -25,7 +25,7 @@ americxt=American XT Computer
 amixt=AMI XT clone
 mpc1600=Columbia Data Products MPC-1600
 portable=Compaq Portable
-dtk=DTK XT clone
+dtk=DTK PIM-TB10-Z
 pcspirit=Eagle PC Spirit
 genxt=Generic XT clone
 jukopc=Juko ST
@@ -83,12 +83,12 @@ siemens=Siemens PCD-2L
 t3100e=Toshiba T3100e
 quadt286=Quadtel 286 clone
 tg286m=Trigem 286M
-ami286=AMI 286 clone
+ami286=Dataexpert 286
 3302=NCR 3302
 px286=Phoenix 286 clone
-award286=Award 286 clone
 gw286ct=GW-286CT GEAR
 gdc212m=Goldstar GDC-212M
+award286=Hyundai Solomon 286KP
 super286tr=Hyundai Super-286TR
 spc4200p=Samsung SPC-4200P
 spc4216p=Samsung SPC-4216P
@@ -98,70 +98,83 @@ deskmaster286=Samsung Deskmaster 286
 ibmps2_m50=IBM PS/2 model 50
 
 ibmps1_2121=IBM PS/1 model 2121
-ibmps1_2121_isa=IBM PS/1 m.2121+ISA
 pc916sx=NCR PC916SX
+quadt386sx=QTC-SXM KT X20T02/HI
 arb1375=Acrosser AR-B1375
-pja511m=Acrosser PJ-A511M
+sbc-350a=AAEON SBC-350A
 flytech386=Flytech 386
+mr1217=MR 386SX clone
+pja511m=Acrosser PJ-A511M
+prox1332=Protech ProX-1332
 ama932j=AMA-932J
 adi386sx=ADI 386SX
 shuttle386sx=Shuttle 386SX
 cmdsl386sx16=Commodore SL386SX-16
 dtk386=DTK 386SX clone
-m30008=Olivetti M300-08
-m30015=Olivetti M300-15
 awardsx=DTK PPM-3333P
 cmdsl386sx25=Commodore SL386SX-25
+dataexpert386sx=Dataexpert 386SX
 spc6033p=Samsung SPC-6033P
 kmxc02=KMX-C-02
 megapc=Amstrad MegaPC
 
 ibmps2_m55sx=IBM PS/2 model 55SX
 
+rycleopardlx=RYC Leopard LX
 acc386=AMI 386DX clone
 ecs386=ECS 386/32
 spc6000a=Samsung SPC-6000A
 portableiii386=Compaq Portable III (386)
-micronics386=Micronics 386 clone
+micronics386=Micronics 09-00021
 asus386=ASUS ISA-386C
 ibmps2_m70_type3=IBM PS/2 model 70 (type 3)
 ibmps2_m80=IBM PS/2 model 80
 ibmps2_m80_type3=IBM PS/2 model 80 (type 3)
 
-award486=Award 486 clone
-ami486=Dataexpert SX495 (486)
-mr486=MR 486 clone
+award495=Award 486 clone
+ami495=Dataexpert SX495 (AMI BIOS)
+mr495=Dataexpert SX495 (MR BIOS)
 
 ali1429=Olystar LIL1429
 cs4031=AMI 486 CS4031
-pcs46c=Olivetti PCS-46C
 mvi486=Mylex MVI486
+isa486=ASUS ISA-486
+sis401=Chaintech 433SC
+av4=ABIT AV4
+px471=SiS VL-BUS 471 REV. A1
 486vchd=FIC 486-VC-HD
 vect486vl=HP Vectra 486VL
 d824=Siemens Nixdorf D824
-
 pb410a=Packard Bell PB410A
 acera1g=Acer A1G
-win486=AMI WinBIOS 486
-403tg=Jetway J-403TG
-sis401=AMI 486 Clone
-isa486=ASUS ISA-486
-av4=ABIT AV4
+win486=Kaimei 486
+decpc_lpv=DEC DECpc LPV
+acerv10=Acer V10
 valuepoint433=IBM PS/ValuePoint 433DX/Si
-ami471=AMI 486 Clone
-win471=AMI WinBIOS 486 clone
+win471=ABIT AB-AH4
+
+green-b=Green-B
+403tg=Jetway J-403TG
+403tg_rev_d=Jetway J-403TG Rev. D
+403tg_rev_d_mr=Jetway J-403TG Rev. D (MR BIOS)
 vi15g=AOpen Vi15G
 vli486sv2g=ASUS VL/I-486SV2G (GX4)
 dtk486=DTK PKM-0038S E-2
-px471=Phoenix SiS 471
+ami471=Epox 486SX/DX Green
 
+sbc-490=AAEON SBC-490
 abpb4=ABIT AB-PB4
 win486pci=AMI WinBIOS 486 PCI
+ms4145=MSI MS-4145
+tf-486=ESA TF-486
 pc330_6573=IBM PC 330 (type 6573)
 486ap4=ASUS PVI-486AP4
+ninja=Intel Classic/PCI ED
 486sp3g=ASUS PCI/I-486SP3G
 486sp3=ASUS PCI/I-486SP3
 alfredo=Intel Classic/PCI
+pci400c_b=J-Bond PCI400C-B
+g486ip=Tekram G486IP
 486sp3c=ASUS PVI-486SP3C
 ls486e=Lucky Star LS-486E
 m4li=Micronics M4Li
@@ -170,16 +183,20 @@ r418=Rise Computer R418
 4dps=Zida Tomato 4DP
 atc1415=A-Trend ATC-1415
 ecs486=ECS Elite UM8810PAIO
+actionpc2600=Epson Action PC 2600
+m919=PC Chips M919
+spc7700p-lw=Samsung SPC7700P-LW
 hot433=Shuttle HOT-433A
+g486vpa=DFI G486VPA
 486vipio2=FIC VIP-IO2
 
-rycleopardlx=RYC Leopard LX
-
 itoxstar=ITOX STAR
+arb1423c=Acrosser AR-B1423C
 arb1479=Acrosser AR-B1479
 pcm9340=Advantech PCM-9340
 pcm5330=AAEON PCM-5330
 
+excaliburpci=AMI Excalibur PCI Pentium
 p5mp3=ASUS P/I-P5MP3
 dellxp60=Dell Dimension XPS P60
 opti560l=Dell OptiPlex 560/L
@@ -190,7 +207,8 @@ revenge=Intel Premiere/PCI
 pb520r=Packard Bell PB520R
 
 excalibur=AMI Excalibur VLB
-
+p5vl=Supermicro P5VL-PCI
+excaliburpci2=AMI Excalibur PCI-II Pentium ISA
 p5sp4=ASUS PCI/I-P5SP4
 
 plato=Intel Premiere/PCI II
@@ -199,15 +217,15 @@ ambradp90=AMBRA DP90 PCI
 
 acerv30=Acer V30
 apollo=AMI Apollo
-vectra54=HP Vectra VL 5 Series 4
+exp8551=Dataexpert EXP8551
 zappa=Intel Advanced/ZP
 powermatev=NEC PowerMate V
 mb500n=PC Partner MB500N
+hawk=Trigem Hawk
 
 pat54pv=TMC PAT54PV
 
 hot543=Shuttle HOT-543
-p54vl=Supermicro P54VL-PCI
 
 p54sp4=ASUS PCI/I-P54SP4
 sq588=BCM SQ-588
@@ -215,18 +233,21 @@ sq588=BCM SQ-588
 hot539=Shuttle HOT-539
 
 p54tp4xe=ASUS P/I-P54TP4XE
-mr586=ASUS P/I-P54TP4XE (MR BIOS)
+p54tp4xe_mr=ASUS P/I-P54TP4XE (MR BIOS)
 gw2katx=Gateway 2000 Thor
+vectra54=HP Vectra VL 5 Series 4
 thor=Intel Advanced/ATX
 mrthor=Intel Advanced/ATX (MR BIOS)
 endeavor=Intel Advanced/EV
 pb640=Packard Bell PB640
-chariot=QDI Chariot
+fmb=QDI FMB
 
 acerm3a=Acer M3A
 ap53=AOpen AP53
 8500tuc=Biostar MB-8500TUC
 p55t2s=SuperMicro Super P55T2S
+
+p5vxb=ECS P5VX-B
 gw2kte=Gateway 2000 Tigereye
 ap5s=AOpen AP5S
 
@@ -237,6 +258,8 @@ tc430hx=Intel TC430HX
 equium5200=Toshiba Equium 5200D
 pcv240=Sony Vaio PCV-240
 p65up5_cp55t2d=ASUS P/I-P65UP5 (C-P55T2D)
+
+ap5vm=AOpen AP5VM
 p55tvp4=ASUS P/I-P55TVP4
 5ivg=Azza 5IVG
 8500tvxa=Biostar MB-8500TVX-A
@@ -268,9 +291,15 @@ m571=PC Chips M571
 m560=PC Chips M560
 ms5164=MSI MS-5164
 
+p5a=ASUS P5A
+m579=PC Chips M579
+ga-5aa=Gigabyte GA-5AA
+ga-5ax=Gigabyte GA-5AX
+
 ax59pro=AOpen AX59 Pro
 ficva503p=FIC VA-503+
 ficva503a=FIC VA-503A
+sy-5ema_pro=Soyo SY-5EMA Pro
 
 p6rp4=ASUS P/I-P6RP4
 
@@ -299,7 +328,6 @@ ax6bc=AOpen AX6BC
 vei8=HP Vectra VEi 8
 tsunamiatx=Tyan Tsunami ATX
 p6sba=SuperMicro Super P6SBA
-ergox365=Fujitsu ErgoPro x365
 
 ms6168=MSI MS-6168
 borapro=Packard Bell Bora Pro
@@ -328,9 +356,9 @@ atc7020bxii=A-Trend ATC7020BXII
 
 apas3=PC Partner APAS3
 p6bap=ECS P6BAP
-gt694va=BCM GT694VA
-cuv4xls=ASUS CUV4X-LS
 6via90ap=Acorp 6VIA90AP
+cuv4xls=ASUS CUV4X-LS
+gt694va=BCM GT694VA
 
 vpc2007=Microsoft Virtual PC 2007
 
@@ -363,6 +391,18 @@ j656vxd=Jetway J656VXD
 p55r2p4=ASUS P/I-P55T2P4
 wcf681=AEWIN WCF-681
 603tcf=Jetway 603TCF
+
+ibmps1_2121_isa=IBM PS/1 m.2121+ISA
+m30008=Olivetti M300-08
+m30015=Olivetti M300-15
+award486=Award 486 clone
+ami486=Dataexpert SX495 (486)
+mr486=MR 486 clone
+pcs46c=Olivetti PCS-46C
+p54vl=Supermicro P54VL-PCI
+mr586=ASUS P/I-P54TP4XE (MR BIOS)
+chariot=QDI Chariot
+ergox365=Fujitsu ErgoPro x365
 
 [cpu_family]
 8088=Intel 8088
@@ -648,6 +688,8 @@ sbawe32=Sound Blaster AWE32
 sbawe32_pnp=Sound Blaster AWE32 PnP
 sbawe64_gold=Sound Blaster AWE64 Gold
 sbpci128=Sound Blaster PCI 128
+ad1881=SoundMax/Analog Devices AD1881 (AC 97)
+cs4297a=Crystal CS4297A (AC 97)
 sbmcv=Sound Blaster Pro MCV
 sbpromcv=Sound Blaster Pro MCV
 sbprov1=Sound Blaster Pro v1

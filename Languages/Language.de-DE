@@ -226,22 +226,14 @@ tab86Box=86Box VMs
 
 [NameDefs]
 machine.amixt=AMI XT-Klon
-machine.dtk=DTK XT-Klon
 machine.genxt=Generische XT-Replik
 machine.pxxt=Phoenix XT-Klon
 machine.mr286=MR 286-Klon
 machine.quadt286=Quadtel 286-Klon
-machine.ami286=AMI 286-Klon
-machine.px286=Phoenix 286-Klon
-machine.award286=Award 286-Klon
 machine.dtk386=DTK 386SX-Klon
 machine.acc386=AMI 386DX-Klon
-machine.micronics386=Micronics 386-Klon
 machine.award486=Award 486-Klon
 machine.mr486=MR 486-Klon
-machine.sis401=AMI 486-Klon
-machine.ami471=AMI 486-Klon
-machine.win471=AMI WinBIOS 486-Klon
 machine.award386dx=Award 386DX-Klon
 machine.mr386dx=MR 386DX-Klon
 gfxcard.none=Keiner
