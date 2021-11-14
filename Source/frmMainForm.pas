@@ -1577,6 +1577,7 @@ var
   I: integer;
 begin
   with Language do begin
+    SetThreadUILanguage(GetLCID(Locale));
     Translate('WinBoxMain', Self);
     Application.Title := Caption;
 

@@ -52,6 +52,7 @@ type
 
 function GetSystemLanguage: string; inline;
 function GetLanguage(const LCID: LangID): string;
+function GetLCID(const Locale: string): LCID;
 
 function EscapeString(const Input: string): string;
 function UnescapeString(const Input: string): string;
@@ -199,6 +200,11 @@ begin
       Result := String(PChar(@Buffer[0]))
   else
       Result := '';
+end;
+
+function GetLCID(const Locale: string): LCID;
+begin
+  Result := LocaleNameToLCID(PChar(Locale), 0);
 end;
 
 function EscapeString(const Input: string): string;
