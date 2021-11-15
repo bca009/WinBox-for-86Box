@@ -63,7 +63,7 @@ ProfSettDlg.AskVmIconDel=虚拟机文件保护已开启, 此操作将覆写或�
 OpenDialog.86Box=86Box 程序文件 (??Box*.exe)|??Box*.exe|可执行文件 (*.exe; *.com; *.bat; *.cmd)|*.exe; *.com; *.bat; *.cmd|所有文件 (*.*)|*.*
 OpenDialog.Executables=可执行文件 (*.exe; *.com; *.bat; *.cmd)|*.exe; *.com; *.bat; *.cmd|所有文件 (*.*)|*.*
 OpenDialog.LogFiles=日志文件 (*.log)|*.log|文本文件 (*.txt)|*.txt|所有文件 (*.*)|*.*
-OpenDialog.WICImage=支持的图像 (*.bmp; *.gif; *.jpeg; *.jpg; *.exif; *.png; *.tif; *.tiff)|*.bmp; *.gif; *.jpeg; *.jpg; *.exif; *.png; *.tif; *.tiff|位图 (*.bmp)|*.bmp|GIF-images (*.gif)|*.gif|JPEG-images (*.jpg; *.jpeg)|*.jpg;*.jpeg|EXIF-images (*.exif)|*.exif|PNG-images (*.png)|*.png|TIFF-images (*.tif; *.tiff)|*.tif; *.tiff|All files (*.*)|*.*
+OpenDialog.WICImage=支持的图像 (*.bmp; *.gif; *.jpeg; *.jpg; *.exif; *.png; *.tif; *.tiff)|*.bmp; *.gif; *.jpeg; *.jpg; *.exif; *.png; *.tif; *.tiff|位图 (*.bmp)|*.bmp|GIF图像 (*.gif)|*.gif|JPEG图像 (*.jpg; *.jpeg)|*.jpg;*.jpeg|EXIF图像 (*.exif)|*.exif|PNG-images (*.png)|*.png|TIFF图像 (*.tif; *.tiff)|*.tif; *.tiff|所有文件 (*.*)|*.*
 OpenDialog.Config=86Box 配置文件 (86box.cfg)|86box.cfg|所有文件 (*.*)|*.*
 OpenDialog.BmpImage=位图 (*.bmp)|*.bmp|所有文件 (*.*)|*.*
 OpenDialog.EmfImage=元图像文件 (*.emf; *.wmf)|*.emf;*.wmf|所有文件 (*.*)|*.*
@@ -170,7 +170,7 @@ WinBoxUpd.AskLocalNewer=当前使用的 86Box 的 WinBox 版本与可下载的�
 
 SelectHDD.AnyManufacturer=(任何制造商)
 SelectHDD.AnyConnector=(任何连接器)
-SelectHDD.ClientDataSet.FieldDefs[0]=Index
+SelectHDD.ClientDataSet.FieldDefs[0]=序号
 SelectHDD.ClientDataSet.FieldDefs[1]=制造商
 SelectHDD.ClientDataSet.FieldDefs[2]=模型
 SelectHDD.ClientDataSet.FieldDefs[3]=大小
@@ -261,11 +261,11 @@ mouse_type.msserial=Microsoft 串行鼠标
 mouse_type.mssystems=Mouse Systems 串行鼠标
 mouse_type.ps2=标准 PS/2 鼠标
 joystick.none=无
-joystick.standard_2button=标准 2键操纵杆
-joystick.standard_4button=标准 4键操纵杆
-joystick.standard_6button=标准 6键操纵杆
-joystick.standard_8button=标准 8键操纵杆
-joystick.4axis_4button=4轴 4键操纵杆
+joystick.standard_2button=标准2键操纵杆
+joystick.standard_4button=标准4键操纵杆
+joystick.standard_6button=标准6键操纵杆
+joystick.standard_8button=标准8键操纵杆
+joystick.4axis_4button=4轴4键操纵杆
 
 [Actions]
 acNewVM=新建虚拟机(&N)...
@@ -706,7 +706,7 @@ btnPrintReport=打印(&P)...
 
 [WizardVM]
 WizardVM=新建虚拟机
-btnNext=Next(&N) >
+btnNext=下一步(&N) >
 btnPrev=< 返回(&B)
 lbWelcome=新虚拟机 - 欢迎使用向导！
 lbGreetings=该向导将引导您完成创建新的 86Box 虚拟机的过程. \r\n\r\n虽然预定义的模板可以更轻松地为您的工作创建合适的机器, 但您可能仍然需要对计算机体系结构和硬件. \r\n\r\n单击“下一步”开始这些步骤. 
@@ -735,5 +735,5 @@ lbType2=类型(&T):
 lbNoteCDROMDesc=注意(&N): 
 lbStorageNote=如果您已经有一个硬盘映像文件, 此时不要指定硬盘. 
 lbFinishTitle=一切准备就绪！
-lbFinishDesc=向导现在知道创建新虚拟机所需的所有信息. \r\n\r\n如果您想在设置机器后进行微调, 请使用下面的复选框. \r\n\r\ n\r\n\r\n\r\n单击“下一步”完成. 
+lbFinishDesc=向导现在知道创建新虚拟机所需的所有信息. \r\n\r\n如果您想在设置机器后进行微调, 请使用下面的复选框. \r\n\r\n\r\n\r\n\r\n单击“下一步”完成. 
 cbOpenSettings=创建后显示更多设置(&S)
