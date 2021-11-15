@@ -606,13 +606,13 @@ SaveBtn.Hint=将此错误报告保存到文件
 SaveBtn=保存(&S)...
 OkBtn=确定(&O)
 DetailsBtn.Hint=显示或隐藏技术信息
-详情Btn=详情(&D)>>
+DetailsBtn=详情(&D)>>
 lbMessage1=在执行过程中有一个未处理的异常. 
 lbMessage2=如果错误消息很清楚并且可以确定原因, 则可以忽略异常, 因为它只是出于保护目的. \r\n\r\n如果错误原因未知, 应用程序可能会变成 不稳定.  在这种情况下, 建议保存您的工作并关闭程序以避免数据丢失. 
 DetailsMemo.Hint=已创建日志, 其中包含有关异常的详细信息. \r\n生成日期和时间: %s. \r\n\r\n如果错误是意外的且原因未知, 您可以发送\r \n 将此日志发送给开发人员, 因为它可以极大地帮助他或她\r\n 了解此事件的原因. 
 
 [AboutDlg]
-关于Dlg=关于
+AboutDlg=关于
 lbVersion=版本: 
 lbDeveloper=创建者(&C): 
 lbTranslator=翻译者(&T):
@@ -631,7 +631,7 @@ btnOK=确定(&O)
 [SelectHDD]
 HDSelect=硬盘数据库
 gbFilter=过滤器
-lb制造商=制造商(&M): 
+lbManufacturer=制造商(&M): 
 lbConnector=连接器(&C): 
 lbModel=机型(&M): 
 rbFilterByGeometry=按参数参数过滤(&G): 
