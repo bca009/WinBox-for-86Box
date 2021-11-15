@@ -192,10 +192,10 @@ WizardVM.SelectWorkDir=Wählen Sie das Arbeitsverzeichnis aus, das Sie verwenden
 [UpdateDlg]
 btnTerminate.Hint=&Beenden
 btnTerminate=&Unterbrechung
-lbDescription=The latest version of the emulator is being downloaded and installed.\r\nThe operation may take several minutes. 
+lbDescription=Die neueste Version des Emulators wird heruntergeladen und installiert.\r\nDieser Vorgang kann ein paar Minuten dauern.
 lbProgress=&Progress:
-lbTitle=Updating Emulator
-lbFooter=If possible, do not disconnect from the Internet during the process.
+lbTitle=Aktualisierung des Emulators
+lbFooter=Trennen Sie während des Vorgangs nach Möglichkeit nicht die Verbindung zum Internet.
 
 [WinBoxMain]
 WinBoxMain=WinBox für 86Box
