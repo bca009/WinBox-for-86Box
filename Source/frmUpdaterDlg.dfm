@@ -12,16 +12,15 @@ object UpdaterDlg: TUpdaterDlg
   Font.Height = -11
   Font.Name = 'Segoe UI'
   Font.Style = []
-  OldCreateOrder = False
   Position = poMainFormCenter
   OnClose = FormClose
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnShow = FormShow
+  PixelsPerInch = 96
   DesignSize = (
     457
     214)
-  PixelsPerInch = 96
   TextHeight = 13
   object rcBackground: TShape
     Left = 0

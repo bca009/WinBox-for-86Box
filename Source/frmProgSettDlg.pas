@@ -132,6 +132,8 @@ type
     odConfigFiles: TOpenDialog;
     lbWinBoxUpdate: TLabel;
     cbWinBoxUpdate: TComboBox;
+    lbArtifact: TLabel;
+    cbArtifact: TComboBox;
     procedure Reload(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure cbLoggingChange(Sender: TObject);
@@ -319,6 +321,7 @@ begin
     LoggingMode := cbLogging.ItemIndex;
 
     Repository := cbRepositories.Text;
+    Artifact := cbArtifact.Text;
 
     MinimizeOnStart := cbMinimizeOnStart.Checked;
     AutoUpdate := cbAutoUpdate.Checked;
@@ -671,6 +674,9 @@ begin
 
     cbRepositories.ItemIndex := cbRepositories.Items.IndexOf(Repository);
     cbRepositories.Text := Repository;
+
+    cbArtifact.ItemIndex := cbArtifact.Items.IndexOf(Artifact);
+    cbArtifact.Text := Artifact;
 
     cbMinimizeOnStart.Checked := MinimizeOnStart;
     cbAutoUpdate.Checked := AutoUpdate;

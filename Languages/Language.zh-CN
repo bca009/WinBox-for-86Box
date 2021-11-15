@@ -456,6 +456,7 @@ lbRepository=从以下存储库下载 86Box 文件(&Repository):
 cbAutoUpdate=自动搜索模拟器和更新
 cbGetSource=尽可能下载源代码(&D)
 tabAppearance=外观
+lbArtifact=神器(&A):
 grpAppearance=新虚拟机的外观
 lbAppearance=在这里您可以指定新虚拟机的外观. 可以稍后在每台机器的基础上进行定制. 
 lbDefaultDisplay=固定缩放窗口(例如 960x720)和 4:3 的全屏纵横比.

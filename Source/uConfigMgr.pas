@@ -37,7 +37,8 @@ type
     LaunchTimeout: integer;
 
     EmulatorPath,
-    Repository: string;
+    Repository,
+    Artifact: string;
     AutoUpdate,
     GetSource: boolean;
 
@@ -157,6 +158,8 @@ resourcestring
 
   ImportWinBoxRoot   = 'Software\Laci bá''\WinBox';
   Import86MgrRoot    = 'Software\86Box';
+  DefJenkinsArtifact = 'Windows-32';
+  KeyArtifact = 'Artifact';
 
 { TConfiguration }
 
@@ -198,6 +201,7 @@ begin
 
           EmulatorPath    := ReadStringDef(KeyEmulatorPath, EmulatorPath);
           Repository      := ReadStringDef(KeyRepository, Repository);
+          Artifact        := ReadStringDef(KeyArtifact, Artifact);
           AutoUpdate      := ReadBoolDef(KeyAutoUpdate, AutoUpdate);
           GetSource       := ReadBoolDef(KeyGetSource, GetSource);
 
@@ -261,6 +265,7 @@ begin
 
           WriteStringChk(KeyEmulatorPath, EmulatorPath, Defaults.EmulatorPath);
           WriteStringChk(KeyRepository, Repository, Defaults.Repository);
+          WriteStringChk(KeyArtifact, Artifact, Defaults.Artifact);
           WriteBoolChk(KeyAutoUpdate, AutoUpdate, Defaults.AutoUpdate);
           WriteBoolChk(KeyGetSource, GetSource, Defaults.GetSource);
 
@@ -305,6 +310,7 @@ begin
 
   EmulatorPath := Documents + DefEmulatorPath;
   Repository := DefJenkinsRepo;
+  Artifact := DefJenkinsArtifact;
   AutoUpdate := true;
   GetSource := false;
 

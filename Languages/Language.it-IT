@@ -455,6 +455,7 @@ grpAutoUpdate=Aggiornamenti Automatici
 lbRepository=Scarica aggiornamenti 86Box dalla &fonte seguente:
 cbAutoUpdate=Cerca aggiornamenti emulatore &automaticamente
 cbGetSource=&Scarica anche codice sorgente, se possibile
+lbArtifact=&Artefatto:
 tabAppearance=Aspetto
 grpAppearance=Aspetto di nuove Macchine Virtuali
 lbAppearance=Qua puoi specificare l\'apparenze di nuove macchine 86Box. Questo può essere personalizzato per macchina.

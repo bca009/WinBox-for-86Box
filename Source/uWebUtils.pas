@@ -93,7 +93,7 @@ function httpsGetEx(const URL: string; Headers: string): string;
 function jenkinsLastBuild(URL: string): integer;
 function jenkinsGetDate(URL: string; const Build: integer): TDateTime;
 function jenkinsGetChangelog(URL: string; const Build: integer): TStringList;
-function jenkinsGetBuild(URL: string; const Build: integer): string;
+function jenkinsGetBuild(URL: string; const Build: integer): TStringList;
 function jenkinsCheckUpdate(URL: string; const LocalDate: TDateTime): boolean;
 
 //URL: pl. https://github.com/86Box/roms
@@ -273,25 +273,16 @@ begin
   end;
 end;
 
-function jenkinsGetBuild(URL: string; const Build: integer): string;
+function jenkinsGetBuild(URL: string; const Build: integer): TStringList;
 var
-  List: TStringList;
+  I: integer;
 begin
-  List := TStringList.Create;
+  Result := TStringList.Create;
   XmlFindAll('fileName',
-     httpsGet(format(SJenkinsGetXML, [URL, Build])), List);
+     httpsGet(format(SJenkinsGetXML, [URL, Build])), Result);
 
-  case List.Count of
-    0: Result := '';
-    1: Result := List[0];
-    else
-       Result := List[0]; //több is elérhetõ, pl. fel kéne dobni egy listát
-  end;
-
-  List.Free;
-
-  if Result <> '' then
-    Result := format(SJenkinsDownload, [URL, Build, Result]);
+  for I := 0 to Result.Count - 1 do
+    Result[I] := format(SJenkinsDownload, [URL, Build, Result[I]]);
 end;
 
 function httpsGetEx(const URL: string; Headers: string): string; overload;

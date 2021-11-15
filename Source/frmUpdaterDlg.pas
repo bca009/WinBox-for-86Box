@@ -106,6 +106,28 @@ resourcestring
   DlgAskFirstDownload   = 'UpdateDlg.AskFirstDownload';
   DlgDetailsInfo        = 'UpdateDlg.DetailsInfo';
 
+function jenkinsGetBuild(URL: string; const Build: integer): string;
+var
+  List: TStringList;
+  I: integer;
+begin
+  List := uWebUtils.jenkinsGetBuild(URL, Build);
+
+  Result := '';
+  case List.Count of
+    1: Result := List[0];
+    else
+      for I := 0 to List.Count - 1 do
+        if pos(Config.Artifact, List[I]) <> 0 then begin
+          Result := List[I];
+          break;
+        end;
+  end;
+
+  List.Free;
+end;
+
+
 function TUpdaterDlg.AskUpdateAction: boolean;
 var
   Path: array [0..52] of char;

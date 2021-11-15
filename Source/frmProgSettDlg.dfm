@@ -11,21 +11,20 @@ object ProgSettDlg: TProgSettDlg
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  OldCreateOrder = False
   Position = poMainFormCenter
   OnCreate = FormCreate
   OnShow = Reload
+  PixelsPerInch = 96
   DesignSize = (
     460
     516)
-  PixelsPerInch = 96
   TextHeight = 13
   object pcPages: TPageControl
     Left = 8
     Top = 8
     Width = 444
     Height = 458
-    ActivePage = tabGeneral
+    ActivePage = tabEmulator
     Anchors = [akLeft, akTop, akRight, akBottom]
     TabOrder = 0
     object tabGeneral: TTabSheet
@@ -169,7 +168,7 @@ object ProgSettDlg: TProgSettDlg
         object lbLaunchTimeout: TLabel
           Left = 18
           Top = 95
-          Width = 144
+          Width = 136
           Height = 13
           Caption = 'Emul'#225'tor ind'#237't'#225'si &id'#337't'#250'll'#233'p'#233's:'
           FocusControl = spLaunchTimeout
@@ -358,10 +357,20 @@ object ProgSettDlg: TProgSettDlg
           Caption = '86Box beszerz'#233'se ebb'#337'l a &forr'#225'sb'#243'l:'
           FocusControl = cbRepositories
         end
+        object lbArtifact: TLabel
+          Left = 168
+          Top = 126
+          Width = 58
+          Height = 13
+          Alignment = taRightJustify
+          Anchors = [akRight, akBottom]
+          Caption = 'Forr'#225's&t'#237'pus:'
+          FocusControl = cbArtifact
+        end
         object cbAutoUpdate: TCheckBox
           Left = 18
-          Top = 143
-          Width = 303
+          Top = 149
+          Width = 300
           Height = 17
           Anchors = [akLeft, akRight, akBottom]
           Caption = 'Emul'#225'tor friss'#237't'#233'sek keres'#233'se &automatikusan'
@@ -371,7 +380,7 @@ object ProgSettDlg: TProgSettDlg
         end
         object cbGetSource: TCheckBox
           Left = 18
-          Top = 166
+          Top = 170
           Width = 265
           Height = 17
           Anchors = [akLeft, akRight, akBottom]
@@ -382,16 +391,28 @@ object ProgSettDlg: TProgSettDlg
           Left = 18
           Top = 40
           Width = 367
-          Height = 97
+          Height = 80
           Style = csSimple
           Anchors = [akLeft, akTop, akRight, akBottom]
-          ItemIndex = 0
           TabOrder = 0
           Text = 'https://ci.86box.net/job/86Box'
           Items.Strings = (
             'https://ci.86box.net/job/86Box'
             'https://ci.86box.net/job/86Box-Dev'
             'https://ci.86box.net/job/86Box-Debug')
+        end
+        object cbArtifact: TComboBox
+          Left = 232
+          Top = 122
+          Width = 153
+          Height = 21
+          Anchors = [akRight, akBottom]
+          ItemIndex = 0
+          TabOrder = 3
+          Text = 'Windows-32'
+          Items.Strings = (
+            'Windows-32'
+            'Windows-64')
         end
       end
     end
@@ -477,7 +498,6 @@ object ProgSettDlg: TProgSettDlg
           Top = 143
           Width = 337
           Height = 58
-          OnClickCheck = CustomDisplayChange
           ItemHeight = 13
           Items.Strings = (
             'R'#246'gz'#237'tett 4:3 k'#233'par'#225'ny megtart'#225'sa'
@@ -491,6 +511,7 @@ object ProgSettDlg: TProgSettDlg
             'Kil'#233'p'#233'si meger'#337's'#237't'#233's k'#233'r'#233'se'
             'Discord t'#225'mogat'#225's enged'#233'lyez'#233'se')
           TabOrder = 2
+          OnClickCheck = CustomDisplayChange
         end
         object cbFullscreenSizing: TComboBox
           Left = 192

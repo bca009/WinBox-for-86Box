@@ -455,6 +455,7 @@ grpAutoUpdate=Automatische Updates
 lbRepository=Laden Sie 86Box-Dateien aus dem folgenden &Repository herunter:
 cbAutoUpdate=Automatisch nach Emulator-&Updates suchen
 cbGetSource=&Wenn möglich, laden Sie auch den &Quellcode herunter
+lbArtifact=&Artefakte:
 tabAppearance=Aussehen
 grpAppearance=Aussehen neuer virtueller Maschinen
 lbAppearance=Hier können Sie das Aussehen neuer virtueller Maschinen definieren. Dies kann später an die spezifische Maschine angepasst werden.
