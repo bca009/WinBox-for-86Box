@@ -399,6 +399,7 @@ object ProgSettDlg: TProgSettDlg
           Items.Strings = (
             'https://ci.86box.net/job/86Box'
             'https://ci.86box.net/job/86Box-Dev'
+            'https://ci.86box.net/job/86Box-DevODR'
             'https://ci.86box.net/job/86Box-Debug')
         end
         object cbArtifact: TComboBox

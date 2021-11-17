@@ -195,7 +195,7 @@ btnTerminate=&Unterbrechung
 lbDescription=Die neueste Version des Emulators wird heruntergeladen und installiert.\r\nDieser Vorgang kann ein paar Minuten dauern.
 lbProgress=&Progress:
 lbTitle=Aktualisierung des Emulators
-lbFooter=Trennen Sie während des Vorgangs nach Möglichkeit nicht die Verbindung zum Internet.
+lbFooter=Trennen Sie während des Vorgangs nicht die Verbindung zum Internet.
 
 [WinBoxMain]
 WinBoxMain=WinBox für 86Box
