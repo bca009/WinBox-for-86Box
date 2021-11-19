@@ -278,7 +278,7 @@ var
   I: integer;
 begin
   Result := TStringList.Create;
-  XmlFindAll('fileName',
+  XmlFindAll('relativePath',
      httpsGet(format(SJenkinsGetXML, [URL, Build])), Result);
 
   for I := 0 to Result.Count - 1 do
