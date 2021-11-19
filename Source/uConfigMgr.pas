@@ -60,6 +60,9 @@ type
     procedure Default;
     procedure Reload; virtual;
     procedure ReloadTools;
+
+    function RepoToArtf(const Repository, Artifact: string): string;
+
     procedure Save;
 
     destructor Destroy; override;
@@ -200,8 +203,16 @@ begin
           LaunchTimeout   := ReadIntegerDef(KeyLaunchTimeout, LaunchTimeout);
 
           EmulatorPath    := ReadStringDef(KeyEmulatorPath, EmulatorPath);
+
           Repository      := ReadStringDef(KeyRepository, Repository);
           Artifact        := ReadStringDef(KeyArtifact, Artifact);
+
+          if (Repository <> Defaults.Repository) or
+             (pos('86Box-', Artifact) = 0) then begin
+            Artifact := RepoToArtf(Repository, Artifact);
+            Repository := Defaults.Repository;
+          end;
+
           AutoUpdate      := ReadBoolDef(KeyAutoUpdate, AutoUpdate);
           GetSource       := ReadBoolDef(KeyGetSource, GetSource);
 
@@ -246,6 +257,22 @@ begin
     finally
       Free;
     end;
+end;
+
+function TConfiguration.RepoToArtf(
+  const Repository, Artifact: string): string;
+begin
+  if pos('-Dev', Repository) <> 0 then
+    Result := '86Box-NDR-'
+  else if pos('-Debug', Repository) <> 0 then
+    Result := '86Box-NDR-'
+  else
+    Result := '86Box-';
+
+  if Artifact = '' then
+    Result := Result + 'Windows-32'
+  else
+    Result := Result + Artifact;
 end;
 
 procedure TConfiguration.Save;
@@ -360,7 +387,7 @@ begin
       EmulatorPath := IncludeTrailingPathDelimiter(
         GetEnvironmentVariable('APPDATA')) + 'Laci bá''\WinBox\86Box\86Box.exe';
 
-      Repository := ReadString('Configuration.86Box', 'Repository', Repository);
+      Artifact := RepoToArtf(Repository, Artifact);
       AutoUpdate := ReadInteger('Configuration.86Box', 'AutoUpdate', ord(AutoUpdate)) <> 0;
       GetSource := ReadInteger('Configuration.86Box', 'DownloadSource', ord(GetSource)) <> 0;
 
