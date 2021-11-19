@@ -94,10 +94,10 @@ type
     btnOpen86Box: TButton;
     btn86Box: TButton;
     grpAutoUpdate: TGroupBox;
-    lbRepository: TLabel;
+    lbArtifact: TLabel;
     cbAutoUpdate: TCheckBox;
     cbGetSource: TCheckBox;
-    cbRepositories: TComboBox;
+    edArtifact: TEdit;
     tabSpecial: TTabSheet;
     grpExtraPaths: TGroupBox;
     lbExtraPaths: TLabel;
@@ -132,8 +132,7 @@ type
     odConfigFiles: TOpenDialog;
     lbWinBoxUpdate: TLabel;
     cbWinBoxUpdate: TComboBox;
-    lbArtifact: TLabel;
-    cbArtifact: TComboBox;
+    tvArtifact: TTreeView;
     procedure Reload(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure cbLoggingChange(Sender: TObject);
@@ -152,6 +151,8 @@ type
     procedure ed86BoxChange(Sender: TObject);
     procedure miDefaultsClick(Sender: TObject);
     procedure btnManOptLoadClick(Sender: TObject);
+    procedure edArtifactChange(Sender: TObject);
+    procedure tvArtifactChange(Sender: TObject; Node: TTreeNode);
   private
     procedure UpdateTools(Tools: TStrings);
   public
@@ -170,6 +171,8 @@ uses uCommUtil, uCommText, uConfigMgr, frmMainForm, IniFiles;
 resourcestring
   StrLvToolsColumn0 = '.lvTools.Column[0]';
   StrLvToolsColumn1 = '.lvTools.Column[1]';
+
+  StrTvArifactStIx1 = '.tvArtifact.Nodes[%d]';
 
   AskNewVMPath = '.AskNewVMPath';
   AskTemplatePath = '.AskTemplatePath';
@@ -320,8 +323,8 @@ begin
     WinBoxUpdate := cbWinBoxUpdate.ItemIndex;
     LoggingMode := cbLogging.ItemIndex;
 
-    Repository := cbRepositories.Text;
-    Artifact := cbArtifact.Text;
+    Repository := Defaults.Repository;
+    Artifact := edArtifact.Text;
 
     MinimizeOnStart := cbMinimizeOnStart.Checked;
     AutoUpdate := cbAutoUpdate.Checked;
@@ -493,6 +496,25 @@ begin
     lbVersion.Caption := format(_T(StrVersion) ,[_T(StrUnknown)])
 end;
 
+procedure TProgSettDlg.edArtifactChange(Sender: TObject);
+var
+  Selected, Node: TTreeNode;
+begin
+  Selected := nil;
+  Node := tvArtifact.Items.GetFirstNode;
+  while Assigned(Node) do begin
+    if (Node.Text = edArtifact.Text) and
+       (Node.GetFirstChild = nil) then begin
+         Selected := Node;
+         break;
+    end;
+
+    Node := Node.GetNext;
+  end;
+
+  tvArtifact.Selected := Selected;
+end;
+
 procedure TProgSettDlg.FormCreate(Sender: TObject);
 begin
   pcPages.ActivePageIndex := 0;
@@ -560,7 +582,8 @@ begin
   with TWinBoxImport.Create(true) do
     try
       edPath.Text := MachineRoot;
-      cbRepositories.Text := Repository;
+      edArtifact.Text := Artifact;
+
       cbAutoUpdate.Checked := AutoUpdate;
       cbGetSource.Checked := GetSource;
 
@@ -672,11 +695,7 @@ begin
     cbLogging.ItemIndex := LoggingMode;
     cbLoggingChange(Self);
 
-    cbRepositories.ItemIndex := cbRepositories.Items.IndexOf(Repository);
-    cbRepositories.Text := Repository;
-
-    cbArtifact.ItemIndex := cbArtifact.Items.IndexOf(Artifact);
-    cbArtifact.Text := Artifact;
+    edArtifact.Text := Artifact;
 
     cbMinimizeOnStart.Checked := MinimizeOnStart;
     cbAutoUpdate.Checked := AutoUpdate;
@@ -699,6 +718,8 @@ begin
 end;
 
 procedure TProgSettDlg.GetTranslation(Language: TLanguage);
+var
+  Node: TTreeNode;
 begin
   with Language do begin
     GetTranslation(LangName, Self);
@@ -706,6 +727,15 @@ begin
 
     GetTranslation(LangName + StrLvToolsColumn0, lvTools.Column[0].Caption);
     GetTranslation(LangName + StrLvToolsColumn1, lvTools.Column[1].Caption);
+
+    Node := tvArtifact.Items.GetFirstNode;
+    while Assigned(Node) do begin
+      if Node.StateIndex >= 0 then
+        GetTranslation(format(LangName + StrTvArifactStIx1,
+                       [Node.StateIndex]), Node.Text);
+
+      Node := Node.GetNext;
+    end;
 
     GetTranslation(OpenDlg86Box, od86Box.Filter);
     GetTranslation(OpenDlgExecutables, odTools.Filter);
@@ -724,6 +754,8 @@ begin
 end;
 
 procedure TProgSettDlg.Translate;
+var
+  Node: TTreeNode;
 begin
   with Language do begin
     Translate(LangName, Self);
@@ -732,6 +764,15 @@ begin
     lvTools.Column[0].Caption := _T(LangName + StrLvToolsColumn0);
     lvTools.Column[1].Caption := _T(LangName + StrLvToolsColumn1);
 
+    Node := tvArtifact.Items.GetFirstNode;
+    while Assigned(Node) do begin
+      if Node.StateIndex >= 0 then
+        Node.Text := _T(format(LangName + StrTvArifactStIx1,
+                               [Node.StateIndex]));
+
+      Node := Node.GetNext;
+    end;
+
     od86Box.Filter := _T(OpenDlg86Box);
     odTools.Filter := _T(OpenDlgExecutables);
     odLogFiles.Filter := _T(OpenDlgLogFiles);
@@ -739,6 +780,14 @@ begin
 
     Caption := ReadString(LangName, LangName, Caption);
   end;
+end;
+
+procedure TProgSettDlg.tvArtifactChange(Sender: TObject; Node: TTreeNode);
+begin
+  if Assigned(Node) and
+     (Node.GetFirstChild = nil) and
+     (Node.Text <> edArtifact.Text) then
+        edArtifact.Text := Node.Text;
 end;
 
 end.

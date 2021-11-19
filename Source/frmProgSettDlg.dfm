@@ -349,23 +349,13 @@ object ProgSettDlg: TProgSettDlg
         DesignSize = (
           402
           202)
-        object lbRepository: TLabel
-          Left = 18
-          Top = 21
-          Width = 175
-          Height = 13
-          Caption = '86Box beszerz'#233'se ebb'#337'l a &forr'#225'sb'#243'l:'
-          FocusControl = cbRepositories
-        end
         object lbArtifact: TLabel
-          Left = 168
-          Top = 126
-          Width = 58
+          Left = 23
+          Top = 29
+          Width = 173
           Height = 13
-          Alignment = taRightJustify
-          Anchors = [akRight, akBottom]
-          Caption = 'Forr'#225's&t'#237'pus:'
-          FocusControl = cbArtifact
+          Caption = 'Let'#246'lt'#233'sre kijel'#246'lt 86Box forr'#225's&t'#237'pus:'
+          FocusControl = edArtifact
         end
         object cbAutoUpdate: TCheckBox
           Left = 18
@@ -387,33 +377,63 @@ object ProgSettDlg: TProgSettDlg
           Caption = '&Forr'#225'sk'#243'd let'#246'lt'#233'se, ha lehets'#233'ges'
           TabOrder = 2
         end
-        object cbRepositories: TComboBox
-          Left = 18
-          Top = 40
-          Width = 367
-          Height = 80
-          Style = csSimple
+        object edArtifact: TEdit
+          Left = 24
+          Top = 48
+          Width = 353
+          Height = 21
           Anchors = [akLeft, akTop, akRight, akBottom]
           TabOrder = 0
           Text = 'https://ci.86box.net/job/86Box'
-          Items.Strings = (
-            'https://ci.86box.net/job/86Box'
-            'https://ci.86box.net/job/86Box-Dev'
-            'https://ci.86box.net/job/86Box-DevODR'
-            'https://ci.86box.net/job/86Box-Debug')
+          OnChange = edArtifactChange
         end
-        object cbArtifact: TComboBox
-          Left = 232
-          Top = 122
-          Width = 153
-          Height = 21
-          Anchors = [akRight, akBottom]
-          ItemIndex = 0
+        object tvArtifact: TTreeView
+          Left = 23
+          Top = 75
+          Width = 353
+          Height = 63
+          HideSelection = False
+          Indent = 19
+          ReadOnly = True
           TabOrder = 3
-          Text = 'Windows-32'
-          Items.Strings = (
-            'Windows-32'
-            'Windows-64')
+          OnChange = tvArtifactChange
+          Items.NodeData = {
+            03020000005C000000000000000000000000000000FFFFFFFF00000000000000
+            0002000000011FDA006A002000640069006E0061006D0069006B007500730020
+            00FA006A007200610066006F0072006400ED007400F300200028006200E90074
+            00610029004A0000000000000000000000FFFFFFFFFFFFFFFF00000000000000
+            00020000000116570069006E0064006F007700730020002D0020007800360034
+            0020002800360034002D006200690074002900520000000000000000000000FF
+            FFFFFFFFFFFFFF000000000000000000000000011A3800360042006F0078002D
+            004E00440052002D00440065006200750067002D00570069006E0064006F0077
+            0073002D0036003400460000000000000000000000FFFFFFFFFFFFFFFF000000
+            00000000000000000001143800360042006F0078002D004E00440052002D0057
+            0069006E0064006F00770073002D00360034004A0000000000000000000000FF
+            FFFFFFFFFFFFFF0000000000000000020000000116570069006E0064006F0077
+            00730020002D00200078003800360020002800330032002D0062006900740029
+            00520000000000000000000000FFFFFFFFFFFFFFFF0000000000000000000000
+            00011A3800360042006F0078002D004E00440052002D00440065006200750067
+            002D00570069006E0064006F00770073002D0033003200460000000000000000
+            000000FFFFFFFFFFFFFFFF00000000000000000000000001143800360042006F
+            0078002D004E00440052002D00570069006E0064006F00770073002D00330032
+            0068000000000000000000000001000000FFFFFFFF0000000000000000020000
+            0001255200E900670069002000640069006E0061006D0069006B007500730020
+            00FA006A007200610066006F0072006400ED007400F3002000280061006A00E1
+            006E006C006F007400740029004A0000000000000000000000FFFFFFFFFFFFFF
+            FF0000000000000000020000000116570069006E0064006F007700730020002D
+            00200078003600340020002800360034002D0062006900740029004A00000000
+            00000000000000FFFFFFFFFFFFFFFF0000000000000000000000000116380036
+            0042006F0078002D00440065006200750067002D00570069006E0064006F0077
+            0073002D00360034003E0000000000000000000000FFFFFFFFFFFFFFFF000000
+            00000000000000000001103800360042006F0078002D00570069006E0064006F
+            00770073002D00360034004A0000000000000000000000FFFFFFFFFFFFFFFF00
+            00000000000000020000000116570069006E0064006F007700730020002D0020
+            0078003800360020002800330032002D0062006900740029004A000000000000
+            0000000000FFFFFFFFFFFFFFFF00000000000000000000000001163800360042
+            006F0078002D00440065006200750067002D00570069006E0064006F00770073
+            002D00330032003E0000000000000000000000FFFFFFFFFFFFFFFF0000000000
+            0000000000000001103800360042006F0078002D00570069006E0064006F0077
+            0073002D0033003200}
         end
       end
     end

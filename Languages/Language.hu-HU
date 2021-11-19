@@ -53,6 +53,8 @@ Note.NoCDOldHDD=A korabeli merevlemezek nem kezelik jól.
 [Strings]
 ProgSettDlg.lvTools.Column[0]=Név
 ProgSettDlg.lvTools.Column[1]=Elérési út
+ProgSettDlg.tvArtifact.Nodes[0]=Új dinamikus újrafordító (béta)
+ProgSettDlg.tvArtifact.Nodes[1]=Régi dinamikus újrafordító (ajánlott)
 ProgSettDlg.AskNewVMPath=Válassza ki az új virtuális gépek tárolási helyét:
 ProgSettDlg.AskTemplatePath=Válassza ki az egyedi virtuális gép sablonok tárolási helyét:
 ProgSettDlg.AskSaveChanges=Módosítások történtek az eszközlistán. Kívánja menteni?
