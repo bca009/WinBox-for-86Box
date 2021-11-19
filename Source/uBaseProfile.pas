@@ -285,8 +285,7 @@ begin
                  ReadBuffer(TextLen, 1);
 
                  SetLength(Text, TextLen);
-                 Text[High(Text)] := #0;
-                 if Size > 0 then
+                 if TextLen > 0 then
                    ReadBuffer(Text[1], TextLen);
 
                  Seek(5, soFromCurrent);
