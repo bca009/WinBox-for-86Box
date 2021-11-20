@@ -177,7 +177,11 @@ begin
         DefaultFolder := Directory;
         FileName := Directory;
 
-        Result := Execute(Parent.Handle);
+        if Assigned(Parent) then
+          Result := Execute(Parent.Handle)
+        else
+          Result := Execute(0);
+
         if Result then
           Directory := FileName;
       finally

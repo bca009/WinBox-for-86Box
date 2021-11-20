@@ -110,6 +110,9 @@ WinBox.TerminateConfirm=A virtuális gép(ek) ilyen módon történő leállít�
 WinBox.UnableToDelete=A fájlok eltávolítása nem sikerült, mivel használatban vannak. A munkakönyvtárat majd később kell manuálisan el kell távolítani.\r\n\r\nKívánja megnyitni ehhez most a munkakönyvtárat?
 WinBox.WorkDirRemoved=A virtuális gép munkakönyvtárát külsőleg eltávolították.\r\n\r\nKívánja a megmaradt bejegyzést is törölni?
 
+WinBox.86MgrPathNeeded=Az importálás során a WinBox úgy észlelte hogy relatív elérési utak találhatóak a meglévő 86Box Manager konfigurációban.\r\n\r\nEzen elérési utak helyes értelmezéséhez, a következő ablakban meg kell adnia az 86Box Manager telepítési mappáját.
+WinBox.86MgrPathOf=86Box Manager elérési útja
+
 DeleteDialog.Title=Virtuális gép eltávolítása
 DeleteDialog.Text=Jelenleg a \"%s\" nevű virtuális gép eltávolítására készül, amihez a munkakönyvtárban %s mennyiségű fájl is tartozik.\r\n\r\nMiként kívánja elvégezni a törlési feladatot?
 DeleteDialog.Buttons[0]=Törlés csak a listából

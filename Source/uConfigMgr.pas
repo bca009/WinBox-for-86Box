@@ -117,26 +117,27 @@ type
 
 implementation
 
-uses uCommUtil;
+uses uCommUtil, uCommText, uLang;
 
 resourcestring
-  PfTemplatesPath  = 'Templates\';
+  PfTemplatesPath    = 'Templates\';
 
-  DefMachineRoot   = 'WinBox for 86Box\Virtual Machines\';
-  DefEmulatorPath  = 'WinBox for 86Box\Emulator Files\86Box.exe';
-  DefTemplatesPath = 'WinBox for 86Box\Custom Templates\';
-  DefGlobalLogFile = 'WinBox for 86Box\86Box.log';
-  DefNameDefFile   = 'WinBox for 86Box\namedefs.ini';
+  DefMachineRoot     = 'WinBox for 86Box\Virtual Machines\';
+  DefEmulatorPath    = 'WinBox for 86Box\Emulator Files\86Box.exe';
+  DefTemplatesPath   = 'WinBox for 86Box\Custom Templates\';
+  DefGlobalLogFile   = 'WinBox for 86Box\86Box.log';
+  DefNameDefFile     = 'WinBox for 86Box\namedefs.ini';
 
-  DefOtherImages   = 'Other Disk Images\';
+  DefOtherImages     = 'Other Disk Images\';
 
-  DefJenkinsRepo   = 'https://ci.86box.net/job/86Box';
-  DefRomsRepo      = 'https://github.com/86Box/roms';
-  DefSourceRepo    = 'https://github.com/86Box/86Box';
+  DefJenkinsRepo     =  'https://ci.86box.net/job/86Box';
+  DefJenkinsArtifact = 'Windows-32';
+  DefRomsRepo        = 'https://github.com/86Box/roms';
+  DefSourceRepo      = 'https://github.com/86Box/86Box';
 
-  DefDisplayValues = 'video_fullscreen_scale=1'#13#10 +
-                     'dpi_scale=0'#13#10 +
-                     'vid_resize=2';
+  DefDisplayValues   = 'video_fullscreen_scale=1'#13#10 +
+                       'dpi_scale=0'#13#10 +
+                       'vid_resize=2';
 
   RegConfigKey       = 'Software\Laci bá''\WinBox for 86Box\Configuration';
 
@@ -158,11 +159,10 @@ resourcestring
   KeyGlobalLogFile   = 'GlobalLogFile';
   KeyDebugMode       = 'DebugMode';
   KeyCrashDump       = 'CrashDump';
+  KeyArtifact        = 'Artifact';
 
   ImportWinBoxRoot   = 'Software\Laci bá''\WinBox';
   Import86MgrRoot    = 'Software\86Box';
-  DefJenkinsArtifact = 'Windows-32';
-  KeyArtifact = 'Artifact';
 
 { TConfiguration }
 
@@ -426,14 +426,36 @@ begin
 end;
 
 procedure T86MgrImport.Reload;
+var
+  ProgramRoot: string;
+
+  function AskForMgrPath: boolean;
+  begin
+    MessageBox(0, _P(Str86MgrPathNeeded), nil, MB_ICONINFORMATION or MB_OK);
+    Result := SelectDirectory(_T(Str86MgrPathOf), '', ProgramRoot, nil)
+  end;
+
+  procedure EnsureAbsPath(var Field: string);
+  begin
+    if PathIsRelativeW(PChar(Field)) then begin
+      if (ProgramRoot <> '') or AskForMgrPath then
+        Field := ExpandFileNameTo(Field, ProgramRoot)
+      else
+        raise Exception.Create(SysErrorMessage(ERROR_PATH_NOT_FOUND));
+    end;
+  end;
+
 begin
   Default;
+  ProgramRoot := '';
 
   with TRegistry.Create(KEY_READ) do
     try
       if OpenKeyReadOnly(Import86MgrRoot) then
         try
           MachineRoot := IncludeTrailingPathDelimiter(ReadStringDef('CFGdir', MachineRoot));
+          EnsureAbsPath(MachineRoot);
+
           DiskImages := MachineRoot + DefOtherImages;
 
           if ReadBoolDef('CloseToTray', TrayBehavior = 2) then
@@ -444,13 +466,17 @@ begin
             TrayBehavior := 0;
 
           LaunchTimeout := ReadIntegerDef('LaunchTimeout', LaunchTimeout);
-          EmulatorPath := ReadStringDef('EXEdir', EmulatorPath) + '86Box.exe';
+          EmulatorPath := ReadStringDef('EXEdir', EmulatorPath);
+          EnsureAbsPath(EmulatorPath);
+          EmulatorPath := IncludeTrailingPathDelimiter(EmulatorPath) + '86Box.exe';
+
           if not FileExists(EmulatorPath) then
             EmulatorPath := Defaults.EmulatorPath;
 
           if ReadBoolDef('EnableLogging', LoggingMode = 1) then begin
             LoggingMode := 1;
             GlobalLogFile := ReadStringDef('LogPath', GlobalLogFile);
+            EnsureAbsPath(GlobalLogFile);
           end;
 
           DisplayMode := 3;

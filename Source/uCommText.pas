@@ -49,6 +49,9 @@ resourcestring
   DlgDetailsChanges     = 'UpdateDlg.DetailsChanges';
   ECantAccessServer     = 'UpdateDlg.ECantAccessServer';
 
+  Str86MgrPathNeeded = 'WinBox.86MgrPathNeeded';
+  Str86MgrPathOf     = 'WinBox.86MgrPathOf';
+
 implementation
 
 end.
