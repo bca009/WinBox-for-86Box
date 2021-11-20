@@ -241,6 +241,7 @@ machine.award486=Award 486 clone
 machine.mr486=MR 486 clone
 machine.award386dx=Award 386DX clone
 machine.mr386dx=MR 386DX clone
+machine.award495=Award 486 clone
 gfxcard.none=Niente
 gfxcard.internal=Interno
 sndcard.none=Niente

@@ -241,6 +241,7 @@ machine.award486=Award 486 兼容机
 machine.mr486=MR 486 兼容机
 machine.award386dx=Award 386DX 兼容机
 machine.mr386dx=MR 386DX 兼容机
+machine.award495=Award 486 兼容机
 gfxcard.none=无
 gfxcard.internal=内部
 sndcard.none=无

@@ -227,6 +227,7 @@ machine.award486=Award 486 hasonmás
 machine.mr486=MR 486 hasonmás
 machine.award386dx=Award 386DX hasonmás
 machine.mr386dx=MR 386DX hasonmás
+machine.award495=Award 486 hasonmás
 gfxcard.none=Nincs
 gfxcard.internal=Integrált
 sndcard.none=Nincs
