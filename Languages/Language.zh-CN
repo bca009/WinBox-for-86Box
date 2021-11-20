@@ -53,6 +53,8 @@ Note.NoCDOldHDD=不能很好处理相应年份的硬盘.
 [Strings]
 ProgSettDlg.lvTools.Column[0]=名称
 ProgSettDlg.lvTools.Column[1]=路径
+ProgSettDlg.tvArtifact.Nodes[0]=新的动态重新编译器（测试版）
+ProgSettDlg.tvArtifact.Nodes[1]=旧的动态重新编译器（推荐）
 ProgSettDlg.AskNewVMPath=选择存放虚拟机的文件夹:
 ProgSettDlg.AskTemplatePath=选择存放自定义模板的文件夹:
 ProgSettDlg.AskSaveChanges=工具列表有变. 是否保存变化?
@@ -107,6 +109,9 @@ WinBox.HostCPU=CPU: %.1f%%
 WinBox.TerminateConfirm=如此终止虚拟机可能导致数据丢失. 确定吗?
 WinBox.UnableToDelete=某些文件正在使用中, 因此现在无法删除这些文件. 您应该稍后手动删除这些文件.\r\n\r\n是否要打开工作目录?
 WinBox.WorkDirRemoved=虚拟机的工作目录已从外部删除. 您也想删除配置文件吗?
+
+WinBox.86MgrPathNeeded=在导入过程中, WinBox 检测到现有 86Box Manager 配置中的相对路径.\r\n\r\n为了正确解释这些路径, 您需要在下一个窗口中指定 86Box Manager 的安装文件夹.
+WinBox.86MgrPathOf=选择 86Box Manager 的安装文件夹:
 
 DeleteDialog.Title=删除虚拟机
 DeleteDialog.Text=即将删除 \"%s\". 此虚拟机含有不在其工作目录中的文件, 占用 %s 磁盘空间.\r\n\r\n请选择如何删除: 
@@ -452,11 +457,10 @@ lb86BoxPath=路径(&P):
 btnDef86Box=默认(&D)
 btnOpen86Box=打开目录(&O)...
 grpAutoUpdate=自动更新
-lbRepository=从以下存储库下载 86Box 文件(&Repository):
 cbAutoUpdate=自动搜索模拟器和更新
 cbGetSource=尽可能下载源代码(&D)
 tabAppearance=外观
-lbArtifact=神器(&A):
+lbArtifact=下载以下 86Box 文件（&Artifact）：
 grpAppearance=新虚拟机的外观
 lbAppearance=在这里您可以指定新虚拟机的外观. 可以稍后在每台机器的基础上进行定制. 
 lbDefaultDisplay=固定缩放窗口(例如 960x720)和 4:3 的全屏纵横比.

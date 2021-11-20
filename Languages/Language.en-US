@@ -53,8 +53,8 @@ Note.NoCDOldHDD=Age-appropriate Hard Disk can\'t handle well.
 [Strings]
 ProgSettDlg.lvTools.Column[0]=Name
 ProgSettDlg.lvTools.Column[1]=Path
-ProgSettDlg.tvArtifact.Nodes[0]=Old dynamic recompiler (beta)
-ProgSettDlg.tvArtifact.Nodes[1]=New dynamic recompiler (recommended)
+ProgSettDlg.tvArtifact.Nodes[0]=New dynamic recompiler (beta)
+ProgSettDlg.tvArtifact.Nodes[1]=Old dynamic recompiler (recommended)
 ProgSettDlg.AskNewVMPath=Choose the folder, where you want to store the new Virtual Machines:
 ProgSettDlg.AskTemplatePath=Choose the directory, where you store the Custom Templates:
 ProgSettDlg.AskSaveChanges=There are changes in the List of Tools. Do you want to save these changes?
@@ -109,6 +109,9 @@ WinBox.HostCPU=CPU: %.1f%%
 WinBox.TerminateConfirm=Terminating virtual machines in such a way can cause loss of data. Are you sure?
 WinBox.UnableToDelete=Some files are in use, so these are cannot be deleted right now. You should remove these files manually later.\r\n\r\nDo you want to open the Working Directory?
 WinBox.WorkDirRemoved=The Working Directory of the Virtual Machine has been removed externally. Do you want to delete the profile too?
+
+WinBox.86MgrPathNeeded=During the import WinBox detected that there are relative paths in the existing 86Box Manager configuration.\r\n\r\nTo correctly interpret these paths, you need to specify the installation folder of the 86Box Manager in the next window.
+WinBox.86MgrPathOf=Select the installation folder of 86Box Manager:
 
 DeleteDialog.Title=Delete Virtual Machine
 DeleteDialog.Text=You are intend to delete the virtual machine named \"%s\". The machine has files in it\'s working directory, consuming %s disk space.\r\n\r\nHow do you want to accomplish the deletion?

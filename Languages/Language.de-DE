@@ -53,6 +53,8 @@ Note.NoCDOldHDD=Er mag keine alten Festplatten.
 [Strings]
 ProgSettDlg.lvTools.Column[0]=Name
 ProgSettDlg.lvTools.Column[1]=Pfad
+ProgSettDlg.tvArtifact.Nodes[0]=Neuer dynamischer Recompiler (Beta)
+ProgSettDlg.tvArtifact.Nodes[1]=Alter dynamischer Recompiler (empfohlen)
 ProgSettDlg.AskNewVMPath=Wählen Sie den Speicherort der neuen virtuellen Maschinen aus:
 ProgSettDlg.AskTemplatePath=Wählen Sie einen Speicherort für benutzerdefinierte Vorlagen für virtuelle Maschinen aus:
 ProgSettDlg.AskSaveChanges=Es wurden Änderungen an der Geräteliste vorgenommen. Möchten Sie es speichern?
@@ -106,6 +108,9 @@ WinBox.HostCPU=CPU: %.1f%%
 WinBox.TerminateConfirm=Das Herunterfahren der virtuellen Maschine(n) auf diese Weise kann zu Datenverlust führen. Bist du sicher?
 WinBox.UnableToDelete=Dateien können nicht entfernt werden, da sie verwendet werden. Das Arbeitsverzeichnis muss später manuell entfernt werden. \r\n\r\nMöchten Sie jetzt das Arbeitsverzeichnis öffnen? 
 WinBox.WorkDirRemoved=Das Arbeitsverzeichnis der virtuellen Maschine wurde von außen entfernt.\r\n\r\nMöchten Sie den Eintrag löschen?
+
+WinBox.86MgrPathNeeded=Während des Imports hat WinBox festgestellt, dass es in der bestehenden 86Box Manager-Konfiguration relative Pfade gibt.\r\n\r\nUm diese Pfade korrekt zu interpretieren, müssen Sie im nächsten Fenster den Installationsordner des 86Box Managers angeben.
+WinBox.86MgrPathOf=Wählen Sie den Installationsordner von 86Box Manager:
 
 DeleteDialog.Title=Virtuellen Maschine löschen
 DeleteDialog.Text=Sie versuchen derzeit, eine virtuelle Maschine namens \"%s\" zu löschen, deren Arbeitsverzeichnis Dateien der Größe %s enthält.\r\n\r\nWie möchten Sie löschen?
@@ -452,10 +457,9 @@ lb86BoxPath=&Pfad:
 btnDef86Box=&Standardwert
 btnOpen86Box=Verzeichnis &öffnen...
 grpAutoUpdate=Automatische Updates
-lbRepository=Laden Sie 86Box-Dateien aus dem folgenden &Repository herunter:
 cbAutoUpdate=Automatisch nach Emulator-&Updates suchen
 cbGetSource=&Wenn möglich, laden Sie auch den &Quellcode herunter
-lbArtifact=&Artefakte:
+lbArtifact=Laden Sie das folgende 86Box-&Artefakt herunter:
 tabAppearance=Aussehen
 grpAppearance=Aussehen neuer virtueller Maschinen
 lbAppearance=Hier können Sie das Aussehen neuer virtueller Maschinen definieren. Dies kann später an die spezifische Maschine angepasst werden.

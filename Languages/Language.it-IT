@@ -53,6 +53,8 @@ Note.NoCDOldHDD=Incompatibile con dischi rigidi adatti all'età.
 [Strings]
 ProgSettDlg.lvTools.Column[0]=Nome
 ProgSettDlg.lvTools.Column[1]=Percorso
+ProgSettDlg.tvArtifact.Nodes[0]=Nuovo ricompilatore dinamico (beta)
+ProgSettDlg.tvArtifact.Nodes[1]=Vecchio ricompilatore dinamico (raccomandato)
 ProgSettDlg.AskNewVMPath=Scegli il percorso dove vuoi mantenere le nuove macchine virtuali:
 ProgSettDlg.AskTemplatePath=Choose the directory, where you store the Custom Templates:
 ProgSettDlg.AskSaveChanges=Ci sono cambiamenti nella Lista degli Utensili. Vuoi salvare queste impostazioni?
@@ -107,6 +109,9 @@ WinBox.HostCPU=CPU: %.1f%%
 WinBox.TerminateConfirm=Terminare le Macchine Virtuali in questo modo può rischiare la perdita dei dati. Sei sicuro?
 WinBox.UnableToDelete=Alcuni file sono in uso, quindi questi non possono essere eliminati al momento. Dovresti rimuovere questi file manualmente dopo.\r\n\r\nVuoi aprire il percorso di lavoro?
 WinBox.WorkDirRemoved=Il percorso di lavoro della macchina virtuale è stato rimosso. Vuoi eliminare anche il profilo?
+
+WinBox.86MgrPathNeeded=Durante l'importazione, WinBox ha trovato che ci sono percorsi relativi nella configurazione esistente di 86Box Manager.\r\n\r\nPer interpretare correttamente questi percorsi, è necessario specificare la cartella di installazione di 86Box Manager nella finestra successiva.
+WinBox.86MgrPathOf=Seleziona la cartella di installazione di 86Box Manager:
 
 DeleteDialog.Title=&Eliminare la Macchina Virtuale
 DeleteDialog.Text=Stai per rimuovere la macchina virtuale \"%s\". Questa macchina ha file nel suo percorso di lavoro, consumando %s spazio sul disco.\r\n\r\nCome vuoi eliminare?
@@ -452,10 +457,9 @@ lb86BoxPath=&Percorso:
 btnDef86Box=P&redefinito
 btnOpen86Box=&Apri Percorso...
 grpAutoUpdate=Aggiornamenti Automatici
-lbRepository=Scarica aggiornamenti 86Box dalla &fonte seguente:
 cbAutoUpdate=Cerca aggiornamenti emulatore &automaticamente
 cbGetSource=&Scarica anche codice sorgente, se possibile
-lbArtifact=&Artefatto:
+lbArtifact=Scarica il seguente &artefatto 86Box:
 tabAppearance=Aspetto
 grpAppearance=Aspetto di nuove Macchine Virtuali
 lbAppearance=Qua puoi specificare l\'apparenze di nuove macchine 86Box. Questo può essere personalizzato per macchina.
