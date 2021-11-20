@@ -120,15 +120,35 @@ procedure TryLoadList(Stream: TStream; List: TStrings; const Origin: int64 = 0);
 function GetTextColor(const Color: TColor): TColor;
 function GetLinkColor(Color: TColor): TColor;
 
+//közös UI kód, a 86Box Manager elérési útjának bekérérésére
+function AskFor86MgrPath(var ProgramRoot: string): boolean;
+procedure Check86MgrPath(var Field, ProgramRoot: string);
+
 //Source: https://stackoverflow.com/questions/1581975/how-to-pop-up-the-windows-context-menu-for-a-given-file-using-delphi/1584204
 procedure ShowSysPopup(aFile: string; x, y: integer; HND: HWND);
 
 implementation
 
-uses ComObj, ShlObj, ActiveX, FileCtrl;
+uses ComObj, ShlObj, ActiveX, FileCtrl, uCommText, uLang;
 
 resourcestring
   InfWinBox = 'WinBox.inf';
+
+function AskFor86MgrPath(var ProgramRoot: string): boolean;
+begin
+  MessageBox(0, _P(Str86MgrPathNeeded), nil, MB_ICONINFORMATION or MB_OK);
+  Result := SelectDirectory(_T(Str86MgrPathOf), '', ProgramRoot, nil)
+end;
+
+procedure Check86MgrPath(var Field, ProgramRoot: string);
+begin
+  if PathIsRelativeW(PChar(Field)) then begin
+    if (ProgramRoot <> '') or AskFor86MgrPath(ProgramRoot) then
+      Field := ExpandFileNameTo(Field, ProgramRoot)
+    else
+      raise Exception.Create(SysErrorMessage(ERROR_PATH_NOT_FOUND));
+  end;
+end;
 
 function TryLoadIni(const FileName: string): TMemIniFile;
 begin

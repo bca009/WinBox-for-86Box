@@ -11,14 +11,13 @@ object ImportVM: TImportVM
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  OldCreateOrder = False
   Position = poOwnerFormCenter
   OnCreate = FormCreate
   OnShow = Reload
+  PixelsPerInch = 96
   DesignSize = (
     479
     309)
-  PixelsPerInch = 96
   TextHeight = 13
   object bvBottom: TBevel
     Left = 0
@@ -138,10 +137,6 @@ object ImportVM: TImportVM
       Caption = 'tabSource'
       ImageIndex = 5
       TabVisible = False
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object lbSource: TLabel
         Left = 16
         Top = 16
@@ -495,10 +490,6 @@ object ImportVM: TImportVM
       Caption = 'tabEmpty'
       ImageIndex = 6
       TabVisible = False
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
     end
   end
   object odConfig: TOpenDialog

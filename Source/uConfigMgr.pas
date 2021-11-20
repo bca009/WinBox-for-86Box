@@ -117,7 +117,7 @@ type
 
 implementation
 
-uses uCommUtil, uCommText, uLang;
+uses uCommUtil;
 
 resourcestring
   PfTemplatesPath    = 'Templates\';
@@ -428,23 +428,6 @@ end;
 procedure T86MgrImport.Reload;
 var
   ProgramRoot: string;
-
-  function AskForMgrPath: boolean;
-  begin
-    MessageBox(0, _P(Str86MgrPathNeeded), nil, MB_ICONINFORMATION or MB_OK);
-    Result := SelectDirectory(_T(Str86MgrPathOf), '', ProgramRoot, nil)
-  end;
-
-  procedure EnsureAbsPath(var Field: string);
-  begin
-    if PathIsRelativeW(PChar(Field)) then begin
-      if (ProgramRoot <> '') or AskForMgrPath then
-        Field := ExpandFileNameTo(Field, ProgramRoot)
-      else
-        raise Exception.Create(SysErrorMessage(ERROR_PATH_NOT_FOUND));
-    end;
-  end;
-
 begin
   Default;
   ProgramRoot := '';
@@ -454,7 +437,7 @@ begin
       if OpenKeyReadOnly(Import86MgrRoot) then
         try
           MachineRoot := IncludeTrailingPathDelimiter(ReadStringDef('CFGdir', MachineRoot));
-          EnsureAbsPath(MachineRoot);
+          Check86MgrPath(MachineRoot, ProgramRoot);
 
           DiskImages := MachineRoot + DefOtherImages;
 
@@ -467,7 +450,7 @@ begin
 
           LaunchTimeout := ReadIntegerDef('LaunchTimeout', LaunchTimeout);
           EmulatorPath := ReadStringDef('EXEdir', EmulatorPath);
-          EnsureAbsPath(EmulatorPath);
+          Check86MgrPath(EmulatorPath, ProgramRoot);
           EmulatorPath := IncludeTrailingPathDelimiter(EmulatorPath) + '86Box.exe';
 
           if not FileExists(EmulatorPath) then
@@ -476,7 +459,7 @@ begin
           if ReadBoolDef('EnableLogging', LoggingMode = 1) then begin
             LoggingMode := 1;
             GlobalLogFile := ReadStringDef('LogPath', GlobalLogFile);
-            EnsureAbsPath(GlobalLogFile);
+            Check86MgrPath(GlobalLogFile, ProgramRoot);
           end;
 
           DisplayMode := 3;

@@ -1,4 +1,4 @@
-(*
+﻿(*
 
     WinBox for 86Box - An alternative manager for 86Box VMs
 
@@ -88,6 +88,7 @@ type
     function ImportManual: boolean;
   public
     LangName: string;
+    RootOf86Mgr: string;
     procedure GetTranslation(Language: TLanguage); stdcall;
     procedure Translate; stdcall;
   end;
@@ -206,6 +207,8 @@ begin
 
   LangName := Copy(ClassName, 2, MaxInt);
   Translate;
+
+  RootOf86Mgr := '';
 end;
 
 procedure TImportVM.Reload(Sender: TObject);
@@ -230,7 +233,7 @@ begin
       if rb86BoxManager.Checked then
         with TProfile.Create('', false) do
           try
-            Import86Mgr(I.Caption);
+            Import86Mgr(I.Caption, RootOf86Mgr);
             Save;
             Result := true;
           finally
@@ -292,7 +295,7 @@ begin
     for S in Import do
       with TProfile.Create('', false) do
         try
-          Import86Mgr(S);
+          Import86Mgr(S, RootOf86Mgr);
           if (WinBoxMain.Profiles.FindByWorkDir(WorkingDirectory) <> -1)
              or not DirectoryExists(WorkingDirectory) then
                Leave.Add(FriendlyName)
