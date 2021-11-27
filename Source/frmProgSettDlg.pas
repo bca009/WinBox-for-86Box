@@ -159,10 +159,13 @@ type
     procedure btnManOptLoadClick(Sender: TObject);
     procedure edArtifactChange(Sender: TObject);
     procedure tvArtifactChange(Sender: TObject; Node: TTreeNode);
+    procedure FormDestroy(Sender: TObject);
   private
     procedure UpdateTools(Tools: TStrings);
+    procedure UpdateLanguages;
   public
     LangName: string;
+    Languages: TStringList;
     procedure GetTranslation(Language: TLanguage); stdcall;
     procedure Translate; stdcall;
   end;
@@ -364,6 +367,11 @@ begin
     Save;
   end;
 
+  if Assigned(Languages) and
+    (cbLangWinBox.ItemIndex >= 0) and
+    (cbLangWinBox.ItemIndex < Languages.Count) then
+      WinBoxMain.ChangeLanguage(Languages[cbLangWinBox.ItemIndex]);
+
   ModalResult := mrOK;
 end;
 
@@ -540,6 +548,12 @@ begin
   Translate;
 end;
 
+procedure TProgSettDlg.FormDestroy(Sender: TObject);
+begin
+  if Assigned(Languages) then
+    FreeAndNil(Languages);
+end;
+
 procedure TProgSettDlg.lvToolsSelectItem(Sender: TObject; Item: TListItem;
   Selected: Boolean);
 begin
@@ -668,6 +682,27 @@ begin
     cbFullscreenSizing.ItemIndex := -1;
 end;
 
+procedure TProgSettDlg.UpdateLanguages;
+var
+  I, Index: integer;
+begin
+  if Assigned(Languages) then
+    FreeAndNil(Languages);
+
+  Languages := GetAvailableLanguages;
+  Languages.Insert(0, '');
+  Index := 0;
+
+  with Languages do
+    for I := 1 to Count - 1 do begin
+      if Strings[I] = Locale then
+        Index := I;
+      cbLangWinBox.Items.Add(GetLocaleText(Strings[I]));
+    end;
+
+  cbLangWinBox.ItemIndex := Index;
+end;
+
 procedure TProgSettDlg.UpdateTools(Tools: TStrings);
 var
   I: integer;
@@ -723,6 +758,8 @@ begin
       3: rbNoDisplayOptions.Checked := true;
     end;
   end;
+
+  UpdateLanguages();
 end;
 
 procedure TProgSettDlg.GetTranslation(Language: TLanguage);

@@ -69,6 +69,7 @@ function _P(const Key: string): PChar; overload;
 function _P(const Key: string; const Args: array of const): PChar; overload;
 
 function TryLoadLocale(var Locale: string): TLanguage;
+function GetAvailableLanguages: TStringList;
 
 implementation
 
@@ -122,7 +123,7 @@ end;
 
 function TryLoadLocale(var Locale: string): TLanguage;
 var
-  FileRoot, FileName: string;
+  FileRoot, FileName, TempLoc: string;
   Helper: TInitLocaleHelper;
 
   function TryLoadFile(const FileName: string): TLanguage;
@@ -138,15 +139,21 @@ var
   end;
 
 begin
+  //If Locale is not specified, use the system locale
+  if Locale = '' then
+    TempLoc := GetSystemLanguage
+  else
+    TempLoc := Locale;
+
   //Try to use the determined language
   FileRoot := ExtractFilePath(paramstr(0)) + PfLanguagesPath + StrFileNameBase;
-  FileName := FileRoot + Locale;
+  FileName := FileRoot + TempLoc;
 
   if not FileExists(FileName) then begin
     //If there is no such language file, try to use any from same group
     //If no any similar languages, fallback to en-US
     with Helper do begin
-      Input := Copy(Locale, 1, pos('-', Locale) - 1);
+      Input := Copy(TempLoc, 1, pos('-', TempLoc) - 1);
       Root := FileRoot;
       RetVal := 'en-US';
     end;
@@ -157,17 +164,20 @@ begin
     //  and if not then use hu-HU, since it's the program's base language
     with Helper do begin
       if (RetVal = 'en-US') and not FileExists(Root + RetVal) then begin
-        Locale := 'hu-HU';
+        TempLoc := 'hu-HU';
         FileName := '';
       end
       else begin
-        Locale := RetVal;
+        TempLoc := RetVal;
         FileName := Root + RetVal;
       end;
     end;
   end;
 
-  //Finally load the selected language file.
+  //Finally load the selected language file, and set locale.
+  if Locale <> '' then
+    Locale := TempLoc;
+
   Result := TryLoadFile(FileName);
 end;
 
@@ -178,7 +188,7 @@ var
 begin
   //First of all decide what language we want to load.
   //We can use the system language, or use the one from -lang.
-  Locale := GetSystemLanguage;
+  Locale := '';
   if ParamCount > 1 then
     for I := 1 to ParamCount - 1 do
       if LowerCase(ParamStr(I)) = '-lang' then begin
@@ -227,10 +237,29 @@ begin
   if Size > 0 then begin
     SetLength(Temp, Size);
     GetLocaleInfoEx(PChar(Locale), AType, @Temp[0], Size);
-    Result := String(Temp);
+    Result := String(PChar(@Temp[0]));
   end
   else
     Result := Locale;
+end;
+
+function GetAvailableLanguages: TStringList;
+var
+  FileRoot, Temp: string;
+  SearchRec: TSearchRec;
+begin
+  Result := TStringList.Create;
+  FileRoot := ExtractFilePath(paramstr(0)) + PfLanguagesPath + StrFileNameBase;
+
+  if FindFirst(FileRoot + '*', faAnyFile, SearchRec) = 0 then begin
+    repeat
+      Temp := ExtractFileExt(SearchRec.Name);
+      if length(Temp) >= 2 then
+        Result.Add(Copy(Temp, 2, MaxInt));
+    until FindNext(SearchRec) <> 0;
+
+    FindClose(SearchRec);
+  end;
 end;
 
 function EscapeString(const Input: string): string;

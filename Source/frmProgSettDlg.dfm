@@ -13,6 +13,7 @@ object ProgSettDlg: TProgSettDlg
   Font.Style = []
   Position = poMainFormCenter
   OnCreate = FormCreate
+  OnDestroy = FormDestroy
   OnShow = Reload
   PixelsPerInch = 96
   DesignSize = (
