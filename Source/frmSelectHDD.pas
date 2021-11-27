@@ -498,14 +498,16 @@ begin
       cbSortBy.ItemIndex := Temp;
     end;
 
-  if cbManufacturer.Items.Count > 0 then
-    cbManufacturer.Items[0] := _T(StrAnyManufacturer);
-
+  Temp := cbConnector.ItemIndex;
   if cbConnector.Items.Count > 0 then
     cbConnector.Items[0] := _T(StrAnyConnector);
+  cbConnector.ItemIndex := Temp;
 
   Standard := _T(StrStandard);
   Temp := cbManufacturer.ItemIndex;
+  if cbManufacturer.Items.Count > 0 then
+    cbManufacturer.Items[0] := _T(StrAnyManufacturer);
+
   for I := 0 to cbManufacturer.Items.Count - 1 do
     cbManufacturer.Items[I] := StringReplace(
       cbManufacturer.Items[I], FStandard, Standard, []);
