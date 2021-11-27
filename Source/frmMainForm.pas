@@ -674,6 +674,7 @@ begin
     try
       if ShowModal = mrOK then begin
         FormShow(Sender);
+        ChangeLanguage(Config.ProgramLang);
         DefProfile.Default;
         acUpdateList.Execute;
       end;
@@ -950,6 +951,9 @@ procedure TWinBoxMain.ChangeLanguage(const ALocale: string);
 var
   I: integer;
 begin
+  if ALocale = Locale then
+    exit;
+
   Locale := ALocale;
   Language := TryLoadLocale(Locale);
 

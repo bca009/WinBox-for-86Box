@@ -364,13 +364,13 @@ begin
       3:    DisplayValues.Clear;
     end;
 
+    if Assigned(Languages) and
+      (cbLangWinBox.ItemIndex >= 0) and
+      (cbLangWinBox.ItemIndex < Languages.Count) then
+        ProgramLang := Languages[cbLangWinBox.ItemIndex];
+
     Save;
   end;
-
-  if Assigned(Languages) and
-    (cbLangWinBox.ItemIndex >= 0) and
-    (cbLangWinBox.ItemIndex < Languages.Count) then
-      WinBoxMain.ChangeLanguage(Languages[cbLangWinBox.ItemIndex]);
 
   ModalResult := mrOK;
 end;

@@ -45,6 +45,8 @@ type
     DisplayMode: integer;
     DisplayValues: TStrings;
 
+    ProgramLang: string;
+
     Tools: TStrings;
 
     CustomTemplates: string;
@@ -130,7 +132,7 @@ resourcestring
 
   DefOtherImages     = 'Other Disk Images\';
 
-  DefJenkinsRepo     =  'https://ci.86box.net/job/86Box';
+  DefJenkinsRepo     = 'https://ci.86box.net/job/86Box';
   DefJenkinsArtifact = 'Windows-32';
   DefRomsRepo        = 'https://github.com/86Box/roms';
   DefSourceRepo      = 'https://github.com/86Box/86Box';
@@ -160,6 +162,7 @@ resourcestring
   KeyDebugMode       = 'DebugMode';
   KeyCrashDump       = 'CrashDump';
   KeyArtifact        = 'Artifact';
+  KeyProgramLang     = 'ProgramLang';
 
   ImportWinBoxRoot   = 'Software\Laci bá''\WinBox';
   Import86MgrRoot    = 'Software\86Box';
@@ -225,6 +228,8 @@ begin
                   end;
             3:    DisplayValues.Clear;
           end;
+
+          ProgramLang     := ReadStringDef(KeyProgramLang, ProgramLang);
 
           if ValueExists(KeyTools) then begin
             Tools.Clear;
@@ -301,6 +306,8 @@ begin
           if DisplayMode in [1, 2] then
             WriteStringMulti(KeyDisplayValues, DisplayValues);
 
+          WriteStringChk(KeyProgramLang, ProgramLang, Defaults.ProgramLang);
+
           DeleteValue(KeyTools);
           if Tools.Count <> 0 then
             WriteStringMulti(KeyTools, Tools);
@@ -343,6 +350,8 @@ begin
 
   DisplayMode := 0;
   DisplayValues.Text := DefDisplayValues;
+
+  ProgramLang := '';
 
   Tools.Clear;
 
@@ -398,6 +407,8 @@ begin
         else
           DisplayMode := 0;
       end;
+
+      ProgramLang := '';
 
       DisplayValues.Clear;
       if RegOpenKey(CurrentKey, 'Configuration.86Box', Key) = ERROR_SUCCESS then begin
