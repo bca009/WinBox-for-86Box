@@ -581,6 +581,9 @@ procedure TProgSettDlg.FormDestroy(Sender: TObject);
 begin
   if Assigned(ProgLangs) then
     FreeAndNil(ProgLangs);
+
+  if Assigned(EmuLangs) then
+    FreeAndNil(EmuLangs);
 end;
 
 procedure TProgSettDlg.lvToolsSelectItem(Sender: TObject; Item: TListItem;
@@ -640,8 +643,6 @@ begin
 
       if FileExists(EmulatorPath) then
         ed86Box.Text := EmulatorPath;
-
-      cbProgLang.ItemIndex := cbProgLang.Items.IndexOf(Defaults.ProgramLang);
 
       UpdateTools(Tools);
 
