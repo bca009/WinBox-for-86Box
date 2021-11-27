@@ -45,7 +45,8 @@ type
     DisplayMode: integer;
     DisplayValues: TStrings;
 
-    ProgramLang: string;
+    ProgramLang,
+    EmulatorLang: string;
 
     Tools: TStrings;
 
@@ -117,6 +118,13 @@ type
     class function IsExists: boolean;
   end;
 
+resourcestring
+  PrgDefaultLanguage = 'system';
+  PrgSystemLanguage  = 'system';
+
+  EmuDefaultLanguage = 'en-US';
+  EmuSystemLanguage  = 'system';
+
 implementation
 
 uses uCommUtil;
@@ -163,6 +171,7 @@ resourcestring
   KeyCrashDump       = 'CrashDump';
   KeyArtifact        = 'Artifact';
   KeyProgramLang     = 'ProgramLang';
+  KeyEmulatorLang    = 'EmulatorLang';
 
   ImportWinBoxRoot   = 'Software\Laci bá''\WinBox';
   Import86MgrRoot    = 'Software\86Box';
@@ -230,6 +239,7 @@ begin
           end;
 
           ProgramLang     := ReadStringDef(KeyProgramLang, ProgramLang);
+          EmulatorLang    := ReadStringDef(KeyEmulatorLang, EmulatorLang);
 
           if ValueExists(KeyTools) then begin
             Tools.Clear;
@@ -307,6 +317,7 @@ begin
             WriteStringMulti(KeyDisplayValues, DisplayValues);
 
           WriteStringChk(KeyProgramLang, ProgramLang, Defaults.ProgramLang);
+          WriteStringChk(KeyEmulatorLang, EmulatorLang, Defaults.EmulatorLang);
 
           DeleteValue(KeyTools);
           if Tools.Count <> 0 then
@@ -351,7 +362,8 @@ begin
   DisplayMode := 0;
   DisplayValues.Text := DefDisplayValues;
 
-  ProgramLang := '';
+  ProgramLang  := PrgDefaultLanguage;
+  EmulatorLang := EmuDefaultLanguage;
 
   Tools.Clear;
 
@@ -407,8 +419,6 @@ begin
         else
           DisplayMode := 0;
       end;
-
-      ProgramLang := '';
 
       DisplayValues.Clear;
       if RegOpenKey(CurrentKey, 'Configuration.86Box', Key) = ERROR_SUCCESS then begin

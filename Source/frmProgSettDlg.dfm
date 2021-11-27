@@ -25,7 +25,7 @@ object ProgSettDlg: TProgSettDlg
     Top = 8
     Width = 444
     Height = 458
-    ActivePage = tabUI
+    ActivePage = tabLanguage
     Anchors = [akLeft, akTop, akRight, akBottom]
     TabOrder = 0
     object tabGeneral: TTabSheet
@@ -618,19 +618,19 @@ object ProgSettDlg: TProgSettDlg
         end
       end
     end
-    object tabUI: TTabSheet
-      Caption = 'Kezel'#337'fel'#252'let'
+    object tabLanguage: TTabSheet
+      Caption = 'Nyelv'
       ImageIndex = 5
       object grpLanguage: TGroupBox
         Left = 16
         Top = 16
         Width = 404
-        Height = 145
+        Height = 393
         Caption = 'Nyelvi be'#225'll'#237't'#225'sok'
         TabOrder = 0
         DesignSize = (
           404
-          145)
+          393)
         object imgLanguage: TImage
           Left = 18
           Top = 24
@@ -658,10 +658,25 @@ object ProgSettDlg: TProgSettDlg
           Caption = 'A &program nyelve:'
           FocusControl = cbProgLang
         end
+        object lbEmuLang: TLabel
+          Left = 18
+          Top = 154
+          Width = 96
+          Height = 13
+          Caption = 'Az emul'#225'tor nyelve:'
+        end
+        object lbEmuLangAvail: TLabel
+          Left = 47
+          Top = 226
+          Width = 126
+          Height = 13
+          Caption = 'Jelenleg &el'#233'rhet'#337' nyelvek:'
+          FocusControl = cbEmuLang
+        end
         object cbProgLang: TComboBox
-          Left = 135
-          Top = 69
-          Width = 250
+          Left = 47
+          Top = 96
+          Width = 314
           Height = 21
           Style = csDropDownList
           Anchors = [akLeft, akTop, akRight]
@@ -673,13 +688,71 @@ object ProgSettDlg: TProgSettDlg
         end
         object btnDefProgLang: TButton
           Tag = 5
-          Left = 264
-          Top = 96
+          Left = 246
+          Top = 123
           Width = 115
           Height = 25
           Caption = '&Alap'#233'rtelmezett'
           TabOrder = 1
           OnClick = btnDefaultClick
+        end
+        object rbEmuLangSync: TRadioButton
+          Left = 32
+          Top = 173
+          Width = 353
+          Height = 17
+          Caption = 'A &WinBox nyelvi be'#225'll'#237't'#225'sainak haszn'#225'lata (ha lehets'#233'ges)'
+          Checked = True
+          TabOrder = 2
+          TabStop = True
+        end
+        object rbEmuLangFix: TRadioButton
+          Left = 32
+          Top = 196
+          Width = 353
+          Height = 17
+          Caption = 'Haszn'#225'lni &k'#237'v'#225'nt nyelv kiv'#225'laszt'#225'sa az al'#225'bbi list'#225'b'#243'l:'
+          TabOrder = 3
+        end
+        object cbEmuLang: TComboBox
+          Left = 47
+          Top = 245
+          Width = 314
+          Height = 21
+          Style = csDropDownList
+          ItemIndex = 0
+          TabOrder = 4
+          Text = '(A rendszer alap'#233'rtelmezett nyelve)'
+          Items.Strings = (
+            '(A rendszer alap'#233'rtelmezett nyelve)')
+        end
+        object rbEmuLangFree: TRadioButton
+          Left = 32
+          Top = 308
+          Width = 361
+          Height = 17
+          Caption = '&Ne ker'#252'ljenek m'#243'dos'#237't'#225'sra az emul'#225'tor nyelvi be'#225'll'#237't'#225'sai'
+          TabOrder = 5
+        end
+        object btnDefEmuLang: TButton
+          Tag = 6
+          Left = 248
+          Top = 272
+          Width = 113
+          Height = 25
+          Caption = 'A&lap'#233'rtelmezett'
+          TabOrder = 6
+          OnClick = btnDefaultClick
+        end
+        object cbEmuLangForced: TCheckBox
+          Left = 18
+          Top = 338
+          Width = 359
+          Height = 17
+          Caption = 
+            'Az emul'#225'tor nyelvi be'#225'll'#237't'#225'sainak &fel'#252'lb'#237'r'#225'l'#225'sa minden virtu'#225'li' +
+            's g'#233'pn'#233'l'
+          TabOrder = 7
         end
       end
     end
