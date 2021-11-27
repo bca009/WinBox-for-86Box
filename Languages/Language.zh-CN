@@ -113,7 +113,7 @@ WinBox.WorkDirRemoved=虚拟机的工作目录已从外部删除. 您也想删�
 WinBox.86MgrPathNeeded=在导入过程中, WinBox 检测到现有 86Box Manager 配置中的相对路径.\r\n\r\n为了正确解释这些路径, 您需要在下一个窗口中指定 86Box Manager 的安装文件夹.
 WinBox.86MgrPathOf=选择 86Box Manager 的安装文件夹:
 
-WinBox.LangNeedsRestart=程序的语言设置已被保存，但必须重新启动程序以加载所需的语言。
+WinBox.LangNeedsRestart=程序的语言设置已被保存, 但必须重新启动程序以加载所需的语言.
 
 DeleteDialog.Title=删除虚拟机
 DeleteDialog.Text=即将删除 \"%s\". 此虚拟机含有不在其工作目录中的文件, 占用 %s 磁盘空间.\r\n\r\n请选择如何删除: 
@@ -494,6 +494,12 @@ cbWindowSizing.Items[5]=将显示放大 2 倍
 rbManualOptions=手动输入设置(&M)
 rbNoDisplayOptions=不要创建显示设置(&D)
 btnManOptLoad=从文件加载(&F)...
+tabUI=用户界面
+grpLanguage=语言设置
+lbLanguage=在这一部分, 你可以改变程序和仿真器的语言相关行为.
+lbProgLang=程序的语言(&P):
+cbProgLang.Items[0]=(系统默认语言)
+btnDefProgLang=默认(&D)
 tabTools=工具
 grpTools=用户工具列表
 lbTools=WinBox 可以从应用程序创建菜单, 这些应用程序经常与虚拟机一起使用. 可以在此页面配置应用程序列表.

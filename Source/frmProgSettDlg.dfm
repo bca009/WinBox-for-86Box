@@ -622,15 +622,15 @@ object ProgSettDlg: TProgSettDlg
       Caption = 'Kezel'#337'fel'#252'let'
       ImageIndex = 5
       object grpLanguage: TGroupBox
-        Left = 18
+        Left = 16
         Top = 16
         Width = 404
-        Height = 185
+        Height = 145
         Caption = 'Nyelvi be'#225'll'#237't'#225'sok'
         TabOrder = 0
         DesignSize = (
           404
-          185)
+          145)
         object imgLanguage: TImage
           Left = 18
           Top = 24
@@ -645,22 +645,23 @@ object ProgSettDlg: TProgSettDlg
           Anchors = [akLeft, akTop, akRight]
           AutoSize = False
           Caption = 
-            'Ebben a szekci'#243'ban m'#243'dos'#237'thatja a program '#233's az emul'#225'tor nyelvi ' +
-            'be'#225'll'#237't'#225'sait, '#233's ezzel kapcsolatos viselked'#233's'#233't.'
+            'Ebben a szekci'#243'ban m'#243'dos'#237'thatja a program '#233's az emul'#225'tor nyelvve' +
+            'l kapcsolatos viselked'#233'si be'#225'll'#237't'#225'sait.'
           WordWrap = True
         end
         object lbProgLang: TLabel
           Left = 18
-          Top = 72
-          Width = 89
-          Height = 13
+          Top = 73
+          Width = 119
+          Height = 17
+          AutoSize = False
           Caption = 'A &program nyelve:'
           FocusControl = cbProgLang
         end
         object cbProgLang: TComboBox
-          Left = 120
+          Left = 135
           Top = 69
-          Width = 265
+          Width = 250
           Height = 21
           Style = csDropDownList
           Anchors = [akLeft, akTop, akRight]
