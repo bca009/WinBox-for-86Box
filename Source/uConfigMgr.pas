@@ -67,7 +67,7 @@ type
 
     function RepoToArtf(const Repository, Artifact: string): string;
 
-    function AdjustEmulatorLang: string;
+    function AdjustEmuLang: string;
 
     procedure Save;
 
@@ -197,7 +197,11 @@ begin
   inherited;
 end;
 
-function TConfiguration.AdjustEmulatorLang: string;
+(*
+  This function creates the lang code to be passed to the emulator,
+  by properly combining EmulatorLang, ProgramLang, and EmuLangCtrl.
+*)
+function TConfiguration.AdjustEmuLang: string;
 begin
   case LoWord(EmuLangCtrl) of
     0:

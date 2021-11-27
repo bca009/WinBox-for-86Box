@@ -421,7 +421,7 @@ begin
   if boolean(HiWord(Config.EmuLangCtrl)) and
      (LoWord(Config.EmuLangCtrl) <> 2) and
      (NameDefs.ReadInteger('params', 'Support.LangCtrl', 0) <> 0) then
-    CommandLine := format('--lang "%s" %s', [Config.AdjustEmulatorLang, CommandLine]);
+    CommandLine := format('--lang "%s" %s', [Config.AdjustEmuLang, CommandLine]);
 
   if Fullscreen then
     CommandLine := '--fullscreen ' + CommandLine;

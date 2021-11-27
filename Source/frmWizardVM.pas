@@ -565,7 +565,7 @@ begin
             end;
 
             if LoWord(EmuLangCtrl) <> 2 then
-              Config.WriteString('General', 'language', AdjustEmulatorLang);
+              Config.WriteString('General', 'language', AdjustEmuLang);
           end;
 
           with TProfile.Create(ProfileID, false) do
