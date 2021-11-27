@@ -407,6 +407,7 @@ type
 
     procedure GetTranslation(Language: TLanguage); stdcall;
     procedure Translate; stdcall;
+    procedure ChangeLanguage(const ALocale: string);
 
     procedure GetRttiReport(Result: TStrings);
     procedure DoFirstUpdate(var Msg: TMessage); message WM_USER;
@@ -943,6 +944,20 @@ begin
                  SaveToMetafileEnh(SaveEmf.FileName);
              end;
       end;
+end;
+
+procedure TWinBoxMain.ChangeLanguage(const ALocale: string);
+var
+  I: integer;
+begin
+  Locale := ALocale;
+  Language := TryLoadLocale(Locale);
+
+  Frame86Box.Translate;
+
+  for I := 0 to Screen.FormCount - 1 do
+    if Supports(Screen.Forms[I], ILanguageSupport) then
+      (Screen.Forms[I] as ILanguageSupport).Translate;
 end;
 
 procedure TWinBoxMain.DeleteVM(DeleteFiles: boolean);
