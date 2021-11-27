@@ -1092,10 +1092,6 @@ begin
   L := L * 10 div 8;
   clHighlight2 := ColorHLSToRGB(H, L, S);
   clDisabled2 := ColorHLSToRGB(H, L, 0);
-  Translate;
-
-  tbVMs.ShowCaptions := true;
-  tbGlobal.ShowCaptions := true;
 
   for I := 0 to Pages.PageCount - 1 do
     Pages.Pages[I].TabVisible := false;
@@ -1114,6 +1110,12 @@ begin
       if cgPanels.Panels[I] <> cpSystem then
         (TObject(cgPanels.Panels[I]) as TCategoryPanel).Collapsed := true;
   end;
+
+  Locale := '-'; //cseréljük ki az alapérték '' nyelvet akármire
+  ChangeLanguage(Config.ProgramLang); //azért hogy ez végigfusson
+
+  tbVMs.ShowCaptions := true;
+  tbGlobal.ShowCaptions := true;
 
   SideRatio := DefSideRatio;
   Icons32.GetIcon(6, DeleteDialog.CustomMainIcon);

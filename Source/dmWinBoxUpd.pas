@@ -91,6 +91,9 @@ var
   Path: array [0..52] of char;
 begin
   with AskUpdateDialog do begin
+    Caption := Application.Title;
+    Title := _T(WbuDialogTitle);
+
     PathCompactPathExW(@Path[0], PChar(ExtractFilePath(paramstr(0))), High(Path), 0);
     Path[High(Path)] := #0;
 
@@ -134,11 +137,6 @@ begin
 
   if FileExists(FileName) then
     DeleteFile(FileName);
-
-  with AskUpdateDialog do begin
-    Caption := Application.Title;
-    Title := _T(WbuDialogTitle);
-  end;
 
   if Config.WinBoxUpdate <> 0 then
     Refresh;

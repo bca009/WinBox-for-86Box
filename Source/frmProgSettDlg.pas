@@ -137,8 +137,9 @@ type
     grpLanguage: TGroupBox;
     imgLanguage: TImage;
     lbLanguage: TLabel;
-    lbLangWinBox: TLabel;
-    cbLangWinBox: TComboBox;
+    lbProgLang: TLabel;
+    cbProgLang: TComboBox;
+    btnDefProgLang: TButton;
     procedure Reload(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure cbLoggingChange(Sender: TObject);
@@ -240,6 +241,7 @@ begin
     2: ed86Box.Text := Defaults.EmulatorPath;
     3: edCustomTemplates.Text := Defaults.CustomTemplates;
     4: edGlobalLog.Text := Defaults.GlobalLogFile;
+    5: cbProgLang.ItemIndex := 0;
   end;
 end;
 
@@ -365,9 +367,9 @@ begin
     end;
 
     if Assigned(Languages) and
-      (cbLangWinBox.ItemIndex >= 0) and
-      (cbLangWinBox.ItemIndex < Languages.Count) then
-        ProgramLang := Languages[cbLangWinBox.ItemIndex];
+      (cbProgLang.ItemIndex >= 0) and
+      (cbProgLang.ItemIndex < Languages.Count) then
+        ProgramLang := Languages[cbProgLang.ItemIndex];
 
     Save;
   end;
@@ -697,10 +699,10 @@ begin
     for I := 1 to Count - 1 do begin
       if Strings[I] = Locale then
         Index := I;
-      cbLangWinBox.Items.Add(GetLocaleText(Strings[I]));
+      cbProgLang.Items.Add(GetLocaleText(Strings[I]));
     end;
 
-  cbLangWinBox.ItemIndex := Index;
+  cbProgLang.ItemIndex := Index;
 end;
 
 procedure TProgSettDlg.UpdateTools(Tools: TStrings);

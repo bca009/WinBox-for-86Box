@@ -625,12 +625,12 @@ object ProgSettDlg: TProgSettDlg
         Left = 18
         Top = 16
         Width = 404
-        Height = 113
+        Height = 185
         Caption = 'Nyelvi be'#225'll'#237't'#225'sok'
         TabOrder = 0
         DesignSize = (
           404
-          113)
+          185)
         object imgLanguage: TImage
           Left = 18
           Top = 24
@@ -649,15 +649,15 @@ object ProgSettDlg: TProgSettDlg
             'be'#225'll'#237't'#225'sait, '#233's ezzel kapcsolatos viselked'#233's'#233't.'
           WordWrap = True
         end
-        object lbLangWinBox: TLabel
+        object lbProgLang: TLabel
           Left = 18
           Top = 72
           Width = 89
           Height = 13
           Caption = 'A &program nyelve:'
-          FocusControl = cbLangWinBox
+          FocusControl = cbProgLang
         end
-        object cbLangWinBox: TComboBox
+        object cbProgLang: TComboBox
           Left = 120
           Top = 69
           Width = 265
@@ -669,6 +669,16 @@ object ProgSettDlg: TProgSettDlg
           Text = '(A rendszer alap'#233'rtelmezett nyelve)'
           Items.Strings = (
             '(A rendszer alap'#233'rtelmezett nyelve)')
+        end
+        object btnDefProgLang: TButton
+          Tag = 5
+          Left = 264
+          Top = 96
+          Width = 115
+          Height = 25
+          Caption = '&Alap'#233'rtelmezett'
+          TabOrder = 1
+          OnClick = btnDefaultClick
         end
       end
     end

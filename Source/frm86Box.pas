@@ -211,8 +211,6 @@ begin
   SetWindowLong(cgPanels.Handle, GWL_STYLE,
     GetWindowLong(cgPanels.Handle, GWL_STYLE) and not WS_BORDER);
 
-  Translate;
-
   PicturePager := TPicturePager.Create(nil);
   with PicturePager do begin
     Parent := RightPanel;
