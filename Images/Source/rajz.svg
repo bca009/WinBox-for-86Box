@@ -24,6 +24,42 @@
   <defs
      id="defs2">
     <linearGradient
+       id="linearGradient7473"
+       inkscape:collect="always">
+      <stop
+         id="stop7469"
+         offset="0"
+         style="stop-color:#0055d4;stop-opacity:1" />
+      <stop
+         id="stop7471"
+         offset="1"
+         style="stop-color:#2ad4ff;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient7171">
+      <stop
+         style="stop-color:#0066ff;stop-opacity:1"
+         offset="0"
+         id="stop7167" />
+      <stop
+         style="stop-color:#0055d4;stop-opacity:1"
+         offset="1"
+         id="stop7169" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient7155">
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1"
+         offset="0"
+         id="stop7151" />
+      <stop
+         style="stop-color:#ececec;stop-opacity:1"
+         offset="1"
+         id="stop7153" />
+    </linearGradient>
+    <linearGradient
        inkscape:collect="always"
        id="linearGradient5892">
       <stop
@@ -1930,6 +1966,36 @@
        fx="155.5725"
        fy="147.4025"
        r="127.22509" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient7155"
+       id="linearGradient7157"
+       x1="809.67491"
+       y1="511.1745"
+       x2="872.02144"
+       y2="511.1745"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.3028428,-0.05506635,-0.30971485,1.2557233,-226.76967,-160.90531)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient7171"
+       id="linearGradient7173"
+       x1="689.2981"
+       y1="386.91922"
+       x2="764.05121"
+       y2="426.66663"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.4776083,0,0,1.4776081,-295.9305,-210.12434)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient7473"
+       id="linearGradient7465"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.8863744,0,0,1.8863742,-584.89922,-375.94281)"
+       x1="689.2981"
+       y1="386.91922"
+       x2="740.55682"
+       y2="423.95264" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -1938,15 +2004,15 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.49497475"
-     inkscape:cx="1884.5159"
-     inkscape:cy="1401.7641"
+     inkscape:zoom="1.4"
+     inkscape:cx="2630.6278"
+     inkscape:cy="236.12017"
      inkscape:document-units="mm"
      inkscape:current-layer="svg8"
      showgrid="false"
      inkscape:window-width="1920"
      inkscape:window-height="986"
-     inkscape:window-x="-11"
+     inkscape:window-x="1909"
      inkscape:window-y="-11"
      inkscape:window-maximized="1"
      inkscape:lockguides="true"
@@ -6748,18 +6814,6 @@
          sodipodi:nodetypes="ccccc" />
     </g>
   </g>
-  <rect
-     style="display:none;opacity:1;fill:#c83737;fill-opacity:1;stroke:none;stroke-width:0.228;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-     id="rect2560"
-     width="94.078873"
-     height="94.078873"
-     x="701.42651"
-     y="474.27631"
-     inkscape:export-filename="E:\Programok\86Box-GUI\WinBox3\icons2\vm-icon.png"
-     inkscape:export-xdpi="137.8987"
-     inkscape:export-ydpi="137.8987"
-     sodipodi:insensitive="true"
-     inkscape:label="HATT" />
   <path
      inkscape:export-ydpi="224.00696"
      inkscape:export-xdpi="224.00696"
@@ -8372,5 +8426,158 @@
            sodipodi:role="line"
            id="tspan5900">Driverek, cuccok 1.</tspan></text>
     </g>
+  </g>
+  <flowRoot
+     xml:space="preserve"
+     id="flowRoot7188"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:25px;font-family:'Courier New';-inkscape-font-specification:'Courier New';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+     transform="matrix(0.59831232,0,0,0.52277221,-883.66678,-368.05498)"><flowRegion
+       id="flowRegion7190"><rect
+         id="rect7192"
+         width="213.57143"
+         height="197.85715"
+         x="2647.8572"
+         y="1430.0394" /></flowRegion><flowPara
+       id="flowPara7226"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Trebuchet MS';-inkscape-font-specification:'Trebuchet MS'" /></flowRoot>  <rect
+     style="display:none;opacity:1;fill:#c83737;fill-opacity:1;stroke:none;stroke-width:0.228;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+     id="rect2560"
+     width="94.078873"
+     height="94.078873"
+     x="573.67053"
+     y="480.32391"
+     inkscape:export-filename="E:\Programok\86Box-GUI\WinBox3\icons2\vm-icon.png"
+     inkscape:export-xdpi="137.8987"
+     inkscape:export-ydpi="137.8987"
+     inkscape:label="HATT" />
+  <g
+     id="g7463"
+     inkscape:label="Szöveg"
+     transform="matrix(0.84942033,0,0,0.84942033,15.758739,169.18683)">
+    <path
+       sodipodi:nodetypes="csccscc"
+       inkscape:connector-curvature="0"
+       id="rect7149"
+       d="m 682.65397,372.94363 c 13.31673,-1.62824 20.32438,-7.25826 83.27183,-1.35645 0.10912,0.0105 0.17464,0.0769 0.15032,0.18376 -4.74849,32.1922 -15.24823,52.42599 -19.77912,101.54933 -47.00121,-5.55619 -62.88814,-3.25496 -83.50038,-0.0148 -0.10833,0.0171 -0.16825,-0.0756 -0.15031,-0.18376 10.17076,-36.18901 16.88984,-79.5022 20.00766,-100.17808 z"
+       style="opacity:1;fill:url(#linearGradient7157);fill-opacity:1;stroke:none;stroke-width:0.72745091;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill" />
+    <text
+       transform="matrix(0.84053016,0,-0.27743727,1.1897253,0,0)"
+       id="text7399"
+       y="322.20276"
+       x="924.51416"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.65880799px;line-height:2.28675485px;font-family:'Courier New';-inkscape-font-specification:'Courier New';letter-spacing:0px;word-spacing:0px;fill:#000080;fill-opacity:1;stroke:none;stroke-width:0.0914702"
+       xml:space="preserve"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:3.732517px;font-family:'Segoe Script';-inkscape-font-specification:'Segoe Script';fill:#000080;stroke-width:0.0914702"
+         y="322.20276"
+         x="924.51416"
+         id="tspan7397"
+         sodipodi:role="line">Mint ha pásztortűz ég őszi éjtszakákon,</tspan><tspan
+         id="tspan7401"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:3.732517px;font-family:'Segoe Script';-inkscape-font-specification:'Segoe Script';fill:#000080;stroke-width:0.0914702"
+         y="325.93527"
+         x="924.51416"
+         sodipodi:role="line">Messziről lobogva tenger pusztaságon:</tspan><tspan
+         id="tspan7403"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:3.732517px;font-family:'Segoe Script';-inkscape-font-specification:'Segoe Script';fill:#000080;stroke-width:0.0914702"
+         y="329.66779"
+         x="924.51416"
+         sodipodi:role="line">Toldi Miklós képe úgy lobog fel nékem</tspan><tspan
+         id="tspan7405"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:3.732517px;font-family:'Segoe Script';-inkscape-font-specification:'Segoe Script';fill:#000080;stroke-width:0.0914702"
+         y="333.4003"
+         x="924.51416"
+         sodipodi:role="line">Majd kilenc-tíz ember-öltő régiségben.</tspan><tspan
+         id="tspan7415"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:3.732517px;font-family:'Segoe Script';-inkscape-font-specification:'Segoe Script';fill:#000080;stroke-width:0.0914702"
+         y="336.44409"
+         x="924.51416"
+         sodipodi:role="line" /><tspan
+         id="tspan7407"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:3.732517px;font-family:'Segoe Script';-inkscape-font-specification:'Segoe Script';fill:#000080;stroke-width:0.0914702"
+         y="339.41959"
+         x="924.51416"
+         sodipodi:role="line">Rémlik, mintha látnám termetes növését,</tspan><tspan
+         id="tspan7409"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:3.732517px;font-family:'Segoe Script';-inkscape-font-specification:'Segoe Script';fill:#000080;stroke-width:0.0914702"
+         y="343.1521"
+         x="924.51416"
+         sodipodi:role="line">Pusztító csatában szálfa-öklelését,</tspan><tspan
+         id="tspan7411"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:3.732517px;font-family:'Segoe Script';-inkscape-font-specification:'Segoe Script';fill:#000080;stroke-width:0.0914702"
+         y="346.88461"
+         x="924.51416"
+         sodipodi:role="line">Hallanám dübörgő hangjait szavának,</tspan><tspan
+         id="tspan7413"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:3.732517px;font-family:'Segoe Script';-inkscape-font-specification:'Segoe Script';fill:#000080;stroke-width:0.0914702"
+         y="350.61713"
+         x="924.51416"
+         sodipodi:role="line">Kit ma képzelnétek Isten haragjának.</tspan><tspan
+         id="tspan7417"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:3.732517px;font-family:'Segoe Script';-inkscape-font-specification:'Segoe Script';fill:#000080;stroke-width:0.0914702"
+         y="353.66092"
+         x="924.51416"
+         sodipodi:role="line" /><tspan
+         id="tspan7419"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:3.732517px;font-family:'Segoe Script';-inkscape-font-specification:'Segoe Script';fill:#000080;stroke-width:0.0914702"
+         y="355.94766"
+         x="924.51416"
+         sodipodi:role="line" /><tspan
+         id="tspan7421"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:3.732517px;font-family:'Segoe Script';-inkscape-font-specification:'Segoe Script';fill:#000080;stroke-width:0.0914702"
+         y="358.92316"
+         x="924.51416"
+         sodipodi:role="line">Ez volt ám az ember, ha kellett, a gáton,</tspan><tspan
+         id="tspan7423"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:3.732517px;font-family:'Segoe Script';-inkscape-font-specification:'Segoe Script';fill:#000080;stroke-width:0.0914702"
+         y="362.65567"
+         x="924.51416"
+         sodipodi:role="line">Nem terem ma párja hetedhét országon;</tspan><tspan
+         id="tspan7425"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:3.732517px;font-family:'Segoe Script';-inkscape-font-specification:'Segoe Script';fill:#000080;stroke-width:0.0914702"
+         y="366.38818"
+         x="924.51416"
+         sodipodi:role="line">Ha most feltámadna s eljőne közétek,</tspan><tspan
+         id="tspan7427"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:3.732517px;font-family:'Segoe Script';-inkscape-font-specification:'Segoe Script';fill:#000080;stroke-width:0.0914702"
+         y="370.1207"
+         x="924.51416"
+         sodipodi:role="line">Minden dolgát szemfényvesztésnek hinnétek.</tspan><tspan
+         id="tspan7429"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:3.732517px;font-family:'Segoe Script';-inkscape-font-specification:'Segoe Script';fill:#000080;stroke-width:0.0914702"
+         y="373.16449"
+         x="924.51416"
+         sodipodi:role="line" /><tspan
+         id="tspan7431"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:3.732517px;font-family:'Segoe Script';-inkscape-font-specification:'Segoe Script';fill:#000080;stroke-width:0.0914702"
+         y="376.13998"
+         x="924.51416"
+         sodipodi:role="line">Hárman sem birnátok súlyos buzogányát,</tspan><tspan
+         id="tspan7433"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:3.732517px;font-family:'Segoe Script';-inkscape-font-specification:'Segoe Script';fill:#000080;stroke-width:0.0914702"
+         y="379.8725"
+         x="924.51416"
+         sodipodi:role="line">Parittyaköveit, öklelő kopjáját;</tspan><tspan
+         id="tspan7435"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:3.732517px;font-family:'Segoe Script';-inkscape-font-specification:'Segoe Script';fill:#000080;stroke-width:0.0914702"
+         y="383.60501"
+         x="924.51416"
+         sodipodi:role="line">Elhülnétek, látva rettenetes pajzsát,</tspan><tspan
+         id="tspan7437"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:3.732517px;font-family:'Segoe Script';-inkscape-font-specification:'Segoe Script';fill:#000080;stroke-width:0.0914702"
+         y="387.33752"
+         x="924.51416"
+         sodipodi:role="line">,És, kit a csizmáján viselt, sarkantyúját.‘</tspan></text>
+    <text
+       transform="scale(0.93337451,1.0713813)"
+       id="text7147"
+       y="417.85577"
+       x="703.8938"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:106.45362854px;line-height:66.53351593px;font-family:'Courier New';-inkscape-font-specification:'Courier New';letter-spacing:0px;word-spacing:0px;fill:url(#linearGradient7465);fill-opacity:1;stroke:none;stroke-width:2.66134095"
+       xml:space="preserve"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Ink Free';-inkscape-font-specification:'Ink Free';fill:url(#linearGradient7465);fill-opacity:1;stroke-width:2.66134095"
+         y="417.85577"
+         x="703.8938"
+         id="tspan7145"
+         sodipodi:role="line">Aa</tspan></text>
   </g>
 </svg>

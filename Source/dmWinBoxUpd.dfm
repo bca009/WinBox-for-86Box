@@ -1,8 +1,8 @@
 object WinBoxUpd: TWinBoxUpd
-  OldCreateOrder = False
   OnCreate = DataModuleCreate
   Height = 202
   Width = 296
+  PixelsPerInch = 96
   object AskUpdateDialog: TTaskDialog
     Buttons = <>
     CommonButtons = [tcbYes, tcbNo]

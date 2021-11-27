@@ -407,6 +407,7 @@ type
 
     procedure GetTranslation(Language: TLanguage); stdcall;
     procedure Translate; stdcall;
+    procedure ChangeLanguage(const ALocale: string);
 
     procedure GetRttiReport(Result: TStrings);
     procedure DoFirstUpdate(var Msg: TMessage); message WM_USER;
@@ -440,6 +441,7 @@ resourcestring
   StrChartAxisBase = 'PerfMon.Chart%s.Axis%s';
   ImFloppyImages = 'Floppy Disk Images';
   WizNewVM = 'WizardVM.NewVM';
+  StrLangNeedsRestart = 'WinBox.LangNeedsRestart';
 
 {$R *.dfm}
 
@@ -673,6 +675,7 @@ begin
     try
       if ShowModal = mrOK then begin
         FormShow(Sender);
+        ChangeLanguage(Config.ProgramLang);
         DefProfile.Default;
         acUpdateList.Execute;
       end;
@@ -945,6 +948,48 @@ begin
       end;
 end;
 
+procedure TWinBoxMain.ChangeLanguage(const ALocale: string);
+var
+  I: integer;
+  NewLoc: string;
+  NewLang: TLanguage;
+
+  function IsProgSettVisible: boolean;
+  var
+    I: integer;
+  begin
+    Result := false;
+    for I := 0 to Screen.FormCount - 1 do
+      if Screen.Forms[I] is TProgSettDlg then
+        exit(true);
+  end;
+
+begin
+  NewLoc := ALocale;
+  NewLang := TryLoadLocale(NewLoc);
+
+  if (NewLoc = PrgBaseLanguage) and (Locale <> NewLoc) and IsProgSettVisible then begin
+    MessageBox(Handle, _P(StrLangNeedsRestart),
+      PChar(Application.Title), MB_ICONINFORMATION or MB_OK);
+    NewLang.Free;
+    exit;
+  end
+  else if NewLoc = Locale then
+    exit
+  else begin
+    Locale := NewLoc;
+
+    Language.Free;
+    Language := NewLang;
+  end;
+
+  Frame86Box.Translate;
+
+  for I := 0 to Screen.FormCount - 1 do
+    if Supports(Screen.Forms[I], ILanguageSupport) then
+      (Screen.Forms[I] as ILanguageSupport).Translate;
+end;
+
 procedure TWinBoxMain.DeleteVM(DeleteFiles: boolean);
 var
   FItemIndex: integer;
@@ -1073,10 +1118,6 @@ begin
   L := L * 10 div 8;
   clHighlight2 := ColorHLSToRGB(H, L, S);
   clDisabled2 := ColorHLSToRGB(H, L, 0);
-  Translate;
-
-  tbVMs.ShowCaptions := true;
-  tbGlobal.ShowCaptions := true;
 
   for I := 0 to Pages.PageCount - 1 do
     Pages.Pages[I].TabVisible := false;
@@ -1095,6 +1136,12 @@ begin
       if cgPanels.Panels[I] <> cpSystem then
         (TObject(cgPanels.Panels[I]) as TCategoryPanel).Collapsed := true;
   end;
+
+  Locale := '-'; //cseréljük ki az alapérték '' nyelvet akármire
+  ChangeLanguage(Config.ProgramLang); //azért hogy ez végigfusson
+
+  tbVMs.ShowCaptions := true;
+  tbGlobal.ShowCaptions := true;
 
   SideRatio := DefSideRatio;
   Icons32.GetIcon(6, DeleteDialog.CustomMainIcon);

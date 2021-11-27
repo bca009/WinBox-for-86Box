@@ -53,6 +53,8 @@ type
 function GetSystemLanguage: string; inline;
 function GetLanguage(const LCID: LangID): string;
 function GetLCID(const Locale: string): LCID;
+function GetLocaleText(const Locale: string;
+  const AType: DWORD = LOCALE_SLOCALIZEDDISPLAYNAME): string;
 
 function EscapeString(const Input: string): string;
 function UnescapeString(const Input: string): string;
@@ -66,21 +68,15 @@ function _T(const Key: string; const Args: array of const): string; overload;
 function _P(const Key: string): PChar; overload;
 function _P(const Key: string; const Args: array of const): PChar; overload;
 
-function TryLoadLang(const FileName: string): TLanguage;
+function TryLoadLocale(var Locale: string): TLanguage;
+function GetAvailLangs: TStringList;
+
+resourcestring
+  PrgBaseLanguage    = 'hu-HU';
+  PrgDefaultLanguage = 'system';
+  PrgSystemLanguage  = 'system';
 
 implementation
-
-function TryLoadLang(const FileName: string): TLanguage;
-begin
-  try
-    Result := TLanguage.Create(FileName, TEncoding.UTF8);
-  except
-    on E: EEncodingError do
-      Result := TLanguage.Create(FileName);
-    else
-      raise;
-  end;
-end;
 
 resourcestring
   StrStrings = 'Strings';
@@ -130,22 +126,27 @@ begin
       Result := ord(true);
 end;
 
-procedure InitLanguage;
+function TryLoadLocale(var Locale: string): TLanguage;
 var
   FileRoot, FileName: string;
-  I: integer;
-
   Helper: TInitLocaleHelper;
+
+  function TryLoadFile(const FileName: string): TLanguage;
+  begin
+    try
+      Result := TLanguage.Create(FileName, TEncoding.UTF8);
+    except
+      on E: EEncodingError do
+        Result := TLanguage.Create(FileName);
+      else
+        raise;
+    end;
+  end;
+
 begin
-  //First of all decide what language we want to load.
-  //We can use the system language, or use the one from -lang.
-  Locale := GetSystemLanguage;
-  if ParamCount > 1 then
-    for I := 1 to ParamCount - 1 do
-      if LowerCase(ParamStr(I)) = '-lang' then begin
-        Locale := ParamStr(I + 1);
-        break;
-      end;
+  //If Locale is not specified, use the system locale
+  if Locale = PrgSystemLanguage then
+    Locale := GetSystemLanguage;
 
   //Try to use the determined language
   FileRoot := ExtractFilePath(paramstr(0)) + PfLanguagesPath + StrFileNameBase;
@@ -176,8 +177,27 @@ begin
     end;
   end;
 
-  //Finally load the selected language file.
-  Language := TryLoadLang(FileName);
+  //Finally load the selected language file, and set locale.
+  Result := TryLoadFile(FileName);
+end;
+
+
+procedure InitLanguage;
+var
+  I: integer;
+begin
+  //First of all decide what language we want to load.
+  //We can use the system language, or use the one from -lang.
+  Locale := PrgDefaultLanguage;
+  if ParamCount > 1 then
+    for I := 1 to ParamCount - 1 do
+      if LowerCase(ParamStr(I)) = '-lang' then begin
+        Locale := ParamStr(I + 1);
+        break;
+      end;
+
+  //Finally load the selected locale, with fallback options.
+  Language := TryLoadLocale(Locale);
 end;
 
 const
@@ -205,6 +225,41 @@ end;
 function GetLCID(const Locale: string): LCID;
 begin
   Result := LocaleNameToLCID(PChar(Locale), 0);
+end;
+
+function GetLocaleText(const Locale: string; const AType: DWORD): string;
+var
+  Size: integer;
+  Temp: array of char;
+begin
+  Size := GetLocaleInfoEx(PChar(Locale), AType, nil, 0);
+
+  if Size > 0 then begin
+    SetLength(Temp, Size);
+    GetLocaleInfoEx(PChar(Locale), AType, @Temp[0], Size);
+    Result := String(PChar(@Temp[0]));
+  end
+  else
+    Result := Locale;
+end;
+
+function GetAvailLangs: TStringList;
+var
+  FileRoot, Temp: string;
+  SearchRec: TSearchRec;
+begin
+  Result := TStringList.Create;
+  FileRoot := ExtractFilePath(paramstr(0)) + PfLanguagesPath + StrFileNameBase;
+
+  if FindFirst(FileRoot + '*', faAnyFile, SearchRec) = 0 then begin
+    repeat
+      Temp := ExtractFileExt(SearchRec.Name);
+      if length(Temp) >= 2 then
+        Result.Add(Copy(Temp, 2, MaxInt));
+    until FindNext(SearchRec) <> 0;
+
+    FindClose(SearchRec);
+  end;
 end;
 
 function EscapeString(const Input: string): string;

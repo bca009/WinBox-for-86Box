@@ -554,7 +554,7 @@ begin
           Config.WriteString('WinBox', 'window_fixed_res',
             Sample.GetCustomKey('General', 'WindowSize', '960x720'));
 
-          with uConfigMgr.Config do
+          with uConfigMgr.Config do begin
             if DisplayMode <> 3 then begin
               for I := 0 to DisplayValues.Count - 1 do
                 Config.WriteString('General',
@@ -563,6 +563,10 @@ begin
               Config.WriteString('General', 'window_fixed_res',
                 Sample.GetCustomKey('General', 'WindowSize', '960x720'));
             end;
+
+            if LoWord(EmuLangCtrl) <> 2 then
+              Config.WriteString('General', 'language', AdjustEmuLang);
+          end;
 
           with TProfile.Create(ProfileID, false) do
             try

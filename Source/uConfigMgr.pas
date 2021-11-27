@@ -45,6 +45,10 @@ type
     DisplayMode: integer;
     DisplayValues: TStrings;
 
+    ProgramLang,
+    EmulatorLang: string;
+    EmuLangCtrl: integer;
+
     Tools: TStrings;
 
     CustomTemplates: string;
@@ -62,6 +66,8 @@ type
     procedure ReloadTools;
 
     function RepoToArtf(const Repository, Artifact: string): string;
+
+    function AdjustEmuLang: string;
 
     procedure Save;
 
@@ -115,9 +121,13 @@ type
     class function IsExists: boolean;
   end;
 
+resourcestring
+  EmuDefaultLanguage = 'en-US';
+  EmuSystemLanguage  = 'system';
+
 implementation
 
-uses uCommUtil;
+uses uCommUtil, uLang;
 
 resourcestring
   PfTemplatesPath    = 'Templates\';
@@ -130,7 +140,7 @@ resourcestring
 
   DefOtherImages     = 'Other Disk Images\';
 
-  DefJenkinsRepo     =  'https://ci.86box.net/job/86Box';
+  DefJenkinsRepo     = 'https://ci.86box.net/job/86Box';
   DefJenkinsArtifact = 'Windows-32';
   DefRomsRepo        = 'https://github.com/86Box/roms';
   DefSourceRepo      = 'https://github.com/86Box/86Box';
@@ -160,6 +170,9 @@ resourcestring
   KeyDebugMode       = 'DebugMode';
   KeyCrashDump       = 'CrashDump';
   KeyArtifact        = 'Artifact';
+  KeyProgramLang     = 'ProgramLang';
+  KeyEmulatorLang    = 'EmulatorLang';
+  KeyEmuLangCtrl     = 'EmuLangCtrl';
 
   ImportWinBoxRoot   = 'Software\Laci bá''\WinBox';
   Import86MgrRoot    = 'Software\86Box';
@@ -182,6 +195,25 @@ begin
   DisplayValues.Free;
   Tools.Free;
   inherited;
+end;
+
+(*
+  This function creates the lang code to be passed to the emulator,
+  by properly combining EmulatorLang, ProgramLang, and EmuLangCtrl.
+*)
+function TConfiguration.AdjustEmuLang: string;
+begin
+  case LoWord(EmuLangCtrl) of
+    0:
+     if ProgramLang = PrgSystemLanguage then
+       Result := EmuSystemLanguage
+     else
+       Result := ProgramLang;
+    1:
+      Result := EmulatorLang
+    else
+      Result := '';
+  end;
 end;
 
 procedure TConfiguration.Reload;
@@ -225,6 +257,10 @@ begin
                   end;
             3:    DisplayValues.Clear;
           end;
+
+          ProgramLang     := ReadStringDef(KeyProgramLang, ProgramLang);
+          EmulatorLang    := ReadStringDef(KeyEmulatorLang, EmulatorLang);
+          EmuLangCtrl     := ReadIntegerDef(KeyEmuLangCtrl, EmuLangCtrl);
 
           if ValueExists(KeyTools) then begin
             Tools.Clear;
@@ -301,6 +337,10 @@ begin
           if DisplayMode in [1, 2] then
             WriteStringMulti(KeyDisplayValues, DisplayValues);
 
+          WriteStringChk(KeyProgramLang, ProgramLang, Defaults.ProgramLang);
+          WriteStringChk(KeyEmulatorLang, EmulatorLang, Defaults.EmulatorLang);
+          WriteIntegerChk(KeyEmuLangCtrl, EmuLangCtrl, Defaults.EmuLangCtrl);
+
           DeleteValue(KeyTools);
           if Tools.Count <> 0 then
             WriteStringMulti(KeyTools, Tools);
@@ -343,6 +383,10 @@ begin
 
   DisplayMode := 0;
   DisplayValues.Text := DefDisplayValues;
+
+  ProgramLang  := PrgDefaultLanguage;
+  EmulatorLang := EmuDefaultLanguage;
+  EmuLangCtrl  := 0;
 
   Tools.Clear;
 

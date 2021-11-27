@@ -234,6 +234,7 @@ const
   HiddenColumns: set of byte = [0];
 begin
   Translate;
+
   if ClientDataSet.State = dsInactive then
     ClientDataSet.CreateDataSet;
 
@@ -327,9 +328,9 @@ begin
     DisableControls;
 
     cbManufacturer.Clear;
-    cbManufacturer.Items.Add(_T(StrAnyManufacturer));
+    cbManufacturer.Items.Add('-');
     cbConnector.Clear;
-    cbConnector.Items.Add(_T(StrAnyConnector));
+    cbConnector.Items.Add('-');
 
     List := TStringList.Create;
     try
@@ -338,6 +339,7 @@ begin
       R.Free;
 
       EmptyDataSet;
+      Self.Translate;
       Rec := TStringList.Create;
       try
         for I := 0 to List.Count - 1 do begin
@@ -484,12 +486,35 @@ end;
 
 procedure THDSelect.Translate;
 var
-  I: integer;
+  I, Temp: integer;
+  Standard: string;
 begin
-  FStandard := _T(StrStandard);
+  if ClientDataSet.Fields.Count > 0 then
+    for I := 0 to ClientDataSet.Fields.Count - 1 do begin
+      ClientDataSet.Fields[I].DisplayLabel := _T(format(StrClientDataSet, [I]));
+
+      Temp := cbSortBy.ItemIndex;
+      cbSortBy.Items[I + 1] := ClientDataSet.Fields[I].DisplayLabel;
+      cbSortBy.ItemIndex := Temp;
+    end;
+
+  Temp := cbConnector.ItemIndex;
+  if cbConnector.Items.Count > 0 then
+    cbConnector.Items[0] := _T(StrAnyConnector);
+  cbConnector.ItemIndex := Temp;
+
+  Standard := _T(StrStandard);
+  Temp := cbManufacturer.ItemIndex;
+  if cbManufacturer.Items.Count > 0 then
+    cbManufacturer.Items[0] := _T(StrAnyManufacturer);
+
+  for I := 0 to cbManufacturer.Items.Count - 1 do
+    cbManufacturer.Items[I] := StringReplace(
+      cbManufacturer.Items[I], FStandard, Standard, []);
+  cbManufacturer.ItemIndex := Temp;
+  FStandard := Standard;
+
   Language.Translate('SelectHDD', Self);
-  for I := 0 to ClientDataSet.FieldDefs.Count - 1 do
-      ClientDataSet.FieldDefs[I].Name := _T(format(StrClientDataSet, [I]));
 end;
 
 procedure THDSelect.FilterChange(Sender: TObject);
