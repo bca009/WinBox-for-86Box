@@ -697,7 +697,7 @@ begin
 
   with Languages do
     for I := 1 to Count - 1 do begin
-      if Strings[I] = Locale then
+      if Strings[I] = Config.ProgramLang then
         Index := I;
       cbProgLang.Items.Add(GetLocaleText(Strings[I]));
     end;

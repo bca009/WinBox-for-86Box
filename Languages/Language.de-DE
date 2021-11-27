@@ -112,6 +112,8 @@ WinBox.WorkDirRemoved=Das Arbeitsverzeichnis der virtuellen Maschine wurde von a
 WinBox.86MgrPathNeeded=Während des Imports hat WinBox festgestellt, dass es in der bestehenden 86Box Manager-Konfiguration relative Pfade gibt.\r\n\r\nUm diese Pfade korrekt zu interpretieren, müssen Sie im nächsten Fenster den Installationsordner des 86Box Managers angeben.
 WinBox.86MgrPathOf=Wählen Sie den Installationsordner von 86Box Manager:
 
+WinBox.LangNeedsRestart=Die Spracheinstellungen des Programms wurden gespeichert, aber Sie müssen das Programm neu starten, um die gewünschte Sprache zu laden.
+
 DeleteDialog.Title=Virtuellen Maschine löschen
 DeleteDialog.Text=Sie versuchen derzeit, eine virtuelle Maschine namens \"%s\" zu löschen, deren Arbeitsverzeichnis Dateien der Größe %s enthält.\r\n\r\nWie möchten Sie löschen?
 DeleteDialog.Buttons[0]=Einfach aus der Liste löschen

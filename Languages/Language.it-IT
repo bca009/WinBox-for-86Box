@@ -113,6 +113,8 @@ WinBox.WorkDirRemoved=Il percorso di lavoro della macchina virtuale è stato rim
 WinBox.86MgrPathNeeded=Durante l'importazione, WinBox ha trovato che ci sono percorsi relativi nella configurazione esistente di 86Box Manager.\r\n\r\nPer interpretare correttamente questi percorsi, è necessario specificare la cartella di installazione di 86Box Manager nella finestra successiva.
 WinBox.86MgrPathOf=Seleziona la cartella di installazione di 86Box Manager:
 
+WinBox.LangNeedsRestart=Le impostazioni della lingua del programma sono state salvate, ma è necessario riavviare il programma per caricare la lingua desiderata.
+
 DeleteDialog.Title=&Eliminare la Macchina Virtuale
 DeleteDialog.Text=Stai per rimuovere la macchina virtuale \"%s\". Questa macchina ha file nel suo percorso di lavoro, consumando %s spazio sul disco.\r\n\r\nCome vuoi eliminare?
 DeleteDialog.Buttons[0]=Rimuovi solo dall\'elenco

@@ -113,6 +113,8 @@ WinBox.WorkDirRemoved=O diretório de trabalho da máquina virtual foi removido 
 WinBox.86MgrPathNeeded=Durante a importação, WinBox detectou que existem caminhos relativos na configuração existente do 86Box Manager.\r\n\r\nPara interpretar corretamente esses caminhos, é necessário especificar a pasta de instalação do 86Box Manager na janela seguinte.
 WinBox.86MgrPathOf=Selecione a pasta de instalação do 86Box Manager:
 
+WinBox.LangNeedsRestart=As configurações de idioma do programa foram salvas, mas o programa deve ser reiniciado para carregar o idioma desejado.
+
 DeleteDialog.Title=Excluir máquina virtual
 DeleteDialog.Text=Você tem a intenção de excluir a máquina virtual chamada \"%s\". A máquina tem arquivos em seu diretório de trabalho, consumindo %s de espaço em disco.\r\n\r\nComo você quer realizar a exclusão?
 DeleteDialog.Buttons[0]=Excluir somente da lista

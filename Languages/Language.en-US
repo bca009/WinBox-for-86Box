@@ -113,6 +113,8 @@ WinBox.WorkDirRemoved=The Working Directory of the Virtual Machine has been remo
 WinBox.86MgrPathNeeded=During the import WinBox detected that there are relative paths in the existing 86Box Manager configuration.\r\n\r\nTo correctly interpret these paths, you need to specify the installation folder of the 86Box Manager in the next window.
 WinBox.86MgrPathOf=Select the installation folder of 86Box Manager:
 
+WinBox.LangNeedsRestart=The language settings of the program have been saved, but you will have to restart the program to load the requested language.
+
 DeleteDialog.Title=Delete Virtual Machine
 DeleteDialog.Text=You are intend to delete the virtual machine named \"%s\". The machine has files in it\'s working directory, consuming %s disk space.\r\n\r\nHow do you want to accomplish the deletion?
 DeleteDialog.Buttons[0]=Remove only from the list

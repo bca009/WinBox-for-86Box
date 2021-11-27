@@ -441,6 +441,7 @@ resourcestring
   StrChartAxisBase = 'PerfMon.Chart%s.Axis%s';
   ImFloppyImages = 'Floppy Disk Images';
   WizNewVM = 'WizardVM.NewVM';
+  StrLangNeedsRestart = 'WinBox.LangNeedsRestart';
 
 {$R *.dfm}
 
@@ -950,12 +951,37 @@ end;
 procedure TWinBoxMain.ChangeLanguage(const ALocale: string);
 var
   I: integer;
-begin
-  if ALocale = Locale then
-    exit;
+  NewLoc: string;
+  NewLang: TLanguage;
 
-  Locale := ALocale;
-  Language := TryLoadLocale(Locale);
+  function IsProgSettVisible: boolean;
+  var
+    I: integer;
+  begin
+    Result := false;
+    for I := 0 to Screen.FormCount - 1 do
+      if Screen.Forms[I] is TProgSettDlg then
+        exit(true);
+  end;
+
+begin
+  NewLoc := ALocale;
+  NewLang := TryLoadLocale(NewLoc);
+
+  if (NewLoc = 'hu-HU') and (Locale <> NewLoc) and IsProgSettVisible then begin
+    MessageBox(Handle, _P(StrLangNeedsRestart),
+      PChar(Application.Title), MB_ICONINFORMATION or MB_OK);
+    NewLang.Free;
+    exit;
+  end
+  else if NewLoc = Locale then
+    exit
+  else begin
+    Locale := NewLoc;
+
+    Language.Free;
+    Language := NewLang;
+  end;
 
   Frame86Box.Translate;
 

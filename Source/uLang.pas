@@ -123,7 +123,7 @@ end;
 
 function TryLoadLocale(var Locale: string): TLanguage;
 var
-  FileRoot, FileName, TempLoc: string;
+  FileRoot, FileName: string;
   Helper: TInitLocaleHelper;
 
   function TryLoadFile(const FileName: string): TLanguage;
@@ -141,19 +141,17 @@ var
 begin
   //If Locale is not specified, use the system locale
   if Locale = '' then
-    TempLoc := GetSystemLanguage
-  else
-    TempLoc := Locale;
+    Locale := GetSystemLanguage;
 
   //Try to use the determined language
   FileRoot := ExtractFilePath(paramstr(0)) + PfLanguagesPath + StrFileNameBase;
-  FileName := FileRoot + TempLoc;
+  FileName := FileRoot + Locale;
 
   if not FileExists(FileName) then begin
     //If there is no such language file, try to use any from same group
     //If no any similar languages, fallback to en-US
     with Helper do begin
-      Input := Copy(TempLoc, 1, pos('-', TempLoc) - 1);
+      Input := Copy(Locale, 1, pos('-', Locale) - 1);
       Root := FileRoot;
       RetVal := 'en-US';
     end;
@@ -164,20 +162,17 @@ begin
     //  and if not then use hu-HU, since it's the program's base language
     with Helper do begin
       if (RetVal = 'en-US') and not FileExists(Root + RetVal) then begin
-        TempLoc := 'hu-HU';
+        Locale := 'hu-HU';
         FileName := '';
       end
       else begin
-        TempLoc := RetVal;
+        Locale := RetVal;
         FileName := Root + RetVal;
       end;
     end;
   end;
 
   //Finally load the selected language file, and set locale.
-  if Locale <> '' then
-    Locale := TempLoc;
-
   Result := TryLoadFile(FileName);
 end;
 
