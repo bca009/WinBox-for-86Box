@@ -968,7 +968,7 @@ begin
   NewLoc := ALocale;
   NewLang := TryLoadLocale(NewLoc);
 
-  if (NewLoc = 'hu-HU') and (Locale <> NewLoc) and IsProgSettVisible then begin
+  if (NewLoc = PrgBaseLanguage) and (Locale <> NewLoc) and IsProgSettVisible then begin
     MessageBox(Handle, _P(StrLangNeedsRestart),
       PChar(Application.Title), MB_ICONINFORMATION or MB_OK);
     NewLang.Free;

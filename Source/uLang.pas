@@ -69,9 +69,10 @@ function _P(const Key: string): PChar; overload;
 function _P(const Key: string; const Args: array of const): PChar; overload;
 
 function TryLoadLocale(var Locale: string): TLanguage;
-function GetAvailableLanguages: TStringList;
+function GetAvailLangs: TStringList;
 
 resourcestring
+  PrgBaseLanguage    = 'hu-HU';
   PrgDefaultLanguage = 'system';
   PrgSystemLanguage  = 'system';
 
@@ -242,7 +243,7 @@ begin
     Result := Locale;
 end;
 
-function GetAvailableLanguages: TStringList;
+function GetAvailLangs: TStringList;
 var
   FileRoot, Temp: string;
   SearchRec: TSearchRec;

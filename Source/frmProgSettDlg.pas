@@ -763,7 +763,7 @@ begin
     if Assigned(ProgLangs) then
       FreeAndNil(ProgLangs);
 
-    ProgLangs := GetAvailableLanguages;
+    ProgLangs := GetAvailLangs;
     ProgLangs.Insert(0, PrgSystemLanguage);
     Index := 0;
 
