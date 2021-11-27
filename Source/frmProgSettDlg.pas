@@ -133,6 +133,12 @@ type
     lbWinBoxUpdate: TLabel;
     cbWinBoxUpdate: TComboBox;
     tvArtifact: TTreeView;
+    tabUI: TTabSheet;
+    grpLanguage: TGroupBox;
+    imgLanguage: TImage;
+    lbLanguage: TLabel;
+    lbLangWinBox: TLabel;
+    cbLangWinBox: TComboBox;
     procedure Reload(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure cbLoggingChange(Sender: TObject);
@@ -528,6 +534,8 @@ begin
   WinBoxMain.Icons32.GetIcon(31, imgEmulator.Picture.Icon);
   WinBoxMain.Icons32.GetIcon(32, imgTools.Picture.Icon);
   WinBoxMain.Icons32.GetIcon(33, imgDebug.Picture.Icon);
+
+  WinBoxMain.Icons32.GetIcon(35, imgLanguage.Picture.Icon);
 
   Translate;
 end;

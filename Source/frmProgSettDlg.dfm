@@ -24,7 +24,7 @@ object ProgSettDlg: TProgSettDlg
     Top = 8
     Width = 444
     Height = 458
-    ActivePage = tabEmulator
+    ActivePage = tabUI
     Anchors = [akLeft, akTop, akRight, akBottom]
     TabOrder = 0
     object tabGeneral: TTabSheet
@@ -452,7 +452,7 @@ object ProgSettDlg: TProgSettDlg
         Caption = #218'j g'#233'pek megjelen'#233'se'
         TabOrder = 0
         object imgDisplay: TImage
-          Left = 20
+          Left = 18
           Top = 24
           Width = 32
           Height = 32
@@ -460,7 +460,7 @@ object ProgSettDlg: TProgSettDlg
         end
         object lbDefaultDisplay: TLabel
           Left = 32
-          Top = 90
+          Top = 89
           Width = 353
           Height = 28
           AutoSize = False
@@ -614,6 +614,60 @@ object ProgSettDlg: TProgSettDlg
           Caption = '&Bet'#246'lt'#233's f'#225'jlb'#243'l...'
           TabOrder = 7
           OnClick = btnManOptLoadClick
+        end
+      end
+    end
+    object tabUI: TTabSheet
+      Caption = 'Kezel'#337'fel'#252'let'
+      ImageIndex = 5
+      object grpLanguage: TGroupBox
+        Left = 18
+        Top = 16
+        Width = 404
+        Height = 113
+        Caption = 'Nyelvi be'#225'll'#237't'#225'sok'
+        TabOrder = 0
+        DesignSize = (
+          404
+          113)
+        object imgLanguage: TImage
+          Left = 18
+          Top = 24
+          Width = 32
+          Height = 32
+        end
+        object lbLanguage: TLabel
+          Left = 68
+          Top = 24
+          Width = 317
+          Height = 41
+          Anchors = [akLeft, akTop, akRight]
+          AutoSize = False
+          Caption = 
+            'Ebben a szekci'#243'ban m'#243'dos'#237'thatja a program '#233's az emul'#225'tor nyelvi ' +
+            'be'#225'll'#237't'#225'sait, '#233's ezzel kapcsolatos viselked'#233's'#233't.'
+          WordWrap = True
+        end
+        object lbLangWinBox: TLabel
+          Left = 18
+          Top = 72
+          Width = 89
+          Height = 13
+          Caption = 'A &program nyelve:'
+          FocusControl = cbLangWinBox
+        end
+        object cbLangWinBox: TComboBox
+          Left = 120
+          Top = 69
+          Width = 265
+          Height = 21
+          Style = csDropDownList
+          Anchors = [akLeft, akTop, akRight]
+          ItemIndex = 0
+          TabOrder = 0
+          Text = '(A rendszer alap'#233'rtelmezett nyelve)'
+          Items.Strings = (
+            '(A rendszer alap'#233'rtelmezett nyelve)')
         end
       end
     end
