@@ -277,6 +277,7 @@ begin
              with Config do begin
                mmManualOptions.Clear;
                Config.DeleteKey('General', 'window_fixed_res');
+               Config.DeleteKey('General', 'language');
                Config.ReadSectionValues('General', mmManualOptions.Lines);
                UpdateApperance(mmManualOptions);
              end;

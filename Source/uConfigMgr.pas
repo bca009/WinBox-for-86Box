@@ -67,6 +67,8 @@ type
 
     function RepoToArtf(const Repository, Artifact: string): string;
 
+    function AdjustEmulatorLang: string;
+
     procedure Save;
 
     destructor Destroy; override;
@@ -196,6 +198,21 @@ begin
   DisplayValues.Free;
   Tools.Free;
   inherited;
+end;
+
+function TConfiguration.AdjustEmulatorLang: string;
+begin
+  case LoWord(EmuLangCtrl) of
+    0:
+     if ProgramLang = PrgSystemLanguage then
+       Result := EmuSystemLanguage
+     else
+       Result := ProgramLang;
+    1:
+      Result := EmulatorLang
+    else
+      Result := '';
+  end;
 end;
 
 procedure TConfiguration.Reload;

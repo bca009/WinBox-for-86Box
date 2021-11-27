@@ -418,6 +418,11 @@ begin
   if NameDefs.ReadInteger('params', 'Support.VmName', 0) <> 0 then
     CommandLine := format('--vmname "%s" %s', [FriendlyName, CommandLine]);
 
+  if boolean(HiWord(Config.EmuLangCtrl)) and
+     (LoWord(Config.EmuLangCtrl) <> 2) and
+     (NameDefs.ReadInteger('params', 'Support.LangCtrl', 0) <> 0) then
+    CommandLine := format('--lang "%s" %s', [Config.AdjustEmulatorLang, CommandLine]);
+
   if Fullscreen then
     CommandLine := '--fullscreen ' + CommandLine;
 

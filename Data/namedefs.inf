@@ -1,5 +1,6 @@
 [params]
 Support.VmName=1
+Support.LangCtrl=1
 
 [config]
 Mode.SCSI=2
