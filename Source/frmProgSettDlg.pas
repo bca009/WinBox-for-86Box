@@ -169,9 +169,10 @@ type
     procedure edArtifactChange(Sender: TObject);
     procedure tvArtifactChange(Sender: TObject; Node: TTreeNode);
     procedure FormDestroy(Sender: TObject);
+    procedure UpdateLangRadio(Sender: TObject);
   private
     procedure UpdateTools(Tools: TStrings);
-    procedure UpdateLanguages(const EmuLangOnly: boolean);
+    procedure UpdateLanguages(const Mode: integer);
   public
     LangName: string;
     ProgLangs, EmuLangs: TStringList;
@@ -375,6 +376,15 @@ begin
       3:    DisplayValues.Clear;
     end;
 
+    if rbEmuLangFix.Checked then
+      EmuLangCtrl := 1
+    else if rbEmuLangFree.Checked then
+      EmuLangCtrl := 2
+    else
+      EmuLangCtrl := 0;
+
+    EmuLangCtrl := EmuLangCtrl or (ord(cbEmuLangForced.Checked) shl 16);
+
     if Assigned(ProgLangs) and
       (cbProgLang.ItemIndex >= 0) and
       (cbProgLang.ItemIndex < ProgLangs.Count) then
@@ -525,7 +535,7 @@ begin
   else
     lbVersion.Caption := format(_T(StrVersion) ,[_T(StrUnknown)]);
 
-  UpdateLanguages(true);
+  UpdateLanguages(1);
 end;
 
 procedure TProgSettDlg.edArtifactChange(Sender: TObject);
@@ -709,7 +719,18 @@ begin
   Result := true;
 end;
 
-procedure TProgSettDlg.UpdateLanguages(const EmuLangOnly: boolean);
+(*
+  Üzemmódok:
+    0: Teljes frissítés (minden ComboBox és vezérlõ)
+    1: Csak az emulátor nyelvek frissítése (ed86Box.OnChange)
+    2: Csak a rádiógombokkal kapcsolatos vezérlõk frissítése
+*)
+procedure TProgSettDlg.UpdateLangRadio(Sender: TObject);
+begin
+  UpdateLanguages(2);
+end;
+
+procedure TProgSettDlg.UpdateLanguages(const Mode: integer);
 var
   I, Index: integer;
   DispMode: DWORD;
@@ -724,7 +745,7 @@ begin
 
   //Program language part
 
-  if not EmuLangOnly then begin
+  if Mode = 0 then begin
     if Assigned(ProgLangs) then
       FreeAndNil(ProgLangs);
 
@@ -748,50 +769,65 @@ begin
 
   //Emulator language part
 
-  Bookmark := EmuDefaultLanguage;
-  if Assigned(EmuLangs) then begin
-    if (cbEmuLang.ItemIndex >= 0) and
-       (cbEmuLang.ItemIndex < EmuLangs.Count) then
-         Bookmark := EmuLangs[cbEmuLang.ItemIndex];
+  if Mode <= 1 then begin
+    Bookmark := EmuDefaultLanguage;
+    if Assigned(EmuLangs) then begin
+      if (cbEmuLang.ItemIndex >= 0) and
+         (cbEmuLang.ItemIndex < EmuLangs.Count) then
+           Bookmark := EmuLangs[cbEmuLang.ItemIndex];
 
-    FreeAndNil(EmuLangs);
+      FreeAndNil(EmuLangs);
+    end;
+
+    EmuLangs := TStringList.Create;
+    EmuLangs.Add(EmuSystemLanguage);
+    Index := 0;
+
+    Temp := cbEmuLang.Items[0];
+    cbEmuLang.Clear;
+    cbEmuLang.Items.Add(Temp);
+
+    h86Box := LoadLibraryEx(PChar(ed86Box.Text), 0, $20);
+    if h86Box <> 0 then
+      try
+        EnumResourceLanguages(h86Box, RT_MENU, 'MainMenu',
+          @GetResourceLanguages, NativeUInt(EmuLangs));
+      finally
+        FreeLibrary(h86Box);
+      end;
+
+    with EmuLangs do
+      for I := 1 to Count - 1 do begin
+        if Strings[I] = Config.EmulatorLang then
+          Index := I;
+        cbEmuLang.Items.Add(GetLocaleText(Strings[I], DispMode));
+      end;
+
+    if Mode = 0 then begin
+      cbEmuLang.ItemIndex := EmuLangs.IndexOf(Bookmark);
+
+      if cbEmuLang.ItemIndex = -1 then
+        btnDefEmuLang.Click;
+
+      if (cbEmuLang.ItemIndex = -1) and (cbEmuLang.Items.Count > 0) then
+        cbEmuLang.ItemIndex := 0;
+    end
+    else
+      cbEmuLang.ItemIndex := Index;
+
+    case LoWord(Config.EmuLangCtrl) of
+      0: rbEmuLangSync.Checked := true;
+      1: rbEmuLangFix.Checked := true;
+      2: rbEmuLangFree.Checked := true;
+    end;
+
+    cbEmuLangForced.Checked := boolean(HiWord(Config.EmuLangCtrl));
   end;
 
-  EmuLangs := TStringList.Create;
-  EmuLangs.Add(EmuSystemLanguage);
-  Index := 0;
+  //Emulator control update part
 
-  Temp := cbEmuLang.Items[0];
-  cbEmuLang.Clear;
-  cbEmuLang.Items.Add(Temp);
-
-  h86Box := LoadLibraryEx(PChar(ed86Box.Text), 0, $20);
-  if h86Box <> 0 then
-    try
-      EnumResourceLanguages(h86Box, RT_MENU, 'MainMenu',
-        @GetResourceLanguages, NativeUInt(EmuLangs));
-    finally
-      FreeLibrary(h86Box);
-    end;
-
-  with EmuLangs do
-    for I := 1 to Count - 1 do begin
-      if Strings[I] = Config.EmulatorLang then
-        Index := I;
-      cbEmuLang.Items.Add(GetLocaleText(Strings[I], DispMode));
-    end;
-
-  if EmuLangOnly then begin
-    cbEmuLang.ItemIndex := EmuLangs.IndexOf(Bookmark);
-
-    if cbEmuLang.ItemIndex = -1 then
-      btnDefEmuLang.Click;
-
-    if (cbEmuLang.ItemIndex = -1) and (cbEmuLang.Items.Count > 0) then
-      cbEmuLang.ItemIndex := 0;
-  end
-  else
-    cbEmuLang.ItemIndex := Index;
+  cbEmuLang.Enabled := rbEmuLangFix.Checked;
+  btnDefEmuLang.Enabled := rbEmuLangFix.Checked;
 end;
 
 procedure TProgSettDlg.UpdateTools(Tools: TStrings);
@@ -848,9 +884,9 @@ begin
       2: rbManualOptions.Checked := true;
       3: rbNoDisplayOptions.Checked := true;
     end;
-  end;
 
-  UpdateLanguages(false);
+    UpdateLanguages(0);
+  end;
 end;
 
 procedure TProgSettDlg.GetTranslation(Language: TLanguage);

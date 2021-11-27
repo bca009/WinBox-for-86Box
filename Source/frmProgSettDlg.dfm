@@ -705,6 +705,7 @@ object ProgSettDlg: TProgSettDlg
           Checked = True
           TabOrder = 2
           TabStop = True
+          OnClick = UpdateLangRadio
         end
         object rbEmuLangFix: TRadioButton
           Left = 32
@@ -713,6 +714,7 @@ object ProgSettDlg: TProgSettDlg
           Height = 17
           Caption = 'Haszn'#225'lni &k'#237'v'#225'nt nyelv kiv'#225'laszt'#225'sa az al'#225'bbi list'#225'b'#243'l:'
           TabOrder = 3
+          OnClick = UpdateLangRadio
         end
         object cbEmuLang: TComboBox
           Left = 47
@@ -733,6 +735,7 @@ object ProgSettDlg: TProgSettDlg
           Height = 17
           Caption = '&Ne ker'#252'ljenek m'#243'dos'#237't'#225'sra az emul'#225'tor nyelvi be'#225'll'#237't'#225'sai'
           TabOrder = 5
+          OnClick = UpdateLangRadio
         end
         object btnDefEmuLang: TButton
           Tag = 6

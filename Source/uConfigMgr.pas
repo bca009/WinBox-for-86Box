@@ -47,6 +47,7 @@ type
 
     ProgramLang,
     EmulatorLang: string;
+    EmuLangCtrl: integer;
 
     Tools: TStrings;
 
@@ -172,6 +173,7 @@ resourcestring
   KeyArtifact        = 'Artifact';
   KeyProgramLang     = 'ProgramLang';
   KeyEmulatorLang    = 'EmulatorLang';
+  KeyEmuLangCtrl     = 'EmuLangCtrl';
 
   ImportWinBoxRoot   = 'Software\Laci bá''\WinBox';
   Import86MgrRoot    = 'Software\86Box';
@@ -240,6 +242,7 @@ begin
 
           ProgramLang     := ReadStringDef(KeyProgramLang, ProgramLang);
           EmulatorLang    := ReadStringDef(KeyEmulatorLang, EmulatorLang);
+          EmuLangCtrl     := ReadIntegerDef(KeyEmuLangCtrl, EmuLangCtrl);
 
           if ValueExists(KeyTools) then begin
             Tools.Clear;
@@ -318,6 +321,7 @@ begin
 
           WriteStringChk(KeyProgramLang, ProgramLang, Defaults.ProgramLang);
           WriteStringChk(KeyEmulatorLang, EmulatorLang, Defaults.EmulatorLang);
+          WriteIntegerChk(KeyEmuLangCtrl, EmuLangCtrl, Defaults.EmuLangCtrl);
 
           DeleteValue(KeyTools);
           if Tools.Count <> 0 then
@@ -364,6 +368,7 @@ begin
 
   ProgramLang  := PrgDefaultLanguage;
   EmulatorLang := EmuDefaultLanguage;
+  EmuLangCtrl  := 0;
 
   Tools.Clear;
 
