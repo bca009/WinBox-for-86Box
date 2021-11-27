@@ -261,7 +261,7 @@ p65up5_cp55t2d=ASUS P/I-P65UP5 (C-P55T2D)
 
 ap5vm=AOpen AP5VM
 p55tvp4=ASUS P/I-P55TVP4
-5ivg=Azza 5IVG
+5ivg=Azza PT-5IVG
 8500tvxa=Biostar MB-8500TVX-A
 presario2240=Compaq Presario 2240
 presario4500=Compaq Presario 4500
@@ -340,6 +340,8 @@ p3v4x=ASUS P3V4X
 
 fw6400gx=Freeway FW-6400GX
 
+trinity371=Tyan Trinity 371
+
 6gxu=Gigabyte GA-6GXU
 s2dge=SuperMicro Super S2DGE
 
@@ -348,7 +350,6 @@ s370slm=SuperMicro Super 370SLM
 awo671r=AEWIN AW-O671R
 cubx=ASUS CUBX
 ambx133=AmazePC AM-BX133
-trinity371=Tyan Trinity 371
 
 63a=Soltek SL-63A1
 
