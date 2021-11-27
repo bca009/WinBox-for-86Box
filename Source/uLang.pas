@@ -71,6 +71,10 @@ function _P(const Key: string; const Args: array of const): PChar; overload;
 function TryLoadLocale(var Locale: string): TLanguage;
 function GetAvailableLanguages: TStringList;
 
+resourcestring
+  PrgDefaultLanguage = 'system';
+  PrgSystemLanguage  = 'system';
+
 implementation
 
 resourcestring
@@ -140,7 +144,7 @@ var
 
 begin
   //If Locale is not specified, use the system locale
-  if Locale = '' then
+  if Locale = PrgSystemLanguage then
     Locale := GetSystemLanguage;
 
   //Try to use the determined language
@@ -183,7 +187,7 @@ var
 begin
   //First of all decide what language we want to load.
   //We can use the system language, or use the one from -lang.
-  Locale := '';
+  Locale := PrgDefaultLanguage;
   if ParamCount > 1 then
     for I := 1 to ParamCount - 1 do
       if LowerCase(ParamStr(I)) = '-lang' then begin

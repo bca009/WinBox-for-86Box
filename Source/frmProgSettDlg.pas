@@ -250,8 +250,8 @@ begin
     2: ed86Box.Text := Defaults.EmulatorPath;
     3: edCustomTemplates.Text := Defaults.CustomTemplates;
     4: edGlobalLog.Text := Defaults.GlobalLogFile;
-    5: cbProgLang.ItemIndex := ProgLangs.IndexOf(PrgDefaultLanguage);
-    6: cbEmuLang.ItemIndex := EmuLangs.IndexOf(EmuDefaultLanguage);
+    5: cbProgLang.ItemIndex := ProgLangs.IndexOf(Defaults.ProgramLang);
+    6: cbEmuLang.ItemIndex := EmuLangs.IndexOf(Defaults.EmulatorLang);
   end;
 end;
 
@@ -738,6 +738,18 @@ var
 
   h86Box: THandle;
   Temp, Bookmark: string;
+
+  procedure FindEmuLang(const S: string);
+  begin
+    cbEmuLang.ItemIndex := EmuLangs.IndexOf(S);
+
+    if cbEmuLang.ItemIndex = -1 then
+      btnDefEmuLang.Click;
+
+    if (cbEmuLang.ItemIndex = -1) and (cbEmuLang.Items.Count > 0) then
+      cbEmuLang.ItemIndex := 0;
+  end;
+
 begin
   if pos('en-', Locale) = 1 then
     DispMode := LOCALE_SENGLISHDISPLAYNAME
@@ -804,15 +816,8 @@ begin
         cbEmuLang.Items.Add(GetLocaleText(Strings[I], DispMode));
       end;
 
-    if Mode = 0 then begin
-      cbEmuLang.ItemIndex := EmuLangs.IndexOf(Bookmark);
-
-      if cbEmuLang.ItemIndex = -1 then
-        btnDefEmuLang.Click;
-
-      if (cbEmuLang.ItemIndex = -1) and (cbEmuLang.Items.Count > 0) then
-        cbEmuLang.ItemIndex := 0;
-    end
+    if Mode = 0 then
+      FindEmuLang(Bookmark)
     else
       cbEmuLang.ItemIndex := Index;
 
@@ -829,6 +834,19 @@ begin
 
   cbEmuLang.Enabled := rbEmuLangFix.Checked;
   btnDefEmuLang.Enabled := rbEmuLangFix.Checked;
+
+  cbEmuLangForced.Enabled :=
+    rbEmuLangFix.Checked or rbEmuLangSync.Checked;
+  cbEmuLangForced.Checked :=
+    cbEmuLangForced.Checked and cbEmuLangForced.Enabled;
+
+  if (rbEmuLangSync.Checked) and
+     Assigned(ProgLangs) and
+     (cbProgLang.ItemIndex >= 0) and
+     (cbProgLang.ItemIndex < ProgLangs.Count) then
+    FindEmuLang(ProgLangs[cbProgLang.ItemIndex])
+  else if rbEmuLangFree.Checked then
+    FindEmuLang(Defaults.EmulatorLang);
 end;
 
 procedure TProgSettDlg.UpdateTools(Tools: TStrings);

@@ -122,15 +122,12 @@ type
   end;
 
 resourcestring
-  PrgDefaultLanguage = 'system';
-  PrgSystemLanguage  = 'system';
-
   EmuDefaultLanguage = 'en-US';
   EmuSystemLanguage  = 'system';
 
 implementation
 
-uses uCommUtil;
+uses uCommUtil, uLang;
 
 resourcestring
   PfTemplatesPath    = 'Templates\';

@@ -660,29 +660,30 @@ object ProgSettDlg: TProgSettDlg
         end
         object lbEmuLang: TLabel
           Left = 18
-          Top = 154
+          Top = 162
           Width = 96
           Height = 13
           Caption = 'Az emul'#225'tor nyelve:'
         end
         object lbEmuLangAvail: TLabel
-          Left = 47
-          Top = 226
+          Left = 40
+          Top = 234
           Width = 126
           Height = 13
           Caption = 'Jelenleg &el'#233'rhet'#337' nyelvek:'
           FocusControl = cbEmuLang
         end
         object cbProgLang: TComboBox
-          Left = 47
+          Left = 32
           Top = 96
-          Width = 314
+          Width = 329
           Height = 21
           Style = csDropDownList
           Anchors = [akLeft, akTop, akRight]
           ItemIndex = 0
           TabOrder = 0
           Text = '(A rendszer alap'#233'rtelmezett nyelve)'
+          OnChange = UpdateLangRadio
           Items.Strings = (
             '(A rendszer alap'#233'rtelmezett nyelve)')
         end
@@ -698,7 +699,7 @@ object ProgSettDlg: TProgSettDlg
         end
         object rbEmuLangSync: TRadioButton
           Left = 32
-          Top = 173
+          Top = 181
           Width = 353
           Height = 17
           Caption = 'A &WinBox nyelvi be'#225'll'#237't'#225'sainak haszn'#225'lata (ha lehets'#233'ges)'
@@ -709,7 +710,7 @@ object ProgSettDlg: TProgSettDlg
         end
         object rbEmuLangFix: TRadioButton
           Left = 32
-          Top = 196
+          Top = 203
           Width = 353
           Height = 17
           Caption = 'Haszn'#225'lni &k'#237'v'#225'nt nyelv kiv'#225'laszt'#225'sa az al'#225'bbi list'#225'b'#243'l:'
@@ -717,9 +718,9 @@ object ProgSettDlg: TProgSettDlg
           OnClick = UpdateLangRadio
         end
         object cbEmuLang: TComboBox
-          Left = 47
-          Top = 245
-          Width = 314
+          Left = 40
+          Top = 253
+          Width = 321
           Height = 21
           Style = csDropDownList
           ItemIndex = 0
@@ -730,7 +731,7 @@ object ProgSettDlg: TProgSettDlg
         end
         object rbEmuLangFree: TRadioButton
           Left = 32
-          Top = 308
+          Top = 315
           Width = 361
           Height = 17
           Caption = '&Ne ker'#252'ljenek m'#243'dos'#237't'#225'sra az emul'#225'tor nyelvi be'#225'll'#237't'#225'sai'
@@ -740,7 +741,7 @@ object ProgSettDlg: TProgSettDlg
         object btnDefEmuLang: TButton
           Tag = 6
           Left = 248
-          Top = 272
+          Top = 280
           Width = 113
           Height = 25
           Caption = 'A&lap'#233'rtelmezett'
@@ -749,7 +750,7 @@ object ProgSettDlg: TProgSettDlg
         end
         object cbEmuLangForced: TCheckBox
           Left = 18
-          Top = 338
+          Top = 345
           Width = 359
           Height = 17
           Caption = 
