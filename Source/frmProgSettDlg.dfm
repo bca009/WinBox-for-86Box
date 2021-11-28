@@ -751,7 +751,7 @@ object ProgSettDlg: TProgSettDlg
         object cbEmuLangForced: TCheckBox
           Left = 18
           Top = 345
-          Width = 359
+          Width = 375
           Height = 17
           Caption = 
             'Az emul'#225'tor nyelvi be'#225'll'#237't'#225'sainak &fel'#252'lb'#237'r'#225'l'#225'sa minden virtu'#225'li' +

@@ -258,7 +258,13 @@ begin
             3:    DisplayValues.Clear;
           end;
 
-          ProgramLang     := ReadStringDef(KeyProgramLang, ProgramLang);
+          if LocaleOverride = PrgSystemLanguage then
+            ProgramLang     := PrgSystemLanguage
+          else if LocaleOverride <> '' then
+            ProgramLang     := Locale
+          else
+            ProgramLang     := ReadStringDef(KeyProgramLang, ProgramLang);
+
           EmulatorLang    := ReadStringDef(KeyEmulatorLang, EmulatorLang);
           EmuLangCtrl     := ReadIntegerDef(KeyEmuLangCtrl, EmuLangCtrl);
 
@@ -338,6 +344,8 @@ begin
             WriteStringMulti(KeyDisplayValues, DisplayValues);
 
           WriteStringChk(KeyProgramLang, ProgramLang, Defaults.ProgramLang);
+          LocaleOverride := '';
+
           WriteStringChk(KeyEmulatorLang, EmulatorLang, Defaults.EmulatorLang);
           WriteIntegerChk(KeyEmuLangCtrl, EmuLangCtrl, Defaults.EmuLangCtrl);
 

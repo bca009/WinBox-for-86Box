@@ -64,6 +64,7 @@ function MessageBox(hWnd: HWND; lpText, lpCaption: LPCWSTR; uType: UINT): Intege
 var
   Language: TLanguage = nil;
   Locale: string;
+  LocaleOverride: string = '';
 
 function _T(const Key: string): string; overload;
 function _T(const Key: string; const Args: array of const): string; overload;
@@ -211,7 +212,8 @@ begin
   if ParamCount > 1 then
     for I := 1 to ParamCount - 1 do
       if LowerCase(ParamStr(I)) = '-lang' then begin
-        Locale := ParamStr(I + 1);
+        LocaleOverride := ParamStr(I + 1);
+        Locale := LocaleOverride;
         break;
       end;
 
