@@ -209,8 +209,8 @@ begin
   inherited;
   SideRatio := DefSideRatio;
 
-  SetWindowLong(cgPanels.Handle, GWL_STYLE,
-    GetWindowLong(cgPanels.Handle, GWL_STYLE) and not WS_BORDER);
+  SetWindowLongPtr(cgPanels.Handle, GWL_STYLE,
+    GetWindowLongPtr(cgPanels.Handle, GWL_STYLE) and not WS_BORDER);
 
   PicturePager := TPicturePager.Create(nil);
   with PicturePager do begin
