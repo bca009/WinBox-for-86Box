@@ -250,7 +250,10 @@ begin
     2: ed86Box.Text := Defaults.EmulatorPath;
     3: edCustomTemplates.Text := Defaults.CustomTemplates;
     4: edGlobalLog.Text := Defaults.GlobalLogFile;
-    5: cbProgLang.ItemIndex := ProgLangs.IndexOf(Defaults.ProgramLang);
+    5: begin
+         cbProgLang.ItemIndex := ProgLangs.IndexOf(Defaults.ProgramLang);
+         cbProgLang.OnChange(cbProgLang);
+       end;
     6: cbEmuLang.ItemIndex := EmuLangs.IndexOf(Defaults.EmulatorLang);
   end;
 end;
