@@ -284,6 +284,8 @@ begin
   with cgPanels do
     for I := 0 to Panels.Count - 1 do begin
       Panel := TObject(Panels[I]) as TCategoryPanel;
+      SetCommCtrlBiDi(Panel.Handle, LocaleIsBiDi);
+
       Surface := Panel.Controls[0] as TCategoryPanelSurface;
       Success := LockWindowUpdate(Surface.Handle);
       try
