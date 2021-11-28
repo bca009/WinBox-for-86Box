@@ -132,6 +132,13 @@ procedure Check86MgrPath(var Field, ProgramRoot: string);
 procedure ShowSysPopup(aFile: string; x, y: integer; HND: HWND);
 
 //Source: https://coderedirect.com/questions/441320/prevent-rtl-tlistview-from-mirroring-check-boxes-and-or-graphics
+const
+  LAYOUT_RTL                        = $01;
+  LAYOUT_BITMAPORIENTATIONPRESERVED = $08;
+
+function GetLayout(DC: HDC): DWORD; stdcall; external 'gdi32.dll';
+function SetLayout(DC: HDC; dwLayout: DWORD): DWORD; stdcall; external 'gdi32.dll';
+
 procedure InvariantBiDiLayout(const DC: HDC); inline;
 
 implementation

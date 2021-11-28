@@ -87,13 +87,6 @@ procedure SetCommCtrlBiDi(const Handle: HWND; const Value: boolean); inline;
 procedure SetListViewBiDi(const Handle: HWND; const Value: boolean);
 procedure SetScrollBarBiDi(const Handle: HWND; const ToLeft: boolean); inline;
 
-function GetLayout(DC: HDC): DWORD; stdcall; external 'gdi32.dll';
-function SetLayout(DC: HDC; dwLayout: DWORD): DWORD; stdcall; external 'gdi32.dll';
-
-const
-  LAYOUT_RTL                        = $01;
-  LAYOUT_BITMAPORIENTATIONPRESERVED = $08;
-
 resourcestring
   PrgBaseLanguage    = 'hu-HU';
   PrgDefaultLanguage = 'system';
