@@ -786,9 +786,9 @@ procedure InvariantBiDiLayout(const DC: HDC);
 var
   Layout: DWORD;
 begin
-  Layout := GetLayout(Msg.DC);
+  Layout := GetLayout(DC);
   if (Layout and LAYOUT_RTL) <> 0 then
-    SetLayout(Msg.DC, Layout or LAYOUT_BITMAPORIENTATIONPRESERVED);
+    SetLayout(DC, Layout or LAYOUT_BITMAPORIENTATIONPRESERVED);
 end;
 
 //Source: https://stackoverflow.com/questions/1581975/how-to-pop-up-the-windows-context-menu-for-a-given-file-using-delphi/1584204
