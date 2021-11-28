@@ -279,7 +279,6 @@ var
   I: Integer;
 begin
   SetCommCtrlBiDi(Handle, LocaleIsBiDi);
-  SetCommCtrlBiDi(cgPanels.Handle, LocaleIsBiDi);
 
   with cgPanels do
     for I := 0 to Panels.Count - 1 do begin
