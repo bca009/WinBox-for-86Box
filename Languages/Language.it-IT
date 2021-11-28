@@ -322,7 +322,7 @@ acDbgRTTILogFile=Salva i dati &RTTI nel file di registro...
 
 acDbgProcList=TProcessMonitor: &Elenco dei processi
 acDbgDumpList=TProcessMonitor: &Informazioni complete sul processo
-acDbgMonQuery=TProcessMonitor: Ottieni il campo \"Query\" 
+acDbgMonQuery=TProcessMonitor: Ottieni il campo \"Query\"
 acDbgProcUpd=TProcessMonitor.On&Update: registro eventi
 acDbgProcChg=TProcessMonitor.On&Change: registro eventi
 acDbgProcOps=TProfile.Start, Stop, ...: generare eventi 

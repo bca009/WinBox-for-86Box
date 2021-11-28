@@ -54,6 +54,7 @@ type
   public
     procedure GetTranslation(Language: TLanguage); stdcall;
     procedure Translate; stdcall;
+    procedure FlipBiDi; stdcall;
 
     procedure TypeFrom86Box(FloppyType: string);
   end;
@@ -102,10 +103,18 @@ begin
     raise Exception.Create(ECantCreateFloppy);
 end;
 
+procedure TNewFloppy.FlipBiDi;
+begin
+  BiDiMode := BiDiModes[LocaleIsBiDi];
+  FlipChildren(true);
+end;
+
 procedure TNewFloppy.FormCreate(Sender: TObject);
 begin
-  LoadImage('BANNER_FLOPPY', imgBanner);
+  LoadImage('BANNER_FLOPPY', imgBanner, false);
   Translate;
+  if LocaleIsBiDi then
+    FlipBiDi;
 end;
 
 procedure TNewFloppy.GetTranslation(Language: TLanguage);

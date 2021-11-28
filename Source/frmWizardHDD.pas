@@ -150,6 +150,7 @@ type
 
     procedure GetTranslation(Language: TLanguage); stdcall;
     procedure Translate; stdcall;
+    procedure FlipBiDi; stdcall;
 
     procedure TypeFrom86Box(const Connector, Machine: string);
   end;
@@ -374,6 +375,12 @@ begin
   Result := ShowModal = mrOK;
 end;
 
+procedure TWizardHDD.FlipBiDi;
+begin
+  BiDiMode := BiDiModes[LocaleIsBiDi];
+  FlipChildren(true);
+end;
+
 procedure TWizardHDD.FormCreate(Sender: TObject);
 var
   Data: TDiskData;
@@ -386,7 +393,7 @@ begin
 
   FDiskChanged := false;
   FFirst := true;
-  LoadImage('BANNER_HDD', imgBanner);
+  LoadImage('BANNER_HDD', imgBanner, false);
   WinBoxMain.Icons32.GetIcon(0, imgWarning.Picture.Icon);
   WinBoxMain.Icons32.GetIcon(11, imgInfo.Picture.Icon);
 end;
@@ -394,6 +401,8 @@ end;
 procedure TWizardHDD.FormShow(Sender: TObject);
 begin
   Translate;
+  if LocaleIsBiDi then
+    FlipBiDi;
 
   pcPages.ActivePageIndex := 0;
   btnPrev.Enabled := false;

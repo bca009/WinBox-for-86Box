@@ -75,6 +75,7 @@ type
 
     procedure GetTranslation(Language: TLanguage); stdcall;
     procedure Translate; stdcall;
+    procedure FlipBiDi; stdcall;
   end;
 
 var
@@ -138,6 +139,11 @@ begin
   with AskUpdateDialog do begin
     AskUpdateDialog.Caption := Application.Title;
     Title := Language.ReadString('UpdateDlg', 'lbTitle', Title);
+
+    if LocaleIsBiDi then
+      Flags := Flags + [tfRtlLayout]
+    else
+      Flags := Flags - [tfRtlLayout];
 
     if Build = -1 then
       raise Exception.Create(_T(ECantAccessServer))
@@ -359,6 +365,11 @@ begin
   end;
 end;
 
+procedure TUpdaterDlg.FlipBiDi;
+begin
+  SetCommCtrlBiDi(Handle, LocaleIsBiDi);
+end;
+
 procedure TUpdaterDlg.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   if (pbProgress.Position < 100) and (pbProgress.State <> pbsError) then
@@ -395,6 +406,8 @@ end;
 procedure TUpdaterDlg.FormShow(Sender: TObject);
 begin
   Translate;
+  if LocaleIsBiDi then
+    FlipBiDi;
 
   Cancelled := 0;
   pbProgress.Position := 0;

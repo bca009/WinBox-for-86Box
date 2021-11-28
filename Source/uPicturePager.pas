@@ -90,6 +90,7 @@ type
     property Align;
     property Anchors;
     property AutoSize;
+    property BiDiMode;
     property ButtonNext: TButton read FNext write SetNext;
     property ButtonPrev: TButton read FPrev write SetPrev;
     property ItemIndex: integer read FItemIndex write SetItemIndex;
@@ -107,6 +108,7 @@ type
     property HelpType;
     property Hint;
     property Stretch: TStretchMode read FStretch write SetStretch;
+    property ParentBiDiMode;
     property ParentShowHint;
     property PopupMenu;
     property ShowHint;
@@ -323,7 +325,7 @@ begin
       if H <= 0 then
         H := 1;
 
-      ScaleWIC(FDisplay, W, H);
+      ScaleWIC(FDisplay, W, H, BiDiMode <> bdLeftToRight);
       Cursor := crHandPoint;
       Invalidate;
     except

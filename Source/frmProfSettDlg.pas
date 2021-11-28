@@ -99,6 +99,7 @@ type
     LangName: string;
     procedure GetTranslation(Language: TLanguage); stdcall;
     procedure Translate; stdcall;
+    procedure FlipBiDi; stdcall;
   end;
 
 var
@@ -207,6 +208,15 @@ begin
     lbVersion.Caption := format(_T(StrVersion) ,[_T(StrUnknown)])
 end;
 
+procedure TProfSettDlg.FlipBiDi;
+begin
+  BiDiMode := BiDiModes[LocaleIsBiDi];
+  FlipChildren(true);
+
+  edFriendlyName.Alignment := Alignments[LocaleIsBiDi];
+  SetScrollBarBiDi(mmOptionalParams.Handle, LocaleIsBiDi);
+end;
+
 procedure TProfSettDlg.FormCreate(Sender: TObject);
 begin
   Profile := nil;
@@ -219,7 +229,10 @@ begin
 
   WinBoxMain.Icons32.GetIcon(31, imgEmulator.Picture.Icon);
   WinBoxMain.Icons32.GetIcon(33, imgDebug.Picture.Icon);
+
   Translate;
+  if LocaleIsBiDi then
+    FlipBiDi;
 end;
 
 procedure TProfSettDlg.Reload(Sender: TObject);
@@ -235,7 +248,7 @@ begin
       lbInternalID.Caption := ProfileID;
       mmDescription.Text := Description;
 
-      DisplayWIC(Icon, imgIcon);
+      DisplayWIC(Icon, imgIcon, false);
       bvIcon.Invalidate;
 
       FillChar(CompactPath[0], MaxLen * SizeOf(Char), #0);

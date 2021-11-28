@@ -107,6 +107,7 @@ type
 
     procedure GetTranslation(Language: TLanguage); stdcall;
     procedure Translate; stdcall;
+    procedure FlipBiDi; stdcall;
   end;
 
 var
@@ -241,6 +242,8 @@ const
   HiddenColumns: set of byte = [0];
 begin
   Translate;
+  if LocaleIsBiDi then
+    FlipBiDi;
 
   if ClientDataSet.State = dsInactive then
     ClientDataSet.CreateDataSet;
@@ -544,6 +547,12 @@ begin
   cbCapLimitHigh.Enabled := rbFilterByCapacity.Checked;
   spCapLimitLow.Enabled := rbFilterByCapacity.Checked;
   spCapLimitHigh.Enabled := rbFilterByCapacity.Checked;
+end;
+
+procedure THDSelect.FlipBiDi;
+begin
+  BiDiMode := BiDiModes[LocaleIsBiDi];
+  FlipChildren(true);
 end;
 
 end.

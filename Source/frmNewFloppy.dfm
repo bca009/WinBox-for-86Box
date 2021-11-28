@@ -154,6 +154,8 @@ object NewFloppy: TNewFloppy
         Width = 234
         Height = 21
         Anchors = [akLeft, akTop, akRight]
+        BiDiMode = bdLeftToRight
+        ParentBiDiMode = False
         TabOrder = 0
         Text = 'D:\teszt.img'
       end

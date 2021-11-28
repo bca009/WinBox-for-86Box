@@ -178,6 +178,7 @@ type
     ProgLangs, EmuLangs: TStringList;
     procedure GetTranslation(Language: TLanguage); stdcall;
     procedure Translate; stdcall;
+    procedure FlipBiDi; stdcall;
   end;
 
 var
@@ -260,7 +261,9 @@ end;
 
 procedure TProgSettDlg.btnImportClick(Sender: TObject);
 begin
-  with ClientToScreen(Point(btnImport.Left, btnImport.Top + btnImport.Height)) do
+  with ClientToScreen(Point(
+      btnImport.Left + ord(LocaleIsBiDi) * btnImport.Width,
+      btnImport.Top + btnImport.Height)) do
     pmImport.Popup(X, Y);
 end;
 
@@ -561,6 +564,16 @@ begin
   tvArtifact.Selected := Selected;
 end;
 
+procedure TProgSettDlg.FlipBiDi;
+begin
+  BiDiMode := BiDiModes[LocaleIsBiDi];
+  FlipChildren(true);
+
+  SetScrollBarBiDi(mmToolPath.Handle, LocaleIsBiDi);
+  SetCommCtrlBiDi(tvArtifact.Handle, LocaleIsBiDi);
+  SetListViewBiDi(lvTools.Handle, LocaleIsBiDi);
+end;
+
 procedure TProgSettDlg.FormCreate(Sender: TObject);
 begin
   pcPages.ActivePageIndex := 0;
@@ -578,6 +591,8 @@ begin
   WinBoxMain.Icons32.GetIcon(35, imgLanguage.Picture.Icon);
 
   Translate;
+  if LocaleIsBiDi then
+    FlipBiDi;
 end;
 
 procedure TProgSettDlg.FormDestroy(Sender: TObject);

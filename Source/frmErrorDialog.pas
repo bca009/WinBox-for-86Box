@@ -1,9 +1,6 @@
 (*
-
   WinBox for 86Box - An alternative manager for 86Box VMs
-
   Copyright (C) 2020-2021, Laci bá'
-
   This Source Code Form is subject to the terms of the Mozilla Public
   License, v. 2.0. If a copy of the MPL was not distributed with this file,
   You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -31,21 +28,16 @@
   along with this program. If not, see http://www.gnu.org/licenses/.
 
 *)
-
 unit frmErrorDialog;
-
 interface
-
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, ExtCtrls, AppEvnts,
   JclSysUtils, JclUnitVersioning, JclUnitVersioningProviders, JclDebug,
   Vcl.ComCtrls, uLang;
 
-
 const
   UM_CREATEDETAILS = WM_USER + $100;
-
 type
   TExceptionDialog = class(TForm, ILanguageSupport)
     SaveBtn: TButton;
@@ -92,25 +84,19 @@ type
     property DetailsVisible: Boolean read FDetailsVisible
       write SetDetailsVisible;
     property ReportAsText: string read GetReportAsText;
-
     procedure GetTranslation(Language: TLanguage); stdcall;
     procedure Translate; stdcall;
+    procedure FlipBiDi; stdcall;
   end;
-
   TExceptionDialogClass = class of TExceptionDialog;
-
 var
   ExceptionDialogClass: TExceptionDialogClass = TExceptionDialog;
-
 implementation
-
 {$R *.dfm}
-
 uses
   ClipBrd, Math, uCommUtil, uCommText,
   JclBase, JclFileUtils, JclHookExcept, JclPeImage, JclStrings, JclSysInfo, JclWin32,
   frmMainForm;
-
 resourcestring
   RsExceptionClass = 'Exception class: %s';
   RsExceptionMessage = 'Exception message: %s';
@@ -138,14 +124,11 @@ resourcestring
   RsMonitors = 'Monitors: %d';
   StrAcquiringRTTIData = 'Acquiring RTTI data failed, reason: ';
   StrRTTILogOfMostImp = 'RTTI log of most important objects:';
-
 var
   ExceptionDialog: TExceptionDialog;
-
 //============================================================================
 // Helper routines
 //============================================================================
-
 // SortModulesListByAddressCompare
 // sorts module by address
 function SortModulesListByAddressCompare(List: TStringList;
@@ -162,17 +145,14 @@ begin
   else
     Result := 0;
 end;
-
 //============================================================================
 // TApplication.HandleException method code hooking for exceptions from DLLs
 //============================================================================
-
 // We need to catch the last line of TApplication.HandleException method:
 // [...]
 //   end else
 //    SysUtils.ShowException(ExceptObject, ExceptAddr);
 // end;
-
 procedure HookShowException(ExceptObject: TObject; ExceptAddr: Pointer);
 begin
   if JclValidateModuleAddress(ExceptAddr)
@@ -181,9 +161,7 @@ begin
   else
     SysUtils.ShowException(ExceptObject, ExceptAddr);
 end;
-
 //----------------------------------------------------------------------------
-
 function HookTApplicationHandleException: Boolean;
 const
   CallOffset      = $86;   // Until D2007
@@ -201,7 +179,6 @@ var
   CALLInstruction: TCALLInstruction;
   CallAddress: Pointer;
   WrittenBytes: Cardinal;
-
   function CheckAddressForOffset(Offset: Cardinal): Boolean;
   begin
     try
@@ -219,7 +196,6 @@ var
       Result := False;
     end;
   end;
-
 begin
   TApplicationHandleExceptionAddr := PeMapImgResolvePackageThunk(@TApplication.HandleException);
   SysUtilsShowExceptionAddr := PeMapImgResolvePackageThunk(@SysUtils.ShowException);
@@ -236,39 +212,28 @@ begin
   else
     Result := False;
 end;
-
 //============================================================================
 // Exception dialog
 //============================================================================
-
 var
   ExceptionShowing: Boolean;
-
 //=== { TExceptionDialog } ===============================================
-
 procedure TExceptionDialog.AfterCreateDetails;
 begin
   SaveBtn.Enabled := True;
 end;
-
 //----------------------------------------------------------------------------
-
 procedure TExceptionDialog.BeforeCreateDetails;
 begin
   SaveBtn.Enabled := False;
 end;
-
 //----------------------------------------------------------------------------
-
 function TExceptionDialog.ReportMaxColumns: Integer;
 begin
   Result := 78;
 end;
 
-
-
 //----------------------------------------------------------------------------
-
 procedure TExceptionDialog.SaveBtnClick(Sender: TObject);
 begin
   with TSaveDialog.Create(Self) do
@@ -285,16 +250,12 @@ begin
     Free;    
   end;
 end;
-
 //----------------------------------------------------------------------------
-
 procedure TExceptionDialog.CopyReportToClipboard;
 begin
   ClipBoard.AsText := ReportAsText;
 end;
-
 //----------------------------------------------------------------------------
-
 procedure TExceptionDialog.CreateDetails;
 begin
   Screen.Cursor := crHourGlass;
@@ -302,7 +263,6 @@ begin
   DetailsMemo.Lines.BeginUpdate;
   try
     CreateReport;
-
     DetailsMemo.SelStart := 0;
     SendMessage(DetailsMemo.Handle, EM_SCROLLCARET, 0, 0);
     AfterCreateDetails;
@@ -314,9 +274,7 @@ begin
     Screen.Cursor := crDefault;
   end;
 end;
-
 //----------------------------------------------------------------------------
-
 procedure TExceptionDialog.CreateReport;
 var
   SL: TStringList;
@@ -337,7 +295,6 @@ begin
   DetailsMemo.Lines.Add(Format(LoadResString(PResStringRec(@RsMainThreadID)), [MainThreadID]));
   DetailsMemo.Lines.Add(Format(LoadResString(PResStringRec(@RsExceptionThreadID)), [MainThreadID]));
   NextDetailBlock;
-
   SL := TStringList.Create;
   try
     // Except stack list
@@ -349,7 +306,6 @@ begin
       StackList.AddToStrings(DetailsMemo.Lines, True, True, True, False);
       NextDetailBlock;
     end;
-
     // Main thread
     StackList := JclCreateThreadStackTraceFromID(False, MainThreadID);
     if Assigned(StackList) then
@@ -359,7 +315,6 @@ begin
       StackList.AddToStrings(DetailsMemo.Lines, True, True, True, False);
       NextDetailBlock;
     end;
-
     // All threads
     ThreadList := JclDebugThreadList;
     ThreadList.Lock.Enter; // avoid modifications
@@ -382,7 +337,6 @@ begin
     finally
       ThreadList.Lock.Leave;
     end;
-
     // System and OS information
     DetailsMemo.Lines.Add(Format(RsOSVersion, [GetWindowsVersionString, NtProductTypeString,
       Win32MajorVersion, Win32MinorVersion, Win32BuildNumber, Win32CSDVersion, GetSystemLanguage]));
@@ -429,7 +383,6 @@ begin
         Screen.Monitors[I].Height, Screen.Monitors[I].PixelsPerInch, BoolToStr(Screen.Monitors[I].Primary, true),
         BoolToStr(Screen.MonitorFromWindow(Application.MainFormHandle) = Screen.Monitors[I], true)]));
     NextDetailBlock;
-
     // Modules list
     if LoadedModulesList(SL, GetCurrentProcessId) then
     begin
@@ -466,11 +419,9 @@ begin
           end
         else
           DetailsMemo.Lines.Add(ImageBaseStr + RsMissingVersionInfo);
-
       end;
       NextDetailBlock;
     end;
-
     // Active controls
     if (FLastActiveControl <> nil) then
     begin
@@ -483,7 +434,6 @@ begin
       end;
       NextDetailBlock;
     end;
-
     //RTTI Log
     if Assigned(WinBoxMain) then
       try
@@ -501,16 +451,12 @@ begin
     SL.Free;
   end;
 end;
-
 //--------------------------------------------------------------------------------------------------
-
 procedure TExceptionDialog.DetailsBtnClick(Sender: TObject);
 begin
   DetailsVisible := not DetailsVisible;
 end;
-
 //--------------------------------------------------------------------------------------------------
-
 class procedure TExceptionDialog.ExceptionHandler(Sender: TObject; E: Exception);
 begin
   if Assigned(E) then
@@ -529,9 +475,7 @@ begin
       end;
     end;
 end;
-
 //--------------------------------------------------------------------------------------------------
-
 class procedure TExceptionDialog.ExceptionThreadHandler(Thread: TJclDebugThread);
 var
   E: Exception;
@@ -553,8 +497,12 @@ begin
       end;
     end;
 end;
-
 //--------------------------------------------------------------------------------------------------
+procedure TExceptionDialog.FlipBiDi;
+begin
+  BiDiMode := BiDiModes[LocaleIsBiDi];
+  FlipChildren(true);
+end;
 
 procedure TExceptionDialog.FormCreate(Sender: TObject);
 var
@@ -563,7 +511,10 @@ var
 begin
   FFullHeight := ClientHeight;
   DetailsVisible := False;
+
   Translate;
+  if LocaleIsBiDi then
+    FlipBiDi;
 
   if Succeeded(LoadIconWithScaleDown(0, MakeIntResource(IDI_ERROR),
       GetSystemMetrics(SM_CXICON), GetSystemMetrics(SM_CYICON), Handle)) then begin
@@ -575,16 +526,11 @@ begin
         Icon.Free;
       end;
 end;
-
 //--------------------------------------------------------------------------------------------------
-
 procedure TExceptionDialog.FormDestroy(Sender: TObject);
 begin
-
 end;
-
 //--------------------------------------------------------------------------------------------------
-
 procedure TExceptionDialog.FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
   if (Key = Ord('C')) and (ssCtrl in Shift) then
@@ -593,24 +539,18 @@ begin
     MessageBeep(MB_OK);
   end;
 end;
-
 //--------------------------------------------------------------------------------------------------
-
 procedure TExceptionDialog.FormPaint(Sender: TObject);
 begin
   DrawIcon(Canvas.Handle, (TextMemo.Left - GetSystemMetrics(SM_CXICON)) div 2,
     TextMemo.Top, LoadIcon(0, IDI_ERROR));
 end;
-
 //--------------------------------------------------------------------------------------------------
-
 procedure TExceptionDialog.FormResize(Sender: TObject);
 begin
   UpdateTextMemoScrollBars;
 end;
-
 //--------------------------------------------------------------------------------------------------
-
 procedure TExceptionDialog.FormShow(Sender: TObject);
 begin
   BeforeCreateDetails;
@@ -620,31 +560,24 @@ begin
   else
     CreateReport;
 end;
-
 //--------------------------------------------------------------------------------------------------
-
 function TExceptionDialog.GetReportAsText: string;
 begin
   Result := StrEnsureSuffix(NativeCrLf, TextLines.Text) + NativeCrLf + DetailsMemo.Text;
 end;
 
 //--------------------------------------------------------------------------------------------------
-
 procedure TExceptionDialog.NextDetailBlock;
 begin
   DetailsMemo.Lines.Add(StrRepeat(ReportNewBlockDelimiterChar, ReportMaxColumns));
 end;
-
 //--------------------------------------------------------------------------------------------------
-
 function TExceptionDialog.ReportNewBlockDelimiterChar: Char;
 begin
   Result := '-';
 end;
 
-
 //--------------------------------------------------------------------------------------------------
-
 procedure TExceptionDialog.SetDetailsVisible(const Value: Boolean);
 const
   DirectionChars: array [0..1] of Char = ( '<', '>' );
@@ -678,9 +611,7 @@ begin
   DetailsBtn.Caption := DetailsCaption;
   DetailsMemo.Enabled := Value;
 end;
-
 //--------------------------------------------------------------------------------------------------
-
 class procedure TExceptionDialog.ShowException(E: TObject; Thread: TJclDebugThread);
 var
   Msg: string;
@@ -699,11 +630,9 @@ begin
         Msg := AdjustLineBreaks(StrEnsureSuffix('.', Exception(E).Message))
       else
         Msg := AdjustLineBreaks(StrEnsureSuffix('.', E.ClassName));
-
       TextLines.Text := Msg;
       UpdateTextMemoScrollBars;
       lbMessage2.Top := TextLines.Top + TextLines.Height;
-
       NextDetailBlock;
       //Arioch: some header for possible saving to txt-file/e-mail/clipboard/NTEvent...
       DetailsMemo.Lines.Add(Format(DetailsMemo.Hint + RsDetailsIntro, [DateTimeToStr(Now),
@@ -723,14 +652,12 @@ begin
     FreeAndNil(ExceptionDialog);
   end;
 end;
-
 procedure TExceptionDialog.GetTranslation(Language: TLanguage);
 begin
   Language.GetTranslation('ErrorDialog', Self);
   Language.WriteString('ErrorDialog', 'ExceptionDialog',
     '%s' + Copy(Caption, length(Application.Title) + 1, MaxInt));
 end;
-
 procedure TExceptionDialog.Translate;
 begin
   Language.Translate('ErrorDialog', Self);
@@ -743,7 +670,6 @@ begin
   Update;
   CreateDetails;
 end;
-
 procedure TExceptionDialog.UpdateTextMemoScrollBars;
 var
   CharHeight: integer;
@@ -757,14 +683,11 @@ end;
 
 //--------------------------------------------------------------------------------------------------
 
-
 //==================================================================================================
 // Exception handler initialization code
 //==================================================================================================
-
 var
   AppEvents: TApplicationEvents = nil;
-
 procedure InitializeHandler;
 begin
   if AppEvents = nil then
@@ -781,9 +704,7 @@ begin
       JclTrackExceptionsFromLibraries;
   end;
 end;
-
 //--------------------------------------------------------------------------------------------------
-
 procedure UnInitializeHandler;
 begin
   if AppEvents <> nil then
@@ -795,14 +716,10 @@ begin
     JclUnhookThreads;
   end;
 end;
-
 //--------------------------------------------------------------------------------------------------
-
 
 initialization
   InitializeHandler;
-
 finalization
   UnInitializeHandler;
-
 end.

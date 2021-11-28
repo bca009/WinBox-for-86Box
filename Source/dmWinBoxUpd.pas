@@ -94,6 +94,11 @@ begin
     Caption := Application.Title;
     Title := _T(WbuDialogTitle);
 
+    if LocaleIsBiDi then
+      Flags := Flags + [tfRtlLayout]
+    else
+      Flags := Flags - [tfRtlLayout];
+
     PathCompactPathExW(@Path[0], PChar(ExtractFilePath(paramstr(0))), High(Path), 0);
     Path[High(Path)] := #0;
 

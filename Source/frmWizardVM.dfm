@@ -76,7 +76,7 @@ object WizardVM: TWizardVM
     Top = 0
     Width = 337
     Height = 263
-    ActivePage = tabStorage
+    ActivePage = tabFinish
     Align = alClient
     TabOrder = 2
     object tabWelcome: TTabSheet
@@ -182,6 +182,8 @@ object WizardVM: TWizardVM
         Width = 210
         Height = 21
         Anchors = [akLeft, akTop, akRight]
+        BiDiMode = bdLeftToRight
+        ParentBiDiMode = False
         TabOrder = 0
       end
       object edPath: TEdit
@@ -190,6 +192,8 @@ object WizardVM: TWizardVM
         Width = 240
         Height = 21
         Anchors = [akLeft, akTop, akRight]
+        BiDiMode = bdLeftToRight
+        ParentBiDiMode = False
         TabOrder = 1
         Text = 'edPath'
       end

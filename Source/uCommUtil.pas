@@ -60,10 +60,14 @@ function CanLockFile(const FileName: string; const Access: DWORD = GENERIC_READ 
 function GetFileVer(const FileName: string): string;
 function GetFileTime(const FileName: string): TDateTime;
 
-procedure DisplayWIC(var Source: TWICImage; Image: TImage);
-procedure ScaleWIC(var Source: TWICImage; const Width, Height: integer);
+procedure DisplayWIC(var Source: TWICImage; Image: TImage; const BiDiRotate: boolean = true);
+procedure ScaleWIC(var Source: TWICImage; const Width, Height: integer; const BiDiRotate: boolean = true);
+procedure LoadImage(const Name: string; Image: TImage; const BiDiRotate: boolean = true);
 
-procedure LoadImage(const Name: string; Image: TImage);
+procedure ImgColl_GetBitmapBiDi(ASourceImage: TWICImage; AWidth,
+  AHeight: Integer; out ABitmap: TBitmap);
+procedure ImgColl_DrawBiDi(ASourceImage: TWICImage;
+  ACanvas: TCanvas; ARect: TRect; AProportional: Boolean);
 
 function DeleteWithShell(FileName: string; const AllowUndo: boolean = true): boolean;
 
@@ -126,6 +130,16 @@ procedure Check86MgrPath(var Field, ProgramRoot: string);
 
 //Source: https://stackoverflow.com/questions/1581975/how-to-pop-up-the-windows-context-menu-for-a-given-file-using-delphi/1584204
 procedure ShowSysPopup(aFile: string; x, y: integer; HND: HWND);
+
+//Source: https://coderedirect.com/questions/441320/prevent-rtl-tlistview-from-mirroring-check-boxes-and-or-graphics
+const
+  LAYOUT_RTL                        = $01;
+  LAYOUT_BITMAPORIENTATIONPRESERVED = $08;
+
+function GetLayout(DC: HDC): DWORD; stdcall; external 'gdi32.dll';
+function SetLayout(DC: HDC; dwLayout: DWORD): DWORD; stdcall; external 'gdi32.dll';
+
+procedure InvariantBiDiLayout(const DC: HDC); inline;
 
 implementation
 
@@ -462,16 +476,81 @@ begin
   Result := SHFileOperation(FileOp) = 0;
 end;
 
-procedure ScaleWIC(var Source: TWICImage; const Width, Height: integer); overload;
+//Az AProportional tulajdonság jelenleg nem támogatott ezen a módon.
+procedure ImgColl_DrawBiDi(ASourceImage: TWICImage;
+  ACanvas: TCanvas; ARect: TRect; AProportional: Boolean);
+begin
+  if ARect.IsEmpty then
+    Exit;
+
+  if ASourceImage <> nil then begin
+    ASourceImage.InterpolationMode := wipmHighQualityCubic;
+    ACanvas.StretchDraw(ARect, ASourceImage);
+  end;
+end;
+
+//Ez a verzió bitképpé konvertálja a kép új Handle-jét, és felszabadítja
+procedure ImgColl_GetBitmapBiDi(ASourceImage: TWICImage; AWidth,
+  AHeight: Integer; out ABitmap: TBitmap);
+var
+  RotatedImage: TWICImage;
+  BufferImage: TWICImage;
+  Factory: IWICImagingFactory;
+  Rotator: IWICBitmapFlipRotator;
+begin
+  Factory := TWICImage.ImagingFactory;
+  Factory.CreateBitmapFlipRotator(Rotator);
+  Rotator.Initialize(ASourceImage.Handle, WICBitmapTransformFlipHorizontal);
+
+  ABitmap := TBitmap.Create;
+
+  RotatedImage := TWICImage.Create;
+  RotatedImage.Handle := IWICBitmap(Rotator);
+
+  try
+    if (ASourceImage.Width = AWidth) and (ASourceImage.Height = AHeight) then
+      ABitmap.Assign(RotatedImage)
+    else begin
+      BufferImage := RotatedImage.CreateScaledCopy(AWidth, AHeight,
+        wipmHighQualityCubic);
+      try
+        ABitmap.Assign(BufferImage);
+      finally
+        BufferImage.Free;
+      end;
+    end;
+  finally
+    RotatedImage.Free;
+  end;
+
+  if ABitmap.PixelFormat = pf32bit then
+    ABitmap.AlphaFormat := afIgnored;
+end;
+
+//Ez a verzió visszaírja a képbe az új Handle-t
+procedure ScaleWIC(var Source: TWICImage; const Width, Height: integer;
+  const BiDiRotate: boolean); overload;
 var
   Factory: IWICImagingFactory;
   Scaler: IWICBitmapScaler;
+  Rotator: IWICBitmapFlipRotator;
 begin
   if not Assigned(Source) then
     exit;
 
   try
     Factory := TWICImage.ImagingFactory;
+
+    if LocaleIsBiDi and BiDiRotate then
+      try
+        Factory.CreateBitmapFlipRotator(Rotator);
+        Rotator.Initialize(Source.Handle,
+          WICBitmapTransformFlipHorizontal);
+      finally
+        Source.Handle := IWICBitmap(Rotator);
+        Rotator := nil;
+      end;
+
     Factory.CreateBitmapScaler(Scaler);
     Scaler.Initialize(Source.Handle, Width, Height,
       WICBitmapInterpolationModeHighQualityCubic);
@@ -482,18 +561,20 @@ begin
   end;
 end;
 
-procedure DisplayWIC(var Source: TWICImage; Image: TImage);
+procedure DisplayWIC(var Source: TWICImage; Image: TImage;
+  const BiDiRotate: boolean);
 var
   Temp: TWICImage;
 begin
   Temp := TWICImage.Create;
   Temp.Assign(Source);
-  ScaleWIC(Temp, Image.Width, Image.Height);
+  ScaleWIC(Temp, Image.Width, Image.Height, BiDiRotate);
   Image.Picture.Assign(Temp);
   Temp.Free;
 end;
 
-procedure LoadImage(const Name: string; Image: TImage);
+procedure LoadImage(const Name: string; Image: TImage;
+  const BiDiRotate: boolean);
 var
   Bitmap: TWICImage;
   Stream: TResourceStream;
@@ -502,7 +583,7 @@ begin
   Stream := TResourceStream.Create(hInstance, Name, RT_RCDATA);
   try
     Bitmap.LoadFromStream(Stream);
-    DisplayWIC(Bitmap, Image);
+    DisplayWIC(Bitmap, Image, BiDiRotate);
   finally
     Stream.Free;
     Bitmap.Free;
@@ -705,6 +786,16 @@ begin
   finally
     L.Free;
   end;
+end;
+
+//Source: https://coderedirect.com/questions/441320/prevent-rtl-tlistview-from-mirroring-check-boxes-and-or-graphics
+procedure InvariantBiDiLayout(const DC: HDC);
+var
+  Layout: DWORD;
+begin
+  Layout := GetLayout(DC);
+  if (Layout and LAYOUT_RTL) <> 0 then
+    SetLayout(DC, Layout or LAYOUT_BITMAPORIENTATIONPRESERVED);
 end;
 
 //Source: https://stackoverflow.com/questions/1581975/how-to-pop-up-the-windows-context-menu-for-a-given-file-using-delphi/1584204

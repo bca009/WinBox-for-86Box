@@ -75,7 +75,7 @@ object ImportVM: TImportVM
     Top = 0
     Width = 337
     Height = 263
-    ActivePage = tabMachineList
+    ActivePage = tabEnding1
     Align = alClient
     TabOrder = 2
     object tabWelcome: TTabSheet
@@ -421,6 +421,8 @@ object ImportVM: TImportVM
         Width = 210
         Height = 21
         Anchors = [akLeft, akTop, akRight]
+        BiDiMode = bdLeftToRight
+        ParentBiDiMode = False
         TabOrder = 0
       end
       object edConfig: TEdit
@@ -429,6 +431,8 @@ object ImportVM: TImportVM
         Width = 218
         Height = 21
         Anchors = [akLeft, akTop, akRight]
+        BiDiMode = bdLeftToRight
+        ParentBiDiMode = False
         TabOrder = 1
       end
       object btnConfig: TButton

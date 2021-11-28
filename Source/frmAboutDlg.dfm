@@ -2,6 +2,7 @@ object AboutDlg: TAboutDlg
   Left = 0
   Top = 0
   ActiveControl = btnOK
+  BiDiMode = bdLeftToRight
   BorderStyle = bsDialog
   Caption = 'N'#233'vjegy'
   ClientHeight = 357
@@ -12,6 +13,7 @@ object AboutDlg: TAboutDlg
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
+  ParentBiDiMode = False
   Position = poMainFormCenter
   OnCreate = FormCreate
   PixelsPerInch = 96
@@ -27,24 +29,29 @@ object AboutDlg: TAboutDlg
     Align = alTop
   end
   object lbTitle: TLabel
-    Left = 114
+    Left = 0
     Top = 145
-    Width = 146
+    Width = 358
     Height = 19
-    Anchors = [akTop]
+    Alignment = taCenter
+    Anchors = [akLeft, akTop, akRight]
+    AutoSize = False
+    BiDiMode = bdLeftToRight
     Caption = 'WinBox for 86Box'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -16
     Font.Name = 'Tahoma'
     Font.Style = [fsBold]
+    ParentBiDiMode = False
     ParentFont = False
   end
   object lbVersion: TLabel
     Left = 24
     Top = 176
-    Width = 38
-    Height = 13
+    Width = 73
+    Height = 20
+    AutoSize = False
     Caption = 'Verzi'#243':'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -56,8 +63,9 @@ object AboutDlg: TAboutDlg
   object lbDeveloper: TLabel
     Left = 24
     Top = 195
-    Width = 61
-    Height = 13
+    Width = 73
+    Height = 20
+    AutoSize = False
     Caption = '&K'#233'sz'#237'tette:'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -69,15 +77,17 @@ object AboutDlg: TAboutDlg
   object lbDeveloperInfo: TLabel
     Left = 94
     Top = 195
-    Width = 94
-    Height = 13
+    Width = 191
+    Height = 20
+    AutoSize = False
     Caption = 'Laci b'#225#39', 2020-2021'
   end
   object lbTranslator: TLabel
     Left = 24
     Top = 214
-    Width = 60
-    Height = 13
+    Width = 73
+    Height = 20
+    AutoSize = False
     Caption = '&Ford'#237'totta:'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -89,19 +99,20 @@ object AboutDlg: TAboutDlg
   object lbTranslatorInfo: TLabel
     Left = 94
     Top = 214
-    Width = 122
-    Height = 13
+    Width = 191
+    Height = 20
+    AutoSize = False
     Caption = 'Ez a program alapnyelve.'
   end
   object lbWebApplication: TLabel
     Left = 291
     Top = 176
-    Width = 44
-    Height = 13
+    Width = 60
+    Height = 20
     Cursor = crHandPoint
     Hint = 'https://github.com/laciba96/WinBox-for-86Box'
-    Alignment = taRightJustify
     Anchors = [akTop, akRight]
+    AutoSize = False
     Caption = 'Weboldal'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = 14120960
@@ -114,12 +125,12 @@ object AboutDlg: TAboutDlg
   object lbWebDeveloper: TLabel
     Left = 291
     Top = 195
-    Width = 44
-    Height = 13
+    Width = 60
+    Height = 20
     Cursor = crHandPoint
     Hint = 'http://users.atw.hu/laciba'
-    Alignment = taRightJustify
     Anchors = [akTop, akRight]
+    AutoSize = False
     Caption = 'Weboldal'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = 14120960
@@ -132,8 +143,9 @@ object AboutDlg: TAboutDlg
   object lbConnProjects: TLabel
     Left = 24
     Top = 240
-    Width = 126
-    Height = 13
+    Width = 135
+    Height = 20
+    AutoSize = False
     Caption = 'Kapcsol'#243'd'#243' projektek:'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -145,15 +157,17 @@ object AboutDlg: TAboutDlg
   object lb86Box: TLabel
     Left = 157
     Top = 240
-    Width = 100
-    Height = 13
+    Width = 128
+    Height = 20
+    AutoSize = False
     Caption = '86Box, x86 emul'#225'tor'
   end
   object lbUsedProjects: TLabel
     Left = 24
     Top = 259
-    Width = 126
-    Height = 13
+    Width = 135
+    Height = 20
+    AutoSize = False
     Caption = 'Felhaszn'#225'lt projektek:'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -165,12 +179,12 @@ object AboutDlg: TAboutDlg
   object lbWeb86Box: TLabel
     Left = 291
     Top = 240
-    Width = 44
-    Height = 13
+    Width = 60
+    Height = 20
     Cursor = crHandPoint
     Hint = 'https://github.com/86Box/86Box'
-    Alignment = taRightJustify
     Anchors = [akTop, akRight]
+    AutoSize = False
     Caption = 'Weboldal'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = 14120960
@@ -183,19 +197,20 @@ object AboutDlg: TAboutDlg
   object lbJCL: TLabel
     Left = 157
     Top = 259
-    Width = 114
-    Height = 13
+    Width = 128
+    Height = 20
+    AutoSize = False
     Caption = 'JEDI Code Library (JCL)'
   end
   object lbWebJCL: TLabel
     Left = 291
     Top = 259
-    Width = 44
-    Height = 13
+    Width = 60
+    Height = 20
     Cursor = crHandPoint
     Hint = 'https://github.com/project-jedi/jcl'
-    Alignment = taRightJustify
     Anchors = [akTop, akRight]
+    AutoSize = False
     Caption = 'Weboldal'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = 14120960
@@ -206,18 +221,21 @@ object AboutDlg: TAboutDlg
     OnClick = lbWebApplicationClick
   end
   object lbLicensing: TLabel
-    Left = 24
+    Left = 0
     Top = 287
-    Width = 219
-    Height = 13
-    Anchors = [akLeft, akBottom]
+    Width = 358
+    Height = 20
+    Alignment = taCenter
+    Anchors = [akLeft, akRight, akBottom]
+    AutoSize = False
     Caption = 'A program szabad szoftver GNU GPL v3 alatt.'
   end
   object edVersion: TEdit
     Left = 94
     Top = 176
-    Width = 121
-    Height = 13
+    Width = 191
+    Height = 20
+    AutoSize = False
     BorderStyle = bsNone
     ReadOnly = True
     TabOrder = 0

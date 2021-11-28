@@ -14,7 +14,6 @@ object ExceptionDialog: TExceptionDialog
   Font.Name = 'Tahoma'
   Font.Style = []
   KeyPreview = True
-  OldCreateOrder = False
   Position = poScreenCenter
   ShowHint = True
   OnCreate = FormCreate
@@ -23,10 +22,10 @@ object ExceptionDialog: TExceptionDialog
   OnPaint = FormPaint
   OnResize = FormResize
   OnShow = FormShow
+  PixelsPerInch = 96
   DesignSize = (
     513
     403)
-  PixelsPerInch = 96
   TextHeight = 13
   object BevelDetails: TBevel
     Left = 8
