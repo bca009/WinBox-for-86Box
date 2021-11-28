@@ -3885,6 +3885,7 @@ object HDSelect: THDSelect
     TitleFont.Name = 'Tahoma'
     TitleFont.Style = []
     OnCellClick = DBGridCellClick
+    OnColumnMoved = DBGridColumnMoved
   end
   object gbFilter: TGroupBox
     AlignWithMargins = True

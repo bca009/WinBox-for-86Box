@@ -86,6 +86,7 @@ type
     procedure DBGridCellClick(Column: TColumn);
     procedure btnOKClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure DBGridColumnMoved(Sender: TObject; FromIndex, ToIndex: Integer);
   private
     FDiskData: TDiskData;
     FBookmark: TBookmark;
@@ -214,6 +215,12 @@ end;
 procedure THDSelect.DBGridCellClick(Column: TColumn);
 begin
   DBGrid.SelectedRows.CurrentRowSelected := True;
+end;
+
+procedure THDSelect.DBGridColumnMoved(Sender: TObject; FromIndex,
+  ToIndex: Integer);
+begin
+  (Sender as TDBGrid).Columns[ToIndex].Index := FromIndex;
 end;
 
 function THDSelect.Execute(const Silent: boolean): boolean;
