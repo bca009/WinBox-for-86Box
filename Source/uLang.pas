@@ -273,6 +273,7 @@ begin
   else
     Result := false;
 end;
+//---
 
 procedure SetWindowExStyle(const Handle: HWND;
   const Flag: NativeInt; Value: boolean);
