@@ -80,12 +80,13 @@ function _P(const Key: string; const Args: array of const): PChar; overload;
 function TryLoadLocale(var Locale: string; out NewBiDi: boolean): TLanguage;
 function GetAvailLangs: TStringList;
 
-function GetLocaleIsBiDi(const Locale: string): boolean;
-
 procedure SetWindowExStyle(const Handle: HWND; const Flag: NativeInt; Value: boolean);
 procedure SetCommCtrlBiDi(const Handle: HWND; const Value: boolean); inline;
 procedure SetListViewBiDi(const Handle: HWND; const Value: boolean);
 procedure SetScrollBarBiDi(const Handle: HWND; const ToLeft: boolean); inline;
+
+//Source: http://archives.miloush.net/michkap/archive/2006/03/03/542963.html
+function GetLocaleIsBiDi(const Locale: string): boolean;
 
 resourcestring
   PrgBaseLanguage    = 'hu-HU';
@@ -261,6 +262,7 @@ begin
     Result := Locale;
 end;
 
+//Source: http://archives.miloush.net/michkap/archive/2006/03/03/542963.html
 function GetLocaleIsBiDi(const Locale: string): boolean;
 var
   Signature: TLocaleSignature;
