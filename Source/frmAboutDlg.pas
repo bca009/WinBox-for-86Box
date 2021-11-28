@@ -68,7 +68,8 @@ uses uCommUtil, ShellAPI;
 
 procedure TAboutDlg.FlipBiDi;
 begin
-  SetCommCtrlBiDi(Handle, LocaleIsBiDi);
+  BiDiMode := BiDiModes[LocaleIsBiDi];
+  FlipChildren(true);
 end;
 
 procedure TAboutDlg.FormCreate(Sender: TObject);
