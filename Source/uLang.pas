@@ -24,12 +24,18 @@ unit uLang;
 interface
 
 uses Windows, SysUtils, Classes, Controls, StdCtrls, Menus, ActnList,
-     ExtCtrls, Forms, CheckLst, IniFiles;
+     ExtCtrls, Forms, CheckLst, IniFiles, CommCtrl;
 
 const
   Codes: array [0..1, 0..10] of char =
     (('''', '"', '\', '0', 'a', 'b', 'f', 'n', 'r', 't', 'v'),
      ('''', '"', '\', #0,  #7,  #8,  #12, #10, #13,  #9, #11));
+
+  BiDiModes: array [boolean] of TBiDiMode =
+    (bdLeftToRight, bdRightToLeft);
+
+  Alignments: array [boolean] of TAlignment =
+    (taLeftJustify, taRightJustify);
 
 type
   TLanguage = class(TMemIniFile)
@@ -48,6 +54,7 @@ type
     ['{D9A1A056-B556-4BF6-B2D3-EDF9F14B1F47}']
     procedure GetTranslation(Language: TLanguage); stdcall;
     procedure Translate; stdcall;
+    procedure FlipBiDi; stdcall;
   end;
 
 function GetSystemLanguage: string; inline;
@@ -59,11 +66,10 @@ function GetLocaleText(const Locale: string;
 function EscapeString(const Input: string): string;
 function UnescapeString(const Input: string): string;
 
-function MessageBox(hWnd: HWND; lpText, lpCaption: LPCWSTR; uType: UINT): Integer;
-
 var
   Language: TLanguage = nil;
-  Locale: string;
+  Locale: string = 'hu-HU';
+  LocaleIsBiDi: boolean = false;
   LocaleOverride: string = '';
 
 function _T(const Key: string): string; overload;
@@ -71,8 +77,22 @@ function _T(const Key: string; const Args: array of const): string; overload;
 function _P(const Key: string): PChar; overload;
 function _P(const Key: string; const Args: array of const): PChar; overload;
 
-function TryLoadLocale(var Locale: string): TLanguage;
+function TryLoadLocale(var Locale: string; out NewBiDi: boolean): TLanguage;
 function GetAvailLangs: TStringList;
+
+function GetLocaleIsBiDi(const Locale: string): boolean;
+
+procedure SetWindowExStyle(const Handle: HWND; const Flag: NativeInt; Value: boolean);
+procedure SetCommCtrlBiDi(const Handle: HWND; const Value: boolean); inline;
+procedure SetListViewBiDi(const Handle: HWND; const Value: boolean);
+procedure SetScrollBarBiDi(const Handle: HWND; const ToLeft: boolean); inline;
+
+function GetLayout(DC: HDC): DWORD; stdcall; external 'gdi32.dll';
+function SetLayout(DC: HDC; dwLayout: DWORD): DWORD; stdcall; external 'gdi32.dll';
+
+const
+  LAYOUT_RTL                        = $01;
+  LAYOUT_BITMAPORIENTATIONPRESERVED = $08;
 
 resourcestring
   PrgBaseLanguage    = 'hu-HU';
@@ -106,23 +126,6 @@ begin
   Result := PChar(_T(Key, Args));
 end;
 
-function MessageBox(hWnd: HWND; lpText, lpCaption: LPCWSTR; uType: UINT): Integer;
-var
-  Params: TMsgBoxParams;
-begin
-  FillChar(Params, SizeOf(Params), #0);
-  with Params do begin
-    cbSize := SizeOf(Params);
-    dwLanguageId := GetThreadUILanguage;
-    dwStyle := uType;
-    hInstance := hInstance;
-    hwndOwner := hWnd;
-    lpszCaption := lpCaption;
-    lpszText := lpText;
-  end;
-  Result := MessageBoxIndirect(Params);
-end;
-
 type
   TInitLocaleHelper = record
     Input, Root, RetVal: string;
@@ -146,7 +149,7 @@ begin
       Result := ord(true);
 end;
 
-function TryLoadLocale(var Locale: string): TLanguage;
+function TryLoadLocale(var Locale: string; out NewBiDi: boolean): TLanguage;
 var
   FileRoot, FileName: string;
   Helper: TInitLocaleHelper;
@@ -198,6 +201,7 @@ begin
   end;
 
   //Finally load the selected language file, and set locale.
+  NewBiDi := GetLocaleIsBiDi(Locale);
   Result := TryLoadFile(FileName);
 end;
 
@@ -218,7 +222,7 @@ begin
       end;
 
   //Finally load the selected locale, with fallback options.
-  Language := TryLoadLocale(Locale);
+  Language := TryLoadLocale(Locale, LocaleIsBiDi);
 end;
 
 const
@@ -262,6 +266,49 @@ begin
   end
   else
     Result := Locale;
+end;
+
+function GetLocaleIsBiDi(const Locale: string): boolean;
+var
+  Signature: TLocaleSignature;
+begin
+  if GetLocaleInfoEx(PChar(Locale), LOCALE_FONTSIGNATURE,
+       @Signature, SizeOf(Signature) div SizeOf(char)) <> 0 then
+    Result := (Signature.lsUsb[3] and $8000000) <> 0
+  else
+    Result := false;
+end;
+
+procedure SetWindowExStyle(const Handle: HWND;
+  const Flag: NativeInt; Value: boolean);
+var
+  ExStyle: NativeInt;
+begin
+  ExStyle := GetWindowLongPtr(Handle, GWL_EXSTYLE);
+
+  if Value then
+    ExStyle := ExStyle or Flag
+  else
+    ExStyle := ExStyle and not Flag;
+
+  SetWindowLongPtr(Handle, GWL_EXSTYLE, ExStyle);
+  InvalidateRect(Handle, nil, true);
+end;
+
+procedure SetCommCtrlBiDi(const Handle: HWND; const Value: boolean);
+begin
+  SetWindowExStyle(Handle, WS_EX_LAYOUTRTL, Value);
+end;
+
+procedure SetListViewBiDi(const Handle: HWND; const Value: boolean);
+begin
+  SetCommCtrlBiDi(ListView_GetHeader(Handle), Value);
+  SetCommCtrlBiDi(Handle, Value);
+end;
+
+procedure SetScrollBarBiDi(const Handle: HWND; const ToLeft: boolean);
+begin
+  SetWindowExStyle(Handle, WS_EX_LEFTSCROLLBAR, ToLeft);
 end;
 
 function GetAvailLangs: TStringList;
@@ -486,10 +533,10 @@ begin
     for I := 0 to ActionCount - 1 do
       with Actions[I] do begin
         if Caption <> '' then
-          WriteString(Section, Name, Caption);
+          WriteString(Section, Name, EscapeString(Caption));
 
         if Hint <> '' then
-          WriteString(Section, Name + '.Hint', Hint);
+          WriteString(Section, Name + '.Hint', EscapeString(Hint));
       end;
 end;
 
@@ -502,10 +549,10 @@ begin
     for I := 0 to ActionCount - 1 do
       with Actions[I] do begin
         if Caption <> '' then
-          Caption := ReadString(Section, Name, Caption);
+          Caption := UnescapeString(ReadString(Section, Name, Caption));
 
         if Hint <> '' then
-          Hint := ReadString(Section, Name + '.Hint', Hint);
+          Hint := UnescapeString(ReadString(Section, Name + '.Hint', Hint));
       end;
 end;
 

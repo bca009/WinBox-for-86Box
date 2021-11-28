@@ -24,10 +24,15 @@ unit frmImportVM;
 interface
 
 uses
-  Windows, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  StdCtrls, ComCtrls, ExtCtrls, uLang, frmMainForm;
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, ComCtrls, ExtCtrls, uLang, frmMainForm;
 
 type
+  TListView = class(ComCtrls.TListView)
+  protected
+    procedure WMPaint(var Msg: TWMPaint); message WM_PAINT;
+  end;
+
   TImportVM = class(TForm, ILanguageSupport)
     bvBottom: TBevel;
     btnNext: TButton;
@@ -91,6 +96,7 @@ type
     RootOf86Mgr: string;
     procedure GetTranslation(Language: TLanguage); stdcall;
     procedure Translate; stdcall;
+    procedure FlipBiDi; stdcall;
   end;
 
 var
@@ -200,13 +206,24 @@ begin
     I.Checked := (Sender as TComponent).Tag <> 0;
 end;
 
+procedure TImportVM.FlipBiDi;
+begin
+  BiDiMode := BiDiModes[LocaleIsBiDi];
+  FlipChildren(true);
+
+  edName.Alignment := Alignments[LocaleIsBiDi];
+  SetListViewBiDi(lvImport.Handle, LocaleIsBiDi);
+end;
+
 procedure TImportVM.FormCreate(Sender: TObject);
 begin
-  LoadImage(ImgBannerImport, imgBanner);
+  LoadImage(ImgBannerImport, imgBanner, false);
   pcPages.ActivePageIndex := 0;
 
   LangName := Copy(ClassName, 2, MaxInt);
   Translate;
+  if LocaleIsBiDi then
+    FlipBiDi;
 
   RootOf86Mgr := '';
 end;
@@ -397,5 +414,23 @@ begin
   end;
 end;
 
+
+{ TListView }
+
+procedure TListView.WMPaint(var Msg: TWMPaint);
+var
+  Layout: DWORD;
+  PS: TPaintStruct;
+begin
+  Msg.DC := BeginPaint(Handle, PS);
+  try
+    Layout := GetLayout(Msg.DC);
+    if (Layout and LAYOUT_RTL) <> 0 then
+      SetLayout(Msg.DC, Layout or LAYOUT_BITMAPORIENTATIONPRESERVED);
+  finally
+    inherited;
+    EndPaint(Handle, PS);
+  end;
+end;
 
 end.

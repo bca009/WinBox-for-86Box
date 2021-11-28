@@ -193,7 +193,7 @@ SelectHDD.EFailedToAddRow=Die Werbebuchung konnte nicht hinzugefügt werden: \"%
 SelectHDD.EInvalidRecord=Schlechter Datensatz in Datei : Zeile: %d, Feld: %d, %s.
 
 WizardVM.NoManufaturer=(Unbekannt Hersteller)
-WizardVM.NewVM=Neue virtuelle Maschine  #%d
+WizardVM.NewVM=Neue virtuelle Maschine Nr. %d
 WizardVM.SelectWorkDir=Wählen Sie das Arbeitsverzeichnis aus, das Sie verwenden möchten:
 
 [UpdateDlg]
@@ -414,7 +414,7 @@ cpVideo=Anzeige
 lbGfxCardDesc=&Grafikkarte:
 lb3dfxDesc=&3D-Beschleu.:
 cpSystem=System
-lbMachineDesc=&Art:
+lbMachineDesc=&Typ:
 lbMemoryDesc=Speicher:
 lbCPUDesc=&CPU:
 lbEmulatorDesc=Em&ulator:

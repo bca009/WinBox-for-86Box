@@ -162,6 +162,7 @@ type
 
     procedure GetTranslation(Language: TLanguage); stdcall;
     procedure Translate; stdcall;
+    procedure FlipBiDi; stdcall;
   end;
 
 var
@@ -359,9 +360,17 @@ begin
   end;
 end;
 
+procedure TWizardVM.FlipBiDi;
+begin
+  BiDiMode := BiDiModes[LocaleIsBiDi];
+  FlipChildren(true);
+
+  edName.Alignment := Alignments[LocaleIsBiDi];
+end;
+
 procedure TWizardVM.FormCreate(Sender: TObject);
 begin
-  LoadImage('BANNER_NEW', imgBanner);
+  LoadImage('BANNER_NEW', imgBanner, false);
   WinBoxMain.Icons32.GetIcon(0, imgWarning.Picture.Icon);
 
   Samples := TVMSampleFilter.Create(true);
@@ -378,6 +387,8 @@ end;
 procedure TWizardVM.FormShow(Sender: TObject);
 begin
   Translate;
+  if LocaleIsBiDi then
+    FlipBiDi;
 
   pcPages.ActivePageIndex := 0;
   Samples.Clear;

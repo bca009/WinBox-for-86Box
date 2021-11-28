@@ -60,10 +60,9 @@ function CanLockFile(const FileName: string; const Access: DWORD = GENERIC_READ 
 function GetFileVer(const FileName: string): string;
 function GetFileTime(const FileName: string): TDateTime;
 
-procedure DisplayWIC(var Source: TWICImage; Image: TImage);
-procedure ScaleWIC(var Source: TWICImage; const Width, Height: integer);
-
-procedure LoadImage(const Name: string; Image: TImage);
+procedure DisplayWIC(var Source: TWICImage; Image: TImage; const BiDiRotate: boolean = true);
+procedure ScaleWIC(var Source: TWICImage; const Width, Height: integer; const BiDiRotate: boolean = true);
+procedure LoadImage(const Name: string; Image: TImage; const BiDiRotate: boolean = true);
 
 function DeleteWithShell(FileName: string; const AllowUndo: boolean = true): boolean;
 
@@ -462,16 +461,29 @@ begin
   Result := SHFileOperation(FileOp) = 0;
 end;
 
-procedure ScaleWIC(var Source: TWICImage; const Width, Height: integer); overload;
+procedure ScaleWIC(var Source: TWICImage; const Width, Height: integer;
+  const BiDiRotate: boolean); overload;
 var
   Factory: IWICImagingFactory;
   Scaler: IWICBitmapScaler;
+  Rotator: IWICBitmapFlipRotator;
 begin
   if not Assigned(Source) then
     exit;
 
   try
     Factory := TWICImage.ImagingFactory;
+
+    if LocaleIsBiDi and BiDiRotate then
+      try
+        Factory.CreateBitmapFlipRotator(Rotator);
+        Rotator.Initialize(Source.Handle,
+          WICBitmapTransformFlipHorizontal);
+      finally
+        Source.Handle := IWICBitmap(Rotator);
+        Rotator := nil;
+      end;
+
     Factory.CreateBitmapScaler(Scaler);
     Scaler.Initialize(Source.Handle, Width, Height,
       WICBitmapInterpolationModeHighQualityCubic);
@@ -482,18 +494,20 @@ begin
   end;
 end;
 
-procedure DisplayWIC(var Source: TWICImage; Image: TImage);
+procedure DisplayWIC(var Source: TWICImage; Image: TImage;
+  const BiDiRotate: boolean);
 var
   Temp: TWICImage;
 begin
   Temp := TWICImage.Create;
   Temp.Assign(Source);
-  ScaleWIC(Temp, Image.Width, Image.Height);
+  ScaleWIC(Temp, Image.Width, Image.Height, BiDiRotate);
   Image.Picture.Assign(Temp);
   Temp.Free;
 end;
 
-procedure LoadImage(const Name: string; Image: TImage);
+procedure LoadImage(const Name: string; Image: TImage;
+  const BiDiRotate: boolean);
 var
   Bitmap: TWICImage;
   Stream: TResourceStream;
@@ -502,7 +516,7 @@ begin
   Stream := TResourceStream.Create(hInstance, Name, RT_RCDATA);
   try
     Bitmap.LoadFromStream(Stream);
-    DisplayWIC(Bitmap, Image);
+    DisplayWIC(Bitmap, Image, BiDiRotate);
   finally
     Stream.Free;
     Bitmap.Free;

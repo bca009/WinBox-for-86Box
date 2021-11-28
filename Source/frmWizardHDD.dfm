@@ -52,7 +52,7 @@ object WizardHDD: TWizardHDD
     Top = 0
     Width = 337
     Height = 263
-    ActivePage = tabResults
+    ActivePage = tabCapacity
     Align = alClient
     TabOrder = 0
     object tabWelcome: TTabSheet
@@ -266,6 +266,8 @@ object WizardHDD: TWizardHDD
         Width = 250
         Height = 21
         Anchors = [akLeft, akTop, akRight]
+        BiDiMode = bdLeftToRight
+        ParentBiDiMode = False
         TabOrder = 0
         Text = 'D:\teszt.img'
       end
@@ -318,7 +320,7 @@ object WizardHDD: TWizardHDD
       object lbCapacityDesc: TLabel
         Left = 16
         Top = 48
-        Width = 281
+        Width = 297
         Height = 33
         Anchors = [akLeft, akTop, akRight]
         AutoSize = False

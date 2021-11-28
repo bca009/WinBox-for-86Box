@@ -35,9 +35,10 @@ object Frame86Box: TFrame86Box
   object lbStateDesc: TLabel
     Left = 18
     Top = 330
-    Width = 37
-    Height = 13
+    Width = 50
+    Height = 24
     Anchors = [akLeft, akBottom]
+    AutoSize = False
     Caption = '&'#193'llapot:'
     FocusControl = edState
   end
@@ -59,9 +60,10 @@ object Frame86Box: TFrame86Box
   object edState: TEdit
     Left = 64
     Top = 330
-    Width = 117
-    Height = 13
+    Width = 185
+    Height = 24
     Anchors = [akLeft, akBottom]
+    AutoSelect = False
     AutoSize = False
     BorderStyle = bsNone
     Font.Charset = DEFAULT_CHARSET
@@ -516,51 +518,49 @@ object Frame86Box: TFrame86Box
       ExplicitWidth = 168
     end
     object lbHostCPU: TLabel
-      Left = 156
+      Left = 112
       Top = 156
-      Width = 17
-      Height = 13
+      Width = 61
+      Height = 26
       Alignment = taRightJustify
       Anchors = [akRight, akBottom]
+      AutoSize = False
       Caption = '0%'
-      ExplicitLeft = 161
-      ExplicitTop = 154
     end
     object lbHostCPUDesc: TLabel
       Left = 11
       Top = 156
-      Width = 24
-      Height = 13
+      Width = 78
+      Height = 26
       Anchors = [akLeft, akBottom]
+      AutoSize = False
       Caption = '&CPU:'
-      ExplicitTop = 154
     end
     object lbHostMemoryRAM: TLabel
       Left = 11
       Top = 198
-      Width = 44
-      Height = 13
+      Width = 86
+      Height = 27
       Anchors = [akLeft, akBottom]
+      AutoSize = False
       Caption = '&Mem'#243'ria:'
-      ExplicitTop = 196
     end
     object lbHostRAM: TLabel
-      Left = 130
+      Left = 80
       Top = 198
-      Width = 43
-      Height = 13
+      Width = 93
+      Height = 27
       Alignment = taRightJustify
       Anchors = [akRight, akBottom]
+      AutoSize = False
       Caption = '0% (0 B)'
-      ExplicitLeft = 135
-      ExplicitTop = 196
     end
     object lbScreenshots: TLabel
       Tag = 3
       Left = 11
       Top = 12
       Width = 88
-      Height = 13
+      Height = 19
       Cursor = crHandPoint
       Anchors = [akLeft, akTop, akRight]
       AutoSize = False
@@ -572,27 +572,25 @@ object Frame86Box: TFrame86Box
       Font.Style = [fsUnderline]
       ParentFont = False
       OnClick = btnWorkDirClick
-      ExplicitWidth = 94
     end
     object lbDiskSizeDesc: TLabel
       Left = 11
       Top = 244
-      Width = 104
+      Width = 118
       Height = 13
       Anchors = [akLeft, akBottom]
+      AutoSize = False
       Caption = 'Elfoglalt lemezter'#252'let:'
-      ExplicitTop = 242
     end
     object lbDiskSize: TLabel
-      Left = 150
+      Left = 120
       Top = 244
-      Width = 23
-      Height = 13
+      Width = 53
+      Height = 21
       Alignment = taRightJustify
       Anchors = [akRight, akBottom]
+      AutoSize = False
       Caption = '0 MB'
-      ExplicitLeft = 155
-      ExplicitTop = 242
     end
     object bvScreenshots: TBevel
       Left = 11
@@ -652,8 +650,9 @@ object Frame86Box: TFrame86Box
     object lbFriendlyName: TLabel
       Left = 18
       Top = 12
-      Width = 90
-      Height = 16
+      Width = 471
+      Height = 26
+      AutoSize = False
       Caption = 'Ismeretlen PC'
       Font.Charset = EASTEUROPE_CHARSET
       Font.Color = clWindowText

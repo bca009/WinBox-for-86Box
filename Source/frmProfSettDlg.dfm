@@ -11,14 +11,13 @@ object ProfSettDlg: TProfSettDlg
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  OldCreateOrder = False
   Position = poMainFormCenter
   OnCreate = FormCreate
   OnShow = Reload
+  PixelsPerInch = 96
   DesignSize = (
     460
     516)
-  PixelsPerInch = 96
   TextHeight = 13
   object btnCancel: TButton
     Left = 357
@@ -45,7 +44,7 @@ object ProfSettDlg: TProfSettDlg
     Top = 8
     Width = 444
     Height = 458
-    ActivePage = tabGeneral
+    ActivePage = tabEmulator
     Anchors = [akLeft, akTop, akRight, akBottom]
     TabOrder = 0
     object tabGeneral: TTabSheet
@@ -75,15 +74,17 @@ object ProfSettDlg: TProfSettDlg
         object lbDescOfID: TLabel
           Left = 22
           Top = 28
-          Width = 78
-          Height = 13
+          Width = 195
+          Height = 21
+          AutoSize = False
           Caption = 'Bels'#337' azonos'#237't'#243':'
         end
         object lbDescOfWkDir: TLabel
           Left = 22
           Top = 75
-          Width = 78
-          Height = 13
+          Width = 195
+          Height = 22
+          AutoSize = False
           Caption = 'Munkak'#246'nyvt'#225'r:'
         end
         object lbWorkingDirectory: TLabel
@@ -93,7 +94,9 @@ object ProfSettDlg: TProfSettDlg
           Height = 31
           Anchors = [akLeft, akTop, akRight]
           AutoSize = False
+          BiDiMode = bdLeftToRight
           Caption = 'lbWorkingDirectory'
+          ParentBiDiMode = False
           WordWrap = True
         end
         object btnOpenWorkDir: TButton
@@ -157,16 +160,18 @@ object ProfSettDlg: TProfSettDlg
         object lbFriendlyName: TLabel
           Left = 120
           Top = 26
-          Width = 23
-          Height = 13
+          Width = 41
+          Height = 27
+          AutoSize = False
           Caption = '&N'#233'v:'
           FocusControl = edFriendlyName
         end
         object lbDescription: TLabel
           Left = 120
           Top = 59
-          Width = 32
-          Height = 13
+          Width = 41
+          Height = 22
+          AutoSize = False
           Caption = '&Le'#237'r'#225's:'
           FocusControl = mmDescription
         end
@@ -176,6 +181,8 @@ object ProfSettDlg: TProfSettDlg
           Width = 225
           Height = 21
           Anchors = [akLeft, akTop, akRight]
+          BiDiMode = bdLeftToRight
+          ParentBiDiMode = False
           TabOrder = 0
         end
         object mmDescription: TMemo
@@ -228,8 +235,9 @@ object ProfSettDlg: TProfSettDlg
         object lbColor: TLabel
           Left = 41
           Top = 29
-          Width = 53
-          Height = 13
+          Width = 65
+          Height = 20
+          AutoSize = False
           Caption = '&H'#225'tt'#233'rsz'#237'n:'
         end
         object cbFullscreen: TCheckBox
@@ -291,23 +299,26 @@ object ProfSettDlg: TProfSettDlg
         object lbOptionalParams: TLabel
           Left = 24
           Top = 156
-          Width = 100
-          Height = 13
+          Width = 193
+          Height = 21
+          AutoSize = False
           Caption = 'Egy'#233'ni &param'#233'terek:'
         end
         object lbVersion: TLabel
-          Left = 324
+          Left = 246
           Top = 71
-          Width = 60
-          Height = 13
+          Width = 138
+          Height = 26
           Alignment = taRightJustify
+          AutoSize = False
           Caption = 'v3.0.0.1024'
         end
         object lb86BoxPath: TLabel
           Left = 24
           Top = 71
-          Width = 48
-          Height = 13
+          Width = 145
+          Height = 26
+          AutoSize = False
           Caption = '&El'#233'r'#233'si '#250't:'
           FocusControl = ed86Box
         end
@@ -317,6 +328,8 @@ object ProfSettDlg: TProfSettDlg
           Width = 353
           Height = 50
           Anchors = [akLeft, akTop, akRight, akBottom]
+          BiDiMode = bdLeftToRight
+          ParentBiDiMode = False
           ScrollBars = ssVertical
           TabOrder = 4
           WantReturns = False
@@ -326,6 +339,8 @@ object ProfSettDlg: TProfSettDlg
           Top = 90
           Width = 311
           Height = 21
+          BiDiMode = bdLeftToRight
+          ParentBiDiMode = False
           TabOrder = 0
           Text = 'ed86Box'
           OnChange = ed86BoxChange
@@ -369,28 +384,31 @@ object ProfSettDlg: TProfSettDlg
         Caption = 'Hibakeres'#233's'
         TabOrder = 1
         object lbLogging: TLabel
-          Left = 104
+          Left = 18
           Top = 67
-          Width = 47
-          Height = 13
+          Width = 133
+          Height = 21
           Alignment = taRightJustify
+          AutoSize = False
           Caption = '&Napl'#243'z'#225's:'
           FocusControl = cbLogging
         end
         object lbDebugMode: TLabel
-          Left = 39
+          Left = 16
           Top = 94
-          Width = 112
-          Height = 13
+          Width = 135
+          Height = 21
           Alignment = taRightJustify
+          AutoSize = False
           Caption = '&Hibakeres'#233'si '#252'zemm'#243'd:'
         end
         object lbCrashDump: TLabel
-          Left = 18
+          Left = 16
           Top = 121
-          Width = 133
-          Height = 13
+          Width = 135
+          Height = 30
           Alignment = taRightJustify
+          AutoSize = False
           Caption = '&'#214'sszeoml'#225'si mem'#243'riak'#233'pek:'
         end
         object lbDebug: TLabel

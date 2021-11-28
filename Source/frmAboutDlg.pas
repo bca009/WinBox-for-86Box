@@ -54,6 +54,7 @@ type
     LangName: string;
     procedure GetTranslation(Language: TLanguage); stdcall;
     procedure Translate; stdcall;
+    procedure FlipBiDi; stdcall;
   end;
 
 var
@@ -65,11 +66,19 @@ implementation
 
 uses uCommUtil, ShellAPI;
 
+procedure TAboutDlg.FlipBiDi;
+begin
+  SetCommCtrlBiDi(Handle, LocaleIsBiDi);
+end;
+
 procedure TAboutDlg.FormCreate(Sender: TObject);
 begin
-  LoadImage('ABOUT', imgSplash);
+  LoadImage('ABOUT', imgSplash, false);
   LangName := Copy(ClassName, 2, MaxInt);
+
   Translate;
+  if LocaleIsBiDi then
+    FlipBiDi;
 
   edVersion.Text := GetFileVer(ParamStr(0));
   lbTitle.Left := (ClientWidth - lbTitle.Width) div 2;

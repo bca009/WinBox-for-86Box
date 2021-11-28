@@ -140,6 +140,7 @@ type
 
     procedure GetTranslation(Language: TLanguage); stdcall;
     procedure Translate; stdcall;
+    procedure FlipBiDi; stdcall;
   end;
 
 resourcestring
@@ -213,6 +214,8 @@ begin
 
   PicturePager := TPicturePager.Create(nil);
   with PicturePager do begin
+    ParentBiDiMode := false;
+    BiDiMode := bdLeftToRight;
     Parent := RightPanel;
     with bvScreenshots do
       PicturePager.SetBounds(Left + 1, Top + 1, Width - 2, Height - 2);
@@ -266,6 +269,33 @@ begin
   FolderMonitor.Free;
   PicturePager.Free;
   inherited;
+end;
+
+procedure TFrame86Box.FlipBiDi;
+var
+  Success: boolean;
+  Panel: TCategoryPanel;
+  Surface: TCategoryPanelSurface;
+  I, J: Integer;
+begin
+  SetCommCtrlBiDi(Handle, LocaleIsBiDi);
+  SetCommCtrlBiDi(cgPanels.Handle, LocaleIsBiDi);
+
+  with cgPanels do
+    for I := 0 to Panels.Count - 1 do begin
+      Panel := TObject(Panels[I]) as TCategoryPanel;
+      Surface := Panel.Controls[0] as TCategoryPanelSurface;
+      Success := LockWindowUpdate(Surface.Handle);
+      try
+        for J := 0 to Surface.ControlCount - 1 do
+          SetCommCtrlBiDi(Surface.Handle, LocaleIsBiDi);
+      finally
+        if Success then begin
+          LockWindowUpdate(0);
+          Invalidate;
+        end;
+      end;
+    end;
 end;
 
 procedure TFrame86Box.FrameResize(Sender: TObject);

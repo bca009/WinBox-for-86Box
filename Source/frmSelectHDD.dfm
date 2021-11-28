@@ -4152,9 +4152,10 @@ object HDSelect: THDSelect
       33)
     object lbSortBy: TLabel
       Left = 17
-      Top = 14
-      Width = 83
-      Height = 13
+      Top = 13
+      Width = 88
+      Height = 17
+      AutoSize = False
       Caption = '&Rendez'#233's alapja:'
     end
     object cbSortBy: TComboBox
