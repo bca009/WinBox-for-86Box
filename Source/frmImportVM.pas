@@ -419,14 +419,11 @@ end;
 
 procedure TListView.WMPaint(var Msg: TWMPaint);
 var
-  Layout: DWORD;
   PS: TPaintStruct;
 begin
   Msg.DC := BeginPaint(Handle, PS);
   try
-    Layout := GetLayout(Msg.DC);
-    if (Layout and LAYOUT_RTL) <> 0 then
-      SetLayout(Msg.DC, Layout or LAYOUT_BITMAPORIENTATIONPRESERVED);
+    InvariantBiDiLayout(Msg.DC);
   finally
     inherited;
     EndPaint(Handle, PS);

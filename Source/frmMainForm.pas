@@ -1719,50 +1719,14 @@ end;
 procedure TWinBoxMain.ImageCollectionDrawBiDi(ASourceImage: TWICImage;
   ACanvas: TCanvas; ARect: TRect; AProportional: Boolean);
 begin
-  if ARect.IsEmpty then
-    Exit;
-
-  if ASourceImage <> nil then begin
-    ASourceImage.InterpolationMode := wipmHighQualityCubic;
-    ACanvas.StretchDraw(ARect, ASourceImage);
-  end;
+  //Az AProportional tulajdonság jelenleg nem támogatott ezen a módon.
+  ImgColl_DrawBiDi(ASourceImage, ACanvas, ARect, AProportional);
 end;
 
 procedure TWinBoxMain.ImageCollectionGetBitmapBiDi(ASourceImage: TWICImage; AWidth,
   AHeight: Integer; out ABitmap: TBitmap);
-var
-  RotatedImage: TWICImage;
-  BufferImage: TWICImage;
-  Factory: IWICImagingFactory;
-  Rotator: IWICBitmapFlipRotator;
 begin
-  Factory := TWICImage.ImagingFactory;
-  Factory.CreateBitmapFlipRotator(Rotator);
-  Rotator.Initialize(ASourceImage.Handle, WICBitmapTransformFlipHorizontal);
-
-  ABitmap := TBitmap.Create;
-
-  RotatedImage := TWICImage.Create;
-  RotatedImage.Handle := IWICBitmap(Rotator);
-
-  try
-    if (ASourceImage.Width = AWidth) and (ASourceImage.Height = AHeight) then
-      ABitmap.Assign(RotatedImage)
-    else begin
-      BufferImage := RotatedImage.CreateScaledCopy(AWidth, AHeight,
-        wipmHighQualityCubic);
-      try
-        ABitmap.Assign(BufferImage);
-      finally
-        BufferImage.Free;
-      end;
-    end;
-  finally
-    RotatedImage.Free;
-  end;
-
-  if ABitmap.PixelFormat = pf32bit then
-    ABitmap.AlphaFormat := afIgnored;
+  ImgColl_GetBitmapBiDi(ASourceImage, AWidth, AHeight, ABitmap);
 end;
 
 procedure TWinBoxMain.Translate;
@@ -1858,14 +1822,11 @@ end;
 
 procedure TToolBar.WMPaint(var Msg: TWMPaint);
 var
-  Layout: DWORD;
   PS: TPaintStruct;
 begin
   Msg.DC := BeginPaint(Handle, PS);
   try
-    Layout := GetLayout(Msg.DC);
-    if (Layout and LAYOUT_RTL) <> 0 then
-      SetLayout(Msg.DC, Layout or LAYOUT_BITMAPORIENTATIONPRESERVED);
+    InvariantBiDiLayout(Msg.DC);
   finally
     inherited;
     EndPaint(Handle, PS);
