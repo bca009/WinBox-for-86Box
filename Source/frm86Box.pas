@@ -276,7 +276,7 @@ var
   Success: boolean;
   Panel: TCategoryPanel;
   Surface: TCategoryPanelSurface;
-  I, J: Integer;
+  I: Integer;
 begin
   SetCommCtrlBiDi(Handle, LocaleIsBiDi);
   SetCommCtrlBiDi(cgPanels.Handle, LocaleIsBiDi);
@@ -289,8 +289,7 @@ begin
       Surface := Panel.Controls[0] as TCategoryPanelSurface;
       Success := LockWindowUpdate(Surface.Handle);
       try
-        for J := 0 to Surface.ControlCount - 1 do
-          SetCommCtrlBiDi(Surface.Handle, LocaleIsBiDi);
+        SetCommCtrlBiDi(Surface.Handle, LocaleIsBiDi);
       finally
         if Success then begin
           LockWindowUpdate(0);
