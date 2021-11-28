@@ -59,6 +59,8 @@ function GetLocaleText(const Locale: string;
 function EscapeString(const Input: string): string;
 function UnescapeString(const Input: string): string;
 
+function MessageBox(hWnd: HWND; lpText, lpCaption: LPCWSTR; uType: UINT): Integer;
+
 var
   Language: TLanguage = nil;
   Locale: string;
@@ -101,6 +103,23 @@ end;
 function _P(const Key: string; const Args: array of const): PChar;
 begin
   Result := PChar(_T(Key, Args));
+end;
+
+function MessageBox(hWnd: HWND; lpText, lpCaption: LPCWSTR; uType: UINT): Integer;
+var
+  Params: TMsgBoxParams;
+begin
+  FillChar(Params, SizeOf(Params), #0);
+  with Params do begin
+    cbSize := SizeOf(Params);
+    dwLanguageId := GetThreadUILanguage;
+    dwStyle := uType;
+    hInstance := hInstance;
+    hwndOwner := hWnd;
+    lpszCaption := lpCaption;
+    lpszText := lpText;
+  end;
+  Result := MessageBoxIndirect(Params);
 end;
 
 type

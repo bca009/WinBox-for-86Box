@@ -136,6 +136,7 @@ var
   List: TStringList;
 begin
   with AskUpdateDialog do begin
+    AskUpdateDialog.Caption := Application.Title;
     Title := Language.ReadString('UpdateDlg', 'lbTitle', Title);
 
     if Build = -1 then
@@ -383,8 +384,6 @@ begin
         Icon.Free;
       end;
 
-  AskUpdateDialog.Caption := Application.Title;
-
   ChangeLog := TStringList.Create;
 end;
 
@@ -396,7 +395,6 @@ end;
 procedure TUpdaterDlg.FormShow(Sender: TObject);
 begin
   Translate;
-  Caption := Application.Title;
 
   Cancelled := 0;
   pbProgress.Position := 0;
@@ -468,6 +466,7 @@ end;
 procedure TUpdaterDlg.Translate;
 begin
   Language.Translate('UpdateDlg', Self);
+  Caption := Application.Title;
 end;
 
 procedure TUpdaterDlg.ZipProgress(Sender: TObject; FileName: string;

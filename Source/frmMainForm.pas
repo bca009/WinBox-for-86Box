@@ -391,6 +391,8 @@ type
     FirstUpdateDone: boolean;
     UpdateCount: integer;
 
+    InitialTitle: string;
+
     Updater: TUpdaterDlg;
     Monitor: T86BoxMonitor;
     Profiles: T86BoxProfiles;
@@ -1105,6 +1107,8 @@ var
   I: integer;
 begin
   //GUI part
+  InitialTitle := Application.Title;
+
   Icons16.SetSize(GetSystemMetrics(SM_CXSMICON),
                   GetSystemMetrics(SM_CYSMICON));
 
@@ -1625,6 +1629,8 @@ var
 begin
   with Language do begin
     SetThreadUILanguage(GetLCID(Locale));
+
+    Caption := InitialTitle;
     Translate('WinBoxMain', Self);
     Application.Title := Caption;
 
