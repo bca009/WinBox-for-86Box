@@ -76,7 +76,7 @@ object WizardVM: TWizardVM
     Top = 0
     Width = 337
     Height = 263
-    ActivePage = tabFinish
+    ActivePage = tabBasic
     Align = alClient
     TabOrder = 2
     object tabWelcome: TTabSheet
@@ -138,7 +138,7 @@ object WizardVM: TWizardVM
       end
       object lbName: TLabel
         Left = 34
-        Top = 89
+        Top = 87
         Width = 23
         Height = 13
         Caption = '&N'#233'v:'
