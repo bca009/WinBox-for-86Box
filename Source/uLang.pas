@@ -66,10 +66,26 @@ function GetLocaleText(const Locale: string;
 function EscapeString(const Input: string): string;
 function UnescapeString(const Input: string): string;
 
+resourcestring
+  PrgBaseLanguage    = 'hu-HU';
+  PrgDefaultLanguage = 'system';
+  PrgSystemLanguage  = 'system';
+
 var
+  //The currently loaded language - the initialization will
+  // happen in MainForm.ChangeLanguage()
   Language: TLanguage = nil;
-  Locale: string = 'hu-HU';
+
+  //Set locale to an empty value, to let the main form to load
+  // any kind of language on start
+  Locale: string = '-';
+
+  //The designed forms are LTR, so start with this. If this will
+  // change it'll mean we have to flip the forms.
   LocaleIsBiDi: boolean = false;
+
+  //We'll store the -lang parameter's override here. The MainForm
+  //  will check this variable too, when decides the language.
   LocaleOverride: string = '';
 
 function _T(const Key: string): string; overload;
@@ -87,11 +103,6 @@ procedure SetScrollBarBiDi(const Handle: HWND; const ToLeft: boolean); inline;
 
 //Source: http://archives.miloush.net/michkap/archive/2006/03/03/542963.html
 function GetLocaleIsBiDi(const Locale: string): boolean;
-
-resourcestring
-  PrgBaseLanguage    = 'hu-HU';
-  PrgDefaultLanguage = 'system';
-  PrgSystemLanguage  = 'system';
 
 implementation
 
@@ -184,8 +195,8 @@ begin
     //  and if not then use hu-HU, since it's the program's base language
     with Helper do begin
       if (RetVal = 'en-US') and not FileExists(Root + RetVal) then begin
-        Locale := 'hu-HU';
-        FileName := '';
+        Locale := PrgBaseLanguage;
+        FileName := ''; //Don't load language file, to make clear, it's invalid
       end
       else begin
         Locale := RetVal;
@@ -206,17 +217,16 @@ var
 begin
   //First of all decide what language we want to load.
   //We can use the system language, or use the one from -lang.
-  Locale := PrgDefaultLanguage;
   if ParamCount > 1 then
     for I := 1 to ParamCount - 1 do
       if LowerCase(ParamStr(I)) = '-lang' then begin
         LocaleOverride := ParamStr(I + 1);
-        Locale := LocaleOverride;
         break;
       end;
 
-  //Finally load the selected locale, with fallback options.
-  Language := TryLoadLocale(Locale, LocaleIsBiDi);
+  //Don't load the language here, let the MainForm load the
+  //   language, with respecting the LocaleOverride parameter.
+  Language := nil;
 end;
 
 const
