@@ -100,6 +100,7 @@ procedure SetWindowExStyle(const Handle: HWND; const Flag: NativeInt; Value: boo
 procedure SetCommCtrlBiDi(const Handle: HWND; const Value: boolean); inline;
 procedure SetListViewBiDi(const Handle: HWND; const Value: boolean);
 procedure SetScrollBarBiDi(const Handle: HWND; const ToLeft: boolean); inline;
+procedure SetCatPanelsBiDi(const Group: TCategoryPanelGroup; const Value: boolean);
 
 //Source: http://archives.miloush.net/michkap/archive/2006/03/03/542963.html
 function GetLocaleIsBiDi(const Locale: string): boolean;
@@ -315,6 +316,31 @@ end;
 procedure SetScrollBarBiDi(const Handle: HWND; const ToLeft: boolean);
 begin
   SetWindowExStyle(Handle, WS_EX_LEFTSCROLLBAR, ToLeft);
+end;
+
+procedure SetCatPanelsBiDi(const Group: TCategoryPanelGroup; const Value: boolean);
+var
+  Success: boolean;
+  Panel: TCategoryPanel;
+  Surface: TCategoryPanelSurface;
+  I: Integer;
+begin
+  with Group do
+    for I := 0 to Panels.Count - 1 do begin
+      Panel := TObject(Panels[I]) as TCategoryPanel;
+      SetCommCtrlBiDi(Panel.Handle, LocaleIsBiDi);
+
+      Surface := Panel.Controls[0] as TCategoryPanelSurface;
+      Success := LockWindowUpdate(Surface.Handle);
+      try
+        SetCommCtrlBiDi(Surface.Handle, LocaleIsBiDi);
+      finally
+        if Success then begin
+          LockWindowUpdate(0);
+          Invalidate;
+        end;
+      end;
+    end;
 end;
 
 function GetAvailLangs: TStringList;

@@ -272,30 +272,9 @@ begin
 end;
 
 procedure TFrame86Box.FlipBiDi;
-var
-  Success: boolean;
-  Panel: TCategoryPanel;
-  Surface: TCategoryPanelSurface;
-  I: Integer;
 begin
   SetCommCtrlBiDi(Handle, LocaleIsBiDi);
-
-  with cgPanels do
-    for I := 0 to Panels.Count - 1 do begin
-      Panel := TObject(Panels[I]) as TCategoryPanel;
-      SetCommCtrlBiDi(Panel.Handle, LocaleIsBiDi);
-
-      Surface := Panel.Controls[0] as TCategoryPanelSurface;
-      Success := LockWindowUpdate(Surface.Handle);
-      try
-        SetCommCtrlBiDi(Surface.Handle, LocaleIsBiDi);
-      finally
-        if Success then begin
-          LockWindowUpdate(0);
-          Invalidate;
-        end;
-      end;
-    end;
+  SetCatPanelsBiDi(cgPanels, LocaleIsBidi);
 end;
 
 procedure TFrame86Box.FrameResize(Sender: TObject);
