@@ -51,7 +51,6 @@ begin
   Application.Title := 'WinBox for 86Box';
   Application.ActionUpdateDelay := 50;
   Application.CreateForm(TWinBoxMain, WinBoxMain);
-  Application.CreateForm(TWinBoxUpd, WinBoxUpd);
   Application.CreateForm(THDSelect, HDSelect);
   Application.Run;
 end.
