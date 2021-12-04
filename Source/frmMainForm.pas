@@ -386,7 +386,11 @@ type
     clHighlight1, clHighlight2,
     clDisabled1, clDisabled2: TColor;
 
+    //A lista a és a PageControl közti aránytartáshoz, méretezéskor
     SideRatio: single;
+
+    //Nyelvváltáskor, a program eredeti címének megtartása
+    InitialTitle: string;
 
     procedure ResetChart(Chart: TChart);
     procedure AddSeries(Chart: TChart; AColor: TColor; const FriendlyName: string);
@@ -394,14 +398,15 @@ type
 
     procedure WMEnterSizeMove(var Message: TMessage); message WM_ENTERSIZEMOVE;
   public
+    //Virtuális gépek színének engedélyezése/letiltása (pl. BiDi-nél letiltva)
+    IsColorsAllowed: boolean;
+
+    //Belsõ cuccok
     IsAllStopped,
     IsAnyRunning,          //not IsAllStopped
     IsSelectedVM,
-    IsColorsAllowed,
     FirstUpdateDone: boolean;
     UpdateCount: integer;
-
-    InitialTitle: string;
 
     Updater: TUpdaterDlg;
     Monitor: T86BoxMonitor;
