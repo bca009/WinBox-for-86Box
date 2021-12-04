@@ -389,9 +389,6 @@ type
     //A lista a és a PageControl közti aránytartáshoz, méretezéskor
     SideRatio: single;
 
-    //Nyelvváltáskor, a program eredeti címének megtartása
-    InitialTitle: string;
-
     procedure ResetChart(Chart: TChart);
     procedure AddSeries(Chart: TChart; AColor: TColor; const FriendlyName: string);
     procedure AddValue(ASeries: TFastLineSeries; const Value: extended);
@@ -400,6 +397,9 @@ type
   public
     //Virtuális gépek színének engedélyezése/letiltása (pl. BiDi-nél letiltva)
     IsColorsAllowed: boolean;
+
+    //Nyelvváltáskor, a program eredeti címének megtartása
+    InitialTitle: string;
 
     //Belsõ cuccok
     IsAllStopped,
@@ -1239,6 +1239,8 @@ begin
   else
     ChangeLanguage(LocaleOverride);
   IsColorsAllowed := not LocaleIsBiDi;
+
+  Application.CreateForm(TWinBoxUpd, WinBoxUpd);
 
   tbVMs.ShowCaptions := true;
   tbGlobal.ShowCaptions := true;
