@@ -1568,7 +1568,7 @@ begin
     exit;
 
   try
-    if (Pages.ActivePageIndex = 2) and IsSelectedVM then
+    if Visible and (Pages.ActivePageIndex = 2) and IsSelectedVM then
       Frame86Box.UpdateDelta(Profiles[List.ItemIndex - 2]);
 
     CPU := 0; RAM := 0;
