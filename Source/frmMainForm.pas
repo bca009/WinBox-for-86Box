@@ -397,6 +397,7 @@ type
     IsAllStopped,
     IsAnyRunning,          //not IsAllStopped
     IsSelectedVM,
+    IsColorsAllowed,
     FirstUpdateDone: boolean;
     UpdateCount: integer;
 
@@ -872,6 +873,7 @@ begin
           //-1:  Enabled := State = PROFILE_STATE_STOPPED;
           -2:  Enabled := State = PROFILE_STATE_RUNNING;
           -6:  Enabled := State <> 0;
+          -7, -8:  Enabled := IsColorsAllowed;
           -127: Enabled := State = 0;
           else if Tag >= 0 then
             Enabled := CanState(Tag)
@@ -1231,6 +1233,7 @@ begin
     ChangeLanguage(Config.ProgramLang) //azért hogy ez végigfusson
   else
     ChangeLanguage(LocaleOverride);
+  IsColorsAllowed := not LocaleIsBiDi;
 
   tbVMs.ShowCaptions := true;
   tbGlobal.ShowCaptions := true;
@@ -1291,6 +1294,7 @@ begin
     0, 1: Pages.ActivePageIndex := List.ItemIndex;
     else if IsSelectedVM then begin
       Pages.ActivePageIndex := 2;
+      Frame86Box.IsColorsAllowed := IsColorsAllowed;
       Frame86Box.UpdateFull(Profiles[List.ItemIndex - 2]);
     end;
     (*else begin

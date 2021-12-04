@@ -123,6 +123,7 @@ type
     PicturePager: TPicturePager;
     FolderMonitor: TFolderMonitor;
     SideRatio: single;
+    IsColorsAllowed: boolean;
 
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
@@ -380,6 +381,9 @@ procedure TFrame86Box.UpdateColor(const Profile: T86BoxProfile);
 var
   Success: boolean;
 begin
+  if not IsColorsAllowed then
+    exit;
+
   Success := LockWindowUpdate(Handle);
   try
     if Assigned(Profile) then

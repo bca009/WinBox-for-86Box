@@ -270,6 +270,13 @@ begin
         rcColor.Brush.Color := Color;
         rcColor.Brush.Style := bsSolid;
       end;
+
+      rcColor.Enabled := WinBoxMain.IsColorsAllowed;
+      if (not rcColor.Enabled) and (rcColor.Brush.Style <> bsClear) then
+        rcColor.Brush.Style := bsDiagCross;
+
+      bvColor.Enabled := rcColor.Enabled;
+      btnResetColor.Enabled := rcColor.Enabled;
     end;
 end;
 
