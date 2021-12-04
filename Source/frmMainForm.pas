@@ -1294,7 +1294,6 @@ begin
     0, 1: Pages.ActivePageIndex := List.ItemIndex;
     else if IsSelectedVM then begin
       Pages.ActivePageIndex := 2;
-      Frame86Box.IsColorsAllowed := IsColorsAllowed;
       Frame86Box.UpdateFull(Profiles[List.ItemIndex - 2]);
     end;
     (*else begin
