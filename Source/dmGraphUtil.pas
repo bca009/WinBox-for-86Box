@@ -15,6 +15,7 @@ type
     Icons32: TVirtualImageList;
     Icons16: TVirtualImageList;
   public
+    //Virtuális gépek színének engedélyezése/letiltása (pl. BiDi-nél letiltva)
     IsColorsAllowed: boolean;
 
     constructor Create(AOwner: TComponent); override;
@@ -102,6 +103,7 @@ begin
     ABitmap.AlphaFormat := afIgnored;
 end;
 
+
 procedure TIconSet.Initialize(AControl: TControl);
 const
   ListIconSize = 42;
@@ -120,6 +122,8 @@ end;
 
 procedure TIconSet.RefreshImages;
 begin
+  IsColorsAllowed := not LocaleIsBiDi;
+
   if LocaleIsBiDi then begin
     ListImages.OnDraw := DrawBiDi;
     ListImages.OnGetBitmap := GetBitmapBiDi;

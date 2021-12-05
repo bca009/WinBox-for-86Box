@@ -386,9 +386,6 @@ type
 
     procedure WMEnterSizeMove(var Message: TMessage); message WM_ENTERSIZEMOVE;
   public
-    //Virtuális gépek színének engedélyezése/letiltása (pl. BiDi-nél letiltva)
-    IsColorsAllowed: boolean;
-
     //Nyelvváltáskor, a program eredeti címének megtartása
     InitialTitle: string;
 
@@ -869,7 +866,7 @@ begin
           //-1:  Enabled := State = PROFILE_STATE_STOPPED;
           -2:  Enabled := State = PROFILE_STATE_RUNNING;
           -6:  Enabled := State <> 0;
-          -7, -8:  Enabled := IsColorsAllowed;
+          -7, -8:  Enabled := IconSet.IsColorsAllowed;
           -127: Enabled := State = 0;
           else if Tag >= 0 then
             Enabled := CanState(Tag)
@@ -1208,7 +1205,9 @@ begin
     ChangeLanguage(Config.ProgramLang) //azért hogy ez végigfusson
   else
     ChangeLanguage(LocaleOverride);
-  IsColorsAllowed := not LocaleIsBiDi;
+
+  //tükrözzük meg a képeket és tiltsuk le a színeket ha szükséges
+  IconSet.RefreshImages;
 
   Application.CreateForm(TWinBoxUpd, WinBoxUpd);
 

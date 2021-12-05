@@ -156,7 +156,7 @@ var
 
 implementation
 
-uses uCommUtil, uCommText, frmMainForm, ShellAPI, Rtti;
+uses uCommUtil, uCommText, frmMainForm, ShellAPI, Rtti, dmGraphUtil;
 
 resourcestring
   StrWorkDirRemoved = 'WinBox.WorkDirRemoved';
@@ -380,7 +380,7 @@ procedure TFrame86Box.UpdateColor(const Profile: T86BoxProfile);
 var
   Success: boolean;
 begin
-  if not WinBoxMain.IsColorsAllowed then
+  if not IconSet.IsColorsAllowed then
     exit;
 
   Success := LockWindowUpdate(Handle);
