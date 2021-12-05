@@ -32,12 +32,9 @@ unit frmErrorDialog;
 interface
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, ExtCtrls, AppEvnts,
-  JclSysUtils, JclUnitVersioning, JclUnitVersioningProviders, JclDebug,
-  Vcl.ComCtrls, uLang;
+  Dialogs, StdCtrls, ExtCtrls, AppEvnts, uCommText,JclSysUtils, uLang, 
+  JclUnitVersioning, JclUnitVersioningProviders, JclDebug, ComCtrls;
 
-const
-  UM_CREATEDETAILS = WM_USER + $100;
 type
   TExceptionDialog = class(TForm, ILanguageSupport)
     SaveBtn: TButton;
@@ -94,9 +91,9 @@ var
 implementation
 {$R *.dfm}
 uses
-  ClipBrd, Math, uCommUtil, uCommText, dmGraphUtil, JclBase,
-  JclFileUtils, JclHookExcept, JclPeImage, JclStrings, JclSysInfo,
-  JclWin32, frmMainForm;
+  ClipBrd, Math, uCommUtil, dmGraphUtil, JclBase,JclFileUtils, 
+  JclHookExcept, JclPeImage, JclStrings, JclSysInfo, JclWin32,
+  frmMainForm;
 
 resourcestring
   RsExceptionClass = 'Exception class: %s';

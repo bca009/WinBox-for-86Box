@@ -23,6 +23,17 @@ unit uCommText;
 
 interface
 
+uses Messages;
+
+const
+  //User Messages starting from WM_USER
+
+  UM_DOFIRSTUPDATE  = WM_USER + $000; //TWinBoxMain
+  UM_ICONSETCHANGED = WM_USER + $001; //TIconSet
+  UM_CREATEDETAILS  = WM_USER + $100; //TExceptionDialog
+
+  //Up to WM_USER + $7FFF.
+
 resourcestring
   VmConfigFile     = '86Box.cfg';
   VmIconFile       = 'vm-icon.png';

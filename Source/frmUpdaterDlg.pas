@@ -24,8 +24,9 @@ unit frmUpdaterDlg;
 interface
 
 uses
-  Windows, SysUtils, Classes, Controls, Forms, Graphics, ComCtrls,
-  StdCtrls, ExtCtrls, Dialogs, Threading, Zip, uLang;
+  Windows, Messages, SysUtils, Classes, Controls, Forms,
+  Graphics, ComCtrls, StdCtrls, ExtCtrls, Dialogs, Zip,
+  Threading, uLang, uCommText;
 
 type
   TUpdaterDlg = class(TForm, ILanguageSupport)
@@ -67,6 +68,8 @@ type
     procedure Progress(const Text, FileName: string; const Position: integer = -1);
     procedure ZipProgress(Sender: TObject; FileName: string;
       Header: TZipHeader; Position: Int64);
+
+    procedure UMIconsChanged(var Msg: TMessage); message UM_ICONSETCHANGED;
   protected
   public
     procedure Refresh;
@@ -85,8 +88,8 @@ implementation
 
 {$R *.dfm}
 
-uses uConfigMgr, uCommUtil, uCommText, uWebUtils, dmGraphUtil,
-     DateUtils, IOUtils, ShellAPI;
+uses uConfigMgr, uCommUtil, uWebUtils, dmGraphUtil, DateUtils,
+     IOUtils, ShellAPI;
 
 resourcestring
   StrProgressCleanUp    = 'UpdateDlg.Progress.CleanUp';
@@ -383,10 +386,7 @@ var
 begin
   Thread := nil;
 
-  with IconSet do begin
-    Icons32.GetIcon(27, AskUpdateDialog.CustomMainIcon);
-    Icons32.GetIcon(26, imgIcon.Picture.Icon);
-  end;
+  Perform(UM_ICONSETCHANGED, 0, 0);
 
   if Succeeded(LoadIconWithScaleDown(0, MakeIntResource(IDI_WARNING),
       GetSystemMetrics(SM_CXSMICON), GetSystemMetrics(SM_CYSMICON), Handle)) then begin
@@ -482,6 +482,14 @@ procedure TUpdaterDlg.Translate;
 begin
   Language.Translate('UpdateDlg', Self);
   Caption := Application.Title;
+end;
+
+procedure TUpdaterDlg.UMIconsChanged(var Msg: TMessage);
+begin
+  with IconSet do begin
+    Icons32.GetIcon(27, AskUpdateDialog.CustomMainIcon);
+    Icons32.GetIcon(26, imgIcon.Picture.Icon);
+  end;
 end;
 
 procedure TUpdaterDlg.ZipProgress(Sender: TObject; FileName: string;

@@ -24,9 +24,9 @@ unit frmProfSettDlg;
 interface
 
 uses
-  UITypes, Windows, SysUtils, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, ExtCtrls, ComCtrls, uBaseProfile, uLang, Menus,
-  ShellAPI, ExtDlgs;
+  UITypes, Windows, Messages, SysUtils, Classes, Graphics, Controls,
+  Forms, Dialogs, StdCtrls, ExtCtrls, ComCtrls, uBaseProfile, Menus,
+  ShellAPI, ExtDlgs, uLang, uCommText;
 
 type
   TBevel = class(ExtCtrls.TBevel)
@@ -92,7 +92,7 @@ type
     procedure ActionClick(Sender: TObject);
     procedure OpenImgClick(Sender: TObject);
   private
-    { Private declarations }
+    procedure UMIconsChanged(var Msg: TMessage); message UM_ICONSETCHANGED;
   public
     Profile: TProfile;
     IconChanged: boolean;
@@ -109,7 +109,7 @@ implementation
 
 {$R *.dfm}
 
-uses uCommUtil, uCommText, dmGraphUtil;
+uses uCommUtil, dmGraphUtil;
 
 resourcestring
   AskVmIconDel = '.AskVmIconDel';
@@ -227,10 +227,7 @@ begin
   pcPages.ActivePageIndex := 0;
   LangName := Copy(ClassName, 2, MaxInt);
 
-  with IconSet do begin
-    Icons32.GetIcon(31, imgEmulator.Picture.Icon);
-    Icons32.GetIcon(33, imgDebug.Picture.Icon);
-  end;
+  Perform(UM_ICONSETCHANGED, 0, 0);
 
   Translate;
   if LocaleIsBiDi then
@@ -328,6 +325,14 @@ begin
     opdIcon.Filter := _T(OpenDlgWICPic);
 
     Caption := ReadString(LangName, LangName, Caption);
+  end;
+end;
+
+procedure TProfSettDlg.UMIconsChanged(var Msg: TMessage);
+begin
+  with IconSet do begin
+    Icons32.GetIcon(31, imgEmulator.Picture.Icon);
+    Icons32.GetIcon(33, imgDebug.Picture.Icon);
   end;
 end;
 

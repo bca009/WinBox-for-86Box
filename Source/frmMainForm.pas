@@ -29,7 +29,7 @@ uses
   ComCtrls, VCLTee.TeEngine, VCLTee.TeeProcs, VCLTee.Chart, VCLTee.Series,
   BaseImageCollection, ImageCollection, ImageList, ImgList, VirtualImageList,
   GraphUtil, Generics.Collections, u86Box, Vcl.ToolWin, uLang, AppEvnts, frm86Box,
-  Vcl.ExtDlgs, frmUpdaterDlg;
+  Vcl.ExtDlgs, frmUpdaterDlg, uCommText;
 
 type
   TListBox = class(StdCtrls.TListBox)
@@ -385,7 +385,9 @@ type
     procedure AddSeries(Chart: TChart; AColor: TColor; const FriendlyName: string);
     procedure AddValue(ASeries: TFastLineSeries; const Value: extended);
 
-    procedure WMEnterSizeMove(var Message: TMessage); message WM_ENTERSIZEMOVE;
+    procedure WMEnterSizeMove(var Msg: TMessage); message WM_ENTERSIZEMOVE;
+    procedure UMIconsChanged(var Msg: TMessage); message UM_ICONSETCHANGED;
+    procedure UMDoFirstUpdate(var Msg: TMessage); message UM_DOFIRSTUPDATE;
   public
     //Nyelvváltáskor, a program eredeti címének megtartása
     InitialTitle: string;
@@ -419,7 +421,6 @@ type
     procedure ChangeLanguage(const ALocale: string);
 
     procedure GetRttiReport(Result: TStrings);
-    procedure DoFirstUpdate(var Msg: TMessage); message WM_USER;
   end;
 
 var
@@ -427,12 +428,13 @@ var
 
 resourcestring
   StrMissingDiskDlg = 'MissingDiskDlg';
+  ImgWelcomeLogo = 'WELCOME';
 
 implementation
 
 uses JclDebug, uProcessMon, uProcProfile, uCommUtil, frmProgSettDlg,
   frmProfSettDlg, frmImportVM, uWinProfile, uConfigMgr, ShellAPI,
-  uCommText, Rtti, frmErrorDialog, frmAboutDlg, frmSelectHDD, frmNewFloppy,
+  Rtti, frmErrorDialog, frmAboutDlg, frmSelectHDD, frmNewFloppy,
   frmWizardHDD, frmWizardVM, uBaseProfile, frmSplash, dmWinBoxUpd,
   WinCodec, dmGraphUtil;
 
@@ -1055,7 +1057,7 @@ begin
   end;
 end;
 
-procedure TWinBoxMain.DoFirstUpdate(var Msg: TMessage);
+procedure TWinBoxMain.UMDoFirstUpdate(var Msg: TMessage);
 begin
   inherited;
   if (Msg.LParam = 7) and (Msg.WParam = 13) and Assigned(WinBoxSplash) then
@@ -1074,6 +1076,12 @@ begin
     finally
       FirstUpdateDone := true;
     end;
+end;
+
+procedure TWinBoxMain.UMIconsChanged(var Msg: TMessage);
+begin
+  ListReload(Self);
+  IconSet.LoadImage(ImgWelcomeLogo, ImgWelcome);
 end;
 
 procedure TWinBoxMain.DummyUpdate(Sender: TObject);
@@ -1188,7 +1196,7 @@ begin
   Pages.ActivePageIndex := 0;
   pgCharts.ActivePageIndex := 0;
 
-  IconSet.LoadImage('WELCOME', ImgWelcome);
+  IconSet.LoadImage(ImgWelcomeLogo, ImgWelcome);
   miDebug.Visible := IsDebuggerPresent;
 
   Frame86Box := TFrame86Box.Create(nil);
@@ -1519,7 +1527,7 @@ begin
     else
       Monitor.OnUpdate := nil;
 
-    PostMessage(Handle, WM_USER, 13, 7);
+    PostMessage(Handle, UM_DOFIRSTUPDATE, 13, 7);
   end
   else
     inc(UpdateCount);
@@ -1711,9 +1719,6 @@ begin
     IconSet.Path := Path
   else
     IconSet.Path := '';
-
-  ListReload(Self);
-  IconSet.LoadImage('WELCOME', ImgWelcome);
 end;
 
 procedure TWinBoxMain.Translate;
@@ -1780,7 +1785,7 @@ begin
                    PChar(ExtractFileDir(Hint)), SW_SHOWNORMAL);
 end;
 
-procedure TWinBoxMain.WMEnterSizeMove(var Message: TMessage);
+procedure TWinBoxMain.WMEnterSizeMove(var Msg: TMessage);
 begin
   if (List.Width <> 0) and (ClientWidth <> 0) then
     SideRatio := List.Width / ClientWidth

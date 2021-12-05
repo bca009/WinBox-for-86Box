@@ -33,10 +33,10 @@ unit frmWizardVM;
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  StdCtrls, Vcl.Samples.Spin, ComCtrls, ExtCtrls, uBaseProfile, uVMSample,
-  frmSelectHDD, frmWizardHDD, ShellAPI, IniFiles, Zip, uLang, Registry,
-  uImaging;
+  Windows, Messages, SysUtils, Classes, Graphics, Controls,
+  Forms, Dialogs, StdCtrls, Vcl.Samples.Spin, ComCtrls,
+  ExtCtrls, uBaseProfile, uVMSample, frmSelectHDD, frmWizardHDD,
+  ShellAPI, IniFiles, Zip, uLang, Registry, uImaging, uCommText;
 
 type
   IWizardVM = interface
@@ -140,6 +140,7 @@ type
     FAutoCreate: boolean;
     ADiskData: TDiskData;
     ProfileID: string;
+    procedure UMIconsChanged(var Msg: TMessage); message UM_ICONSETCHANGED;
   protected
   public
     Samples: TVMSampleFilter;
@@ -170,7 +171,7 @@ var
 
 implementation
 
-uses uCommUtil, uCommText, uConfigMgr, dmGraphUtil;
+uses uCommUtil, uConfigMgr, dmGraphUtil;
 
 resourcestring
   WizSelectWorkDir = 'WizardVM.SelectWorkDir';
@@ -370,8 +371,7 @@ end;
 
 procedure TWizardVM.FormCreate(Sender: TObject);
 begin
-  IconSet.LoadImage('BANNER_NEW', imgBanner, false);
-  IconSet.Icons32.GetIcon(0, imgWarning.Picture.Icon);
+  Perform(UM_ICONSETCHANGED, 0, 0);
 
   Samples := TVMSampleFilter.Create(true);
   DiskTool := CreateWizardHDD(Self);
@@ -600,6 +600,12 @@ begin
     if CustomSample then
       FreeAndNil(Sample);
   end;
+end;
+
+procedure TWizardVM.UMIconsChanged(var Msg: TMessage);
+begin
+  IconSet.LoadImage('BANNER_NEW', imgBanner, false);
+  IconSet.Icons32.GetIcon(0, imgWarning.Picture.Icon);
 end;
 
 procedure TWizardVM.UpdateCHS;

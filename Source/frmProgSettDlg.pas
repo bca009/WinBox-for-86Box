@@ -24,9 +24,9 @@ unit frmProgSettDlg;
 interface
 
 uses
-  Types, Windows, SysUtils, Classes, Controls, Forms, Dialogs, StdCtrls,
-  ComCtrls, Buttons, ExtCtrls, Vcl.Samples.Spin, CheckLst, Menus, Registry,
-  ShellAPI, IniFiles, uLang;
+  Types, Windows, Messages, SysUtils, Classes, Controls, Forms,
+  Dialogs, StdCtrls, ComCtrls, Buttons, ExtCtrls, Vcl.Samples.Spin,
+  CheckLst, Menus, Registry, ShellAPI, IniFiles, uLang, uCommText;
 
 type
   TProgSettDlg = class(TForm, ILanguageSupport)
@@ -173,6 +173,8 @@ type
   private
     procedure UpdateTools(Tools: TStrings);
     procedure UpdateLanguages(const Mode: integer);
+
+    procedure UMIconsChanged(var Msg: TMessage); message UM_ICONSETCHANGED;
   public
     LangName: string;
     ProgLangs, EmuLangs: TStringList;
@@ -186,7 +188,7 @@ var
 
 implementation
 
-uses uCommUtil, uCommText, uConfigMgr, frmMainForm, dmGraphUtil;
+uses uCommUtil, uConfigMgr, frmMainForm, dmGraphUtil;
 
 resourcestring
   StrLvToolsColumn0 = '.lvTools.Column[0]';
@@ -579,18 +581,7 @@ begin
   pcPages.ActivePageIndex := 0;
   LangName := Copy(ClassName, 2, MaxInt);
 
-  with IconSet do begin
-    Icons32.GetIcon(8, imgExtraPaths.Picture.Icon);
-    Icons32.GetIcon(11, imgInfo.Picture.Icon);
-    Icons32.GetIcon(13, imgNewVM.Picture.Icon);
-
-    Icons32.GetIcon(30, imgDisplay.Picture.Icon);
-    Icons32.GetIcon(31, imgEmulator.Picture.Icon);
-    Icons32.GetIcon(32, imgTools.Picture.Icon);
-    Icons32.GetIcon(33, imgDebug.Picture.Icon);
-
-    Icons32.GetIcon(35, imgLanguage.Picture.Icon);
-  end;
+  Perform(UM_ICONSETCHANGED, 0, 0);
 
   Translate;
   if LocaleIsBiDi then
@@ -677,6 +668,22 @@ begin
     finally
       Free;
     end;
+end;
+
+procedure TProgSettDlg.UMIconsChanged(var Msg: TMessage);
+begin
+  with IconSet do begin
+    Icons32.GetIcon(8,  imgExtraPaths.Picture.Icon);
+    Icons32.GetIcon(11, imgInfo.Picture.Icon);
+    Icons32.GetIcon(13, imgNewVM.Picture.Icon);
+
+    Icons32.GetIcon(30, imgDisplay.Picture.Icon);
+    Icons32.GetIcon(31, imgEmulator.Picture.Icon);
+    Icons32.GetIcon(32, imgTools.Picture.Icon);
+    Icons32.GetIcon(33, imgDebug.Picture.Icon);
+
+    Icons32.GetIcon(35, imgLanguage.Picture.Icon);
+  end;
 end;
 
 procedure TProgSettDlg.UpdateApperance(Sender: TObject);

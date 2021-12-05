@@ -24,8 +24,8 @@ unit frmNewFloppy;
 interface
 
 uses
-  Windows, SysUtils, Classes, Forms, Dialogs, StdCtrls, Controls,
-  ComCtrls, ExtCtrls, uLang;
+  Windows, Messages, SysUtils, Classes, Forms, Dialogs,
+  StdCtrls, Controls, ComCtrls, ExtCtrls, uLang, uCommText;
 
 type
   TNewFloppy = class(TForm, ILanguageSupport)
@@ -50,7 +50,7 @@ type
     procedure btnOKClick(Sender: TObject);
     procedure btnBrowseClick(Sender: TObject);
   private
-    { Private declarations }
+    procedure UMIconsChanged(var Msg: TMessage); message UM_ICONSETCHANGED;
   public
     procedure GetTranslation(Language: TLanguage); stdcall;
     procedure Translate; stdcall;
@@ -66,7 +66,7 @@ implementation
 
 {$R *.dfm}
 
-uses dmGraphUtil, uCommText, uImaging;
+uses dmGraphUtil, uImaging;
 
 resourcestring
   ENoSupportedFloppy = 'Imaging.ENoSupportedFloppy';
@@ -111,7 +111,8 @@ end;
 
 procedure TNewFloppy.FormCreate(Sender: TObject);
 begin
-  IconSet.LoadImage('BANNER_FLOPPY', imgBanner, false);
+  Perform(UM_ICONSETCHANGED, 0, 0);
+
   Translate;
   if LocaleIsBiDi then
     FlipBiDi;
@@ -164,6 +165,11 @@ begin
       PChar(Application.Title), MB_ICONINFORMATION or MB_OK);
     cbType.ItemIndex := 6;
   end;
+end;
+
+procedure TNewFloppy.UMIconsChanged(var Msg: TMessage);
+begin
+  IconSet.LoadImage('BANNER_FLOPPY', imgBanner, false);
 end;
 
 end.

@@ -3,9 +3,9 @@ unit dmGraphUtil;
 interface
 
 uses
-  Windows, SysUtils, Classes, Controls, Graphics, Forms, ImageList,
-  ImgList, WinCodec, ComCtrls, ExtCtrls, Generics.Collections,
-  VirtualImageList, BaseImageCollection, ImageCollection;
+  Windows, Messages, SysUtils, Classes, Controls, Graphics, Forms,
+  ImageList, WinCodec, ComCtrls, ExtCtrls, Generics.Collections,
+  ImgList, VirtualImageList, BaseImageCollection, ImageCollection;
 
 type
   TIconSet = class(TDataModule)
@@ -70,6 +70,9 @@ procedure DisplayWIC(var Source: TWICImage; Image: TImage;
 procedure LoadImageRes(const Name: string; Image: TImage;
    const BiDiRotate: boolean = true);
 
+//Üzenet eljuttatása a program minden ablakához
+procedure BroadcastMessage(Msg: UINT; wParam: WPARAM; lParam: LPARAM);
+
 //Source: https://coderedirect.com/questions/441320/prevent-rtl-tlistview-from-mirroring-check-boxes-and-or-graphics
 const
   LAYOUT_RTL                        = $01;
@@ -85,7 +88,7 @@ resourcestring
 
 implementation
 
-uses uLang;
+uses uCommText, uLang;
 
 resourcestring
   PfActionImages = 'Actions\';
@@ -95,6 +98,14 @@ resourcestring
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
 {$R *.dfm}
+
+procedure BroadcastMessage(Msg: UINT; wParam: WPARAM; lParam: LPARAM);
+var
+  I: Integer;
+begin
+  for I := 0 to Screen.FormCount - 1 do
+    PostMessage(Screen.Forms[I].Handle, Msg, wParam, lParam);
+end;
 
 //Ez a verzió visszaírja a képbe az új Handle-t
 procedure ScaleWIC(var Source: TWICImage; const Width, Height: integer;
@@ -408,20 +419,31 @@ end;
 
 procedure TIconSet.SetPath(const Value: string);
 begin
-  if Value = '' then begin
-    FPath := '';
-    ChangeImageList(ListImages, BkupListImages);
-    ChangeImageList(ActionImages, BkupActionImages);
-  end
-  else begin
-    FPath := IncludeTrailingPathDelimiter(Value);
-    ChangeImageList(ListImages, FPath + PfListImages);
-    ChangeImageList(ActionImages, FPath + PfActionImages);
-  end;
+  if FPath = Value then
+    exit;
 
-  ListImages.Change;
-  ActionImages.Change;
-  RefreshImages;
+  Screen.Cursor := crHourGlass;
+  Application.ProcessMessages;
+
+  try
+    if Value = '' then begin
+      FPath := '';
+      ChangeImageList(ListImages, BkupListImages);
+      ChangeImageList(ActionImages, BkupActionImages);
+    end
+    else begin
+      FPath := IncludeTrailingPathDelimiter(Value);
+      ChangeImageList(ListImages, FPath + PfListImages);
+      ChangeImageList(ActionImages, FPath + PfActionImages);
+    end;
+
+    ListImages.Change;
+    ActionImages.Change;
+    RefreshImages;
+    BroadcastMessage(UM_ICONSETCHANGED, 0, 0);
+  finally
+    Screen.Cursor := crArrow;
+  end;
 end;
 
 end.
