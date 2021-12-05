@@ -94,9 +94,10 @@ var
 implementation
 {$R *.dfm}
 uses
-  ClipBrd, Math, uCommUtil, uCommText,
-  JclBase, JclFileUtils, JclHookExcept, JclPeImage, JclStrings, JclSysInfo, JclWin32,
-  frmMainForm;
+  ClipBrd, Math, uCommUtil, uCommText, dmGraphUtil, JclBase,
+  JclFileUtils, JclHookExcept, JclPeImage, JclStrings, JclSysInfo,
+  JclWin32, frmMainForm;
+
 resourcestring
   RsExceptionClass = 'Exception class: %s';
   RsExceptionMessage = 'Exception message: %s';

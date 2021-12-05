@@ -13,7 +13,6 @@ object WinBoxSplash: TWinBoxSplash
   Font.Name = 'Tahoma'
   Font.Style = []
   FormStyle = fsStayOnTop
-  OldCreateOrder = False
   Position = poScreenCenter
   OnClose = FormClose
   OnCreate = FormCreate

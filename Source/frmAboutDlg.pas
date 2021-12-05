@@ -64,7 +64,7 @@ implementation
 
 {$R *.dfm}
 
-uses uCommUtil, ShellAPI;
+uses uCommUtil, dmGraphUtil, ShellAPI;
 
 procedure TAboutDlg.FlipBiDi;
 begin

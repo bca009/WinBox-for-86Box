@@ -25,7 +25,7 @@ implementation
 
 {$R *.dfm}
 
-uses uCommUtil;
+uses dmGraphUtil;
 
 procedure TWinBoxSplash.FormClose(Sender: TObject; var Action: TCloseAction);
 begin

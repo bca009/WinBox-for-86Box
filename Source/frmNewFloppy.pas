@@ -66,7 +66,7 @@ implementation
 
 {$R *.dfm}
 
-uses uCommUtil, uCommText, uImaging;
+uses dmGraphUtil, uCommText, uImaging;
 
 resourcestring
   ENoSupportedFloppy = 'Imaging.ENoSupportedFloppy';

@@ -106,7 +106,7 @@ implementation
 
 {$R *.dfm}
 
-uses uCommUtil, uConfigMgr, uBaseProfile, frmProfSettDlg, uCommText;
+uses dmGraphUtil, uConfigMgr, uBaseProfile, frmProfSettDlg, uCommText;
 
 resourcestring
   ImgBannerImport = 'BANNER_IMP';

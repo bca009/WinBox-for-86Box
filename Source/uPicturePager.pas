@@ -135,7 +135,7 @@ procedure Register;
 
 implementation
 
-uses uCommUtil;
+uses dmGraphUtil;
 
 procedure Register;
 begin
