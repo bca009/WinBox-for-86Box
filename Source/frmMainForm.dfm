@@ -109,6 +109,7 @@ object WinBoxMain: TWinBoxMain
         Height = 145
         Anchors = [akTop, akRight]
         Proportional = True
+        OnClick = ImgWelcomeClick
       end
     end
     object tabPerfMon: TTabSheet
@@ -814,7 +815,7 @@ object WinBoxMain: TWinBoxMain
       Category = 'Eszk'#246'z'#246'k'
       Caption = 'P&rogrambe'#225'll'#237't'#225'sok...'
       ImageIndex = 29
-      ImageName = '29 '
+      ImageName = '29 - gears2'
       ShortCut = 49165
       OnExecute = acProgramSettingsExecute
       OnUpdate = acWaitFirstUpdate

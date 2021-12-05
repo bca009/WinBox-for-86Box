@@ -370,6 +370,7 @@ type
       var Handled: Boolean);
     procedure ListDblClick(Sender: TObject);
     procedure acWinBoxUpdateExecute(Sender: TObject);
+    procedure ImgWelcomeClick(Sender: TObject);
   private
     //Lista kirajzolásához szükséges cuccok
     HalfCharHeight, BorderThickness: integer;
@@ -1700,6 +1701,19 @@ begin
     GetTranslation(StrDeleteDialog + '.Title', DeleteDialog.Title);
     GetTranslation(StrDeleteDialog + '.FooterText', DeleteDialog.FooterText);
   end;
+end;
+
+procedure TWinBoxMain.ImgWelcomeClick(Sender: TObject);
+var
+  Path: string;
+begin
+  if SelectDirectory('', '', Path, Self) then
+    IconSet.Path := Path
+  else
+    IconSet.Path := '';
+
+  ListReload(Self);
+  IconSet.LoadImage('WELCOME', ImgWelcome);
 end;
 
 procedure TWinBoxMain.Translate;

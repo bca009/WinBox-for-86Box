@@ -3,8 +3,8 @@ unit dmGraphUtil;
 interface
 
 uses
-  Windows, SysUtils, Classes, Controls, Graphics, Forms,
-  ImageList, ImgList, WinCodec, ComCtrls, ExtCtrls,
+  Windows, SysUtils, Classes, Controls, Graphics, Forms, ImageList,
+  ImgList, WinCodec, ComCtrls, ExtCtrls, Generics.Collections,
   VirtualImageList, BaseImageCollection, ImageCollection;
 
 type
@@ -14,11 +14,22 @@ type
     ActionImages: TImageCollection;
     Icons32: TVirtualImageList;
     Icons16: TVirtualImageList;
+  private
+    FPath: string;
+    procedure SetPath(const Value: string);
+  protected
+    BkupListImages,
+    BkupActionImages: TObjectDictionary<string, TWICImage>;
+
+    function BackupImageList(const Images: TImageCollection): TObjectDictionary<string, TWICImage>;
+    procedure ChangeImageList(Images: TImageCollection; Path: string); overload;
+    procedure ChangeImageList(Images: TImageCollection; List: TObjectDictionary<string, TWICImage>); overload;
   public
     //Virtuális gépek színének engedélyezése/letiltása (pl. BiDi-nél letiltva)
     IsColorsAllowed: boolean;
 
     constructor Create(AOwner: TComponent); override;
+    destructor Destroy; override;
 
     //Ha már a MainForm is létre van hozva, beállítani mindent.
     procedure Initialize(AControl: TControl);
@@ -35,6 +46,8 @@ type
     //Kép betöltése erõforrásból, vagy fájlból (attól függ)
     procedure LoadImage(const Name: string; Image: TImage;
       const BiDiRotate: boolean = true);
+
+    property Path: string read FPath write SetPath;
   end;
 
 var
@@ -67,9 +80,17 @@ function SetLayout(DC: HDC; dwLayout: DWORD): DWORD; stdcall; external 'gdi32.dl
 
 procedure InvariantBiDiLayout(const DC: HDC); inline;
 
+resourcestring
+  PfIconSetPath  = 'Iconsets\';
+
 implementation
 
 uses uLang;
+
+resourcestring
+  PfActionImages = 'Actions\';
+  PfListImages   = 'List\';
+  PfDataImages   = 'Others\';
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
@@ -119,6 +140,9 @@ begin
   ScaleWIC(Temp, Image.Width, Image.Height, BiDiRotate);
   Image.Picture.Assign(Temp);
   Temp.Free;
+
+  if Image.Visible and Assigned(Image.Parent) and Image.Parent.Visible then
+    Image.Parent.Invalidate;
 end;
 
 procedure LoadImageRes(const Name: string; Image: TImage;
@@ -196,13 +220,75 @@ end;
 
 { TIconSet }
 
+function TIconSet.BackupImageList(
+  const Images: TImageCollection): TObjectDictionary<string, TWICImage>;
+var
+  I: integer;
+  Clone: TWICImage;
+begin
+  Result := TObjectDictionary<string, TWICImage>.Create;
+
+  with Images do
+    for I := 0 to Images.Count - 1 do
+      with Images[I], SourceImages.Items[0] do begin
+        Clone := TWICImage.Create;
+        Clone.Assign(Image);
+
+        Result.Add(Name, Clone);
+      end;
+end;
+
+procedure TIconSet.ChangeImageList(Images: TImageCollection;
+  List: TObjectDictionary<string, TWICImage>);
+var
+  I: integer;
+  ListImage: TWICImage;
+begin
+  if not Assigned(List) then
+    exit;
+
+  with Images do
+    for I := 0 to Images.Count - 1 do
+      with Images[I], SourceImages.Items[0] do
+        if List.TryGetValue(Name, ListImage) then
+          Image.Assign(ListImage);
+end;
+
+procedure TIconSet.ChangeImageList(Images: TImageCollection; Path: string);
+var
+  I: integer;
+  FileName: string;
+begin
+  Path := IncludeTrailingPathDelimiter(Path);
+
+  with Images do
+    for I := 0 to Images.Count - 1 do
+    with Images[I], SourceImages.Items[0] do begin
+      FileName := Path + Name + '.png';
+
+      if FileExists(FileName) then
+        Image.LoadFromFile(FileName);
+    end;
+end;
+
 constructor TIconSet.Create(AOwner: TComponent);
 begin
   inherited;
   IsColorsAllowed := true;
+
+  //Mentsük le az eredeti képlistákat (visszaállításhoz)
+  BkupListImages := BackupImageList(ListImages);
+  BkupActionImages := BackupImageList(ActionImages);
 end;
 
 //Az AProportional tulajdonság jelenleg nem támogatott ezen a módon.
+destructor TIconSet.Destroy;
+begin
+  BkupActionImages.Free;
+  BkupListImages.Free;
+  inherited;
+end;
+
 procedure TIconSet.DrawBiDi(ASourceImage: TWICImage; ACanvas: TCanvas;
   ARect: TRect; AProportional: Boolean);
 begin
@@ -258,6 +344,7 @@ procedure TIconSet.Initialize(AControl: TControl);
 const
   ListIconSize = 42;
 begin
+  //Állítsuk be a DPI-nek megfelelõen a lista méreteket
   with AControl do begin
     Icons16.SetSize(GetSystemMetrics(SM_CXSMICON),
                     GetSystemMetrics(SM_CYSMICON));
@@ -272,8 +359,23 @@ end;
 
 procedure TIconSet.LoadImage(const Name: string; Image: TImage;
   const BiDiRotate: boolean);
+var
+  FileName: string;
+  Bitmap: TWICImage;
 begin
-  dmGraphUtil.LoadImageRes(Name, Image, BiDiRotate);
+  FileName := FPath + PfDataImages + Name + '.png';
+
+  if (FPath = '') or not FileExists(FileName) then
+    dmGraphUtil.LoadImageRes(Name, Image, BiDiRotate)
+  else begin
+    Bitmap := TWICImage.Create;
+    try
+      Bitmap.LoadFromFile(FileName);
+      DisplayWIC(Bitmap, Image, BiDiRotate);
+    finally
+      Bitmap.Free;
+    end;
+  end;
 end;
 
 procedure TIconSet.RefreshImages;
@@ -302,6 +404,24 @@ begin
   ActionImages.OnGetBitmap := nil;
 
   Icons32.UpdateImageList;
+end;
+
+procedure TIconSet.SetPath(const Value: string);
+begin
+  if Value = '' then begin
+    FPath := '';
+    ChangeImageList(ListImages, BkupListImages);
+    ChangeImageList(ActionImages, BkupActionImages);
+  end
+  else begin
+    FPath := IncludeTrailingPathDelimiter(Value);
+    ChangeImageList(ListImages, FPath + PfListImages);
+    ChangeImageList(ActionImages, FPath + PfActionImages);
+  end;
+
+  ListImages.Change;
+  ActionImages.Change;
+  RefreshImages;
 end;
 
 end.
