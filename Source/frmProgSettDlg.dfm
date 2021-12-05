@@ -25,7 +25,7 @@ object ProgSettDlg: TProgSettDlg
     Top = 8
     Width = 444
     Height = 458
-    ActivePage = tabTools
+    ActivePage = tabUI
     Anchors = [akLeft, akTop, akRight, akBottom]
     TabOrder = 0
     object tabGeneral: TTabSheet
@@ -777,6 +777,37 @@ object ProgSettDlg: TProgSettDlg
             's g'#233'pn'#233'l'
           TabOrder = 7
         end
+      end
+    end
+    object tabUI: TTabSheet
+      Caption = 'Kezel'#337'fel'#252'let'
+      ImageIndex = 6
+      object lbIconSet: TLabel
+        Left = 48
+        Top = 24
+        Width = 58
+        Height = 13
+        Caption = '&Ikonk'#233'szlet:'
+      end
+      object cbIconSet: TComboBox
+        Left = 64
+        Top = 43
+        Width = 313
+        Height = 22
+        Hint = '(A program alap'#233'rtelmezett ikonk'#233'szlete)'
+        Style = csOwnerDrawFixed
+        TabOrder = 0
+        OnDrawItem = cbIconSetDrawItem
+      end
+      object Button1: TButton
+        Tag = 7
+        Left = 256
+        Top = 71
+        Width = 121
+        Height = 25
+        Caption = '&Alap'#233'rtelmezett'
+        TabOrder = 1
+        OnClick = btnDefaultClick
       end
     end
     object tabTools: TTabSheet

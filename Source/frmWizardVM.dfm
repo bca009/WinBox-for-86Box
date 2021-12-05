@@ -76,7 +76,7 @@ object WizardVM: TWizardVM
     Top = 0
     Width = 337
     Height = 263
-    ActivePage = tabBasic
+    ActivePage = tabOptions
     Align = alClient
     TabOrder = 2
     object tabWelcome: TTabSheet

@@ -49,6 +49,8 @@ type
     EmulatorLang: string;
     EmuLangCtrl: integer;
 
+    IconSet: string;
+
     Tools: TStrings;
 
     CustomTemplates: string;
@@ -173,6 +175,7 @@ resourcestring
   KeyProgramLang     = 'ProgramLang';
   KeyEmulatorLang    = 'EmulatorLang';
   KeyEmuLangCtrl     = 'EmuLangCtrl';
+  KeyIconSet         = 'Iconset';
 
   ImportWinBoxRoot   = 'Software\Laci bá''\WinBox';
   Import86MgrRoot    = 'Software\86Box';
@@ -268,6 +271,8 @@ begin
           EmulatorLang    := ReadStringDef(KeyEmulatorLang, EmulatorLang);
           EmuLangCtrl     := ReadIntegerDef(KeyEmuLangCtrl, EmuLangCtrl);
 
+          IconSet         := ReadStringDef(KeyIconSet, IconSet);
+
           if ValueExists(KeyTools) then begin
             Tools.Clear;
             ReadStringMulti(KeyTools, Tools);
@@ -349,6 +354,8 @@ begin
           WriteStringChk(KeyEmulatorLang, EmulatorLang, Defaults.EmulatorLang);
           WriteIntegerChk(KeyEmuLangCtrl, EmuLangCtrl, Defaults.EmuLangCtrl);
 
+          WriteStringChk(KeyIconSet, IconSet, Defaults.IconSet);
+
           DeleteValue(KeyTools);
           if Tools.Count <> 0 then
             WriteStringMulti(KeyTools, Tools);
@@ -395,6 +402,8 @@ begin
   ProgramLang  := PrgDefaultLanguage;
   EmulatorLang := EmuDefaultLanguage;
   EmuLangCtrl  := 0;
+
+  Iconset := '';
 
   Tools.Clear;
 

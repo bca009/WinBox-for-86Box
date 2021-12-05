@@ -103,13 +103,12 @@ object WinBoxMain: TWinBoxMain
         ParentFont = False
       end
       object ImgWelcome: TImage
-        Left = 318
+        Left = 321
         Top = 16
         Width = 142
         Height = 145
         Anchors = [akTop, akRight]
         Proportional = True
-        OnClick = ImgWelcomeClick
       end
     end
     object tabPerfMon: TTabSheet

@@ -148,6 +148,10 @@ type
     lbEmuLangAvail: TLabel;
     btnDefEmuLang: TButton;
     cbEmuLangForced: TCheckBox;
+    tabUI: TTabSheet;
+    lbIconSet: TLabel;
+    cbIconSet: TComboBox;
+    Button1: TButton;
     procedure Reload(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure cbLoggingChange(Sender: TObject);
@@ -170,9 +174,12 @@ type
     procedure tvArtifactChange(Sender: TObject; Node: TTreeNode);
     procedure FormDestroy(Sender: TObject);
     procedure UpdateLangRadio(Sender: TObject);
+    procedure cbIconSetDrawItem(Control: TWinControl; Index: Integer;
+      Rect: TRect; State: TOwnerDrawState);
   private
     procedure UpdateTools(Tools: TStrings);
     procedure UpdateLanguages(const Mode: integer);
+    procedure UpdateIconSets(const Mode: integer);
 
     procedure UMIconsChanged(var Msg: TMessage); message UM_ICONSETCHANGED;
   public
@@ -258,6 +265,7 @@ begin
          cbProgLang.OnChange(cbProgLang);
        end;
     6: cbEmuLang.ItemIndex := EmuLangs.IndexOf(Defaults.EmulatorLang);
+    7: cbIconSet.ItemIndex := cbIconSet.Items.IndexOfName(Defaults.IconSet);
   end;
 end;
 
@@ -404,6 +412,11 @@ begin
       (cbEmuLang.ItemIndex < EmuLangs.Count) then
         EmulatorLang := EmuLangs[cbEmuLang.ItemIndex];
 
+    if cbIconSet.ItemIndex = -1 then
+      IconSet := ''
+    else
+      IconSet := cbIconSet.Items.Names[cbIconSet.ItemIndex];
+
     Save;
   end;
 
@@ -488,6 +501,13 @@ begin
            SubItems.Add(mmToolPath.Text);
          end
   end;
+end;
+
+procedure TProgSettDlg.cbIconSetDrawItem(Control: TWinControl; Index: Integer;
+  Rect: TRect; State: TOwnerDrawState);
+begin
+  with Control as TComboBox do
+    Canvas.TextRect(Rect, Rect.Left, Rect.Top, Items.ValueFromIndex[Index]);
 end;
 
 procedure TProgSettDlg.cbLoggingChange(Sender: TObject);
@@ -741,6 +761,24 @@ begin
     cbFullscreenSizing.ItemIndex := -1;
 end;
 
+procedure TProgSettDlg.UpdateIconSets(const Mode: integer);
+var
+  IconSets: TStringList;
+begin
+  IconSets := IconSet.GetAvailIconSets;
+  IconSets.Insert(0, Defaults.IconSet + '=' + cbIconSet.Hint);
+
+  cbIconSet.Items.Assign(IconSets);
+  
+  if Config.IconSet = '' then
+    cbIconSet.ItemIndex := -1
+  else 
+    cbIconSet.ItemIndex := cbIconSet.Items.IndexOfName(Config.IconSet);
+
+  if cbIconSet.ItemIndex = -1 then
+    cbIconSet.ItemIndex := 0;
+end;
+
 function GetResourceLanguages(hModule: HMODULE; lpszType, lpszName: LPCTSTR;
    wIDLanguage: WORD; lParam: TStringList): BOOL; stdcall;
 begin
@@ -933,6 +971,7 @@ begin
     end;
 
     UpdateLanguages(0);
+    UpdateIconSets(0);
   end;
 end;
 

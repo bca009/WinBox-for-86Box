@@ -370,7 +370,6 @@ type
       var Handled: Boolean);
     procedure ListDblClick(Sender: TObject);
     procedure acWinBoxUpdateExecute(Sender: TObject);
-    procedure ImgWelcomeClick(Sender: TObject);
   private
     //Lista kirajzolásához szükséges cuccok
     HalfCharHeight, BorderThickness: integer;
@@ -419,6 +418,7 @@ type
 
     procedure ChangeBiDi(const NewBiDi: boolean);
     procedure ChangeLanguage(const ALocale: string);
+    procedure ChangeIconSet(const AIconSet: string);
 
     procedure GetRttiReport(Result: TStrings);
   end;
@@ -688,6 +688,7 @@ begin
       if ShowModal = mrOK then begin
         FormShow(Sender);
         ChangeLanguage(Config.ProgramLang);
+        ChangeIconSet(Config.IconSet);
         DefProfile.Default;
         acUpdateList.Execute;
       end;
@@ -970,6 +971,14 @@ begin
   end;
 end;
 
+procedure TWinBoxMain.ChangeIconSet(const AIconSet: string);
+begin
+  if AIconSet <> '' then
+    IconSet.Path := IconSet.GetIconSetRoot + AIconSet
+  else
+    IconSet.Path := '';
+end;
+
 procedure TWinBoxMain.ChangeLanguage(const ALocale: string);
 var
   I: integer;
@@ -1080,8 +1089,10 @@ end;
 
 procedure TWinBoxMain.UMIconsChanged(var Msg: TMessage);
 begin
-  ListReload(Self);
   IconSet.LoadImage(ImgWelcomeLogo, ImgWelcome);
+
+  if Assigned(Profiles) then
+    ListReload(Self);
 end;
 
 procedure TWinBoxMain.DummyUpdate(Sender: TObject);
@@ -1196,7 +1207,6 @@ begin
   Pages.ActivePageIndex := 0;
   pgCharts.ActivePageIndex := 0;
 
-  IconSet.LoadImage(ImgWelcomeLogo, ImgWelcome);
   miDebug.Visible := IsDebuggerPresent;
 
   Frame86Box := TFrame86Box.Create(nil);
@@ -1215,8 +1225,9 @@ begin
   else
     ChangeLanguage(LocaleOverride);
 
-  //tükrözzük meg a képeket és tiltsuk le a színeket ha szükséges
-  IconSet.RefreshImages;
+  //töltsük be az ikonkészletet, majd tükrözzük meg a képeket
+  //  és tiltsuk le a színeket ha szükséges
+  ChangeIconSet(Config.IconSet);
 
   Application.CreateForm(TWinBoxUpd, WinBoxUpd);
 
@@ -1709,16 +1720,6 @@ begin
     GetTranslation(StrDeleteDialog + '.Title', DeleteDialog.Title);
     GetTranslation(StrDeleteDialog + '.FooterText', DeleteDialog.FooterText);
   end;
-end;
-
-procedure TWinBoxMain.ImgWelcomeClick(Sender: TObject);
-var
-  Path: string;
-begin
-  if SelectDirectory('', '', Path, Self) then
-    IconSet.Path := Path
-  else
-    IconSet.Path := '';
 end;
 
 procedure TWinBoxMain.Translate;

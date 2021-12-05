@@ -47,6 +47,10 @@ type
     procedure LoadImage(const Name: string; Image: TImage;
       const BiDiRotate: boolean = true);
 
+    //elérhetõ ikonkészletek lekérése
+    function GetAvailIconSets(Root: string = ''): TStringList;
+    function GetIconSetRoot: string;
+
     property Path: string read FPath write SetPath;
   end;
 
@@ -94,6 +98,7 @@ resourcestring
   PfActionImages = 'Actions\';
   PfListImages   = 'List\';
   PfDataImages   = 'Others\';
+  PfIconInfo = 'iconinfo.txt';
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
@@ -313,6 +318,45 @@ begin
 end;
 
 //Ez a verzió bitképpé konvertálja a kép új Handle-jét, és felszabadítja
+function TIconSet.GetAvailIconSets(Root: string): TStringList;
+var
+  SearchRec: TSearchRec;
+  IconInfo: TextFile;
+  Description, FileName: string;
+begin
+  if Root = '' then
+    Root := GetIconSetRoot;
+
+  Root := IncludeTrailingPathDelimiter(Root);
+  Result := TStringList.Create;
+
+  if FindFirst(Root + '*.*', faAnyFile, SearchRec) = 0 then begin
+    repeat
+      with SearchRec do
+        if (Name <> '.') and (Name <> '..') and
+           ((Attr and faDirectory) <> 0) then begin
+             Description := Name;
+             FileName := Root + Name + PathDelim + PfIconInfo;
+
+             if FileExists(FileName) then begin
+               AssignFile(IconInfo, FileName);
+               try
+                 Reset(IconInfo);
+                 ReadLn(IconInfo, Description);
+               finally
+                 CloseFile(IconInfo);
+               end;
+             end;
+
+             Result.Add(Name + '=' + Description);
+           end;
+
+    until FindNext(SearchRec) <> 0;
+
+    FindClose(SearchRec);
+  end;
+end;
+
 procedure TIconSet.GetBitmapBiDi(ASourceImage: TWICImage; AWidth,
   AHeight: Integer; out ABitmap: TBitmap);
 var
@@ -350,6 +394,11 @@ begin
     ABitmap.AlphaFormat := afIgnored;
 end;
 
+
+function TIconSet.GetIconSetRoot: string;
+begin
+  Result := ExtractFilePath(paramstr(0)) + PfIconSetPath;
+end;
 
 procedure TIconSet.Initialize(AControl: TControl);
 const
@@ -419,31 +468,37 @@ end;
 
 procedure TIconSet.SetPath(const Value: string);
 begin
-  if FPath = Value then
-    exit;
-
   Screen.Cursor := crHourGlass;
   Application.ProcessMessages;
 
-  try
-    if Value = '' then begin
-      FPath := '';
-      ChangeImageList(ListImages, BkupListImages);
-      ChangeImageList(ActionImages, BkupActionImages);
-    end
-    else begin
-      FPath := IncludeTrailingPathDelimiter(Value);
-      ChangeImageList(ListImages, FPath + PfListImages);
-      ChangeImageList(ActionImages, FPath + PfActionImages);
+  if FPath = Value then begin
+    try
+      BroadcastMessage(UM_ICONSETCHANGED, 0, 0);
+    finally
+      Screen.Cursor := crArrow;
     end;
+    exit;
+  end
+  else
+    try
+      if Value = '' then begin
+        FPath := '';
+        ChangeImageList(ListImages, BkupListImages);
+        ChangeImageList(ActionImages, BkupActionImages);
+      end
+      else begin
+        FPath := IncludeTrailingPathDelimiter(Value);
+        ChangeImageList(ListImages, FPath + PfListImages);
+        ChangeImageList(ActionImages, FPath + PfActionImages);
+      end;
 
-    ListImages.Change;
-    ActionImages.Change;
-    RefreshImages;
-    BroadcastMessage(UM_ICONSETCHANGED, 0, 0);
-  finally
-    Screen.Cursor := crArrow;
-  end;
+      ListImages.Change;
+      ActionImages.Change;
+      RefreshImages;
+      BroadcastMessage(UM_ICONSETCHANGED, 0, 0);
+    finally
+      Screen.Cursor := crArrow;
+    end;
 end;
 
 end.
