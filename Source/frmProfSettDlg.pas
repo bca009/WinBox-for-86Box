@@ -109,7 +109,7 @@ implementation
 
 {$R *.dfm}
 
-uses uCommUtil, uCommText, frmMainForm;
+uses uCommUtil, uCommText, dmGraphUtil;
 
 resourcestring
   AskVmIconDel = '.AskVmIconDel';
@@ -227,8 +227,10 @@ begin
   pcPages.ActivePageIndex := 0;
   LangName := Copy(ClassName, 2, MaxInt);
 
-  WinBoxMain.Icons32.GetIcon(31, imgEmulator.Picture.Icon);
-  WinBoxMain.Icons32.GetIcon(33, imgDebug.Picture.Icon);
+  with IconSet do begin
+    Icons32.GetIcon(31, imgEmulator.Picture.Icon);
+    Icons32.GetIcon(33, imgDebug.Picture.Icon);
+  end;
 
   Translate;
   if LocaleIsBiDi then
@@ -271,7 +273,7 @@ begin
         rcColor.Brush.Style := bsSolid;
       end;
 
-      rcColor.Enabled := WinBoxMain.IsColorsAllowed;
+      rcColor.Enabled := IconSet.IsColorsAllowed;
       if (not rcColor.Enabled) and (rcColor.Brush.Style <> bsClear) then
         rcColor.Brush.Style := bsDiagCross;
 

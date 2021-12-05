@@ -164,7 +164,8 @@ implementation
 
 {$R *.dfm}
 
-uses uCommUtil, uCommText, frmSelectHDD, Printers, frmMainForm, frmErrorDialog;
+uses uCommUtil, uCommText, frmSelectHDD, Printers, frmErrorDialog,
+  dmGraphUtil;
 
 resourcestring
   OpenDlgVhdDisk = 'OpenDialog.VhdDisk';
@@ -394,8 +395,11 @@ begin
   FDiskChanged := false;
   FFirst := true;
   LoadImage('BANNER_HDD', imgBanner, false);
-  WinBoxMain.Icons32.GetIcon(0, imgWarning.Picture.Icon);
-  WinBoxMain.Icons32.GetIcon(11, imgInfo.Picture.Icon);
+
+  with IconSet do begin
+    Icons32.GetIcon(0, imgWarning.Picture.Icon);
+    Icons32.GetIcon(11, imgInfo.Picture.Icon);
+  end;
 end;
 
 procedure TWizardHDD.FormShow(Sender: TObject);

@@ -24,7 +24,8 @@ uses
   frmWizardHDD in 'frmWizardHDD.pas' {WizardHDD},
   frmWizardVM in 'frmWizardVM.pas' {WizardVM},
   frmSplash in 'frmSplash.pas' {WinBoxSplash},
-  dmWinBoxUpd in 'dmWinBoxUpd.pas' {WinBoxUpd: TDataModule};
+  dmWinBoxUpd in 'dmWinBoxUpd.pas' {WinBoxUpd: TDataModule},
+  dmGraphUtil in 'dmGraphUtil.pas' {IconSet: TDataModule};
 
 {$R *.res}
 {$R '..\Data\rcWinBox.RES'}
@@ -50,6 +51,7 @@ begin
   Application.MainFormOnTaskbar := True;
   Application.Title := 'WinBox for 86Box';
   Application.ActionUpdateDelay := 50;
+  Application.CreateForm(TIconSet, IconSet);
   Application.CreateForm(TWinBoxMain, WinBoxMain);
   Application.CreateForm(THDSelect, HDSelect);
   Application.Run;

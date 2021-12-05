@@ -91,8 +91,6 @@ type
     tab86Box: TTabSheet;
     Splitter: TSplitter;
     StatusBar: TStatusBar;
-    ListImages: TVirtualImageList;
-    ImageCollection: TImageCollection;
     acProgramSettings: TAction;
     acUpdateList: TAction;
     miTools: TMenuItem;
@@ -130,9 +128,6 @@ type
     Nvjegy1: TMenuItem;
     N5: TMenuItem;
     N6: TMenuItem;
-    ImageCollection1: TImageCollection;
-    Icons32: TVirtualImageList;
-    Icons16: TVirtualImageList;
     ac86BoxSettings: TAction;
     acCtrlAltDel: TAction;
     acCtrlAltEsc: TAction;
@@ -375,10 +370,6 @@ type
       var Handled: Boolean);
     procedure ListDblClick(Sender: TObject);
     procedure acWinBoxUpdateExecute(Sender: TObject);
-    procedure ImageCollectionGetBitmapBiDi(ASourceImage: TWICImage; AWidth,
-      AHeight: Integer; out ABitmap: TBitmap);
-    procedure ImageCollectionDrawBiDi(ASourceImage: TWICImage; ACanvas: TCanvas;
-      ARect: TRect; AProportional: Boolean);
   private
     //Lista kirajzolásához szükséges cuccok
     HalfCharHeight, BorderThickness: integer;
@@ -445,7 +436,7 @@ uses JclDebug, uProcessMon, uProcProfile, uCommUtil, frmProgSettDlg,
   frmProfSettDlg, frmImportVM, uWinProfile, uConfigMgr, ShellAPI,
   uCommText, Rtti, frmErrorDialog, frmAboutDlg, frmSelectHDD, frmNewFloppy,
   frmWizardHDD, frmWizardVM, uBaseProfile, frmSplash, dmWinBoxUpd,
-  WinCodec;
+  WinCodec, dmGraphUtil;
 
 const
   MaxPoints = 60;
@@ -1136,28 +1127,7 @@ begin
   PerfMenu.BiDiMode := BiDiModes[LocaleIsBiDi];
   VMMenu.BiDiMode := BiDiModes[LocaleIsBiDi];
 
-  if LocaleIsBiDi then begin
-    ImageCollection.OnDraw := ImageCollectionDrawBiDi;
-    ImageCollection.OnGetBitmap := ImageCollectionGetBitmapBiDi;
-
-    ImageCollection1.OnDraw := ImageCollectionDrawBiDi;
-    ImageCollection1.OnGetBitmap := ImageCollectionGetBitmapBiDi;
-  end
-  else begin
-    ImageCollection.OnDraw := nil;
-    ImageCollection.OnGetBitmap := nil;
-
-    ImageCollection1.OnDraw := nil;
-    ImageCollection1.OnGetBitmap := nil;
-  end;
-
-  Icons16.UpdateImageList;
-  ListImages.UpdateImageList;
-
-  ImageCollection1.OnDraw := nil;
-  ImageCollection1.OnGetBitmap := nil;
-
-  Icons32.UpdateImageList;
+  IconSet.RefreshImages;
 
   SetCommCtrlBiDi(List.Handle, LocaleIsBiDi);
   SetCommCtrlBiDi(StatusBar.Handle, LocaleIsBiDi);
@@ -1195,17 +1165,17 @@ end;
 
 procedure TWinBoxMain.FormCreate(Sender: TObject);
 var
-  H, L, S: word;
+  H, L, S: Word;
   I: integer;
 begin
   //GUI part
   InitialTitle := Application.Title;
 
-  Icons16.SetSize(GetSystemMetrics(SM_CXSMICON),
-                  GetSystemMetrics(SM_CYSMICON));
+  IconSet.Initialize(Self);
 
-  HalfCharHeight := Canvas.TextHeight('W');
-  BorderThickness := (List.ItemHeight - ListImages.Height) div 2;
+  //Lista kirajzolási eljárás segédlet
+  HalfCharHeight := Canvas.TextHeight('Wg');
+  BorderThickness := (List.ItemHeight - IconSet.ListIcons.Height) div 2;
 
   clHighlight1 := ColorToRGB(clHighlight);
   ColorRGBToHLS(clHighlight1, H, L, S);
@@ -1246,7 +1216,8 @@ begin
   tbGlobal.ShowCaptions := true;
 
   SideRatio := DefSideRatio;
-  Icons32.GetIcon(6, DeleteDialog.CustomMainIcon);
+
+  IconSet.Icons32.GetIcon(6, DeleteDialog.CustomMainIcon);
   DeleteDialog.Caption := Application.Title;
   MissingDiskDlg.Caption := Application.Title;
 
@@ -1370,7 +1341,7 @@ var
   IconLeft, TextLeft: integer;
 begin
   try
-    with Control as TListBox, Canvas do begin
+    with IconSet, Control as TListBox, Canvas do begin
       if Enabled and (odSelected in State) then begin
         Brush.Color := clHighlight;
         Font.Color := clHighlightText;
@@ -1389,12 +1360,12 @@ begin
 
       Brush.Style := bsClear;
 
-      TextLeft := Rect.Left + ListImages.Width + 2 * BorderThickness + 1;
+      TextLeft := Rect.Left + ListIcons.Width + 2 * BorderThickness + 1;
       IconLeft := Rect.Left + BorderThickness;
 
       HalfCharHeight := TextHeight('Wg') div 2;
       if Index < 2 then begin
-        ListImages.Draw(Canvas, IconLeft,
+        ListIcons.Draw(Canvas, IconLeft,
                         Rect.Top + BorderThickness, Index);
 
         Font.Style := [fsBold];
@@ -1489,7 +1460,8 @@ begin
 
         Image := TWICImage.Create;
         Image.Assign(Profile.Icon);
-        ScaleWIC(Image, ListImages.Width, ListImages.Height, false);
+        ScaleWIC(Image, IconSet.ListIcons.Width,
+                        IconSet.ListIcons.Height, false);
         Icons.Add(Image);
 
         cTemp := RGB(random($100), random($100), random($100));
@@ -1729,19 +1701,6 @@ begin
     GetTranslation(StrDeleteDialog + '.Title', DeleteDialog.Title);
     GetTranslation(StrDeleteDialog + '.FooterText', DeleteDialog.FooterText);
   end;
-end;
-
-procedure TWinBoxMain.ImageCollectionDrawBiDi(ASourceImage: TWICImage;
-  ACanvas: TCanvas; ARect: TRect; AProportional: Boolean);
-begin
-  //Az AProportional tulajdonság jelenleg nem támogatott ezen a módon.
-  ImgColl_DrawBiDi(ASourceImage, ACanvas, ARect, AProportional);
-end;
-
-procedure TWinBoxMain.ImageCollectionGetBitmapBiDi(ASourceImage: TWICImage; AWidth,
-  AHeight: Integer; out ABitmap: TBitmap);
-begin
-  ImgColl_GetBitmapBiDi(ASourceImage, AWidth, AHeight, ABitmap);
 end;
 
 procedure TWinBoxMain.Translate;

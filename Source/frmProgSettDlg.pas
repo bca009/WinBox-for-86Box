@@ -26,7 +26,7 @@ interface
 uses
   Types, Windows, SysUtils, Classes, Controls, Forms, Dialogs, StdCtrls,
   ComCtrls, Buttons, ExtCtrls, Vcl.Samples.Spin, CheckLst, Menus, Registry,
-  ShellAPI, uLang;
+  ShellAPI, IniFiles, uLang;
 
 type
   TProgSettDlg = class(TForm, ILanguageSupport)
@@ -186,7 +186,7 @@ var
 
 implementation
 
-uses uCommUtil, uCommText, uConfigMgr, frmMainForm, IniFiles;
+uses uCommUtil, uCommText, uConfigMgr, frmMainForm, dmGraphUtil;
 
 resourcestring
   StrLvToolsColumn0 = '.lvTools.Column[0]';
@@ -579,16 +579,18 @@ begin
   pcPages.ActivePageIndex := 0;
   LangName := Copy(ClassName, 2, MaxInt);
 
-  WinBoxMain.Icons32.GetIcon(8, imgExtraPaths.Picture.Icon);
-  WinBoxMain.Icons32.GetIcon(11, imgInfo.Picture.Icon);
-  WinBoxMain.Icons32.GetIcon(13, imgNewVM.Picture.Icon);
+  with IconSet do begin
+    Icons32.GetIcon(8, imgExtraPaths.Picture.Icon);
+    Icons32.GetIcon(11, imgInfo.Picture.Icon);
+    Icons32.GetIcon(13, imgNewVM.Picture.Icon);
 
-  WinBoxMain.Icons32.GetIcon(30, imgDisplay.Picture.Icon);
-  WinBoxMain.Icons32.GetIcon(31, imgEmulator.Picture.Icon);
-  WinBoxMain.Icons32.GetIcon(32, imgTools.Picture.Icon);
-  WinBoxMain.Icons32.GetIcon(33, imgDebug.Picture.Icon);
+    Icons32.GetIcon(30, imgDisplay.Picture.Icon);
+    Icons32.GetIcon(31, imgEmulator.Picture.Icon);
+    Icons32.GetIcon(32, imgTools.Picture.Icon);
+    Icons32.GetIcon(33, imgDebug.Picture.Icon);
 
-  WinBoxMain.Icons32.GetIcon(35, imgLanguage.Picture.Icon);
+    Icons32.GetIcon(35, imgLanguage.Picture.Icon);
+  end;
 
   Translate;
   if LocaleIsBiDi then

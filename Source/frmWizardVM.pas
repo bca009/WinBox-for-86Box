@@ -170,7 +170,7 @@ var
 
 implementation
 
-uses uCommUtil, uCommText, uConfigMgr, frmMainForm;
+uses uCommUtil, uCommText, uConfigMgr, dmGraphUtil;
 
 resourcestring
   WizSelectWorkDir = 'WizardVM.SelectWorkDir';
@@ -371,7 +371,7 @@ end;
 procedure TWizardVM.FormCreate(Sender: TObject);
 begin
   LoadImage('BANNER_NEW', imgBanner, false);
-  WinBoxMain.Icons32.GetIcon(0, imgWarning.Picture.Icon);
+  IconSet.Icons32.GetIcon(0, imgWarning.Picture.Icon);
 
   Samples := TVMSampleFilter.Create(true);
   DiskTool := CreateWizardHDD(Self);

@@ -85,8 +85,8 @@ implementation
 
 {$R *.dfm}
 
-uses uConfigMgr, uCommUtil, uCommText, uWebUtils, frmMainForm, DateUtils,
-     IOUtils, ShellAPI;
+uses uConfigMgr, uCommUtil, uCommText, uWebUtils, dmGraphUtil,
+     DateUtils, IOUtils, ShellAPI;
 
 resourcestring
   StrProgressCleanUp    = 'UpdateDlg.Progress.CleanUp';
@@ -383,8 +383,10 @@ var
 begin
   Thread := nil;
 
-  WinBoxMain.Icons32.GetIcon(27, AskUpdateDialog.CustomMainIcon);
-  WinBoxMain.Icons32.GetIcon(26, imgIcon.Picture.Icon);
+  with IconSet do begin
+    Icons32.GetIcon(27, AskUpdateDialog.CustomMainIcon);
+    Icons32.GetIcon(26, imgIcon.Picture.Icon);
+  end;
 
   if Succeeded(LoadIconWithScaleDown(0, MakeIntResource(IDI_WARNING),
       GetSystemMetrics(SM_CXSMICON), GetSystemMetrics(SM_CYSMICON), Handle)) then begin
