@@ -44,14 +44,15 @@ begin
     Halt(2);
 
   Application.Initialize;
-  WinBoxSplash := TWinBoxSplash.Create(nil);
-  WinBoxSplash.Show;
-  Application.ProcessMessages;
-
   Application.MainFormOnTaskbar := True;
   Application.Title := 'WinBox for 86Box';
   Application.ActionUpdateDelay := 50;
   Application.CreateForm(TIconSet, IconSet);
+
+  WinBoxSplash := TWinBoxSplash.Create(nil);
+  WinBoxSplash.Show;
+  Application.ProcessMessages;
+
   Application.CreateForm(TWinBoxMain, WinBoxMain);
   Application.CreateForm(THDSelect, HDSelect);
   Application.Run;

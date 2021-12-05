@@ -1187,7 +1187,7 @@ begin
   Pages.ActivePageIndex := 0;
   pgCharts.ActivePageIndex := 0;
 
-  LoadImage('WELCOME', ImgWelcome);
+  IconSet.LoadImage('WELCOME', ImgWelcome);
   miDebug.Visible := IsDebuggerPresent;
 
   Frame86Box := TFrame86Box.Create(nil);

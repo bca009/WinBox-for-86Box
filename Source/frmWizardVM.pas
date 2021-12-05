@@ -370,7 +370,7 @@ end;
 
 procedure TWizardVM.FormCreate(Sender: TObject);
 begin
-  LoadImage('BANNER_NEW', imgBanner, false);
+  IconSet.LoadImage('BANNER_NEW', imgBanner, false);
   IconSet.Icons32.GetIcon(0, imgWarning.Picture.Icon);
 
   Samples := TVMSampleFilter.Create(true);

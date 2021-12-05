@@ -394,7 +394,7 @@ begin
 
   FDiskChanged := false;
   FFirst := true;
-  LoadImage('BANNER_HDD', imgBanner, false);
+  IconSet.LoadImage('BANNER_HDD', imgBanner, false);
 
   with IconSet do begin
     Icons32.GetIcon(0, imgWarning.Picture.Icon);

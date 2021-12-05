@@ -217,7 +217,7 @@ end;
 
 procedure TImportVM.FormCreate(Sender: TObject);
 begin
-  LoadImage(ImgBannerImport, imgBanner, false);
+  IconSet.LoadImage(ImgBannerImport, imgBanner, false);
   pcPages.ActivePageIndex := 0;
 
   LangName := Copy(ClassName, 2, MaxInt);

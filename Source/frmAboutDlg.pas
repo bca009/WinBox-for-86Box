@@ -74,7 +74,7 @@ end;
 
 procedure TAboutDlg.FormCreate(Sender: TObject);
 begin
-  LoadImage('ABOUT', imgSplash, false);
+  IconSet.LoadImage('ABOUT', imgSplash, false);
   LangName := Copy(ClassName, 2, MaxInt);
 
   Translate;

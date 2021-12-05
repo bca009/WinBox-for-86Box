@@ -111,7 +111,7 @@ end;
 
 procedure TNewFloppy.FormCreate(Sender: TObject);
 begin
-  LoadImage('BANNER_FLOPPY', imgBanner, false);
+  IconSet.LoadImage('BANNER_FLOPPY', imgBanner, false);
   Translate;
   if LocaleIsBiDi then
     FlipBiDi;
