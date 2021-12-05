@@ -54,6 +54,8 @@ procedure ScaleWIC(var Source: TWICImage; const Width, Height: integer;
   const BiDiRotate: boolean = true); overload;
 procedure DisplayWIC(var Source: TWICImage; Image: TImage;
   const BiDiRotate: boolean = true);
+procedure LoadImageRes(const Name: string; Image: TImage;
+   const BiDiRotate: boolean = true);
 
 //Source: https://coderedirect.com/questions/441320/prevent-rtl-tlistview-from-mirroring-check-boxes-and-or-graphics
 const
@@ -117,6 +119,23 @@ begin
   ScaleWIC(Temp, Image.Width, Image.Height, BiDiRotate);
   Image.Picture.Assign(Temp);
   Temp.Free;
+end;
+
+procedure LoadImageRes(const Name: string; Image: TImage;
+  const BiDiRotate: boolean);
+var
+  Bitmap: TWICImage;
+  Stream: TResourceStream;
+begin
+  Bitmap := TWICImage.Create;
+  Stream := TResourceStream.Create(hInstance, Name, RT_RCDATA);
+  try
+    Bitmap.LoadFromStream(Stream);
+    DisplayWIC(Bitmap, Image, BiDiRotate);
+  finally
+    Stream.Free;
+    Bitmap.Free;
+  end;
 end;
 
 function GetTextColor(const Color: TColor): TColor;
@@ -253,19 +272,8 @@ end;
 
 procedure TIconSet.LoadImage(const Name: string; Image: TImage;
   const BiDiRotate: boolean);
-var
-  Bitmap: TWICImage;
-  Stream: TResourceStream;
 begin
-  Bitmap := TWICImage.Create;
-  Stream := TResourceStream.Create(hInstance, Name, RT_RCDATA);
-  try
-    Bitmap.LoadFromStream(Stream);
-    DisplayWIC(Bitmap, Image, BiDiRotate);
-  finally
-    Stream.Free;
-    Bitmap.Free;
-  end;
+  dmGraphUtil.LoadImageRes(Name, Image, BiDiRotate);
 end;
 
 procedure TIconSet.RefreshImages;
