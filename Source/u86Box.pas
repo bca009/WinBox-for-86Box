@@ -722,7 +722,7 @@ begin
   Text := Config.ReadString('General', 'window_fixed_res', '');
 
   if Text = '' then
-    Text := Config.ReadString('WinBox', 'WindowSize', '960x720');
+    Text := Config.ReadString('WinBox', 'window_fixed_res', '960x720');
 
   Result.X := 1;
   Result.Y := 1;
