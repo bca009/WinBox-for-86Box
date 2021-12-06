@@ -57,7 +57,11 @@ type
 var
   IconSet: TIconSet;
 
+//töltõcsík színezése töltöttség szerint
 procedure ColorProgress(const Control: TProgressBar); inline;
+
+//egyedileg rajzolt ComboBox BiDi-kompatibilis rajzolása
+procedure ComboDrawBiDi(Canvas: TCanvas; Rect: TRect; ItemText: string);
 
 //színek a háttérszín alapján
 function GetTextColor(const Color: TColor): TColor;
@@ -104,6 +108,16 @@ resourcestring
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
 {$R *.dfm}
+
+procedure ComboDrawBiDi(Canvas: TCanvas; Rect: TRect; ItemText: string);
+begin
+  if LocaleIsBiDi then begin
+    Canvas.FillRect(Rect);
+    Canvas.TextRect(Rect, ItemText, [tfRtlReading, tfRight]);
+  end
+  else
+    Canvas.TextRect(Rect, Rect.Left, Rect.Top, ItemText);
+end;
 
 procedure BroadcastMessage(Msg: UINT; wParam: WPARAM; lParam: LPARAM);
 var

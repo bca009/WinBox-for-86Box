@@ -326,7 +326,7 @@ procedure TWizardVM.cbOption1DrawItem(Control: TWinControl; Index: Integer;
   Rect: TRect; State: TOwnerDrawState);
 begin
   with Control as TComboBox do
-    Canvas.TextRect(Rect, Rect.Left, Rect.Top, Items.ValueFromIndex[Index]);
+    ComboDrawBiDi(Canvas, Rect, Items.ValueFromIndex[Index]);
 end;
 
 procedure TWizardVM.btnHDDClick(Sender: TObject);

@@ -197,7 +197,7 @@ var
 
 implementation
 
-uses uCommUtil, uConfigMgr, frmMainForm, dmGraphUtil;
+uses uCommUtil, uConfigMgr, frmMainForm, dmGraphUtil, Graphics;
 
 resourcestring
   StrLvToolsColumn0 = '.lvTools.Column[0]';
@@ -509,7 +509,7 @@ procedure TProgSettDlg.cbProgIconSetDrawItem(Control: TWinControl; Index: Intege
   Rect: TRect; State: TOwnerDrawState);
 begin
   with Control as TComboBox do
-    Canvas.TextRect(Rect, Rect.Left, Rect.Top, Items.ValueFromIndex[Index]);
+    ComboDrawBiDi(Canvas, Rect, Items.ValueFromIndex[Index]);
 end;
 
 procedure TProgSettDlg.cbLoggingChange(Sender: TObject);
