@@ -576,6 +576,9 @@ begin
 
             if LoWord(EmuLangCtrl) <> 2 then
               Config.WriteString('General', 'language', AdjustEmuLang);
+
+            if EmuIconSet <> '' then
+              Config.WriteString('General', 'iconset', EmuIconSet);
           end;
 
           with TProfile.Create(ProfileID, false) do

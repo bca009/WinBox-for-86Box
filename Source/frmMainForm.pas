@@ -688,7 +688,7 @@ begin
       if ShowModal = mrOK then begin
         FormShow(Sender);
         ChangeLanguage(Config.ProgramLang);
-        ChangeIconSet(Config.IconSet);
+        ChangeIconSet(Config.ProgIconSet);
         DefProfile.Default;
         acUpdateList.Execute;
       end;
@@ -1227,7 +1227,7 @@ begin
 
   //töltsük be az ikonkészletet, majd tükrözzük meg a képeket
   //  és tiltsuk le a színeket ha szükséges
-  ChangeIconSet(Config.IconSet);
+  ChangeIconSet(Config.ProgIconSet);
 
   Application.CreateForm(TWinBoxUpd, WinBoxUpd);
 

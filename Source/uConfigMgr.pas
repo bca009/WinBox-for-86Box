@@ -49,7 +49,8 @@ type
     EmulatorLang: string;
     EmuLangCtrl: integer;
 
-    IconSet: string;
+    ProgIconSet,
+    EmuIconSet: string;
 
     Tools: TStrings;
 
@@ -175,7 +176,8 @@ resourcestring
   KeyProgramLang     = 'ProgramLang';
   KeyEmulatorLang    = 'EmulatorLang';
   KeyEmuLangCtrl     = 'EmuLangCtrl';
-  KeyIconSet         = 'Iconset';
+  KeyProgIconSet     = 'ProgIconSet';
+  KeyEmuIconSet      = 'EmuIconSet';
 
   ImportWinBoxRoot   = 'Software\Laci bá''\WinBox';
   Import86MgrRoot    = 'Software\86Box';
@@ -271,7 +273,8 @@ begin
           EmulatorLang    := ReadStringDef(KeyEmulatorLang, EmulatorLang);
           EmuLangCtrl     := ReadIntegerDef(KeyEmuLangCtrl, EmuLangCtrl);
 
-          IconSet         := ReadStringDef(KeyIconSet, IconSet);
+          ProgIconSet     := ReadStringDef(KeyProgIconSet, ProgIconSet);
+          EmuIconSet      := ReadStringDef(KeyEmuIconSet, EmuIconSet);
 
           if ValueExists(KeyTools) then begin
             Tools.Clear;
@@ -354,7 +357,8 @@ begin
           WriteStringChk(KeyEmulatorLang, EmulatorLang, Defaults.EmulatorLang);
           WriteIntegerChk(KeyEmuLangCtrl, EmuLangCtrl, Defaults.EmuLangCtrl);
 
-          WriteStringChk(KeyIconSet, IconSet, Defaults.IconSet);
+          WriteStringChk(KeyProgIconSet, ProgIconSet, Defaults.ProgIconSet);
+          WriteStringChk(KeyEmuIconSet, EmuIconSet, Defaults.EmuIconSet);
 
           DeleteValue(KeyTools);
           if Tools.Count <> 0 then
@@ -403,7 +407,8 @@ begin
   EmulatorLang := EmuDefaultLanguage;
   EmuLangCtrl  := 0;
 
-  Iconset := '';
+  ProgIconSet := '';
+  EmuIconSet := '';
 
   Tools.Clear;
 

@@ -150,8 +150,10 @@ type
     cbEmuLangForced: TCheckBox;
     tabUI: TTabSheet;
     lbIconSet: TLabel;
-    cbIconSet: TComboBox;
-    Button1: TButton;
+    cbProgIconSet: TComboBox;
+    btnDefProgIconSet: TButton;
+    cbEmuIconSet: TComboBox;
+    btnDefEmuIconSet: TButton;
     procedure Reload(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure cbLoggingChange(Sender: TObject);
@@ -174,7 +176,7 @@ type
     procedure tvArtifactChange(Sender: TObject; Node: TTreeNode);
     procedure FormDestroy(Sender: TObject);
     procedure UpdateLangRadio(Sender: TObject);
-    procedure cbIconSetDrawItem(Control: TWinControl; Index: Integer;
+    procedure cbProgIconSetDrawItem(Control: TWinControl; Index: Integer;
       Rect: TRect; State: TOwnerDrawState);
   private
     procedure UpdateTools(Tools: TStrings);
@@ -265,7 +267,8 @@ begin
          cbProgLang.OnChange(cbProgLang);
        end;
     6: cbEmuLang.ItemIndex := EmuLangs.IndexOf(Defaults.EmulatorLang);
-    7: cbIconSet.ItemIndex := cbIconSet.Items.IndexOfName(Defaults.IconSet);
+    7: cbProgIconSet.ItemIndex := cbProgIconSet.Items.IndexOfName(Defaults.ProgIconSet);
+    8: cbEmuIconSet.ItemIndex := cbEmuIconSet.Items.IndexOfName(Defaults.EmuIconSet);
   end;
 end;
 
@@ -294,6 +297,7 @@ begin
                mmManualOptions.Clear;
                Config.DeleteKey('General', 'window_fixed_res');
                Config.DeleteKey('General', 'language');
+               Config.DeleteKey('General', 'iconset');
                Config.ReadSectionValues('General', mmManualOptions.Lines);
                UpdateApperance(mmManualOptions);
              end;
@@ -412,10 +416,8 @@ begin
       (cbEmuLang.ItemIndex < EmuLangs.Count) then
         EmulatorLang := EmuLangs[cbEmuLang.ItemIndex];
 
-    if cbIconSet.ItemIndex = -1 then
-      IconSet := ''
-    else
-      IconSet := cbIconSet.Items.Names[cbIconSet.ItemIndex];
+    ProgIconSet := TextLeft(cbProgIconSet.Text, '=');
+    EmuIconSet  := TextLeft(cbEmuIconSet.Text, '=');
 
     Save;
   end;
@@ -503,7 +505,7 @@ begin
   end;
 end;
 
-procedure TProgSettDlg.cbIconSetDrawItem(Control: TWinControl; Index: Integer;
+procedure TProgSettDlg.cbProgIconSetDrawItem(Control: TWinControl; Index: Integer;
   Rect: TRect; State: TOwnerDrawState);
 begin
   with Control as TComboBox do
@@ -565,6 +567,7 @@ begin
     lbVersion.Caption := format(_T(StrVersion) ,[_T(StrUnknown)]);
 
   UpdateLanguages(1);
+  UpdateIconSets(1);
 end;
 
 procedure TProgSettDlg.edArtifactChange(Sender: TObject);
@@ -764,19 +767,49 @@ end;
 procedure TProgSettDlg.UpdateIconSets(const Mode: integer);
 var
   IconSets: TStringList;
+  Bookmark: string;
 begin
-  IconSets := IconSet.GetAvailIconSets;
-  IconSets.Insert(0, Defaults.IconSet + '=' + cbIconSet.Hint);
+  //Program iconsets part
 
-  cbIconSet.Items.Assign(IconSets);
-  
-  if Config.IconSet = '' then
-    cbIconSet.ItemIndex := -1
-  else 
-    cbIconSet.ItemIndex := cbIconSet.Items.IndexOfName(Config.IconSet);
+  if Mode = 0 then
+    with cbProgIconSet do begin
+      IconSets := IconSet.GetAvailIconSets;
+      try
+        IconSets.Insert(0, Defaults.ProgIconSet + '=' + Hint);
 
-  if cbIconSet.ItemIndex = -1 then
-    cbIconSet.ItemIndex := 0;
+        Items.Assign(IconSets);
+        ItemIndex := Items.IndexOfName(Config.ProgIconSet);
+
+        if ItemIndex = -1 then
+          ItemIndex := 0;
+      finally
+        IconSets.Free;
+      end;
+    end;
+
+  //Emulator iconsets part
+
+  if Mode <= 1 then
+    with cbEmuIconSet do begin
+      IconSets := IconSet.GetAvailIconSets(
+        ExtractFilePath(ed86Box.Text) + PathEmuIconSets);
+      try
+        IconSets.Insert(0, Defaults.EmuIconSet + '=' + Hint);
+
+        Bookmark := TextLeft(Text, '=');
+        Items.Assign(IconSets);
+
+        if Mode = 0 then
+          ItemIndex := Items.IndexOfName(Config.EmuIconSet)
+        else
+          ItemIndex := Items.IndexOfName(Bookmark);
+
+        if ItemIndex = -1 then
+          ItemIndex := 0;
+      finally
+        IconSets.Free;
+      end;
+    end;
 end;
 
 function GetResourceLanguages(hModule: HMODULE; lpszType, lpszName: LPCTSTR;

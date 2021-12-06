@@ -88,7 +88,8 @@ function SetLayout(DC: HDC; dwLayout: DWORD): DWORD; stdcall; external 'gdi32.dl
 procedure InvariantBiDiLayout(const DC: HDC); inline;
 
 resourcestring
-  PfIconSetPath  = 'Iconsets\';
+  PfIconSetPath   = 'Iconsets\';
+  PathEmuIconSets = 'roms\icons\';
 
 implementation
 
@@ -292,6 +293,9 @@ begin
   inherited;
   IsColorsAllowed := true;
 
+  //Induljunk valami olyan szöveggel amit fixen mindig le kell cserélni
+  FPath := '?';
+
   //Mentsük le az eredeti képlistákat (visszaállításhoz)
   BkupListImages := BackupImageList(ListImages);
   BkupActionImages := BackupImageList(ActionImages);
@@ -468,37 +472,32 @@ end;
 
 procedure TIconSet.SetPath(const Value: string);
 begin
+  if ((FPath = '') and (Value = '')) or
+     (FPath = IncludeTrailingPathDelimiter(Value)) then
+    exit;
+
   Screen.Cursor := crHourGlass;
   Application.ProcessMessages;
 
-  if FPath = Value then begin
-    try
-      BroadcastMessage(UM_ICONSETCHANGED, 0, 0);
-    finally
-      Screen.Cursor := crArrow;
+  try
+    if Value = '' then begin
+      FPath := '';
+      ChangeImageList(ListImages, BkupListImages);
+      ChangeImageList(ActionImages, BkupActionImages);
+    end
+    else begin
+      FPath := IncludeTrailingPathDelimiter(Value);
+      ChangeImageList(ListImages, FPath + PfListImages);
+      ChangeImageList(ActionImages, FPath + PfActionImages);
     end;
-    exit;
-  end
-  else
-    try
-      if Value = '' then begin
-        FPath := '';
-        ChangeImageList(ListImages, BkupListImages);
-        ChangeImageList(ActionImages, BkupActionImages);
-      end
-      else begin
-        FPath := IncludeTrailingPathDelimiter(Value);
-        ChangeImageList(ListImages, FPath + PfListImages);
-        ChangeImageList(ActionImages, FPath + PfActionImages);
-      end;
 
-      ListImages.Change;
-      ActionImages.Change;
-      RefreshImages;
-      BroadcastMessage(UM_ICONSETCHANGED, 0, 0);
-    finally
-      Screen.Cursor := crArrow;
-    end;
+    ListImages.Change;
+    ActionImages.Change;
+    RefreshImages;
+    BroadcastMessage(UM_ICONSETCHANGED, 0, 0);
+  finally
+    Screen.Cursor := crArrow;
+  end;
 end;
 
 end.

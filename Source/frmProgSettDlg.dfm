@@ -789,7 +789,7 @@ object ProgSettDlg: TProgSettDlg
         Height = 13
         Caption = '&Ikonk'#233'szlet:'
       end
-      object cbIconSet: TComboBox
+      object cbProgIconSet: TComboBox
         Left = 64
         Top = 43
         Width = 313
@@ -797,9 +797,9 @@ object ProgSettDlg: TProgSettDlg
         Hint = '(A program alap'#233'rtelmezett ikonk'#233'szlete)'
         Style = csOwnerDrawFixed
         TabOrder = 0
-        OnDrawItem = cbIconSetDrawItem
+        OnDrawItem = cbProgIconSetDrawItem
       end
-      object Button1: TButton
+      object btnDefProgIconSet: TButton
         Tag = 7
         Left = 256
         Top = 71
@@ -807,6 +807,26 @@ object ProgSettDlg: TProgSettDlg
         Height = 25
         Caption = '&Alap'#233'rtelmezett'
         TabOrder = 1
+        OnClick = btnDefaultClick
+      end
+      object cbEmuIconSet: TComboBox
+        Left = 64
+        Top = 115
+        Width = 313
+        Height = 22
+        Hint = '(A program alap'#233'rtelmezett ikonk'#233'szlete)'
+        Style = csOwnerDrawFixed
+        TabOrder = 2
+        OnDrawItem = cbProgIconSetDrawItem
+      end
+      object btnDefEmuIconSet: TButton
+        Tag = 8
+        Left = 256
+        Top = 143
+        Width = 121
+        Height = 25
+        Caption = '&Alap'#233'rtelmezett'
+        TabOrder = 3
         OnClick = btnDefaultClick
       end
     end
