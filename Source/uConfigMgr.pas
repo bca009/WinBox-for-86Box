@@ -50,7 +50,8 @@ type
     EmuLangCtrl: integer;
 
     ProgIconSet,
-    EmuIconSet: string;
+    EmuIconSet,
+    StyleName: string;
 
     Tools: TStrings;
 
@@ -178,6 +179,7 @@ resourcestring
   KeyEmuLangCtrl     = 'EmuLangCtrl';
   KeyProgIconSet     = 'ProgIconSet';
   KeyEmuIconSet      = 'EmuIconSet';
+  KeyStyleName       = 'StyleName';
 
   ImportWinBoxRoot   = 'Software\Laci bá''\WinBox';
   Import86MgrRoot    = 'Software\86Box';
@@ -275,6 +277,7 @@ begin
 
           ProgIconSet     := ReadStringDef(KeyProgIconSet, ProgIconSet);
           EmuIconSet      := ReadStringDef(KeyEmuIconSet, EmuIconSet);
+          StyleName       := ReadStringDef(KeyStyleName, StyleName);
 
           if ValueExists(KeyTools) then begin
             Tools.Clear;
@@ -359,6 +362,7 @@ begin
 
           WriteStringChk(KeyProgIconSet, ProgIconSet, Defaults.ProgIconSet);
           WriteStringChk(KeyEmuIconSet, EmuIconSet, Defaults.EmuIconSet);
+          WriteStringChk(KeyStyleName, StyleName, Defaults.StyleName);
 
           DeleteValue(KeyTools);
           if Tools.Count <> 0 then
@@ -409,6 +413,7 @@ begin
 
   ProgIconSet := '';
   EmuIconSet := '';
+  StyleName := '';
 
   Tools.Clear;
 

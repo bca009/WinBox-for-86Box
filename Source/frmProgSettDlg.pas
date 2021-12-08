@@ -154,6 +154,7 @@ type
     btnDefProgIconSet: TButton;
     cbEmuIconSet: TComboBox;
     btnDefEmuIconSet: TButton;
+    cbStyleName: TComboBox;
     procedure Reload(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure cbLoggingChange(Sender: TObject);
@@ -182,6 +183,7 @@ type
     procedure UpdateTools(Tools: TStrings);
     procedure UpdateLanguages(const Mode: integer);
     procedure UpdateIconSets(const Mode: integer);
+    procedure UpdateStyles;
 
     procedure UMIconsChanged(var Msg: TMessage); message UM_ICONSETCHANGED;
   public
@@ -197,7 +199,8 @@ var
 
 implementation
 
-uses uCommUtil, uConfigMgr, frmMainForm, dmGraphUtil, Graphics;
+uses uCommUtil, uConfigMgr, frmMainForm, dmGraphUtil, Graphics,
+     Themes;
 
 resourcestring
   StrLvToolsColumn0 = '.lvTools.Column[0]';
@@ -418,6 +421,7 @@ begin
 
     ProgIconSet := TextLeft(cbProgIconSet.Text, '=');
     EmuIconSet  := TextLeft(cbEmuIconSet.Text, '=');
+    StyleName   := cbStyleName.Text;
 
     Save;
   end;
@@ -695,6 +699,7 @@ end;
 
 procedure TProgSettDlg.UMIconsChanged(var Msg: TMessage);
 begin
+  inherited;
   with IconSet do begin
     Icons32.GetIcon(8,  imgExtraPaths.Picture.Icon);
     Icons32.GetIcon(11, imgInfo.Picture.Icon);
@@ -948,6 +953,26 @@ begin
     FindEmuLang(Defaults.EmulatorLang);
 end;
 
+procedure TProgSettDlg.UpdateStyles;
+var
+  AStyle: string;
+begin
+  with cbStyleName, Items do begin
+    BeginUpdate;
+    try
+      Clear;
+      Add('');
+      for AStyle in TStyleManager.StyleNames do
+         Add(AStyle);
+
+      Sorted := true;
+      ItemIndex := IndexOf(Config.StyleName);
+    finally
+      EndUpdate;
+    end;
+  end;
+end;
+
 procedure TProgSettDlg.UpdateTools(Tools: TStrings);
 var
   I: integer;
@@ -1005,6 +1030,7 @@ begin
 
     UpdateLanguages(0);
     UpdateIconSets(0);
+    UpdateStyles;
   end;
 end;
 

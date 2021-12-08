@@ -65,11 +65,15 @@ implementation
 
 {$R *.dfm}
 
-uses uCommUtil, dmGraphUtil, Themes, ShellAPI;
+uses uCommUtil, dmGraphUtil, Themes, Graphics, ShellAPI;
 
 procedure TAboutDlg.CMStyleChanged(var Msg: TMessage);
 begin
+  inherited;
   TStyleManager.FixHiddenEdits(Self, true, StyleServices.IsSystemStyle);
+
+  Color := edVersion.Color;
+  Font.Color := edVersion.Font.Color;
 end;
 
 procedure TAboutDlg.FlipBiDi;

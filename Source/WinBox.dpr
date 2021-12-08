@@ -52,6 +52,7 @@ begin
   Application.ProcessMessages;
 
   Application.MainFormOnTaskbar := True;
+  TStyleManager.TrySetStyle('Slate Classico');
   Application.Title := 'WinBox for 86Box';
   Application.ActionUpdateDelay := 50;
   Application.CreateForm(TIconSet, IconSet);

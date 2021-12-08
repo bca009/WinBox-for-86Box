@@ -384,10 +384,13 @@ type
     procedure AddSeries(Chart: TChart; AColor: TColor; const FriendlyName: string);
     procedure AddValue(ASeries: TFastLineSeries; const Value: extended);
 
-    procedure WMEnterSizeMove(var Msg: TMessage); message WM_ENTERSIZEMOVE;
+    procedure CMStyleChanged(var Msg: TMessage); message CM_STYLECHANGED;
+
     procedure UMIconsChanged(var Msg: TMessage); message UM_ICONSETCHANGED;
     procedure UMDoFirstUpdate(var Msg: TMessage); message UM_DOFIRSTUPDATE;
-    procedure CMStyleChanged(var Msg: TMessage); message CM_STYLECHANGED;
+
+    procedure WMEnterSizeMove(var Msg: TMessage); message WM_ENTERSIZEMOVE;
+    procedure WMSettingChange(var Msg: TMessage); message WM_SETTINGCHANGE;
   public
     //Nyelvváltáskor, a program eredeti címének megtartása
     InitialTitle: string;
@@ -420,6 +423,7 @@ type
     procedure ChangeBiDi(const NewBiDi: boolean);
     procedure ChangeLanguage(const ALocale: string);
     procedure ChangeIconSet(const AIconSet: string);
+    procedure ChangeStyle(const AStyle: string; const Mode: integer);
 
     procedure GetRttiReport(Result: TStrings);
   end;
@@ -688,8 +692,12 @@ begin
     try
       if ShowModal = mrOK then begin
         FormShow(Sender);
+
         ChangeLanguage(Config.ProgramLang);
         ChangeIconSet(Config.ProgIconSet);
+        ChangeStyle(Config.StyleName, 0);
+        IconSet.UpdateColorsAllowed;
+
         DefProfile.Default;
         acUpdateList.Execute;
       end;
@@ -1029,6 +1037,39 @@ begin
   ChangeBiDi(NewBiDi);
 end;
 
+procedure TWinBoxMain.ChangeStyle(const AStyle: string;
+  const Mode: integer);
+var
+  Success: boolean;
+  FStyle: string;
+begin
+  Success := false;
+
+  if (AStyle <> '') then begin
+    for FStyle in TStyleManager.StyleNames do
+      if FStyle = AStyle then begin
+        Success := true;
+        break;
+      end;
+
+    if Success then
+      Success := TStyleManager.TrySetStyle(AStyle)
+  end
+  else if IconSet.DarkMode then
+    Success := TStyleManager.TrySetStyle('Windows10 DarkExplorer');
+
+  if not Success then
+    TStyleManager.TrySetStyle('Windows');
+
+  //Ha külsõ üzenet hatására kell megcsinálni, itt kell frissíteni.
+  if Mode = -1 then begin
+    IconSet.UpdateColorsAllowed;
+    ListClick(List);
+  end;
+  //Ellenkezõ esetben vagy nem kell (OnCreate),
+  //  vagy alapból van frissítés (acUpdateList.Execute).
+end;
+
 procedure TWinBoxMain.CMStyleChanged(var Msg: TMessage);
 var
   IsSystemStyle: boolean;
@@ -1056,6 +1097,7 @@ const
   end;
 
 begin
+  inherited;
   IsSystemStyle := StyleServices.IsSystemStyle;
 
   clHighlight1 :=
@@ -1068,8 +1110,8 @@ begin
   clDisabled2 := ColorHLSToRGB(H, L, 0);
 
   if IsSystemStyle then begin
-    BkColor := clWindow;
-    TextColor := clWindowText;
+    BkColor := ColorToRGB(clWindow);
+    TextColor := ColorToRGB(clWindowText);
   end
   else begin
     BkColor :=
@@ -1146,6 +1188,7 @@ end;
 
 procedure TWinBoxMain.UMIconsChanged(var Msg: TMessage);
 begin
+  inherited;
   IconSet.LoadImage(ImgWelcomeLogo, ImgWelcome);
 
   if Assigned(Profiles) then
@@ -1250,6 +1293,7 @@ begin
   HalfCharHeight := Canvas.TextHeight('Wg');
   BorderThickness := (List.ItemHeight - IconSet.ListIcons.Height) div 2;
 
+  ChangeStyle(Config.StyleName, 0);
   Perform(CM_STYLECHANGED, 0, 0);
 
   for I := 0 to Pages.PageCount - 1 do
@@ -1851,6 +1895,19 @@ begin
 
   if Assigned(Frame86Box) then
     Frame86Box.OnEnterSizeMove(Self);
+
+  inherited;
+end;
+
+procedure TWinBoxMain.WMSettingChange(var Msg: TMessage);
+begin
+  if (Msg.LParam <> 0) and
+     (PChar(Pointer(Msg.LParam)) = 'ImmersiveColorSet') and
+     IconSet.UpdateDarkMode and
+     (Config.StyleName = '') then
+    ChangeStyle('', -1);
+
+  inherited;
 end;
 
 procedure TWinBoxMain.pnpBottomResize(Sender: TObject);

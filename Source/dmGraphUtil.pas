@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Classes, Controls, Graphics, Forms,
   ImageList, WinCodec, ComCtrls, ExtCtrls, Generics.Collections,
   ImgList, VirtualImageList, BaseImageCollection, ImageCollection,
-  StdCtrls, Themes;
+  StdCtrls, Registry, Themes;
 
 type
   TIconSet = class(TDataModule)
@@ -17,6 +17,7 @@ type
     Icons16: TVirtualImageList;
   private
     FPath: string;
+    FDarkMode: boolean;
     procedure SetPath(const Value: string);
   protected
     BkupListImages,
@@ -28,6 +29,7 @@ type
   public
     //Virtuális gépek színének engedélyezése/letiltása (pl. BiDi-nél letiltva)
     IsColorsAllowed: boolean;
+    procedure UpdateColorsAllowed;
 
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
@@ -37,6 +39,9 @@ type
 
     //Képek frissítése pl. képrajzoló eljárások cseréje után
     procedure RefreshImages;
+
+    //Sötét mód lekérdezése és beállítása a registry alapján
+    function UpdateDarkMode: boolean;
 
     //Tükrözött képrajzoló eljárások
     procedure GetBitmapBiDi(ASourceImage: TWICImage; AWidth,
@@ -53,6 +58,7 @@ type
     function GetIconSetRoot: string;
 
     property Path: string read FPath write SetPath;
+    property DarkMode: boolean read FDarkMode;
   end;
 
   TStyleExtensions = class helper for TStyleManager
@@ -110,6 +116,8 @@ resourcestring
   PfListImages   = 'List\';
   PfDataImages   = 'Others\';
   PfIconInfo = 'iconinfo.txt';
+  RegDarkModeKey = 'Software\Microsoft\Windows\CurrentVersion\Themes\Personalize';
+  RegDarkModeName = 'AppsUseLightTheme';
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
@@ -319,6 +327,9 @@ begin
   //Mentsük le az eredeti képlistákat (visszaállításhoz)
   BkupListImages := BackupImageList(ListImages);
   BkupActionImages := BackupImageList(ActionImages);
+
+  //Kérdezzük le a sötét módot
+  UpdateDarkMode;
 end;
 
 //Az AProportional tulajdonság jelenleg nem támogatott ezen a módon.
@@ -464,7 +475,7 @@ end;
 
 procedure TIconSet.RefreshImages;
 begin
-  IsColorsAllowed := not LocaleIsBiDi and StyleServices.IsSystemStyle;
+  UpdateColorsAllowed;
 
   if LocaleIsBiDi then begin
     ListImages.OnDraw := DrawBiDi;
@@ -518,6 +529,33 @@ begin
   finally
     Screen.Cursor := crArrow;
   end;
+end;
+
+procedure TIconSet.UpdateColorsAllowed;
+begin
+  IsColorsAllowed := not LocaleIsBiDi and StyleServices.IsSystemStyle;
+end;
+
+function TIconSet.UpdateDarkMode: boolean;
+var
+  OldMode: boolean;
+begin
+  OldMode := FDarkMode;
+
+  FDarkMode := false;
+  with TRegistry.Create(KEY_READ) do
+    try
+      if OpenKey(RegDarkModeKey, false) then
+           try
+             FDarkMode := ValueExists(RegDarkModeName) and not ReadBool(RegDarkModeName);
+           finally;
+             CloseKey;
+           end;
+    finally
+       Free;
+    end;
+
+  Result := OldMode <> FDarkMode;
 end;
 
 { TStyleExtensions }

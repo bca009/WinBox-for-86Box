@@ -2,7 +2,7 @@ object Frame86Box: TFrame86Box
   Left = 0
   Top = 0
   Width = 526
-  Height = 357
+  Height = 345
   DoubleBuffered = False
   Color = clWindow
   Font.Charset = DEFAULT_CHARSET
@@ -19,11 +19,11 @@ object Frame86Box: TFrame86Box
   PixelsPerInch = 96
   DesignSize = (
     526
-    357)
+    345)
   object bvBottom: TBevel
     AlignWithMargins = True
     Left = 3
-    Top = 320
+    Top = 308
     Width = 520
     Height = 34
     Align = alBottom
@@ -34,19 +34,20 @@ object Frame86Box: TFrame86Box
   end
   object lbStateDesc: TLabel
     Left = 18
-    Top = 330
+    Top = 318
     Width = 50
     Height = 24
     Anchors = [akLeft, akBottom]
     AutoSize = False
     Caption = '&'#193'llapot:'
     FocusControl = edState
+    ExplicitTop = 330
   end
   object Splitter: TSplitter
     AlignWithMargins = True
     Left = 332
     Top = 46
-    Height = 266
+    Height = 254
     Margins.Left = 0
     Margins.Top = 5
     Margins.Right = 0
@@ -59,7 +60,7 @@ object Frame86Box: TFrame86Box
   end
   object edState: TEdit
     Left = 64
-    Top = 330
+    Top = 318
     Width = 185
     Height = 24
     Anchors = [akLeft, akBottom]
@@ -74,16 +75,17 @@ object Frame86Box: TFrame86Box
     ParentColor = True
     ParentFont = False
     ReadOnly = True
-    TabOrder = 4
+    TabOrder = 3
     Text = 'Ismeretlen'
     StyleElements = [seBorder]
+    ExplicitTop = 330
   end
   object cgPanels: TCategoryPanelGroup
     AlignWithMargins = True
     Left = 3
     Top = 44
     Width = 324
-    Height = 270
+    Height = 258
     Margins.Right = 5
     VertScrollBar.Tracking = True
     Align = alClient
@@ -101,6 +103,7 @@ object Frame86Box: TFrame86Box
     ParentColor = True
     TabOrder = 0
     OnResize = cgPanelsResize
+    ExplicitHeight = 270
     object cpPorts: TCategoryPanel
       Top = 563
       Height = 78
@@ -477,20 +480,21 @@ object Frame86Box: TFrame86Box
   object btnPrinter: TButton
     Tag = 2
     Left = 401
-    Top = 324
+    Top = 312
     Width = 115
     Height = 25
     Anchors = [akRight, akBottom]
     Caption = '&Nyomtat'#243't'#225'lca...'
     TabOrder = 1
     OnClick = btnWorkDirClick
+    ExplicitTop = 324
   end
   object RightPanel: TPanel
     AlignWithMargins = True
     Left = 338
     Top = 44
     Width = 178
-    Height = 265
+    Height = 253
     Margins.Right = 10
     Margins.Bottom = 8
     Align = alRight
@@ -503,58 +507,64 @@ object Frame86Box: TFrame86Box
     ParentColor = True
     ParentDoubleBuffered = False
     TabOrder = 2
+    ExplicitHeight = 265
     DesignSize = (
       178
-      265)
+      253)
     object lbNone: TLabel
       Left = 11
       Top = 37
       Width = 162
-      Height = 113
+      Height = 101
       Alignment = taCenter
       Anchors = [akLeft, akTop, akRight, akBottom]
       AutoSize = False
       Caption = '(nincs)'
       Layout = tlCenter
       ExplicitWidth = 168
+      ExplicitHeight = 113
     end
     object lbHostCPU: TLabel
       Left = 112
-      Top = 156
+      Top = 144
       Width = 61
       Height = 26
       Alignment = taRightJustify
       Anchors = [akRight, akBottom]
       AutoSize = False
       Caption = '0%'
+      ExplicitTop = 156
     end
     object lbHostCPUDesc: TLabel
       Left = 11
-      Top = 156
+      Top = 144
       Width = 78
       Height = 26
       Anchors = [akLeft, akBottom]
       AutoSize = False
       Caption = '&CPU:'
+      ExplicitTop = 156
     end
     object lbHostMemoryRAM: TLabel
       Left = 11
-      Top = 198
+      Top = 186
       Width = 86
       Height = 27
       Anchors = [akLeft, akBottom]
       AutoSize = False
       Caption = '&Mem'#243'ria:'
+      ExplicitTop = 198
     end
     object lbHostRAM: TLabel
       Left = 80
-      Top = 198
+      Top = 186
       Width = 93
       Height = 27
       Alignment = taRightJustify
       Anchors = [akRight, akBottom]
       AutoSize = False
       Caption = '0% (0 B)'
+      ExplicitTop = 198
     end
     object lbScreenshots: TLabel
       Tag = 3
@@ -576,46 +586,51 @@ object Frame86Box: TFrame86Box
     end
     object lbDiskSizeDesc: TLabel
       Left = 11
-      Top = 244
+      Top = 232
       Width = 118
       Height = 13
       Anchors = [akLeft, akBottom]
       AutoSize = False
       Caption = 'Elfoglalt lemezter'#252'let:'
+      ExplicitTop = 244
     end
     object lbDiskSize: TLabel
       Left = 120
-      Top = 244
+      Top = 232
       Width = 53
       Height = 21
       Alignment = taRightJustify
       Anchors = [akRight, akBottom]
       AutoSize = False
       Caption = '0 MB'
+      ExplicitTop = 244
     end
     object bvScreenshots: TBevel
       Left = 11
       Top = 37
       Width = 162
-      Height = 113
+      Height = 101
       Anchors = [akLeft, akTop, akRight, akBottom]
       ExplicitWidth = 168
+      ExplicitHeight = 113
     end
     object pbHostCPU: TProgressBar
       Left = 11
-      Top = 175
+      Top = 163
       Width = 162
       Height = 17
       Anchors = [akLeft, akRight, akBottom]
       TabOrder = 0
+      ExplicitTop = 175
     end
     object pbHostRAM: TProgressBar
       Left = 11
-      Top = 217
+      Top = 205
       Width = 162
       Height = 17
       Anchors = [akLeft, akRight, akBottom]
       TabOrder = 1
+      ExplicitTop = 217
     end
     object btnImgNext: TButton
       Left = 139
@@ -647,32 +662,29 @@ object Frame86Box: TFrame86Box
     BevelOuter = bvNone
     Color = 15854306
     ParentBackground = False
-    TabOrder = 3
-    object lbFriendlyName: TLabel
-      Left = 18
-      Top = 12
-      Width = 471
-      Height = 26
-      AutoSize = False
-      Caption = 'Ismeretlen PC'
-      Font.Charset = EASTEUROPE_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Tahoma'
-      Font.Style = [fsBold]
-      ParentFont = False
-    end
+    TabOrder = 4
+    ExplicitTop = 3
     object btnWorkDir: TSpeedButton
       Tag = 1
       Left = 0
       Top = 0
       Width = 526
       Height = 41
+      HelpType = htKeyword
+      HelpKeyword = '    Ismeretlen PC'
       Align = alClient
+      Caption = '  Ismeretlen PC'
       Flat = True
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      Margin = 0
+      ParentFont = False
+      StyleElements = [seClient, seBorder]
       OnClick = btnWorkDirClick
-      ExplicitLeft = -1
-      ExplicitWidth = 436
+      ExplicitHeight = 38
     end
   end
   object DelayChange: TTimer

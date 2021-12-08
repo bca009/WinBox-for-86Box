@@ -15,6 +15,7 @@ object AboutDlg: TAboutDlg
   Font.Style = []
   ParentBiDiMode = False
   Position = poMainFormCenter
+  StyleElements = [seFont, seBorder]
   OnCreate = FormCreate
   PixelsPerInch = 96
   DesignSize = (
@@ -240,6 +241,7 @@ object AboutDlg: TAboutDlg
     ReadOnly = True
     TabOrder = 0
     Text = 'edVersion'
+    StyleElements = [seBorder]
   end
   object btnOK: TButton
     Left = 260

@@ -829,6 +829,14 @@ object ProgSettDlg: TProgSettDlg
         TabOrder = 3
         OnClick = btnDefaultClick
       end
+      object cbStyleName: TComboBox
+        Left = 64
+        Top = 184
+        Width = 313
+        Height = 21
+        Style = csDropDownList
+        TabOrder = 4
+      end
     end
     object tabTools: TTabSheet
       Caption = 'Eszk'#246'z'#246'k'

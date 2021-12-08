@@ -105,11 +105,10 @@ type
     edState: TEdit;
     bvScreenshots: TBevel;
     lbNone: TLabel;
-    TopPanel: TPanel;
-    lbFriendlyName: TLabel;
-    btnWorkDir: TSpeedButton;
     Splitter: TSplitter;
     DelayChange: TTimer;
+    TopPanel: TPanel;
+    btnWorkDir: TSpeedButton;
     procedure cgPanelsResize(Sender: TObject);
     procedure PicturePagerContextPopup(Sender: TObject; MousePos: TPoint;
       var Handled: Boolean);
@@ -212,14 +211,11 @@ procedure TFrame86Box.CMStyleChanged(var Msg: TMessage);
 var
   IsSystemStyle: boolean;
 begin
+  inherited;
   IsSystemStyle := StyleServices.IsSystemStyle;
   TStyleManager.FixHiddenEdits(cgPanels, true, IsSystemStyle);
 
-  if IsSystemStyle then begin
-    Color := clWindow;
-    Font.Color := clWindowText;
-  end
-  else begin
+  if not IsSystemStyle then begin
     Color :=
       TStyleManager.ActiveStyle.GetSystemColor(clBtnFace);
     Font.Color :=
@@ -228,6 +224,11 @@ begin
 
   edState.ParentColor := true;
   edState.Font.Color := Font.Color;
+
+  if IsSystemStyle then
+    btnWorkDir.Font.Color := clBlack
+  else
+    btnWorkDir.Font.Color := TopPanel.Font.Color;
 end;
 
 constructor TFrame86Box.Create(AOwner: TComponent);
@@ -257,6 +258,7 @@ begin
     OnClick := PicturePagerClick;
   end;
 
+  Tag := clNone;
   Perform(CM_STYLECHANGED, 0, 0);
 
   FolderMonitor := TFolderMonitor.Create(nil);
@@ -414,22 +416,22 @@ begin
   Success := LockWindowUpdate(Handle);
   try
     if Assigned(Profile) then
-      with Profile do begin
-        if Color = clNone then
-          Self.Color := clWindow
-        else
-          Self.Color := Color;
+      Tag := Profile.Color;
 
-        cgPanels.GradientBaseColor := Self.Color;
-        cgPanels.GradientColor := Self.Color;
+    if Tag = clNone then
+      Self.Color := clWindow
+    else
+      Self.Color := Tag;
 
-        Font.Color := GetTextColor(Color);
-        edState.Font.Color := Font.Color;
-        lbScreenshots.Font.Color := GetLinkColor(Color);
+     cgPanels.GradientBaseColor := Self.Color;
+     cgPanels.GradientColor := Self.Color;
 
-        cgPanels.ChevronColor := Font.Color;
-        cgPanels.HeaderFont.Color := Font.Color;
-      end;
+     Font.Color := GetTextColor(Color);
+     edState.Font.Color := Font.Color;
+     lbScreenshots.Font.Color := GetLinkColor(Color);
+
+     cgPanels.ChevronColor := Font.Color;
+     cgPanels.HeaderFont.Color := Font.Color;
   finally
     if Success then begin
       LockWindowUpdate(0);
@@ -601,7 +603,7 @@ begin
       btnWorkDir.Hint := Profile.WorkingDirectory;
 
       lbScreenshots.Hint := Screenshots;
-      lbFriendlyName.Caption := FriendlyName;
+      btnWorkDir.Caption := '    ' + FriendlyName;
     end;
 
   UpdateData(Profile);
