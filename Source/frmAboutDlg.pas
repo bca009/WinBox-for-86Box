@@ -24,7 +24,8 @@ unit frmAboutDlg;
 interface
 
 uses
-  Windows, Classes, Forms, StdCtrls, Controls, ExtCtrls, uLang;
+  Windows, Messages, Classes, Forms, StdCtrls, Controls, ExtCtrls,
+  uLang;
 
 type
   TAboutDlg = class(TForm, ILanguageSupport)
@@ -49,7 +50,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure lbWebApplicationClick(Sender: TObject);
   private
-    { Private declarations }
+    procedure CMStyleChanged(var Msg: TMessage); message CM_STYLECHANGED;
   public
     LangName: string;
     procedure GetTranslation(Language: TLanguage); stdcall;
@@ -64,7 +65,12 @@ implementation
 
 {$R *.dfm}
 
-uses uCommUtil, dmGraphUtil, ShellAPI;
+uses uCommUtil, dmGraphUtil, Themes, ShellAPI;
+
+procedure TAboutDlg.CMStyleChanged(var Msg: TMessage);
+begin
+  TStyleManager.FixHiddenEdits(Self, true, StyleServices.IsSystemStyle);
+end;
 
 procedure TAboutDlg.FlipBiDi;
 begin
@@ -81,9 +87,9 @@ begin
   if LocaleIsBiDi then
     FlipBiDi;
 
+  Perform(CM_STYLECHANGED, 0, 0);
+
   edVersion.Text := GetFileVer(ParamStr(0));
-  lbTitle.Left := (ClientWidth - lbTitle.Width) div 2;
-  lbLicensing.Left := (ClientWidth - lbLicensing.Width) div 2;
 end;
 
 procedure TAboutDlg.GetTranslation(Language: TLanguage);

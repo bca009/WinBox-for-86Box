@@ -5,7 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Classes, Controls, Graphics, Forms,
   ImageList, WinCodec, ComCtrls, ExtCtrls, Generics.Collections,
-  ImgList, VirtualImageList, BaseImageCollection, ImageCollection;
+  ImgList, VirtualImageList, BaseImageCollection, ImageCollection,
+  StdCtrls, Themes;
 
 type
   TIconSet = class(TDataModule)
@@ -52,6 +53,11 @@ type
     function GetIconSetRoot: string;
 
     property Path: string read FPath write SetPath;
+  end;
+
+  TStyleExtensions = class helper for TStyleManager
+  public
+    class procedure FixHiddenEdits(Control: TWinControl; const AllLevels, IsSystemStyle: boolean);
   end;
 
 var
@@ -458,7 +464,7 @@ end;
 
 procedure TIconSet.RefreshImages;
 begin
-  IsColorsAllowed := not LocaleIsBiDi;
+  IsColorsAllowed := not LocaleIsBiDi and StyleServices.IsSystemStyle;
 
   if LocaleIsBiDi then begin
     ListImages.OnDraw := DrawBiDi;
@@ -512,6 +518,39 @@ begin
   finally
     Screen.Cursor := crArrow;
   end;
+end;
+
+{ TStyleExtensions }
+
+class procedure TStyleExtensions.FixHiddenEdits(Control: TWinControl;
+  const AllLevels, IsSystemStyle: boolean);
+var
+  I: Integer;
+begin
+  if Assigned(Control) then
+    for I := 0 to Control.ControlCount - 1 do begin
+      if Control.Controls[I] is TEdit then
+        with Control.Controls[I] as TEdit do
+          if BorderStyle = bsNone then begin
+            StyleElements := [];
+
+            if IsSystemStyle then begin
+              ParentColor := true;
+              ParentFont := true;
+            end
+            else begin
+              Color :=
+                TStyleManager.ActiveStyle.GetSystemColor(clBtnFace);
+              Font.Color :=
+                TStyleManager.ActiveStyle.GetStyleFontColor(sfTextLabelNormal);
+            end;
+          end;
+
+      if AllLevels and (Control.Controls[I] is TWinControl) and
+         ((Control.Controls[I] as TWinControl).ControlCount > 0) then
+           FixHiddenEdits(Control.Controls[I] as TWinControl,
+             AllLevels, IsSystemStyle);
+    end;
 end;
 
 end.

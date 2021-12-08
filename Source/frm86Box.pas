@@ -24,8 +24,9 @@ unit frm86Box;
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Buttons,
-  ComCtrls, ExtCtrls, StdCtrls, u86Box, uPicturePager, uFolderMon, uLang;
+  Windows, Messages, SysUtils, Classes, Graphics, Controls,
+  Forms, Buttons, ComCtrls, ExtCtrls, StdCtrls, uFolderMon,
+  uPicturePager, u86Box, uLang;
 
 type
   TCategoryPanel =  class(ExtCtrls.TCategoryPanel)
@@ -119,6 +120,8 @@ type
   private
     DirectoryChange: string;
     DirectoryChgType: Cardinal;
+
+    procedure CMStyleChanged(var Msg: TMessage); message CM_STYLECHANGED;
   public
     PicturePager: TPicturePager;
     FolderMonitor: TFolderMonitor;
@@ -156,7 +159,8 @@ var
 
 implementation
 
-uses uCommUtil, uCommText, frmMainForm, ShellAPI, Rtti, dmGraphUtil;
+uses uCommUtil, uCommText, frmMainForm, ShellAPI, Rtti,
+     dmGraphUtil, Themes;
 
 resourcestring
   StrWorkDirRemoved = 'WinBox.WorkDirRemoved';
@@ -204,6 +208,28 @@ begin
     end;
 end;
 
+procedure TFrame86Box.CMStyleChanged(var Msg: TMessage);
+var
+  IsSystemStyle: boolean;
+begin
+  IsSystemStyle := StyleServices.IsSystemStyle;
+  TStyleManager.FixHiddenEdits(cgPanels, true, IsSystemStyle);
+
+  if IsSystemStyle then begin
+    Color := clWindow;
+    Font.Color := clWindowText;
+  end
+  else begin
+    Color :=
+      TStyleManager.ActiveStyle.GetSystemColor(clBtnFace);
+    Font.Color :=
+      TStyleManager.ActiveStyle.GetStyleFontColor(sfTextLabelNormal);
+  end;
+
+  edState.ParentColor := true;
+  edState.Font.Color := Font.Color;
+end;
+
 constructor TFrame86Box.Create(AOwner: TComponent);
 begin
   inherited;
@@ -230,6 +256,8 @@ begin
     OnContextPopup := PicturePagerContextPopup;
     OnClick := PicturePagerClick;
   end;
+
+  Perform(CM_STYLECHANGED, 0, 0);
 
   FolderMonitor := TFolderMonitor.Create(nil);
   FolderMonitor.OnChange := OnDirectoryChange;

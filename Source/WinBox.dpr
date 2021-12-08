@@ -25,7 +25,9 @@ uses
   frmWizardVM in 'frmWizardVM.pas' {WizardVM},
   frmSplash in 'frmSplash.pas' {WinBoxSplash},
   dmWinBoxUpd in 'dmWinBoxUpd.pas' {WinBoxUpd: TDataModule},
-  dmGraphUtil in 'dmGraphUtil.pas' {IconSet: TDataModule};
+  dmGraphUtil in 'dmGraphUtil.pas' {IconSet: TDataModule},
+  Vcl.Themes,
+  Vcl.Styles;
 
 {$R *.res}
 {$R '..\Data\rcWinBox.RES'}

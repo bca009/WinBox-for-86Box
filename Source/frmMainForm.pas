@@ -387,6 +387,7 @@ type
     procedure WMEnterSizeMove(var Msg: TMessage); message WM_ENTERSIZEMOVE;
     procedure UMIconsChanged(var Msg: TMessage); message UM_ICONSETCHANGED;
     procedure UMDoFirstUpdate(var Msg: TMessage); message UM_DOFIRSTUPDATE;
+    procedure CMStyleChanged(var Msg: TMessage); message CM_STYLECHANGED;
   public
     //Nyelvváltáskor, a program eredeti címének megtartása
     InitialTitle: string;
@@ -436,7 +437,7 @@ uses JclDebug, uProcessMon, uProcProfile, uCommUtil, frmProgSettDlg,
   frmProfSettDlg, frmImportVM, uWinProfile, uConfigMgr, ShellAPI,
   Rtti, frmErrorDialog, frmAboutDlg, frmSelectHDD, frmNewFloppy,
   frmWizardHDD, frmWizardVM, uBaseProfile, frmSplash, dmWinBoxUpd,
-  WinCodec, dmGraphUtil;
+  WinCodec, dmGraphUtil, Themes, VCLTee.TeCanvas;
 
 const
   MaxPoints = 60;
@@ -1028,6 +1029,62 @@ begin
   ChangeBiDi(NewBiDi);
 end;
 
+procedure TWinBoxMain.CMStyleChanged(var Msg: TMessage);
+var
+  IsSystemStyle: boolean;
+  H, L, S: word;
+  BkColor, TextColor, TitleColor: TColor;
+const
+  TitleColors: array [boolean] of TColor = (clHighlight, clBlue);
+
+  procedure ProcessChart(Chart: TChart);
+  begin
+    with Chart do begin
+      Color := BkColor;
+      Legend.Color := BkColor;
+
+      Frame.Color := TextColor;
+      Legend.Font.Color := TextColor;
+      Legend.Frame.Color := TextColor;
+      LeftAxis.LabelsFont.Color := TextColor;
+      BottomAxis.LabelsFont.Color := TextColor;
+      LeftAxis.Title.Font.Color := TextColor;
+      BottomAxis.Title.Font.Color := TextColor;
+
+      Title.Font.Color := TitleColor;
+    end;
+  end;
+
+begin
+  IsSystemStyle := StyleServices.IsSystemStyle;
+
+  clHighlight1 :=
+    TStyleManager.ActiveStyle.GetSystemColor(clHighlight);
+  ColorRGBToHLS(clHighlight1, H, L, S);
+  clDisabled1 := ColorHLSToRGB(H, L, 0);
+
+  L := L * 10 div 8;
+  clHighlight2 := ColorHLSToRGB(H, L, S);
+  clDisabled2 := ColorHLSToRGB(H, L, 0);
+
+  if IsSystemStyle then begin
+    BkColor := clWindow;
+    TextColor := clWindowText;
+  end
+  else begin
+    BkColor :=
+      TStyleManager.ActiveStyle.GetSystemColor(clBtnFace);
+    TextColor :=
+      TStyleManager.ActiveStyle.GetStyleFontColor(sfTextLabelNormal);
+  end;
+
+  TitleColor := TitleColors[IsSystemStyle];
+
+  ProcessChart(ChartCPU);
+  ProcessChart(ChartRAM);
+  ProcessChart(ChartVMs);
+end;
+
 procedure TWinBoxMain.DeleteVM(DeleteFiles: boolean);
 var
   FItemIndex: integer;
@@ -1182,7 +1239,6 @@ end;
 
 procedure TWinBoxMain.FormCreate(Sender: TObject);
 var
-  H, L, S: Word;
   I: integer;
 begin
   //GUI part
@@ -1194,13 +1250,7 @@ begin
   HalfCharHeight := Canvas.TextHeight('Wg');
   BorderThickness := (List.ItemHeight - IconSet.ListIcons.Height) div 2;
 
-  clHighlight1 := ColorToRGB(clHighlight);
-  ColorRGBToHLS(clHighlight1, H, L, S);
-  clDisabled1 := ColorHLSToRGB(H, L, 0);
-
-  L := L * 10 div 8;
-  clHighlight2 := ColorHLSToRGB(H, L, S);
-  clDisabled2 := ColorHLSToRGB(H, L, 0);
+  Perform(CM_STYLECHANGED, 0, 0);
 
   for I := 0 to Pages.PageCount - 1 do
     Pages.Pages[I].TabVisible := false;
@@ -1362,18 +1412,24 @@ begin
   try
     with IconSet, Control as TListBox, Canvas do begin
       if Enabled and (odSelected in State) then begin
-        Brush.Color := clHighlight;
-        Font.Color := clHighlightText;
+        Brush.Color :=
+          TStyleManager.ActiveStyle.GetSystemColor(clHighlight);
+        Font.Color :=
+          TStyleManager.ActiveStyle.GetSystemColor(clHighlightText);
         GradientFillCanvas(Canvas, clHighlight2, clHighlight1, Rect, gdVertical);
       end
       else if (odSelected in State) then begin
-        Brush.Color := cl3DDkShadow;
-        Font.Color := cl3DLight;
+        Brush.Color :=
+          TStyleManager.ActiveStyle.GetSystemColor(cl3DDkShadow);
+        Font.Color :=
+          TStyleManager.ActiveStyle.GetSystemColor(cl3DLight);
         GradientFillCanvas(Canvas, clDisabled2, clDisabled1, Rect, gdVertical);
       end
       else begin
-        Brush.Color := clWindow;
-        Font.Color := clWindowText;
+        Brush.Color :=
+          TStyleManager.ActiveStyle.GetSystemColor(clWindow);
+        Font.Color :=
+          TStyleManager.ActiveStyle.GetSystemColor(clWindowText);
         FillRect(Rect);
       end;
 
