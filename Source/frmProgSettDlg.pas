@@ -967,6 +967,7 @@ begin
 
       Sorted := true;
       ItemIndex := IndexOf(Config.StyleName);
+      Enabled := not LocaleIsBiDi;
     finally
       EndUpdate;
     end;

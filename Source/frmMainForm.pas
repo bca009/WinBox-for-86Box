@@ -1043,6 +1043,9 @@ var
   Success: boolean;
   FStyle: string;
 begin
+  if LocaleIsBiDi then
+    exit;
+
   Success := false;
 
   if (AStyle <> '') then begin
@@ -1099,6 +1102,10 @@ const
 begin
   inherited;
   IsSystemStyle := StyleServices.IsSystemStyle;
+
+  //Lista kirajzolási eljárás segédlet
+  HalfCharHeight := Canvas.TextHeight('Wg');
+  BorderThickness := (List.ItemHeight - IconSet.ListIcons.Height) div 2;
 
   clHighlight1 :=
     TStyleManager.ActiveStyle.GetSystemColor(clHighlight);
@@ -1289,13 +1296,6 @@ begin
 
   IconSet.Initialize(Self);
 
-  //Lista kirajzolási eljárás segédlet
-  HalfCharHeight := Canvas.TextHeight('Wg');
-  BorderThickness := (List.ItemHeight - IconSet.ListIcons.Height) div 2;
-
-  ChangeStyle(Config.StyleName, 0);
-  Perform(CM_STYLECHANGED, 0, 0);
-
   for I := 0 to Pages.PageCount - 1 do
     Pages.Pages[I].TabVisible := false;
   Pages.ActivePageIndex := 0;
@@ -1318,6 +1318,9 @@ begin
     ChangeLanguage(Config.ProgramLang) //azért hogy ez végigfusson
   else
     ChangeLanguage(LocaleOverride);
+
+  ChangeStyle(Config.StyleName, 0);
+  Perform(CM_STYLECHANGED, 0, 0);
 
   //töltsük be az ikonkészletet, majd tükrözzük meg a képeket
   //  és tiltsuk le a színeket ha szükséges
