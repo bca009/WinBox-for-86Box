@@ -695,8 +695,7 @@ begin
 
         ChangeLanguage(Config.ProgramLang);
         ChangeIconSet(Config.ProgIconSet);
-        ChangeStyle(Config.StyleName, 0);
-        IconSet.UpdateColorsAllowed;
+        ChangeStyle(Config.StyleName, -1);
 
         DefProfile.Default;
         acUpdateList.Execute;
@@ -1064,10 +1063,14 @@ begin
   if not Success then
     TStyleManager.TrySetStyle('Windows');
 
+  IconSet.UpdateColorsAllowed;
+
   //Ha külsõ üzenet hatására kell megcsinálni, itt kell frissíteni.
   if Mode = -1 then begin
-    IconSet.UpdateColorsAllowed;
     ListClick(List);
+
+    //Ez azért kell hogy ne crasheljen az automata váltás után.
+    StyleServices.ApplyThemeChange;
   end;
   //Ellenkezõ esetben vagy nem kell (OnCreate),
   //  vagy alapból van frissítés (acUpdateList.Execute).
