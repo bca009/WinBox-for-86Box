@@ -329,6 +329,7 @@ begin
   BkupActionImages := BackupImageList(ActionImages);
 
   //Kérdezzük le a sötét módot
+  FDarkMode := false; //a program fehérbõl indul
   UpdateDarkMode;
 end;
 

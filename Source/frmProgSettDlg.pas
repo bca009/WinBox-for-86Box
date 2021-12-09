@@ -963,7 +963,9 @@ begin
       Clear;
       Add('');
       for AStyle in TStyleManager.StyleNames do
-         Add(AStyle);
+         if (pos('Windows10', AStyle) = 0) or //licenszelés szerint
+            (Win32MajorVersion >= 10) then
+              Add(AStyle);
 
       Sorted := true;
       ItemIndex := IndexOf(Config.StyleName);

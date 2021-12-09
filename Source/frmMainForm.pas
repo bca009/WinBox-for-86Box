@@ -1045,6 +1045,12 @@ begin
   if LocaleIsBiDi then
     exit;
 
+  //A licenszelés megköveteli hogy csak az adott platformon lehessen
+  //  használni a stílust
+  if (pos('Windows10', AStyle) <> 0) and
+     (Win32MajorVersion < 10) then
+    exit;
+
   Success := false;
 
   if (AStyle <> '') then begin
@@ -1057,7 +1063,7 @@ begin
     if Success then
       Success := TStyleManager.TrySetStyle(AStyle)
   end
-  else if IconSet.DarkMode then
+  else if IconSet.DarkMode and (Win32MajorVersion >= 10) then
     Success := TStyleManager.TrySetStyle('Windows10 DarkExplorer');
 
   if not Success then
