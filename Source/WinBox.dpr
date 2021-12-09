@@ -47,6 +47,9 @@ begin
 
   Application.Initialize;
 
+  with TStyleManager do
+    SystemHooks := SystemHooks - [shDialogs];
+
   WinBoxSplash := TWinBoxSplash.Create(nil);
   WinBoxSplash.Show;
   Application.ProcessMessages;
