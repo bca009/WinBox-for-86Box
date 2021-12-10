@@ -116,11 +116,12 @@ object AboutDlg: TAboutDlg
     AutoSize = False
     Caption = 'Weboldal'
     Font.Charset = DEFAULT_CHARSET
-    Font.Color = 14120960
+    Font.Color = clHotLight
     Font.Height = -11
     Font.Name = 'Tahoma'
     Font.Style = [fsUnderline]
     ParentFont = False
+    StyleElements = [seClient, seBorder]
     OnClick = lbWebApplicationClick
   end
   object lbWebDeveloper: TLabel
@@ -134,11 +135,12 @@ object AboutDlg: TAboutDlg
     AutoSize = False
     Caption = 'Weboldal'
     Font.Charset = DEFAULT_CHARSET
-    Font.Color = 14120960
+    Font.Color = clHotLight
     Font.Height = -11
     Font.Name = 'Tahoma'
     Font.Style = [fsUnderline]
     ParentFont = False
+    StyleElements = [seClient, seBorder]
     OnClick = lbWebApplicationClick
   end
   object lbConnProjects: TLabel
@@ -188,11 +190,12 @@ object AboutDlg: TAboutDlg
     AutoSize = False
     Caption = 'Weboldal'
     Font.Charset = DEFAULT_CHARSET
-    Font.Color = 14120960
+    Font.Color = clHotLight
     Font.Height = -11
     Font.Name = 'Tahoma'
     Font.Style = [fsUnderline]
     ParentFont = False
+    StyleElements = [seClient, seBorder]
     OnClick = lbWebApplicationClick
   end
   object lbJCL: TLabel
@@ -214,11 +217,12 @@ object AboutDlg: TAboutDlg
     AutoSize = False
     Caption = 'Weboldal'
     Font.Charset = DEFAULT_CHARSET
-    Font.Color = 14120960
+    Font.Color = clHotLight
     Font.Height = -11
     Font.Name = 'Tahoma'
     Font.Style = [fsUnderline]
     ParentFont = False
+    StyleElements = [seClient, seBorder]
     OnClick = lbWebApplicationClick
   end
   object lbLicensing: TLabel

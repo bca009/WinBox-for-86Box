@@ -75,7 +75,7 @@ object ImportVM: TImportVM
     Top = 0
     Width = 337
     Height = 263
-    ActivePage = tabEnding1
+    ActivePage = tabWelcome
     Align = alClient
     TabOrder = 2
     object tabWelcome: TTabSheet
@@ -125,11 +125,12 @@ object ImportVM: TImportVM
         Anchors = [akRight, akBottom]
         Caption = 'Programbe'#225'll'#237't'#225'sok'
         Font.Charset = DEFAULT_CHARSET
-        Font.Color = clHighlight
+        Font.Color = clHotLight
         Font.Height = -11
         Font.Name = 'Tahoma'
         Font.Style = [fsUnderline]
         ParentFont = False
+        StyleElements = [seClient, seBorder]
         OnClick = lbProgramSettingsClick
       end
     end

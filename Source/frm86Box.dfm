@@ -78,7 +78,6 @@ object Frame86Box: TFrame86Box
     TabOrder = 3
     Text = 'Ismeretlen'
     StyleElements = [seBorder]
-    ExplicitTop = 330
   end
   object cgPanels: TCategoryPanelGroup
     AlignWithMargins = True
@@ -103,7 +102,6 @@ object Frame86Box: TFrame86Box
     ParentColor = True
     TabOrder = 0
     OnResize = cgPanelsResize
-    ExplicitHeight = 270
     object cpPorts: TCategoryPanel
       Top = 563
       Height = 78
@@ -487,7 +485,6 @@ object Frame86Box: TFrame86Box
     Caption = '&Nyomtat'#243't'#225'lca...'
     TabOrder = 1
     OnClick = btnWorkDirClick
-    ExplicitTop = 324
   end
   object RightPanel: TPanel
     AlignWithMargins = True
@@ -507,7 +504,6 @@ object Frame86Box: TFrame86Box
     ParentColor = True
     ParentDoubleBuffered = False
     TabOrder = 2
-    ExplicitHeight = 265
     DesignSize = (
       178
       253)
@@ -582,6 +578,7 @@ object Frame86Box: TFrame86Box
       Font.Name = 'Tahoma'
       Font.Style = [fsUnderline]
       ParentFont = False
+      StyleElements = [seClient, seBorder]
       OnClick = btnWorkDirClick
     end
     object lbDiskSizeDesc: TLabel
@@ -621,7 +618,6 @@ object Frame86Box: TFrame86Box
       Height = 17
       Anchors = [akLeft, akRight, akBottom]
       TabOrder = 0
-      ExplicitTop = 175
     end
     object pbHostRAM: TProgressBar
       Left = 11
@@ -630,7 +626,6 @@ object Frame86Box: TFrame86Box
       Height = 17
       Anchors = [akLeft, akRight, akBottom]
       TabOrder = 1
-      ExplicitTop = 217
     end
     object btnImgNext: TButton
       Left = 139
@@ -663,7 +658,6 @@ object Frame86Box: TFrame86Box
     Color = 15854306
     ParentBackground = False
     TabOrder = 4
-    ExplicitTop = 3
     object btnWorkDir: TSpeedButton
       Tag = 1
       Left = 0

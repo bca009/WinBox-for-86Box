@@ -76,7 +76,7 @@ object WizardVM: TWizardVM
     Top = 0
     Width = 337
     Height = 263
-    ActivePage = tabOptions
+    ActivePage = tabTemplates
     Align = alClient
     TabOrder = 2
     object tabWelcome: TTabSheet
@@ -291,11 +291,12 @@ object WizardVM: TWizardVM
         Anchors = [akRight, akBottom]
         Caption = 'Sablon n'#233'lk'#252'li g'#233'p k'#233'sz'#237't'#233'se (halad'#243'knak)'
         Font.Charset = DEFAULT_CHARSET
-        Font.Color = clHighlight
+        Font.Color = clHotLight
         Font.Height = -11
         Font.Name = 'Tahoma'
         Font.Style = [fsUnderline]
         ParentFont = False
+        StyleElements = [seClient, seBorder]
         OnClick = lbNoTemplateClick
       end
       object lbManufacturer: TListBox
