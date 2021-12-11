@@ -1205,6 +1205,7 @@ end;
 procedure TWinBoxMain.UMIconsChanged(var Msg: TMessage);
 begin
   inherited;
+  IconSet.Icons32.GetIcon(6, DeleteDialog.CustomMainIcon);
   IconSet.LoadImage(ImgWelcomeLogo, ImgWelcome);
 
   DefProfile.Icon.Assign(
@@ -1345,7 +1346,6 @@ begin
 
   SideRatio := DefSideRatio;
 
-  IconSet.Icons32.GetIcon(6, DeleteDialog.CustomMainIcon);
   DeleteDialog.Caption := Application.Title;
   MissingDiskDlg.Caption := Application.Title;
 
