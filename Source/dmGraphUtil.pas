@@ -528,11 +528,11 @@ begin
   Application.ProcessMessages;
 
   try
-    if Value = '' then begin
-      FPath := '';
-      ChangeImageList(ListImages, BkupListImages);
-      ChangeImageList(ActionImages, BkupActionImages);
-    end
+    ChangeImageList(ListImages, BkupListImages);
+    ChangeImageList(ActionImages, BkupActionImages);
+
+    if Value = '' then
+      FPath := ''
     else begin
       FPath := IncludeTrailingPathDelimiter(Value);
       ChangeImageList(ListImages, FPath + PfListImages);
