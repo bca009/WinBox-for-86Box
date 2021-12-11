@@ -171,7 +171,7 @@ UpdateDlg.Progress.CleanUp=Rimuovi i file temporanei...
 UpdateDlg.Progress.Terminated=Il processo è stato interrotto dall\'utente. 
 
 WinBoxUpd.DetailsInfo=Versione: %s\r\nData di rilascio: %s
-WinBoxUpd.DialogTitle=Aggiornamento del programma disponibile
+WinBoxUpd.DialogTitle=Aggiornamento del programma
 WinBoxUpd.AskAllowUpdate=C\'è un aggiornamento per il programma WinBox per 86Box.\r\nVuoi scaricare e installare? 
 WinBoxUpd.AskLocalNewer=La versione WinBox for 86Box attualmente in uso è la stessa o più recente di quella scaricabile.\r\nVuoi sostituire la versione attuale?
 
