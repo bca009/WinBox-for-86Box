@@ -1207,6 +1207,9 @@ begin
   inherited;
   IconSet.LoadImage(ImgWelcomeLogo, ImgWelcome);
 
+  DefProfile.Icon.Assign(
+    IconSet.ActionImages.Images[21].SourceImages[0].Image);
+
   if Assigned(Profiles) then
     ListReload(Self);
 end;
@@ -1590,7 +1593,11 @@ begin
         Profile.OnChange := ProfileChange;
 
         Image := TWICImage.Create;
-        Image.Assign(Profile.Icon);
+        if Profile.HasIcon then
+          Image.Assign(Profile.Icon)
+        else
+          Image.Assign(DefProfile.Icon);
+
         ScaleWIC(Image, IconSet.ListIcons.Width,
                         IconSet.ListIcons.Height, false);
         Icons.Add(Image);

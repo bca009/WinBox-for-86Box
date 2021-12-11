@@ -525,6 +525,7 @@ begin
         if not CustomSample then begin
           ExtractZipFile(Sample.FileName, edPath.Text);
           DeleteWithShell(edPath.Text + 'winbox.*', false);
+          IconSet.ExtractTemplIcon(Sample.FileName, edPath.Text);
         end;
 
         Config := TryLoadIni(edPath.Text + Sample.ConfigFile);

@@ -53,6 +53,9 @@ type
     procedure LoadImage(const Name: string; Image: TImage;
       const BiDiRotate: boolean = true);
 
+    //Újonnan létrehozott VM-ek ikonjának felülírása (ha van)
+    procedure ExtractTemplIcon(const AName, APath: string);
+
     //elérhetõ ikonkészletek lekérése
     function GetAvailIconSets(Root: string = ''): TStringList;
     function GetIconSetRoot: string;
@@ -112,10 +115,12 @@ implementation
 uses uCommText, uLang;
 
 resourcestring
-  PfActionImages = 'Actions\';
-  PfListImages   = 'List\';
-  PfDataImages   = 'Others\';
+  PfActionImages   = 'Actions\';
+  PfListImages     = 'List\';
+  PfDataImages     = 'Others\';
+  PfTemplateImages = 'Templates\';
   PfIconInfo = 'iconinfo.txt';
+
   RegDarkModeKey = 'Software\Microsoft\Windows\CurrentVersion\Themes\Personalize';
   RegDarkModeName = 'AppsUseLightTheme';
 
@@ -351,6 +356,17 @@ begin
     ASourceImage.InterpolationMode := wipmHighQualityCubic;
     ACanvas.StretchDraw(ARect, ASourceImage);
   end;
+end;
+
+procedure TIconSet.ExtractTemplIcon(const AName, APath: string);
+var
+  AFileName: string;
+begin
+  AFileName := FPath + PfTemplateImages +
+    ChangeFileExt(ExtractFileName(AName), '.png');
+
+  if FileExists(AFileName) and FileExists(APath + VmIconFile) then
+    CopyFile(PChar(AFileName), PChar(APath + VmIconFile), false);
 end;
 
 //Ez a verzió bitképpé konvertálja a kép új Handle-jét, és felszabadítja
