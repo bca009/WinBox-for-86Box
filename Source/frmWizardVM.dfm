@@ -76,7 +76,7 @@ object WizardVM: TWizardVM
     Top = 0
     Width = 337
     Height = 263
-    ActivePage = tabBasic
+    ActivePage = tabOptions
     Align = alClient
     TabOrder = 2
     object tabWelcome: TTabSheet
@@ -353,7 +353,7 @@ object WizardVM: TWizardVM
         Left = 16
         Top = 200
         Width = 297
-        Height = 33
+        Height = 41
         Anchors = [akLeft, akTop, akRight]
         AutoSize = False
         Caption = 
@@ -524,7 +524,7 @@ object WizardVM: TWizardVM
         Left = 64
         Top = 211
         Width = 249
-        Height = 26
+        Height = 39
         Anchors = [akLeft, akRight, akBottom]
         AutoSize = False
         Caption = 
