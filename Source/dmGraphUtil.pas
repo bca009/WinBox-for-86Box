@@ -143,7 +143,7 @@ var
   I: Integer;
 begin
   for I := 0 to Screen.FormCount - 1 do
-    PostMessage(Screen.Forms[I].Handle, Msg, wParam, lParam);
+    Screen.Forms[I].Perform(Msg, wParam, lParam);
 end;
 
 //Ez a verzió visszaírja a képbe az új Handle-t
