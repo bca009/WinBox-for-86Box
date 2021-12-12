@@ -152,6 +152,7 @@ object ExceptionDialog: TExceptionDialog
       ReadOnly = True
       TabOrder = 0
       WantReturns = False
+      StyleElements = []
     end
   end
 end

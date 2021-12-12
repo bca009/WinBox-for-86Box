@@ -84,6 +84,8 @@ type
     procedure GetTranslation(Language: TLanguage); stdcall;
     procedure Translate; stdcall;
     procedure FlipBiDi; stdcall;
+
+    procedure CMStyleChange(var Msg: TMessage); message CM_STYLECHANGED;
   end;
   TExceptionDialogClass = class of TExceptionDialog;
 var
@@ -93,7 +95,7 @@ implementation
 uses
   ClipBrd, Math, uCommUtil, dmGraphUtil, JclBase,JclFileUtils, 
   JclHookExcept, JclPeImage, JclStrings, JclSysInfo, JclWin32,
-  frmMainForm;
+  frmMainForm, Themes;
 
 resourcestring
   RsExceptionClass = 'Exception class: %s';
@@ -249,6 +251,23 @@ begin
   end;
 end;
 //----------------------------------------------------------------------------
+procedure TExceptionDialog.CMStyleChange(var Msg: TMessage);
+begin
+  inherited;
+
+  with TextLines do
+    if StyleServices.IsSystemStyle then begin
+      ParentColor := true;
+      Font.Color := Self.Font.Color;
+    end
+    else begin
+      Color :=
+        TStyleManager.ActiveStyle.GetSystemColor(clBtnFace);
+      Font.Color :=
+        TStyleManager.ActiveStyle.GetStyleFontColor(sfTextLabelNormal);
+    end;
+end;
+
 procedure TExceptionDialog.CopyReportToClipboard;
 begin
   ClipBoard.AsText := ReportAsText;
@@ -523,6 +542,8 @@ begin
         OnPaint := nil;
         Icon.Free;
       end;
+
+  Perform(CM_STYLECHANGED, 0, 0);
 end;
 //--------------------------------------------------------------------------------------------------
 procedure TExceptionDialog.FormDestroy(Sender: TObject);
