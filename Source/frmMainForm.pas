@@ -1086,7 +1086,7 @@ procedure TWinBoxMain.CMStyleChanged(var Msg: TMessage);
 var
   IsSystemStyle: boolean;
   H, L, S: word;
-  BkColor, TextColor, TitleColor: TColor;
+  BkColor, TextColor, TitleColor, GridColor: TColor;
 const
   TitleColors: array [boolean] of TColor = (clHighlight, clBlue);
 
@@ -1103,6 +1103,9 @@ const
       BottomAxis.LabelsFont.Color := TextColor;
       LeftAxis.Title.Font.Color := TextColor;
       BottomAxis.Title.Font.Color := TextColor;
+
+      LeftAxis.Grid.Color := GridColor;
+      BottomAxis.Grid.Color := GridColor;
 
       Title.Font.Color := TitleColor;
     end;
@@ -1127,11 +1130,14 @@ begin
 
   if IsSystemStyle then begin
     BkColor := ColorToRGB(clWindow);
+    GridColor := ColorToRGB(clGrayText);
     TextColor := ColorToRGB(clWindowText);
   end
   else begin
     BkColor :=
       TStyleManager.ActiveStyle.GetSystemColor(clBtnFace);
+    GridColor :=
+      TStyleManager.ActiveStyle.GetSystemColor(clGrayText);
     TextColor :=
       TStyleManager.ActiveStyle.GetStyleFontColor(sfTextLabelNormal);
   end;
