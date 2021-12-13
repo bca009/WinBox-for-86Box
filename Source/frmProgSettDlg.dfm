@@ -837,6 +837,74 @@ object ProgSettDlg: TProgSettDlg
         Style = csDropDownList
         TabOrder = 4
       end
+      object grpPositionData: TGroupBox
+        Left = 16
+        Top = 296
+        Width = 404
+        Height = 121
+        Caption = 'Helyzet, m'#233'ret '#233's elrendez'#233's'
+        TabOrder = 5
+        DesignSize = (
+          404
+          121)
+        object lbPositionCurrentDesc: TLabel
+          Left = 24
+          Top = 68
+          Width = 237
+          Height = 13
+          Anchors = [akLeft, akTop, akRight]
+          AutoSize = False
+          Caption = 'Jelenlegi m'#233'ret '#233's poz'#237'ci'#243':'
+        end
+        object lbPositionSavedDesc: TLabel
+          Left = 24
+          Top = 30
+          Width = 237
+          Height = 13
+          Anchors = [akLeft, akTop, akRight]
+          Caption = 'Mentett m'#233'ret '#233's poz'#237'ci'#243':'
+        end
+        object lbPositionCurrent: TLabel
+          Left = 40
+          Top = 87
+          Width = 221
+          Height = 13
+          Hint = '(alap'#233'rt.)'
+          Anchors = [akLeft, akTop, akRight]
+          AutoSize = False
+          Caption = 'lbPositionCurrent'
+        end
+        object lbPositionSaved: TLabel
+          Left = 40
+          Top = 49
+          Width = 221
+          Height = 13
+          Hint = '(alap'#233'rt.)'
+          Anchors = [akLeft, akTop, akRight]
+          AutoSize = False
+          Caption = 'lbPositionSaved'
+        end
+        object btnPositionClear: TButton
+          Left = 275
+          Top = 68
+          Width = 113
+          Height = 25
+          Caption = '&Alap'#233'rtelmezett'
+          TabOrder = 0
+          OnClick = btnPositionClick
+        end
+        object btnPositionSave: TButton
+          Tag = 7
+          Left = 275
+          Top = 37
+          Width = 113
+          Height = 25
+          Caption = #193'llapot &ment'#233'se '#9660
+          DropDownMenu = pmPosition
+          TabOrder = 1
+          OnClick = btnCustomDropDown
+        end
+      end
     end
     object tabTools: TTabSheet
       Caption = 'Eszk'#246'z'#246'k'
@@ -1218,8 +1286,9 @@ object ProgSettDlg: TProgSettDlg
     Height = 25
     Anchors = [akLeft, akBottom]
     Caption = '&Import'#225'l'#225's '#9660
+    DropDownMenu = pmImport
     TabOrder = 1
-    OnClick = btnImportClick
+    OnClick = btnCustomDropDown
   end
   object pmImport: TPopupMenu
     Left = 144
@@ -1274,5 +1343,39 @@ object ProgSettDlg: TProgSettDlg
       '*)|*.*'
     Left = 360
     Top = 464
+  end
+  object pmPosition: TPopupMenu
+    Left = 80
+    Top = 464
+    object miCompleteState: TMenuItem
+      Tag = 7
+      Caption = 'A f'#337'ablak teljes &'#225'llapot'#225'nak ment'#233'se'
+      OnClick = btnPositionClick
+    end
+    object N2: TMenuItem
+      Caption = '-'
+    end
+    object miPositionOnly: TMenuItem
+      Tag = 1
+      Caption = 'Csak a f'#337'ablak helyzet'#233'nek ment'#233'se'
+      OnClick = btnPositionClick
+    end
+    object miSizeOnly: TMenuItem
+      Tag = 2
+      Caption = 'Csak a f'#337'ablak m'#233'reteinek ment'#233'se'
+      OnClick = btnPositionClick
+    end
+    object miLayoutOnly: TMenuItem
+      Tag = 4
+      Caption = 'Csak a f'#337'ablak elrendez'#233's'#233'nek ment'#233'se'
+      OnClick = btnPositionClick
+    end
+    object N3: TMenuItem
+      Caption = '-'
+    end
+    object miDefaults2: TMenuItem
+      Caption = 'Gy'#225'ri be'#225'll'#237't'#225'sok vissza'#225'll'#237't'#225'sa'
+      OnClick = btnPositionClick
+    end
   end
 end

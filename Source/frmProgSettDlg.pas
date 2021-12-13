@@ -26,7 +26,8 @@ interface
 uses
   Types, Windows, Messages, SysUtils, Classes, Controls, Forms,
   Dialogs, StdCtrls, ComCtrls, Buttons, ExtCtrls, Vcl.Samples.Spin,
-  CheckLst, Menus, Registry, ShellAPI, IniFiles, uLang, uCommText;
+  CheckLst, Menus, Registry, ShellAPI, IniFiles, uLang, uCommText,
+  uConfigMgr;
 
 type
   TProgSettDlg = class(TForm, ILanguageSupport)
@@ -155,6 +156,21 @@ type
     cbEmuIconSet: TComboBox;
     btnDefEmuIconSet: TButton;
     cbStyleName: TComboBox;
+    lbPositionSavedDesc: TLabel;
+    lbPositionSaved: TLabel;
+    btnPositionClear: TButton;
+    lbPositionCurrentDesc: TLabel;
+    lbPositionCurrent: TLabel;
+    btnPositionSave: TButton;
+    pmPosition: TPopupMenu;
+    miCompleteState: TMenuItem;
+    N2: TMenuItem;
+    miPositionOnly: TMenuItem;
+    miSizeOnly: TMenuItem;
+    miLayoutOnly: TMenuItem;
+    N3: TMenuItem;
+    miDefaults2: TMenuItem;
+    grpPositionData: TGroupBox;
     procedure Reload(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure cbLoggingChange(Sender: TObject);
@@ -163,7 +179,7 @@ type
       Selected: Boolean);
     procedure CustomDisplayChange(Sender: TObject);
     procedure btnOKClick(Sender: TObject);
-    procedure btnImportClick(Sender: TObject);
+    procedure btnCustomDropDown(Sender: TObject);
     procedure miImportWinBoxClick(Sender: TObject);
     procedure miImport86MgrClick(Sender: TObject);
     procedure btnBrowseClick(Sender: TObject);
@@ -179,16 +195,20 @@ type
     procedure UpdateLangRadio(Sender: TObject);
     procedure cbProgIconSetDrawItem(Control: TWinControl; Index: Integer;
       Rect: TRect; State: TOwnerDrawState);
+    procedure btnPositionClick(Sender: TObject);
   private
+    LangName: string;
+    ProgLangs, EmuLangs: TStringList;
+
+    PositionData: TPositionData;
+
     procedure UpdateTools(Tools: TStrings);
     procedure UpdateLanguages(const Mode: integer);
     procedure UpdateIconSets(const Mode: integer);
     procedure UpdateStyles;
 
     procedure UMIconsChanged(var Msg: TMessage); message UM_ICONSETCHANGED;
-  public
-    LangName: string;
-    ProgLangs, EmuLangs: TStringList;
+  protected
     procedure GetTranslation(Language: TLanguage); stdcall;
     procedure Translate; stdcall;
     procedure FlipBiDi; stdcall;
@@ -199,8 +219,7 @@ var
 
 implementation
 
-uses uCommUtil, uConfigMgr, frmMainForm, dmGraphUtil, Graphics,
-     Themes;
+uses uCommUtil, frmMainForm, dmGraphUtil, Graphics, Themes;
 
 resourcestring
   StrLvToolsColumn0 = '.lvTools.Column[0]';
@@ -213,6 +232,7 @@ resourcestring
   AskSaveChanges = '.AskSaveChanges';
 
   EOpenConfigLocked = '.EOpenConfigLocked';
+  StrPositionFmt = '(%dx%d)';
 
 {$R *.dfm}
 
@@ -275,12 +295,14 @@ begin
   end;
 end;
 
-procedure TProgSettDlg.btnImportClick(Sender: TObject);
+procedure TProgSettDlg.btnCustomDropDown(Sender: TObject);
 begin
-  with ClientToScreen(Point(
-      btnImport.Left + ord(LocaleIsBiDi) * btnImport.Width,
-      btnImport.Top + btnImport.Height)) do
-    pmImport.Popup(X, Y);
+  if Sender is TButton then
+    with Sender as TButton do
+      if Assigned(DropDownMenu) and Assigned(Parent) then
+        with Parent.ClientToScreen(Point(Left +
+          ord(LocaleIsBiDi) * Width, Top + Height)) do
+            DropDownMenu.Popup(X, Y);
 end;
 
 procedure TProgSettDlg.btnManOptLoadClick(Sender: TObject);
@@ -423,6 +445,8 @@ begin
     EmuIconSet  := TextLeft(cbEmuIconSet.Text, '=');
     StyleName   := cbStyleName.Text;
 
+    PositionData := Self.PositionData;
+
     Save;
   end;
 
@@ -443,6 +467,60 @@ begin
 
   SysUtils.ForceDirectories(Path); //nem a FileCtrl verzió kell
   ShellExecute(Handle, 'open', PChar(Path), nil, nil, SW_SHOWNORMAL);
+end;
+
+procedure TProgSettDlg.btnPositionClick(Sender: TObject);
+const
+  SizeSep = '; ';
+var
+  I, Value: integer;
+
+  function PosToStr(const X, Y: integer; const Default: string): string;
+  begin
+    if (X = 0) and (Y = 0) then
+      Result := Default
+    else
+      Result := format(StrPositionFmt, [X, Y]);
+  end;
+
+begin
+  if Assigned(Sender) and (Sender is TComponent) then begin
+    Value := (Sender as TComponent).Tag;
+
+    if Value = 0 then
+      PositionData := Defaults.PositionData
+    else if Assigned(WinBoxMain) then
+      with PositionData do
+        for I := 0 to SizeOf(Value) * 8 - 1 do
+          if (Value and (integer(1) shl I)) <> 0 then
+            case I of
+              0: begin
+                   Position.X := WinBoxMain.Left;
+                   Position.Y := WinBoxMain.Top;
+                 end;
+              1: begin
+                   Size.X := WinBoxMain.Width;
+                   Size.Y := WinBoxMain.Height;
+                 end;
+              2: begin
+                   MainRatio := Round(WinBoxMain.SideRatio * 100);
+
+                   if Assigned(WinBoxMain.Frame86Box) then
+                     FrameRatio := Round(WinBoxMain.Frame86Box.SideRatio * 100);
+                 end;
+            end;
+  end;
+
+  with lbPositionSaved, PositionData do
+    Caption :=
+      PosToStr(Position.X, Position.Y, Hint) + SizeSep +
+      PosToStr(Size.X, Size.Y, Hint);
+
+  if Assigned(WinBoxMain) then
+    with lbPositionCurrent, WinBoxMain.BoundsRect do
+      Caption :=
+        PosToStr(Left, Top, Hint) + SizeSep +
+        PosToStr(Width, Height, Hint);
 end;
 
 procedure TProgSettDlg.btnToolsClick(Sender: TObject);
@@ -1034,6 +1112,9 @@ begin
     UpdateLanguages(0);
     UpdateIconSets(0);
     UpdateStyles;
+
+    Self.PositionData := PositionData;
+    btnPositionClick(nil);
   end;
 end;
 

@@ -26,6 +26,11 @@ interface
 uses Windows, Classes, SysUtils, IOUtils, Graphics, Registry;
 
 type
+  TPositionData = record
+    Position, Size: TPoint;
+    MainRatio, FrameRatio: integer;
+  end;
+
   TConfiguration = class
   public
     MachineRoot: string;
@@ -52,6 +57,8 @@ type
     ProgIconSet,
     EmuIconSet,
     StyleName: string;
+
+    PositionData: TPositionData;
 
     Tools: TStrings;
 
@@ -180,6 +187,12 @@ resourcestring
   KeyProgIconSet     = 'ProgIconSet';
   KeyEmuIconSet      = 'EmuIconSet';
   KeyStyleName       = 'StyleName';
+  KeyPositionX       = 'Position.X';
+  KeyPositionY       = 'Position.Y';
+  KeySizeX           = 'Size.X';
+  KeySizeY           = 'Size.Y';
+  KeyMainRatio       = 'MainRatio';
+  KeyFrameRatio      = 'FrameRatio';
 
   ImportWinBoxRoot   = 'Software\Laci bá''\WinBox';
   Import86MgrRoot    = 'Software\86Box';
@@ -279,6 +292,15 @@ begin
           EmuIconSet      := ReadStringDef(KeyEmuIconSet, EmuIconSet);
           StyleName       := ReadStringDef(KeyStyleName, StyleName);
 
+          with PositionData do begin
+            Position.X   := ReadIntegerDef(KeyPositionX, Position.X);
+            Position.Y   := ReadIntegerDef(KeyPositionY, Position.Y);
+            Size.X       := ReadIntegerDef(KeySizeX, Size.X);
+            Size.Y       := ReadIntegerDef(KeySizeY, Size.Y);
+            MainRatio    := ReadIntegerDef(KeyMainRatio, MainRatio);
+            FrameRatio   := ReadIntegerDef(KeyFrameRatio, FrameRatio);
+          end;
+
           if ValueExists(KeyTools) then begin
             Tools.Clear;
             ReadStringMulti(KeyTools, Tools);
@@ -364,6 +386,15 @@ begin
           WriteStringChk(KeyEmuIconSet, EmuIconSet, Defaults.EmuIconSet);
           WriteStringChk(KeyStyleName, StyleName, Defaults.StyleName);
 
+          with PositionData do begin
+            WriteIntegerChk(KeyPositionX, Position.X, Defaults.PositionData.Position.X);
+            WriteIntegerChk(KeyPositionY, Position.Y, Defaults.PositionData.Position.Y);
+            WriteIntegerChk(KeySizeX, Size.X, Defaults.PositionData.Size.X);
+            WriteIntegerChk(KeySizeY, Size.Y, Defaults.PositionData.Size.Y);
+            WriteIntegerChk(KeyMainRatio, MainRatio, Defaults.PositionData.MainRatio);
+            WriteIntegerChk(KeyFrameRatio, FrameRatio, Defaults.PositionData.FrameRatio);
+          end;
+
           DeleteValue(KeyTools);
           if Tools.Count <> 0 then
             WriteStringMulti(KeyTools, Tools);
@@ -414,6 +445,10 @@ begin
   ProgIconSet := '';
   EmuIconSet := '';
   StyleName := '';
+
+  FillChar(PositionData, SizeOf(PositionData), #0);
+  PositionData.MainRatio := 30; //TWinBoxMain
+  PositionData.FrameRatio  := 36; //Tfrm86Box
 
   Tools.Clear;
 

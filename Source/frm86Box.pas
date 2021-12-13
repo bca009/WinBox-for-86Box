@@ -116,6 +116,7 @@ type
     procedure PicturePagerClick(Sender: TObject);
     procedure btnWorkDirClick(Sender: TObject);
     procedure DelayChangeTimer(Sender: TObject);
+    procedure OnEnterSizeMove(Sender: TObject);
   private
     DirectoryChange: string;
     DirectoryChgType: Cardinal;
@@ -137,7 +138,6 @@ type
     procedure OnDirectoryChange(Sender: TObject; FileName: string;
       ChangeType: Cardinal);
 
-    procedure OnEnterSizeMove(Sender: TObject);
     procedure GetRttiReport(Result: TStrings);
 
     procedure GetTranslation(Language: TLanguage); stdcall;
@@ -150,16 +150,13 @@ resourcestring
   StrMemoryD = '%.0f%% (%s)';
   Str86BoxVersionStr = '86Box %s';
 
-const
-  DefSideRatio = 0.36;
-
 var
   dbgLogFolderChanges: boolean = false;
 
 implementation
 
-uses uCommUtil, uCommText, frmMainForm, ShellAPI, Rtti,
-     dmGraphUtil, Themes;
+uses uConfigMgr, uCommUtil, uCommText, frmMainForm,
+     ShellAPI, Rtti, dmGraphUtil, Themes;
 
 resourcestring
   StrWorkDirRemoved = 'WinBox.WorkDirRemoved';
@@ -234,7 +231,7 @@ end;
 constructor TFrame86Box.Create(AOwner: TComponent);
 begin
   inherited;
-  SideRatio := DefSideRatio;
+  SideRatio := Defaults.PositionData.FrameRatio / 100;
 
   SetWindowLongPtr(cgPanels.Handle, GWL_STYLE,
     GetWindowLongPtr(cgPanels.Handle, GWL_STYLE) and not WS_BORDER);
@@ -308,8 +305,16 @@ begin
 end;
 
 procedure TFrame86Box.FrameResize(Sender: TObject);
+var
+  MaxWidth: integer;
 begin
   //RightPanel.ClientWidth := Round(ClientWidth * SideRatio);
+
+  MaxWidth :=
+    ClientWidth - Splitter.Width - RightPanel.Margins.Right - RightPanel.Margins.Left;
+
+  if RightPanel.Width > MaxWidth then
+    RightPanel.Width := MaxWidth;
 end;
 
 procedure TFrame86Box.GetRttiReport(Result: TStrings);
@@ -403,7 +408,9 @@ begin
   if (RightPanel.Width <> 0) and (ClientWidth <> 0) then
     SideRatio := RightPanel.Width / ClientWidth
   else
-    SideRatio := DefSideRatio;
+    SideRatio := Defaults.PositionData.FrameRatio / 100;
+
+  inherited;
 end;
 
 procedure TFrame86Box.UpdateColor(const Profile: T86BoxProfile);

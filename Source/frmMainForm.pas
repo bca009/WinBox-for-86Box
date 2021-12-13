@@ -29,7 +29,7 @@ uses
   ComCtrls, VCLTee.TeEngine, VCLTee.TeeProcs, VCLTee.Chart, VCLTee.Series,
   BaseImageCollection, ImageCollection, ImageList, ImgList, VirtualImageList,
   GraphUtil, Generics.Collections, u86Box, Vcl.ToolWin, uLang, AppEvnts, frm86Box,
-  Vcl.ExtDlgs, frmUpdaterDlg, uCommText;
+  Vcl.ExtDlgs, frmUpdaterDlg, uCommText, uConfigMgr;
 
 type
   TListBox = class(StdCtrls.TListBox)
@@ -370,15 +370,13 @@ type
       var Handled: Boolean);
     procedure ListDblClick(Sender: TObject);
     procedure acWinBoxUpdateExecute(Sender: TObject);
+    procedure SplitterMoved(Sender: TObject);
   private
     //Lista kirajzolásához szükséges cuccok
     HalfCharHeight, BorderThickness: integer;
 
     clHighlight1, clHighlight2,
     clDisabled1, clDisabled2: TColor;
-
-    //A lista a és a PageControl közti aránytartáshoz, méretezéskor
-    SideRatio: single;
 
     procedure ResetChart(Chart: TChart);
     procedure AddSeries(Chart: TChart; AColor: TColor; const FriendlyName: string);
@@ -394,6 +392,10 @@ type
   public
     //Nyelvváltáskor, a program eredeti címének megtartása
     InitialTitle: string;
+
+    //A lista az ablak és a PageControl közti aránytartáshoz, méretezéskor
+    DefaultSize: TPoint;
+    SideRatio: single;
 
     //Belsõ cuccok
     IsAllStopped,
@@ -424,6 +426,7 @@ type
     procedure ChangeLanguage(const ALocale: string);
     procedure ChangeIconSet(const AIconSet: string);
     procedure ChangeStyle(const AStyle: string; const Mode: integer);
+    procedure ChangePosition(AData: TPositionData);
 
     procedure GetRttiReport(Result: TStrings);
   end;
@@ -438,16 +441,14 @@ resourcestring
 implementation
 
 uses JclDebug, uProcessMon, uProcProfile, uCommUtil, frmProgSettDlg,
-  frmProfSettDlg, frmImportVM, uWinProfile, uConfigMgr, ShellAPI,
+  frmProfSettDlg, frmImportVM, uWinProfile, ShellAPI, dmGraphUtil,
   Rtti, frmErrorDialog, frmAboutDlg, frmSelectHDD, frmNewFloppy,
   frmWizardHDD, frmWizardVM, uBaseProfile, frmSplash, dmWinBoxUpd,
-  WinCodec, dmGraphUtil, Themes, VCLTee.TeCanvas;
+  WinCodec, Themes, VCLTee.TeCanvas;
 
 const
   MaxPoints = 60;
   ScrollPoints = 1;
-
-  DefSideRatio = 0.3;
 
 resourcestring
   EInvalidActionTag = 'Invalid action tag.';
@@ -1036,6 +1037,45 @@ begin
   ChangeBiDi(NewBiDi);
 end;
 
+procedure TWinBoxMain.ChangePosition(AData: TPositionData);
+
+  procedure SetRatio(AWindow, AControl: TControl; ARatio: integer;
+    const DefRatio: integer; Callback: TNotifyEvent);
+  begin
+    if not (Assigned(AWindow) and Assigned(AControl)) or
+       ((ARatio = 0) and (DefRatio = 0)) then
+      exit;
+
+    if ARatio = 0 then
+      ARatio := DefRatio;
+
+    AControl.Width := AWindow.ClientWidth * ARatio div 100;
+
+    if Assigned(Callback) then
+      Callback(Self);
+  end;
+
+begin
+  if AData.Size.IsZero then
+    AData.Size := DefaultSize;
+
+  if AData.Position.IsZero or
+     (Screen.MonitorFromPoint(AData.Position, mdNull) = nil) then
+    with Screen.PrimaryMonitor.WorkareaRect do
+      AData.Position := Point(
+        Left + (Width - AData.Size.X) div 2,
+        Top + (Height - AData.Size.Y) div 2);
+
+  with AData do
+    SetBounds(Position.X, Position.Y, Size.X, Size.Y);
+
+  SetRatio(Self, List, AData.MainRatio,
+    Defaults.PositionData.MainRatio, SplitterMoved);
+
+  SetRatio(Frame86Box, Frame86Box.RightPanel, AData.FrameRatio,
+    Defaults.PositionData.FrameRatio, Frame86Box.OnEnterSizeMove);
+end;
+
 procedure TWinBoxMain.ChangeStyle(const AStyle: string;
   const Mode: integer);
 var
@@ -1314,6 +1354,7 @@ begin
   InitialTitle := Application.Title;
 
   IconSet.Initialize(Self);
+  List.Constraints.MinWidth := IconSet.ListIcons.Width * 3 div 2;
 
   for I := 0 to Pages.PageCount - 1 do
     Pages.Pages[I].TabVisible := false;
@@ -1332,6 +1373,9 @@ begin
         (TObject(cgPanels.Panels[I]) as TCategoryPanel).Collapsed := true;
   end;
 
+  //mentsük el a form skálázott tervezési pozícióját
+  DefaultSize := Point(Width, Height);
+
   Locale := '-'; //cseréljük ki az alapérték '' nyelvet akármire
   if LocaleOverride = '' then
     ChangeLanguage(Config.ProgramLang) //azért hogy ez végigfusson
@@ -1349,8 +1393,6 @@ begin
 
   tbVMs.ShowCaptions := true;
   tbGlobal.ShowCaptions := true;
-
-  SideRatio := DefSideRatio;
 
   DeleteDialog.Caption := Application.Title;
   MissingDiskDlg.Caption := Application.Title;
@@ -1393,6 +1435,12 @@ procedure TWinBoxMain.FormShow(Sender: TObject);
 begin
   TrayIcon.Visible := Config.TrayBehavior > 0;
   acUpdateToolsExecute(Self);
+
+  //pozícionáljuk a formot és a framet a beállítások szerint
+  // (csak itt lehet, az OnCreate eseményben még nem,
+  //  és csak akkor ha nem a ProgramSettings hívja meg)
+  if Sender = Self then
+    ChangePosition(Config.PositionData);
 end;
 
 procedure TWinBoxMain.ListClick(Sender: TObject);
@@ -1680,6 +1728,16 @@ begin
   Chart.Axes.Bottom.Scroll(60 - Chart.Axes.Bottom.Maximum);
 end;
 
+procedure TWinBoxMain.SplitterMoved(Sender: TObject);
+begin
+  Constraints.MinWidth :=
+    List.Width +
+    Frame86Box.RightPanel.Constraints.MinWidth +
+    50 * Screen.PixelsPerInch div 96;
+
+  Perform(WM_ENTERSIZEMOVE, 0, 0);
+end;
+
 procedure TWinBoxMain.tmrUpdateTimer(Sender: TObject);
 var
   I: integer;
@@ -1916,7 +1974,7 @@ begin
   if (List.Width <> 0) and (ClientWidth <> 0) then
     SideRatio := List.Width / ClientWidth
   else
-    SideRatio := DefSideRatio;
+    SideRatio := Defaults.PositionData.MainRatio / 100;
 
   if Assigned(Frame86Box) then
     Frame86Box.OnEnterSizeMove(Self);

@@ -54,6 +54,7 @@ object Frame86Box: TFrame86Box
     Margins.Bottom = 5
     Align = alRight
     Beveled = True
+    OnMoved = OnEnterSizeMove
     ExplicitLeft = 338
     ExplicitTop = 47
     ExplicitHeight = 276

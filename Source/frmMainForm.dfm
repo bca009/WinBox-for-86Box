@@ -6,6 +6,7 @@ object WinBoxMain: TWinBoxMain
   ClientHeight = 448
   ClientWidth = 703
   Color = clBtnFace
+  Constraints.MinHeight = 450
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
@@ -13,7 +14,6 @@ object WinBoxMain: TWinBoxMain
   Font.Style = []
   Menu = MainMenu
   ParentBiDiMode = False
-  Position = poScreenCenter
   OnClose = FormClose
   OnCreate = FormCreate
   OnDestroy = FormDestroy
@@ -25,8 +25,9 @@ object WinBoxMain: TWinBoxMain
     Left = 209
     Top = 104
     Height = 325
-    ExplicitTop = 53
-    ExplicitHeight = 291
+    OnMoved = SplitterMoved
+    ExplicitLeft = 210
+    ExplicitTop = 98
   end
   object List: TListBox
     AlignWithMargins = True
@@ -64,6 +65,7 @@ object WinBoxMain: TWinBoxMain
     Font.Style = []
     ParentFont = False
     TabOrder = 1
+    ExplicitTop = 98
     object tabHome: TTabSheet
       Caption = 'Kezd'#337'lap'
       DesignSize = (
