@@ -1125,6 +1125,7 @@ begin
   with Language do begin
     GetTranslation(LangName, Self);
     GetTranslation(pmImport.Name, pmImport.Items);
+    GetTranslation(pmPosition.Name, pmPosition.Items);
 
     GetTranslation(LangName + StrLvToolsColumn0, lvTools.Column[0].Caption);
     GetTranslation(LangName + StrLvToolsColumn1, lvTools.Column[1].Caption);
@@ -1161,6 +1162,7 @@ begin
   with Language do begin
     Translate(LangName, Self);
     Translate(pmImport.Name, pmImport.Items);
+    Translate(pmPosition.Name, pmPosition.Items);
 
     lvTools.Column[0].Caption := _T(LangName + StrLvToolsColumn0);
     lvTools.Column[1].Caption := _T(LangName + StrLvToolsColumn1);
