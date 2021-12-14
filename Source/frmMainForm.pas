@@ -1252,7 +1252,7 @@ procedure TWinBoxMain.UMIconsChanged(var Msg: TMessage);
 begin
   inherited;
   IconSet.Icons32.GetIcon(6, DeleteDialog.CustomMainIcon);
-  IconSet.LoadImage(ImgWelcomeLogo, ImgWelcome);
+  IconSet.LoadImage(ImgWelcomeLogo, ImgWelcome, false);
 
   DefProfile.Icon.Assign(
     IconSet.ActionImages.Images[21].SourceImages[0].Image);
