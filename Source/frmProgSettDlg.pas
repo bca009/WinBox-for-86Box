@@ -150,12 +150,11 @@ type
     btnDefEmuLang: TButton;
     cbEmuLangForced: TCheckBox;
     tabUI: TTabSheet;
-    lbIconSet: TLabel;
+    lbProgIconSet: TLabel;
     cbProgIconSet: TComboBox;
     btnDefProgIconSet: TButton;
     cbEmuIconSet: TComboBox;
     btnDefEmuIconSet: TButton;
-    cbStyleName: TComboBox;
     lbPositionSavedDesc: TLabel;
     lbPositionSaved: TLabel;
     btnPositionClear: TButton;
@@ -171,6 +170,31 @@ type
     N3: TMenuItem;
     miDefaults2: TMenuItem;
     grpPositionData: TGroupBox;
+    grpIconSets: TGroupBox;
+    lbEmuIconSet: TLabel;
+    Témák: TTabSheet;
+    lbEmuIconSetNote: TLabel;
+    lbIconSetDesc: TLabel;
+    grpThemes: TGroupBox;
+    lbStyleName: TLabel;
+    lbStyleColor: TLabel;
+    cbStyleName: TComboBox;
+    rbStyleSystem: TRadioButton;
+    rbStyleColor: TRadioButton;
+    cbStyleColor: TComboBox;
+    rbStyleCustom: TRadioButton;
+    lbStylePreview: TLabel;
+    lbStyleDesc: TLabel;
+    pnStylePreview: TPanel;
+    lbQuadEq: TLabel;
+    spQuadEqA: TSpinEdit;
+    spQuadEqC: TSpinEdit;
+    spQuadEqB: TSpinEdit;
+    lbQuadEqA: TLabel;
+    lbQuadEqB: TLabel;
+    lbQuadEqC: TLabel;
+    mmQuadEq: TMemo;
+    btnQuadEqSolve: TButton;
     procedure Reload(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure cbLoggingChange(Sender: TObject);
@@ -196,6 +220,8 @@ type
     procedure cbProgIconSetDrawItem(Control: TWinControl; Index: Integer;
       Rect: TRect; State: TOwnerDrawState);
     procedure btnPositionClick(Sender: TObject);
+    procedure UpdateStyleControls(Sender: TObject);
+    procedure btnQuadEqSolveClick(Sender: TObject);
   private
     LangName: string;
     ProgLangs, EmuLangs: TStringList;
@@ -205,7 +231,9 @@ type
     procedure UpdateTools(Tools: TStrings);
     procedure UpdateLanguages(const Mode: integer);
     procedure UpdateIconSets(const Mode: integer);
-    procedure UpdateStyles;
+    procedure UpdateStyles(const Mode: integer);
+
+    function GetSelectedStyle: string;
 
     procedure UMIconsChanged(var Msg: TMessage); message UM_ICONSETCHANGED;
   protected
@@ -233,6 +261,16 @@ resourcestring
 
   EOpenConfigLocked = '.EOpenConfigLocked';
   StrPositionFmt = '(%dx%d)';
+
+  StrLightStyle = 'Windows';
+  StrDarkStyle  = 'Windows10 DarkExplorer';
+
+  StrQuadEqNo      = 'QuadEq.NoSolution';
+  StrQuadEqAny     = 'QuadEq.AnySolution';
+  StrQuadEqLinear  = 'QuadEq.LinearSolution';
+  StrQuadEqSingle  = 'QuadEq.SingleSolution';
+  StrQuadEqDouble  = 'QuadEq.DoubleSolution';
+  StrQuadEqComplex = 'QuadEq.ComplexSolution';
 
 {$R *.dfm}
 
@@ -443,7 +481,7 @@ begin
 
     ProgIconSet := TextLeft(cbProgIconSet.Text, '=');
     EmuIconSet  := TextLeft(cbEmuIconSet.Text, '=');
-    StyleName   := cbStyleName.Text;
+    StyleName   := GetSelectedStyle;
 
     PositionData := Self.PositionData;
 
@@ -521,6 +559,47 @@ begin
       Caption :=
         PosToStr(Left, Top, Hint) + SizeSep +
         PosToStr(Width, Height, Hint);
+end;
+
+procedure TProgSettDlg.btnQuadEqSolveClick(Sender: TObject);
+const
+  StrSign: array [boolean] of string = ('-', '+');
+var
+  a, b, c, D, R: extended;
+begin
+  (* Hogy minek ez a kód ebbe a programba?
+     Totál semmi értelme itt, de miért ne. :D *)
+
+  a := spQuadEqA.Value;
+  b := spQuadEqB.Value;
+  c := spQuadEqC.Value;
+
+  if a <> 0 then begin
+    D := b * b - 4 * a * c;
+    R := -b / (2 * a);
+
+    if D < 0 then begin
+      mmQuadEq.Text := format(_T(StrQuadEqComplex),
+       [R, StrSign[a >= 0], sqrt(-D) / (2 * abs(a)),
+        R, StrSign[a < 0], sqrt(-D) / (2 * abs(a))])
+    end
+    else if D = 0 then
+      mmQuadEq.Text := format(_T(StrQuadEqSingle),
+       [R + sqrt(D) / (2 * a)])
+    else
+      mmQuadEq.Text := format(_T(StrQuadEqDouble),
+       [R + sqrt(D) / (2 * a), R - sqrt(D) / (2 * a)]);
+  end
+  else if b <> 0 then
+    mmQuadEq.Text := format(_T(StrQuadEqLinear), [-c/b])
+  else if c <> 0 then
+    mmQuadEq.Text := _T(StrQuadEqNo)
+  else
+    mmQuadEq.Text := _T(StrQuadEqAny);
+
+  (*  Just for fun. mint az egész téma és ikonredszer!
+      Remélem a fordítók is értékelni fogják az új
+      szükséges sorokat :P *)
 end;
 
 procedure TProgSettDlg.btnToolsClick(Sender: TObject);
@@ -773,6 +852,20 @@ begin
     finally
       Free;
     end;
+end;
+
+procedure TProgSettDlg.UpdateStyleControls(Sender: TObject);
+begin
+  if Assigned(Sender) and (Sender is TRadioButton) then
+    UpdateStyles(1);
+
+  TStyleManager.ChangeControlStyle(
+    pnStylePreview, GetSelectedStyle, true);
+
+  pnStylePreview.Visible :=
+    rbStyleSystem.Enabled and (pnStylePreview.StyleName <> '');
+  lbStylePreview.Visible :=
+    pnStylePreview.Visible;
 end;
 
 procedure TProgSettDlg.UMIconsChanged(var Msg: TMessage);
@@ -1035,23 +1128,59 @@ procedure TProgSettDlg.UpdateStyles;
 var
   AStyle: string;
 begin
-  with cbStyleName, Items do begin
-    BeginUpdate;
-    try
-      Clear;
-      Add('');
-      for AStyle in TStyleManager.StyleNames do
-         if (pos('Windows10', AStyle) = 0) or //licenszelés szerint
-            (Win32MajorVersion >= 10) then
-              Add(AStyle);
+  rbStyleColor.Enabled := Win32MajorVersion >= 10; //licenszelés szerint
 
-      Sorted := true;
-      ItemIndex := IndexOf(Config.StyleName);
-      Enabled := not LocaleIsBiDi;
-    finally
-      EndUpdate;
+  if Mode = 0 then
+    with cbStyleName, Items do begin
+      BeginUpdate;
+      try
+        Clear;
+        for AStyle in TStyleManager.StyleNames do
+           if (AStyle <> StrLightStyle) and
+              (AStyle <> StrDarkStyle) and
+              ((pos('Windows10', AStyle) = 0) or //licenszelés szerint
+               rbStyleColor.Enabled) then
+                Add(AStyle);
+
+        Sorted := true;
+        ItemIndex := IndexOf(Config.StyleName);
+
+        if ItemIndex = -1 then begin
+          if Config.StyleName = StrLightStyle then begin
+            rbStyleColor.Checked := true;
+            cbStyleColor.ItemIndex := 0;
+          end
+          else if Config.StyleName = StrDarkStyle then begin
+            rbStyleColor.Checked := true;
+            cbStyleColor.ItemIndex := 1;
+          end
+          else
+            rbStyleSystem.Checked := true;
+        end
+        else
+          rbStyleCustom.Checked := true;
+      finally
+        EndUpdate;
+      end;
     end;
+
+  rbStyleSystem.Enabled := not LocaleIsBiDi;
+  rbStyleColor.Enabled  := rbStyleSystem.Enabled;
+  rbStyleCustom.Enabled := rbStyleSystem.Enabled;
+
+  cbStyleColor.Enabled :=
+    rbStyleSystem.Enabled and rbStyleColor.Checked and rbStyleColor.Enabled;
+
+  with cbStyleName do begin
+    if (Items.Count > 0) and (ItemIndex = -1) then
+      ItemIndex := 0;
+
+    Enabled :=
+      rbStyleSystem.Enabled and rbStyleCustom.Checked and (ItemIndex <> -1);
   end;
+
+  if Mode = 0 then
+    UpdateStyleControls(nil);
 end;
 
 procedure TProgSettDlg.UpdateTools(Tools: TStrings);
@@ -1111,11 +1240,24 @@ begin
 
     UpdateLanguages(0);
     UpdateIconSets(0);
-    UpdateStyles;
+    UpdateStyles(0);
 
     Self.PositionData := PositionData;
     btnPositionClick(nil);
   end;
+end;
+
+function TProgSettDlg.GetSelectedStyle: string;
+begin
+  if rbStyleSystem.Checked then
+    Result   := ''
+  else if rbStyleColor.Checked then
+    case cbStyleColor.ItemIndex of
+      1:   Result := StrDarkStyle
+      else Result := StrLightStyle;
+    end
+  else
+    Result := cbStyleName.Text;
 end;
 
 procedure TProgSettDlg.GetTranslation(Language: TLanguage);

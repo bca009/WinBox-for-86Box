@@ -65,7 +65,6 @@ object WinBoxMain: TWinBoxMain
     Font.Style = []
     ParentFont = False
     TabOrder = 1
-    ExplicitTop = 98
     object tabHome: TTabSheet
       Caption = 'Kezd'#337'lap'
       DesignSize = (

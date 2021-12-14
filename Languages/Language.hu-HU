@@ -197,6 +197,13 @@ WizardVM.NoManufaturer=(Ismeretlen gyártó)
 WizardVM.NewVM=Új virtuális gép #%d
 WizardVM.SelectWorkDir=Válassza ki a használni kívánt munkakönyvtárat:
 
+QuadEq.NoSolution=Az egyenletnek nincs megoldása.
+QuadEq.AnySolution=Az egyenletnek bármely szám a megoldása.
+QuadEq.LinearSolution=Az egyenlet lineáris, megoldása: x=%.2f.
+QuadEq.SingleSolution=Az egyenlet két egybeeső valós megoldással rendelkezik: x1=x2=%.2f.
+QuadEq.DoubleSolution=Az egyenlet két különböző valós megoldással rendelkezik: x1=%.2f, és x2=%.2f.
+QuadEq.ComplexSolution=Az egyenlet két különböző komplex megoldással rendelkezik: x1=%.2f%s%.2fi, és x2=%.2f%s%.2fi.
+
 [UpdateDlg]
 btnTerminate.Hint=&Kilépés
 btnTerminate=&Megszakítás

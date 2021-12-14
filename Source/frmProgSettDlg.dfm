@@ -1,9 +1,9 @@
-object ProgSettDlg: TProgSettDlg
+﻿object ProgSettDlg: TProgSettDlg
   Left = 0
   Top = 0
   BorderStyle = bsDialog
   Caption = 'Programbe'#225'll'#237't'#225'sok'
-  ClientHeight = 516
+  ClientHeight = 537
   ClientWidth = 460
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -18,21 +18,22 @@ object ProgSettDlg: TProgSettDlg
   PixelsPerInch = 96
   DesignSize = (
     460
-    516)
+    537)
   TextHeight = 13
   object pcPages: TPageControl
     Left = 8
     Top = 8
     Width = 444
-    Height = 458
-    ActivePage = tabUI
+    Height = 479
+    ActivePage = Témák
     Anchors = [akLeft, akTop, akRight, akBottom]
+    MultiLine = True
     TabOrder = 0
     object tabGeneral: TTabSheet
       Caption = #193'ltal'#225'nos'
       DesignSize = (
         436
-        430)
+        433)
       object grpDefaultPath: TGroupBox
         Left = 16
         Top = 16
@@ -252,7 +253,7 @@ object ProgSettDlg: TProgSettDlg
       ImageIndex = 3
       DesignSize = (
         436
-        430)
+        433)
       object grpDefEmulator: TGroupBox
         Left = 18
         Top = 16
@@ -458,7 +459,7 @@ object ProgSettDlg: TProgSettDlg
       ImageIndex = 1
       DesignSize = (
         436
-        430)
+        433)
       object grpAppearance: TGroupBox
         Left = 18
         Top = 16
@@ -635,6 +636,168 @@ object ProgSettDlg: TProgSettDlg
         end
       end
     end
+    object tabUI: TTabSheet
+      Caption = 'Kezel'#337'fel'#252'let'
+      ImageIndex = 6
+      object grpPositionData: TGroupBox
+        Left = 16
+        Top = 296
+        Width = 404
+        Height = 121
+        Caption = 'Helyzet, m'#233'ret '#233's elrendez'#233's'
+        TabOrder = 0
+        DesignSize = (
+          404
+          121)
+        object lbPositionCurrentDesc: TLabel
+          Left = 20
+          Top = 28
+          Width = 245
+          Height = 13
+          Anchors = [akLeft, akTop, akRight]
+          AutoSize = False
+          Caption = 'Jelenlegi m'#233'ret '#233's poz'#237'ci'#243':'
+        end
+        object lbPositionSavedDesc: TLabel
+          Left = 20
+          Top = 66
+          Width = 237
+          Height = 13
+          Anchors = [akLeft, akTop, akRight]
+          AutoSize = False
+          Caption = 'Mentett m'#233'ret '#233's poz'#237'ci'#243':'
+        end
+        object lbPositionCurrent: TLabel
+          Left = 40
+          Top = 47
+          Width = 217
+          Height = 13
+          Hint = '(alap'#233'rt.)'
+          Anchors = [akLeft, akTop, akRight]
+          AutoSize = False
+          Caption = 'lbPositionCurrent'
+        end
+        object lbPositionSaved: TLabel
+          Left = 40
+          Top = 85
+          Width = 225
+          Height = 13
+          Hint = '(alap'#233'rt.)'
+          Anchors = [akLeft, akTop, akRight]
+          AutoSize = False
+          Caption = 'lbPositionSaved'
+        end
+        object btnPositionClear: TButton
+          Left = 271
+          Top = 66
+          Width = 113
+          Height = 25
+          Caption = '&Alap'#233'rtelmezett'
+          TabOrder = 0
+          OnClick = btnPositionClick
+        end
+        object btnPositionSave: TButton
+          Tag = 7
+          Left = 271
+          Top = 35
+          Width = 113
+          Height = 25
+          Caption = #193'llapot &ment'#233'se '#9660
+          DropDownMenu = pmPosition
+          TabOrder = 1
+          OnClick = btnCustomDropDown
+        end
+      end
+      object grpIconSets: TGroupBox
+        Left = 16
+        Top = 16
+        Width = 404
+        Height = 274
+        Caption = 'Ikonk'#233'szletek'
+        TabOrder = 1
+        object lbProgIconSet: TLabel
+          Left = 20
+          Top = 64
+          Width = 365
+          Height = 25
+          AutoSize = False
+          Caption = 'A &program '#225'ltal haszn'#225'lt ikonk'#233'szlet:'
+          FocusControl = cbProgIconSet
+        end
+        object lbEmuIconSet: TLabel
+          Left = 20
+          Top = 135
+          Width = 365
+          Height = 25
+          AutoSize = False
+          Caption = 'Az &emul'#225'tor '#225'ltal haszn'#225'lt ikonk'#233'szlet:'
+          FocusControl = cbEmuIconSet
+        end
+        object lbEmuIconSetNote: TLabel
+          Left = 20
+          Top = 224
+          Width = 361
+          Height = 41
+          AutoSize = False
+          Caption = 
+            'Az emul'#225'tor ikonk'#233'szlet'#233're vonatkoz'#243' be'#225'll'#237't'#225's csak az '#250'j virtu'#225 +
+            'lis g'#233'peket '#233'rinti, a megl'#233'v'#337' virtu'#225'lis g'#233'pek be'#225'll'#237't'#225'saira ninc' +
+            's semmilyen hat'#225'sa.'
+          WordWrap = True
+        end
+        object lbIconSetDesc: TLabel
+          Left = 64
+          Top = 24
+          Width = 316
+          Height = 41
+          AutoSize = False
+          Caption = 
+            'Ezen a ponton kiv'#225'laszthatja a program '#233's az emul'#225'tor '#225'ltal hasz' +
+            'n'#225'lni k'#237'v'#225'nt ikonk'#233'szletet a list'#225'kban el'#233'rhet'#337'ek k'#246'z'#252'l.'
+          WordWrap = True
+        end
+        object cbProgIconSet: TComboBox
+          Left = 40
+          Top = 83
+          Width = 321
+          Height = 22
+          Hint = '(A program alap'#233'rtelmezett ikonk'#233'szlete)'
+          Style = csOwnerDrawFixed
+          TabOrder = 0
+          OnDrawItem = cbProgIconSetDrawItem
+        end
+        object btnDefProgIconSet: TButton
+          Tag = 7
+          Left = 248
+          Top = 111
+          Width = 105
+          Height = 25
+          Caption = '&Alap'#233'rtelmezett'
+          TabOrder = 1
+          OnClick = btnDefaultClick
+        end
+        object cbEmuIconSet: TComboBox
+          Left = 40
+          Top = 154
+          Width = 321
+          Height = 22
+          Hint = '(A program alap'#233'rtelmezett ikonk'#233'szlete)'
+          Style = csOwnerDrawFixed
+          TabOrder = 2
+          OnDrawItem = cbProgIconSetDrawItem
+        end
+        object btnDefEmuIconSet: TButton
+          Tag = 8
+          Left = 248
+          Top = 182
+          Width = 105
+          Height = 25
+          Caption = '&Alap'#233'rtelmezett'
+          TabOrder = 3
+          OnClick = btnDefaultClick
+        end
+      end
+    end
     object tabLanguage: TTabSheet
       Caption = 'Nyelv'
       ImageIndex = 5
@@ -779,130 +942,209 @@ object ProgSettDlg: TProgSettDlg
         end
       end
     end
-    object tabUI: TTabSheet
-      Caption = 'Kezel'#337'fel'#252'let'
-      ImageIndex = 6
-      object lbIconSet: TLabel
-        Left = 48
-        Top = 24
-        Width = 58
-        Height = 13
-        Caption = '&Ikonk'#233'szlet:'
-      end
-      object cbProgIconSet: TComboBox
-        Left = 64
-        Top = 43
-        Width = 313
-        Height = 22
-        Hint = '(A program alap'#233'rtelmezett ikonk'#233'szlete)'
-        Style = csOwnerDrawFixed
-        TabOrder = 0
-        OnDrawItem = cbProgIconSetDrawItem
-      end
-      object btnDefProgIconSet: TButton
-        Tag = 7
-        Left = 256
-        Top = 71
-        Width = 121
-        Height = 25
-        Caption = '&Alap'#233'rtelmezett'
-        TabOrder = 1
-        OnClick = btnDefaultClick
-      end
-      object cbEmuIconSet: TComboBox
-        Left = 64
-        Top = 115
-        Width = 313
-        Height = 22
-        Hint = '(A program alap'#233'rtelmezett ikonk'#233'szlete)'
-        Style = csOwnerDrawFixed
-        TabOrder = 2
-        OnDrawItem = cbProgIconSetDrawItem
-      end
-      object btnDefEmuIconSet: TButton
-        Tag = 8
-        Left = 256
-        Top = 143
-        Width = 121
-        Height = 25
-        Caption = '&Alap'#233'rtelmezett'
-        TabOrder = 3
-        OnClick = btnDefaultClick
-      end
-      object cbStyleName: TComboBox
-        Left = 64
-        Top = 184
-        Width = 313
-        Height = 21
-        Style = csDropDownList
-        TabOrder = 4
-      end
-      object grpPositionData: TGroupBox
+    object Témák: TTabSheet
+      Caption = 'T'#233'm'#225'k'
+      ImageIndex = 7
+      object grpThemes: TGroupBox
         Left = 16
-        Top = 296
+        Top = 15
         Width = 404
-        Height = 121
-        Caption = 'Helyzet, m'#233'ret '#233's elrendez'#233's'
-        TabOrder = 5
+        Height = 402
+        Caption = 'T'#233'm'#225'k, sz'#237'nek, '#233's st'#237'lusok'
+        TabOrder = 0
         DesignSize = (
           404
-          121)
-        object lbPositionCurrentDesc: TLabel
-          Left = 24
-          Top = 68
-          Width = 237
-          Height = 13
-          Anchors = [akLeft, akTop, akRight]
-          AutoSize = False
-          Caption = 'Jelenlegi m'#233'ret '#233's poz'#237'ci'#243':'
-        end
-        object lbPositionSavedDesc: TLabel
-          Left = 24
-          Top = 30
-          Width = 237
-          Height = 13
-          Anchors = [akLeft, akTop, akRight]
-          Caption = 'Mentett m'#233'ret '#233's poz'#237'ci'#243':'
-        end
-        object lbPositionCurrent: TLabel
+          402)
+        object lbStyleName: TLabel
           Left = 40
-          Top = 87
-          Width = 221
+          Top = 179
+          Width = 59
           Height = 13
-          Hint = '(alap'#233'rt.)'
-          Anchors = [akLeft, akTop, akRight]
           AutoSize = False
-          Caption = 'lbPositionCurrent'
+          Caption = 'St'#237'lus:'
         end
-        object lbPositionSaved: TLabel
+        object lbStyleColor: TLabel
           Left = 40
-          Top = 49
-          Width = 221
+          Top = 125
+          Width = 59
           Height = 13
-          Hint = '(alap'#233'rt.)'
-          Anchors = [akLeft, akTop, akRight]
           AutoSize = False
-          Caption = 'lbPositionSaved'
+          Caption = '&T'#233'masz'#237'n:'
         end
-        object btnPositionClear: TButton
-          Left = 275
-          Top = 68
-          Width = 113
-          Height = 25
-          Caption = '&Alap'#233'rtelmezett'
+        object lbStylePreview: TLabel
+          Left = 26
+          Top = 214
+          Width = 45
+          Height = 13
+          Caption = '&El'#337'n'#233'zet:'
+          FocusControl = pnStylePreview
+        end
+        object lbStyleDesc: TLabel
+          Left = 68
+          Top = 24
+          Width = 309
+          Height = 39
+          AutoSize = False
+          Caption = 
+            'Ezen az oldalon elv'#233'gezheti a s'#246't'#233't m'#243'd be'#225'll'#237't'#225'sait, illetve eg' +
+            'yedi t'#233'm'#225'kkal teljesen '#225'tszabhatja a program kin'#233'zet'#233't.'
+          WordWrap = True
+        end
+        object cbStyleName: TComboBox
+          Left = 105
+          Top = 175
+          Width = 257
+          Height = 21
+          Style = csDropDownList
           TabOrder = 0
-          OnClick = btnPositionClick
+          OnChange = UpdateStyleControls
         end
-        object btnPositionSave: TButton
-          Tag = 7
-          Left = 275
-          Top = 37
-          Width = 113
-          Height = 25
-          Caption = #193'llapot &ment'#233'se '#9660
-          DropDownMenu = pmPosition
+        object rbStyleSystem: TRadioButton
+          Left = 20
+          Top = 73
+          Width = 370
+          Height = 17
+          Caption = 
+            'A rendszer t'#233'ma '#233's sz'#237'nbe'#225'll'#237't'#225'sainak megfelel'#337' st'#237'lus haszn'#225'lat' +
+            'a'
           TabOrder = 1
-          OnClick = btnCustomDropDown
+          OnClick = UpdateStyleControls
+        end
+        object rbStyleColor: TRadioButton
+          Left = 20
+          Top = 98
+          Width = 370
+          Height = 17
+          Caption = 'A rendszer t'#233'm'#225'ja szerinti, de r'#246'gz'#237'tett sz'#237'n-'#252'zemm'#243'd haszn'#225'lata'
+          TabOrder = 2
+          OnClick = UpdateStyleControls
+        end
+        object cbStyleColor: TComboBox
+          Left = 105
+          Top = 121
+          Width = 257
+          Height = 21
+          Style = csDropDownList
+          ItemIndex = 0
+          TabOrder = 3
+          Text = 'Vil'#225'gos alkalmaz'#225's-'#252'zemm'#243'd'
+          OnChange = UpdateStyleControls
+          Items.Strings = (
+            'Vil'#225'gos alkalmaz'#225's-'#252'zemm'#243'd'
+            'S'#246't'#233't alkalmaz'#225's-'#252'zemm'#243'd')
+        end
+        object rbStyleCustom: TRadioButton
+          Left = 20
+          Top = 152
+          Width = 370
+          Height = 17
+          Caption = 'A rendszer t'#233'm'#225'j'#225't'#243'l elt'#233'r'#337', r'#246'gz'#237'tett egyedi st'#237'lus haszn'#225'lata'
+          TabOrder = 4
+          OnClick = UpdateStyleControls
+        end
+        object pnStylePreview: TPanel
+          Left = 25
+          Top = 233
+          Width = 345
+          Height = 152
+          Anchors = [akLeft, akTop, akRight, akBottom]
+          BevelOuter = bvLowered
+          ParentBackground = False
+          TabOrder = 5
+          DesignSize = (
+            345
+            152)
+          object lbQuadEq: TLabel
+            AlignWithMargins = True
+            Left = 13
+            Top = 8
+            Width = 328
+            Height = 26
+            Margins.Left = 12
+            Margins.Top = 7
+            Align = alTop
+            Caption = 'M'#225'sodfok'#250' egyenlet megold'#225'sa'#13#10'ax^2+bx+c=0'
+            WordWrap = True
+            ExplicitLeft = 6
+            ExplicitWidth = 320
+          end
+          object lbQuadEqA: TLabel
+            Left = 14
+            Top = 45
+            Width = 14
+            Height = 13
+            Caption = '&a='
+            FocusControl = spQuadEqA
+          end
+          object lbQuadEqB: TLabel
+            Left = 129
+            Top = 45
+            Width = 14
+            Height = 13
+            Caption = '&b='
+          end
+          object lbQuadEqC: TLabel
+            Left = 246
+            Top = 45
+            Width = 13
+            Height = 13
+            Anchors = [akTop, akRight]
+            Caption = '&c='
+          end
+          object spQuadEqA: TSpinEdit
+            Left = 34
+            Top = 40
+            Width = 65
+            Height = 22
+            MaxValue = 0
+            MinValue = 0
+            TabOrder = 0
+            Value = 2
+          end
+          object spQuadEqC: TSpinEdit
+            Left = 265
+            Top = 40
+            Width = 65
+            Height = 22
+            Anchors = [akTop, akRight]
+            MaxValue = 0
+            MinValue = 0
+            TabOrder = 1
+            Value = 3
+          end
+          object spQuadEqB: TSpinEdit
+            Left = 149
+            Top = 40
+            Width = 65
+            Height = 22
+            MaxValue = 0
+            MinValue = 0
+            TabOrder = 2
+            Value = 5
+          end
+          object mmQuadEq: TMemo
+            Left = 14
+            Top = 68
+            Width = 316
+            Height = 71
+            Anchors = [akLeft, akTop, akRight, akBottom]
+            ReadOnly = True
+            ScrollBars = ssVertical
+            TabOrder = 3
+            ExplicitWidth = 299
+            ExplicitHeight = 69
+          end
+          object btnQuadEqSolve: TButton
+            Left = 244
+            Top = 9
+            Width = 88
+            Height = 25
+            Anchors = [akTop, akRight]
+            Caption = '&Megold'#225's'
+            TabOrder = 4
+            OnClick = btnQuadEqSolveClick
+            ExplicitLeft = 227
+          end
         end
       end
     end
@@ -1261,7 +1503,7 @@ object ProgSettDlg: TProgSettDlg
   end
   object btnOK: TButton
     Left = 276
-    Top = 476
+    Top = 497
     Width = 75
     Height = 25
     Anchors = [akRight, akBottom]
@@ -1271,7 +1513,7 @@ object ProgSettDlg: TProgSettDlg
   end
   object btnCancel: TButton
     Left = 357
-    Top = 476
+    Top = 497
     Width = 75
     Height = 25
     Anchors = [akRight, akBottom]
@@ -1281,7 +1523,7 @@ object ProgSettDlg: TProgSettDlg
   end
   object btnImport: TButton
     Left = 28
-    Top = 476
+    Top = 497
     Width = 101
     Height = 25
     Anchors = [akLeft, akBottom]

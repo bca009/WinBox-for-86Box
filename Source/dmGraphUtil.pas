@@ -88,6 +88,7 @@ type
   TStyleExtensions = class helper for TStyleManager
   public
     class procedure FixHiddenEdits(Control: TWinControl; const AllLevels, IsSystemStyle: boolean);
+    class procedure ChangeControlStyle(Control: TWinControl; AStyleName: string; const AllLevels: boolean);
   end;
 
 var
@@ -597,6 +598,26 @@ begin
 end;
 
 { TStyleExtensions }
+
+class procedure TStyleExtensions.ChangeControlStyle(Control: TWinControl;
+  AStyleName: string; const AllLevels: boolean);
+var
+  I: Integer;
+begin
+  if Assigned(Control) then begin
+    Control.StyleName := AStyleName;
+    StyleServices(Control).ApplyThemeChange;
+
+    for I := 0 to Control.ControlCount - 1 do begin
+      if AllLevels and (Control.Controls[I] is TWinControl) then
+        ChangeControlStyle(Control.Controls[I] as TWinControl, AStyleName, true)
+      else begin
+        Control.StyleName := AStyleName;
+        StyleServices(Control.Controls[I]).ApplyThemeChange;
+      end;
+    end;
+  end;
+end;
 
 class procedure TStyleExtensions.FixHiddenEdits(Control: TWinControl;
   const AllLevels, IsSystemStyle: boolean);
