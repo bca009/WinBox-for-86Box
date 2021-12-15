@@ -70,7 +70,7 @@ uses uCommUtil, dmGraphUtil, Themes, Graphics, ShellAPI;
 procedure TAboutDlg.CMStyleChanged(var Msg: TMessage);
 begin
   inherited;
-  TStyleManager.FixHiddenEdits(Self, true, StyleServices.IsSystemStyle);
+  TStyleManager.FixHiddenEdits(Self, true, StyleServices(Self).IsSystemStyle);
 
   Color := edVersion.Color;
   Font.Color := edVersion.Font.Color;
@@ -84,6 +84,8 @@ end;
 
 procedure TAboutDlg.FormCreate(Sender: TObject);
 begin
+  ApplyActiveStyle;
+
   LoadImageRes('ABOUT', imgSplash, false);
   LangName := Copy(ClassName, 2, MaxInt);
 

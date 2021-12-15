@@ -386,6 +386,7 @@ var
 begin
   Thread := nil;
 
+  ApplyActiveStyle;
   Perform(UM_ICONSETCHANGED, 0, 0);
 
   if Succeeded(LoadIconWithScaleDown(0, MakeIntResource(IDI_WARNING),

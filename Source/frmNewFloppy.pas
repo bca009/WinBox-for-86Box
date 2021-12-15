@@ -111,6 +111,7 @@ end;
 
 procedure TNewFloppy.FormCreate(Sender: TObject);
 begin
+  ApplyActiveStyle;
   Perform(UM_ICONSETCHANGED, 0, 0);
 
   Translate;

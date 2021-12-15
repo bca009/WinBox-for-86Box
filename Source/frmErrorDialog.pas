@@ -254,17 +254,16 @@ end;
 procedure TExceptionDialog.CMStyleChange(var Msg: TMessage);
 begin
   inherited;
-
   with TextLines do
-    if StyleServices.IsSystemStyle then begin
+    if StyleServices(Self).IsSystemStyle then begin
       ParentColor := true;
       Font.Color := Self.Font.Color;
     end
     else begin
       Color :=
-        TStyleManager.ActiveStyle.GetSystemColor(clBtnFace);
+        StyleServices(Self).GetSystemColor(clBtnFace);
       Font.Color :=
-        TStyleManager.ActiveStyle.GetStyleFontColor(sfTextLabelNormal);
+        StyleServices(Self).GetStyleFontColor(sfTextLabelNormal);
     end;
 end;
 
@@ -528,6 +527,8 @@ var
 begin
   FFullHeight := ClientHeight;
   DetailsVisible := False;
+
+  ApplyActiveStyle;
 
   Translate;
   if LocaleIsBiDi then

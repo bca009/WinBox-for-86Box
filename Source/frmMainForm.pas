@@ -1078,46 +1078,12 @@ end;
 
 procedure TWinBoxMain.ChangeStyle(const AStyle: string;
   const Mode: integer);
-var
-  Success: boolean;
-  FStyle: string;
 begin
-  if LocaleIsBiDi then
-    exit;
-
-  //A licenszelés megköveteli hogy csak az adott platformon lehessen
-  //  használni a stílust
-  if (pos('Windows10', AStyle) <> 0) and
-     (Win32MajorVersion < 10) then
-    exit;
-
-  Success := false;
-
-  if (AStyle <> '') then begin
-    for FStyle in TStyleManager.StyleNames do
-      if FStyle = AStyle then begin
-        Success := true;
-        break;
-      end;
-
-    if Success then
-      Success := TStyleManager.TrySetStyle(AStyle)
-  end
-  else if IconSet.DarkMode and (Win32MajorVersion >= 10) then
-    Success := TStyleManager.TrySetStyle('Windows10 DarkExplorer');
-
-  if not Success then
-    TStyleManager.TrySetStyle('Windows');
-
-  IconSet.UpdateColorsAllowed;
+  IconSet.Style := AStyle;
 
   //Ha külsõ üzenet hatására kell megcsinálni, itt kell frissíteni.
-  if Mode = -1 then begin
+  if Mode = -1 then
     ListClick(List);
-
-    //Ez azért kell hogy ne crasheljen az automata váltás után.
-    StyleServices.ApplyThemeChange;
-  end;
   //Ellenkezõ esetben vagy nem kell (OnCreate),
   //  vagy alapból van frissítés (acUpdateList.Execute).
 end;
@@ -1129,6 +1095,7 @@ var
   BkColor, TextColor, TitleColor, GridColor: TColor;
 const
   TitleColors: array [boolean] of TColor = (clHighlight, clBlue);
+  BkColors: array [boolean] of TColor = (clBtnFace, clWindow);
 
   procedure ProcessChart(Chart: TChart);
   begin
@@ -1153,14 +1120,14 @@ const
 
 begin
   inherited;
-  IsSystemStyle := StyleServices.IsSystemStyle;
+  IsSystemStyle := StyleServices(Self).IsSystemStyle;
 
   //Lista kirajzolási eljárás segédlet
   HalfCharHeight := Canvas.TextHeight('Wg');
-  BorderThickness := (List.ItemHeight - IconSet.ListIcons.Height) div 2;
+  BorderThickness :=
+    (List.ItemHeight - IconSet.ListIcons.Height) div 2;
 
-  clHighlight1 :=
-    TStyleManager.ActiveStyle.GetSystemColor(clHighlight);
+  clHighlight1 := StyleServices(Self).GetSystemColor(clHighlight);
   ColorRGBToHLS(clHighlight1, H, L, S);
   clDisabled1 := ColorHLSToRGB(H, L, 0);
 
@@ -1168,21 +1135,16 @@ begin
   clHighlight2 := ColorHLSToRGB(H, L, S);
   clDisabled2 := ColorHLSToRGB(H, L, 0);
 
-  if IsSystemStyle then begin
-    BkColor := ColorToRGB(clWindow);
-    GridColor := ColorToRGB(clGrayText);
-    TextColor := ColorToRGB(clWindowText);
-  end
-  else begin
-    BkColor :=
-      TStyleManager.ActiveStyle.GetSystemColor(clBtnFace);
-    GridColor :=
-      TStyleManager.ActiveStyle.GetSystemColor(clGrayText);
-    TextColor :=
-      TStyleManager.ActiveStyle.GetStyleFontColor(sfTextLabelNormal);
-  end;
-
   TitleColor := TitleColors[IsSystemStyle];
+  BkColor := StyleServices(Self).GetSystemColor(BkColors[IsSystemStyle]);
+  GridColor := StyleServices(Self).GetSystemColor(clGrayText);
+
+  if IsSystemStyle then
+    TextColor :=
+      StyleServices(Self).GetSystemColor(clWindowText)
+  else
+    TextColor :=
+      StyleServices(Self).GetStyleFontColor(sfTextLabelNormal);
 
   ProcessChart(ChartCPU);
   ProcessChart(ChartRAM);
@@ -1523,28 +1485,23 @@ var
   IconLeft, TextLeft: integer;
 begin
   try
-    with IconSet, Control as TListBox, Canvas do begin
-      if Enabled and (odSelected in State) then begin
-        Brush.Color :=
-          TStyleManager.ActiveStyle.GetSystemColor(clHighlight);
-        Font.Color :=
-          TStyleManager.ActiveStyle.GetSystemColor(clHighlightText);
-        GradientFillCanvas(Canvas, clHighlight2, clHighlight1, Rect, gdVertical);
-      end
-      else if (odSelected in State) then begin
-        Brush.Color :=
-          TStyleManager.ActiveStyle.GetSystemColor(cl3DDkShadow);
-        Font.Color :=
-          TStyleManager.ActiveStyle.GetSystemColor(cl3DLight);
-        GradientFillCanvas(Canvas, clDisabled2, clDisabled1, Rect, gdVertical);
-      end
-      else begin
-        Brush.Color :=
-          TStyleManager.ActiveStyle.GetSystemColor(clWindow);
-        Font.Color :=
-          TStyleManager.ActiveStyle.GetSystemColor(clWindowText);
-        FillRect(Rect);
-      end;
+    with IconSet, Control as TListBox, Canvas do
+      with StyleServices(Self) do begin
+        if Enabled and (odSelected in State) then begin
+          Brush.Color := GetSystemColor(clHighlight);
+          Font.Color  := GetSystemColor(clHighlightText);
+          GradientFillCanvas(Canvas, clHighlight2, clHighlight1, Rect, gdVertical);
+        end
+        else if (odSelected in State) then begin
+          Brush.Color := GetSystemColor(cl3DDkShadow);
+          Font.Color  := GetSystemColor(cl3DLight);
+          GradientFillCanvas(Canvas, clDisabled2, clDisabled1, Rect, gdVertical);
+        end
+        else begin
+          Brush.Color := GetSystemColor(clWindow);
+          Font.Color  := GetSystemColor(clWindowText);
+          FillRect(Rect);
+        end;
 
       Brush.Style := bsClear;
 

@@ -370,6 +370,7 @@ end;
 
 procedure TWizardVM.FormCreate(Sender: TObject);
 begin
+  ApplyActiveStyle;
   Perform(UM_ICONSETCHANGED, 0, 0);
 
   Samples := TVMSampleFilter.Create(true);

@@ -35,6 +35,7 @@ type
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -46,11 +47,18 @@ var
 
 implementation
 
+uses dmGraphUtil;
+
 {$R *.dfm}
 
 procedure TWaitForm.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   Action := caNone;
+end;
+
+procedure TWaitForm.FormCreate(Sender: TObject);
+begin
+  ApplyActiveStyle;
 end;
 
 procedure TWaitForm.FormDestroy(Sender: TObject);

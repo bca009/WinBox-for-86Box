@@ -195,6 +195,7 @@ type
     lbQuadEqC: TLabel;
     mmQuadEq: TMemo;
     btnQuadEqSolve: TButton;
+    imgStyle: TImage;
     procedure Reload(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure cbLoggingChange(Sender: TObject);
@@ -765,6 +766,7 @@ begin
   pcPages.ActivePageIndex := 0;
   LangName := Copy(ClassName, 2, MaxInt);
 
+  ApplyActiveStyle;
   Perform(UM_ICONSETCHANGED, 0, 0);
 
   Translate;

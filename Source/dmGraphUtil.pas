@@ -36,10 +36,13 @@ type
     ActionImages: TImageCollection;
     Icons32: TVirtualImageList;
     Icons16: TVirtualImageList;
+    procedure DeferStyleChange(Sender: TObject);
   private
     FPath: string;
     FDarkMode: boolean;
+    FStyle, FDeferStyle: string;
     procedure SetPath(const Value: string);
+    procedure SetStyle(const Value: string);
   protected
     BkupListImages,
     BkupActionImages: TObjectDictionary<string, TWICImage>;
@@ -83,12 +86,18 @@ type
 
     property Path: string read FPath write SetPath;
     property DarkMode: boolean read FDarkMode;
+    property Style: string read FStyle write SetStyle;
   end;
 
   TStyleExtensions = class helper for TStyleManager
   public
     class procedure FixHiddenEdits(Control: TWinControl; const AllLevels, IsSystemStyle: boolean);
     class procedure ChangeControlStyle(Control: TWinControl; AStyleName: string; const AllLevels: boolean);
+  end;
+
+  TStylingForm = class helper for TForm
+  public
+    procedure ApplyActiveStyle;
   end;
 
 var
@@ -131,6 +140,8 @@ procedure InvariantBiDiLayout(const DC: HDC); inline;
 resourcestring
   PfIconSetPath   = 'Iconsets\';
   PathEmuIconSets = 'roms\icons\';
+
+  StrDeferStyleChange = 'IconSet.DeferStyleChange';
 
 implementation
 
@@ -348,6 +359,9 @@ begin
   inherited;
   IsColorsAllowed := true;
 
+  FStyle := 'Windows';
+  FDeferStyle := '';
+
   //Induljunk valami olyan szöveggel amit fixen mindig le kell cserélni
   FPath := '?';
 
@@ -361,6 +375,14 @@ begin
 end;
 
 //Az AProportional tulajdonság jelenleg nem támogatott ezen a módon.
+procedure TIconSet.DeferStyleChange(Sender: TObject);
+begin
+  if Application.ModalLevel = 0 then begin
+    SetStyle(FDeferStyle);
+    Application.OnModalEnd := nil;
+  end;
+end;
+
 destructor TIconSet.Destroy;
 begin
   BkupActionImages.Free;
@@ -570,9 +592,57 @@ begin
   end;
 end;
 
+procedure TIconSet.SetStyle(const Value: string);
+var
+  Success: boolean;
+  I: integer;
+  S: string;
+begin
+  if LocaleIsBiDi then
+    exit;
+
+  //A licenszelés megköveteli hogy csak az adott platformon lehessen
+  //  használni a stílust
+  if (pos('Windows10', Value) <> 0) and
+     (Win32MajorVersion < 10) then
+    exit;
+
+  if Application.ModalLevel <> 0 then begin
+    FDeferStyle := Value;
+    Application.OnModalEnd := DeferStyleChange;
+    MessageBox(Application.Handle, _P(StrDeferStyleChange),
+      PChar(Application.Title), MB_ICONINFORMATION or MB_OK);
+    exit;
+  end;
+
+  Success := false;
+  if (Value <> '') then begin
+    for S in TStyleManager.StyleNames do
+      if S = Value then begin
+        Success := true;
+        break;
+      end;
+
+    if Success then
+      FStyle := Value;
+  end
+  else if IconSet.DarkMode and (Win32MajorVersion >= 10) then
+    FStyle := 'Windows10 DarkExplorer'
+  else
+    FStyle := 'Windows';
+
+  for I := 0 to Screen.FormCount - 1 do begin
+    TStyleManager.ChangeControlStyle(Screen.Forms[I], FStyle, true);
+    Screen.Forms[I].Perform(CM_STYLECHANGED, 0, 0);
+  end;
+
+  UpdateColorsAllowed;
+end;
+
 procedure TIconSet.UpdateColorsAllowed;
 begin
-  IsColorsAllowed := not LocaleIsBiDi and StyleServices.IsSystemStyle;
+  IsColorsAllowed := not LocaleIsBiDi and
+    StyleServices(Application.MainForm).IsSystemStyle;
 end;
 
 function TIconSet.UpdateDarkMode: boolean;
@@ -637,9 +707,9 @@ begin
             end
             else begin
               Color :=
-                TStyleManager.ActiveStyle.GetSystemColor(clBtnFace);
+                StyleServices(Control).GetSystemColor(clBtnFace);
               Font.Color :=
-                TStyleManager.ActiveStyle.GetStyleFontColor(sfTextLabelNormal);
+                StyleServices(Control).GetStyleFontColor(sfTextLabelNormal);
             end;
           end;
 
@@ -648,6 +718,17 @@ begin
            FixHiddenEdits(Control.Controls[I] as TWinControl,
              AllLevels, IsSystemStyle);
     end;
+end;
+
+{ TStylingForm }
+
+procedure TStylingForm.ApplyActiveStyle;
+begin
+  if LocaleIsBiDi then
+    exit;
+
+  TStyleManager.ChangeControlStyle(Self, IconSet.Style, true);
+  Perform(CM_STYLECHANGED, 0, 0);
 end;
 
 end.

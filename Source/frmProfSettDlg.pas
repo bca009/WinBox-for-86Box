@@ -227,6 +227,7 @@ begin
   pcPages.ActivePageIndex := 0;
   LangName := Copy(ClassName, 2, MaxInt);
 
+  ApplyActiveStyle;
   Perform(UM_ICONSETCHANGED, 0, 0);
 
   Translate;

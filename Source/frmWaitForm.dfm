@@ -14,16 +14,16 @@ object WaitForm: TWaitForm
   FormStyle = fsStayOnTop
   GlassFrame.Enabled = True
   GlassFrame.SheetOfGlass = True
-  OldCreateOrder = False
   Position = poOwnerFormCenter
   OnClose = FormClose
+  OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnMouseDown = FormMouseDown
   OnShow = FormShow
+  PixelsPerInch = 96
   DesignSize = (
     419
     63)
-  PixelsPerInch = 96
   TextHeight = 13
   object ProgressBar: TProgressBar
     Left = 16

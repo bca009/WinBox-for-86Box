@@ -204,6 +204,8 @@ QuadEq.SingleSolution=Az egyenlet két egybeeső valós megoldással rendelkezik
 QuadEq.DoubleSolution=Az egyenlet két különböző valós megoldással rendelkezik: x1=%.2f, és x2=%.2f.
 QuadEq.ComplexSolution=Az egyenlet két különböző komplex megoldással rendelkezik: x1=%.2f%s%.2fi, és x2=%.2f%s%.2fi.
 
+IconSet.DeferStyleChange=A program alkalmazás-üzemmód, vagy témabeállításai megváltoztak, viszont a módosítások csak akkor lépnek majd érvénybe, amikor minden párbeszédablak bezárásra került.
+
 [UpdateDlg]
 btnTerminate.Hint=&Kilépés
 btnTerminate=&Megszakítás

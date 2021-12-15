@@ -47,8 +47,11 @@ begin
 
   Application.Initialize;
 
-  with TStyleManager do
+  with TStyleManager do begin
+    UseSystemStyleAsDefault := true;
     SystemHooks := SystemHooks - [shDialogs];
+    TrySetStyle('Windows10 DarkExplorer', false);
+  end;
 
   WinBoxSplash := TWinBoxSplash.Create(nil);
   WinBoxSplash.Show;

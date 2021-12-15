@@ -244,6 +244,7 @@ var
 const
   HiddenColumns: set of byte = [0];
 begin
+  ApplyActiveStyle;
   Perform(UM_ICONSETCHANGED, 0, 0);
 
   Translate;

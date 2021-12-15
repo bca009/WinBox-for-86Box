@@ -209,14 +209,14 @@ var
   IsSystemStyle: boolean;
 begin
   inherited;
-  IsSystemStyle := StyleServices.IsSystemStyle;
+  IsSystemStyle := StyleServices(Self).IsSystemStyle;
   TStyleManager.FixHiddenEdits(cgPanels, true, IsSystemStyle);
 
   if not IsSystemStyle then begin
     Color :=
-      TStyleManager.ActiveStyle.GetSystemColor(clBtnFace);
+      StyleServices(Self).GetSystemColor(clBtnFace);
     Font.Color :=
-      TStyleManager.ActiveStyle.GetStyleFontColor(sfTextLabelNormal);
+      StyleServices(Self).GetStyleFontColor(sfTextLabelNormal);
   end;
 
   edState.ParentColor := true;

@@ -981,7 +981,7 @@
         end
         object lbStyleDesc: TLabel
           Left = 68
-          Top = 24
+          Top = 29
           Width = 309
           Height = 39
           AutoSize = False
@@ -989,6 +989,12 @@
             'Ezen az oldalon elv'#233'gezheti a s'#246't'#233't m'#243'd be'#225'll'#237't'#225'sait, illetve eg' +
             'yedi t'#233'm'#225'kkal teljesen '#225'tszabhatja a program kin'#233'zet'#233't.'
           WordWrap = True
+        end
+        object imgStyle: TImage
+          Left = 20
+          Top = 26
+          Width = 32
+          Height = 32
         end
         object cbStyleName: TComboBox
           Left = 105
@@ -1065,8 +1071,7 @@
             Align = alTop
             Caption = 'M'#225'sodfok'#250' egyenlet megold'#225'sa'#13#10'ax^2+bx+c=0'
             WordWrap = True
-            ExplicitLeft = 6
-            ExplicitWidth = 320
+            ExplicitWidth = 151
           end
           object lbQuadEqA: TLabel
             Left = 14
@@ -1131,8 +1136,6 @@
             ReadOnly = True
             ScrollBars = ssVertical
             TabOrder = 3
-            ExplicitWidth = 299
-            ExplicitHeight = 69
           end
           object btnQuadEqSolve: TButton
             Left = 244
@@ -1143,7 +1146,6 @@
             Caption = '&Megold'#225's'
             TabOrder = 4
             OnClick = btnQuadEqSolveClick
-            ExplicitLeft = 227
           end
         end
       end

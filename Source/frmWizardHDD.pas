@@ -398,6 +398,7 @@ begin
   FDiskChanged := false;
   FFirst := true;
 
+  ApplyActiveStyle;
   Perform(UM_ICONSETCHANGED, 0, 0);
 end;
 
