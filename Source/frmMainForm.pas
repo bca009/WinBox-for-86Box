@@ -978,6 +978,12 @@ begin
   if NewBiDi <> LocaleIsBiDi then begin
     LocaleIsBiDi := NewBiDi;
 
+    //if the new language is RTL disable styling
+    if NewBiDi then
+      TStyleManager.TrySetStyle('Windows', false);
+    //else ha implementálva lesz egy on-fly layout swith
+    // TStyleManager.TrySetStyle('Windows10 DarkExplorer', false);
+
     FlipBiDi;
   end;
 end;
