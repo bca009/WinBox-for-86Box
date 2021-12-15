@@ -248,7 +248,7 @@ begin
       lbInternalID.Caption := ProfileID;
       mmDescription.Text := Description;
 
-      DisplayWIC(Icon, imgIcon, false);
+      DisplayWIC(Icon, imgIcon, DefScaleOptions - [soBiDiRotate]);
       bvIcon.Invalidate;
 
       FillChar(CompactPath[0], MaxLen * SizeOf(Char), #0);

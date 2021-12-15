@@ -420,7 +420,8 @@ end;
 
 procedure TImportVM.UMIconsChanged(var Msg: TMessage);
 begin
-  IconSet.LoadImage(ImgBannerImport, imgBanner, false);
+  IconSet.LoadImage(ImgBannerImport, imgBanner,
+   DefScaleOptions - [soBiDiRotate]);
 end;
 
 { TListView }

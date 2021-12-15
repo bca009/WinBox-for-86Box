@@ -170,7 +170,8 @@ end;
 
 procedure TNewFloppy.UMIconsChanged(var Msg: TMessage);
 begin
-  IconSet.LoadImage('BANNER_FLOPPY', imgBanner, false);
+  IconSet.LoadImage('BANNER_FLOPPY', imgBanner,
+    DefScaleOptions - [soBiDiRotate]);
 end;
 
 end.

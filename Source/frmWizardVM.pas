@@ -608,7 +608,9 @@ end;
 
 procedure TWizardVM.UMIconsChanged(var Msg: TMessage);
 begin
-  IconSet.LoadImage('BANNER_NEW', imgBanner, false);
+  IconSet.LoadImage('BANNER_NEW', imgBanner,
+    DefScaleOptions - [soBiDiRotate]);
+
   IconSet.Icons32.GetBitmap(0, imgWarning.Picture.Bitmap);
 end;
 

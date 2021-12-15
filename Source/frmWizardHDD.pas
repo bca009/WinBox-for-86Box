@@ -632,7 +632,8 @@ end;
 
 procedure TWizardHDD.UMIconsChanged(var Msg: TMessage);
 begin
-  IconSet.LoadImage('BANNER_HDD', imgBanner, false);
+  IconSet.LoadImage('BANNER_HDD', imgBanner,
+    DefScaleOptions - [soBiDiRotate]);
 
   with IconSet do begin
     Icons32.GetBitmap(0, imgWarning.Picture.Bitmap);

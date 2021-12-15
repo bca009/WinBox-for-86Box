@@ -30,6 +30,13 @@ uses
   StdCtrls, Registry, Themes;
 
 type
+  TScaleOption = (soBiDiRotate, soExtraScale);
+  TScaleOptions = set of TScaleOption;
+
+const
+  DefScaleOptions = [soBiDiRotate, soExtraScale];
+
+type
   TIconSet = class(TDataModule)
     ListImages: TImageCollection;
     ListIcons: TVirtualImageList;
@@ -76,8 +83,7 @@ type
 
     //Kép betöltése erõforrásból, vagy fájlból (attól függ)
     procedure LoadImage(const Name: string; Image: TImage;
-      const BiDiRotate: boolean = true;
-      const ExtraScale: boolean = true);
+      const ScaleOptions: TScaleOptions = DefScaleOptions);
 
     //Újonnan létrehozott VM-ek ikonjának felülírása (ha van)
     procedure ExtractTemplIcon(const AName, APath: string);
@@ -123,13 +129,11 @@ function LoadIconWithScaleDown(hinst: HINST; pszName: LPCWSTR; cx: Integer;
 {$EXTERNALSYM LoadIconWithScaleDown}
 
 procedure ScaleWIC(var Source: TWICImage; const Width, Height: integer;
-  const BiDiRotate: boolean = true); overload;
+  const ScaleOptions: TScaleOptions = DefScaleOptions); overload;
 procedure DisplayWIC(var Source: TWICImage; Image: TImage;
-  const BiDiRotate: boolean = true;
-  const ExtraScale: boolean = true);
+  const ScaleOptions: TScaleOptions = DefScaleOptions);
 procedure LoadImageRes(const Name: string; Image: TImage;
-   const BiDiRotate: boolean = true;
-   const ExtraScale: boolean = true);
+  const ScaleOptions: TScaleOptions = DefScaleOptions);
 
 //Üzenet eljuttatása a program minden ablakához
 procedure BroadcastMessage(Msg: UINT; wParam: WPARAM; lParam: LPARAM);
@@ -198,7 +202,7 @@ end;
 
 //Ez a verzió visszaírja a képbe az új Handle-t
 procedure ScaleWIC(var Source: TWICImage; const Width, Height: integer;
-  const BiDiRotate: boolean); overload;
+  const ScaleOptions: TScaleOptions); overload;
 var
   Factory: IWICImagingFactory;
   Scaler: IWICBitmapScaler;
@@ -210,7 +214,7 @@ begin
   try
     Factory := TWICImage.ImagingFactory;
 
-    if LocaleIsBiDi and BiDiRotate then
+    if LocaleIsBiDi and (soBiDiRotate in ScaleOptions) then
       try
         Factory.CreateBitmapFlipRotator(Rotator);
         Rotator.Initialize(Source.Handle,
@@ -231,7 +235,7 @@ begin
 end;
 
 procedure DisplayWIC(var Source: TWICImage; Image: TImage;
-  const BiDiRotate, ExtraScale: boolean);
+  const ScaleOptions: TScaleOptions);
 var
   Temp: TWICImage;
   MaxDPI: integer;
@@ -243,7 +247,7 @@ begin
   Temp := TWICImage.Create;
   Temp.Assign(Source);
 
-  if ExtraScale then begin
+  if soExtraScale in ScaleOptions then begin
     Size.X := Image.Width * MaxDPI div Image.CurrentPPI;
     Size.Y := Image.Height * MaxDPI div Image.CurrentPPI;
   end
@@ -251,7 +255,7 @@ begin
     Size.X := Image.Width;
     Size.Y := Image.Height;
   end;
-  ScaleWIC(Temp, Size.X, Size.Y, BiDiRotate);
+  ScaleWIC(Temp, Size.X, Size.Y, ScaleOptions);
   Image.Picture.Assign(Temp);
   Temp.Free;
 
@@ -260,7 +264,7 @@ begin
 end;
 
 procedure LoadImageRes(const Name: string; Image: TImage;
-  const BiDiRotate, ExtraScale: boolean);
+  const ScaleOptions: TScaleOptions);
 var
   Bitmap: TWICImage;
   Stream: TResourceStream;
@@ -269,7 +273,7 @@ begin
   Stream := TResourceStream.Create(hInstance, Name, RT_RCDATA);
   try
     Bitmap.LoadFromStream(Stream);
-    DisplayWIC(Bitmap, Image, BiDiRotate, ExtraScale);
+    DisplayWIC(Bitmap, Image, ScaleOptions);
   finally
     Stream.Free;
     Bitmap.Free;
@@ -551,7 +555,7 @@ begin
 end;
 
 procedure TIconSet.LoadImage(const Name: string; Image: TImage;
-  const BiDiRotate, ExtraScale: boolean);
+  const ScaleOptions: TScaleOptions);
 var
   FileName: string;
   Bitmap: TWICImage;
@@ -559,12 +563,12 @@ begin
   FileName := FPath + PfDataImages + Name + '.png';
 
   if (FPath = '') or not FileExists(FileName) then
-    dmGraphUtil.LoadImageRes(Name, Image, BiDiRotate, ExtraScale)
+    dmGraphUtil.LoadImageRes(Name, Image, ScaleOptions)
   else begin
     Bitmap := TWICImage.Create;
     try
       Bitmap.LoadFromFile(FileName);
-      DisplayWIC(Bitmap, Image, BiDiRotate, ExtraScale);
+      DisplayWIC(Bitmap, Image, ScaleOptions);
     finally
       Bitmap.Free;
     end;

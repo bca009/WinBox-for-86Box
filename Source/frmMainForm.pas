@@ -1216,7 +1216,8 @@ procedure TWinBoxMain.UMIconsChanged(var Msg: TMessage);
 begin
   inherited;
   IconSet.IconsMaxDPI.GetIcon(6, DeleteDialog.CustomMainIcon);
-  IconSet.LoadImage(ImgWelcomeLogo, ImgWelcome, false, false);
+  IconSet.LoadImage(ImgWelcomeLogo, ImgWelcome,
+    DefScaleOptions - [soBiDiRotate, soExtraScale]);
 
   DefProfile.Icon.Assign(
     IconSet.ActionImages.Images[21].SourceImages[0].Image);
@@ -1623,8 +1624,11 @@ begin
         else
           Image.Assign(DefProfile.Icon);
 
-        ScaleWIC(Image, IconSet.ListIcons.Width,
-                        IconSet.ListIcons.Height, false);
+        ScaleWIC(Image,
+          IconSet.ListIcons.Width,
+          IconSet.ListIcons.Height,
+          DefScaleOptions - [soBiDiRotate, soExtraScale]);
+
         Icons.Add(Image);
 
         cTemp := RGB(random($100), random($100), random($100));

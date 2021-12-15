@@ -84,7 +84,8 @@ end;
 
 procedure TAboutDlg.FormCreate(Sender: TObject);
 begin
-  LoadImageRes('ABOUT', imgSplash, false);
+  LoadImageRes('ABOUT', imgSplash,
+    DefScaleOptions - [soBiDiRotate]);
   LangName := Copy(ClassName, 2, MaxInt);
 
   ApplyActiveStyle;

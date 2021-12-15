@@ -286,6 +286,8 @@ begin
 end;
 
 procedure TPicturePager.RecalcSize;
+var
+  ScaleOptions: TScaleOptions;
 begin
   if Assigned(FDisplay) then
     FreeAndNil(FDisplay);
@@ -325,7 +327,12 @@ begin
       if H <= 0 then
         H := 1;
 
-      ScaleWIC(FDisplay, W, H, BiDiMode <> bdLeftToRight);
+      if BiDiMode <> bdLeftToRight then
+        ScaleOptions := DefScaleOptions + [soBiDiRotate]
+      else
+        ScaleOptions := DefScaleOptions - [soBiDiRotate];
+
+      ScaleWIC(FDisplay, W, H, ScaleOptions);
       Cursor := crHandPoint;
       Invalidate;
     except
