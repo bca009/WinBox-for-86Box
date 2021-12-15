@@ -52,7 +52,7 @@ object WizardHDD: TWizardHDD
     Top = 0
     Width = 337
     Height = 263
-    ActivePage = tabCapacity
+    ActivePage = tabResults
     Align = alClient
     TabOrder = 0
     object tabWelcome: TTabSheet

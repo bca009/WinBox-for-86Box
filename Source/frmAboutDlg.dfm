@@ -28,6 +28,8 @@ object AboutDlg: TAboutDlg
     Width = 358
     Height = 156
     Align = alTop
+    Stretch = True
+    ExplicitTop = 8
   end
   object lbTitle: TLabel
     Left = 0

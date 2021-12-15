@@ -635,8 +635,8 @@ begin
   IconSet.LoadImage('BANNER_HDD', imgBanner, false);
 
   with IconSet do begin
-    Icons32.GetIcon(0, imgWarning.Picture.Icon);
-    Icons32.GetIcon(11, imgInfo.Picture.Icon);
+    Icons32.GetBitmap(0, imgWarning.Picture.Bitmap);
+    Icons32.GetBitmap(11, imgInfo.Picture.Bitmap);
   end;
 end;
 

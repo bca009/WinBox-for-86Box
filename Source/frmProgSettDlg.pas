@@ -874,16 +874,16 @@ procedure TProgSettDlg.UMIconsChanged(var Msg: TMessage);
 begin
   inherited;
   with IconSet do begin
-    Icons32.GetIcon(8,  imgExtraPaths.Picture.Icon);
-    Icons32.GetIcon(11, imgInfo.Picture.Icon);
-    Icons32.GetIcon(13, imgNewVM.Picture.Icon);
+    Icons32.GetBitmap(8,  imgExtraPaths.Picture.Bitmap);
+    Icons32.GetBitmap(11, imgInfo.Picture.Bitmap);
+    Icons32.GetBitmap(13, imgNewVM.Picture.Bitmap);
 
-    Icons32.GetIcon(30, imgDisplay.Picture.Icon);
-    Icons32.GetIcon(31, imgEmulator.Picture.Icon);
-    Icons32.GetIcon(32, imgTools.Picture.Icon);
-    Icons32.GetIcon(33, imgDebug.Picture.Icon);
+    Icons32.GetBitmap(30, imgDisplay.Picture.Bitmap);
+    Icons32.GetBitmap(31, imgEmulator.Picture.Bitmap);
+    Icons32.GetBitmap(32, imgTools.Picture.Bitmap);
+    Icons32.GetBitmap(33, imgDebug.Picture.Bitmap);
 
-    Icons32.GetIcon(35, imgLanguage.Picture.Icon);
+    Icons32.GetBitmap(35, imgLanguage.Picture.Bitmap);
   end;
 end;
 

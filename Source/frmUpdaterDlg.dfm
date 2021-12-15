@@ -13,6 +13,7 @@ object UpdaterDlg: TUpdaterDlg
   Font.Name = 'Segoe UI'
   Font.Style = []
   Position = poMainFormCenter
+  OnAfterMonitorDpiChanged = FormAfterMonitorDpiChanged
   OnClose = FormClose
   OnCreate = FormCreate
   OnDestroy = FormDestroy
@@ -38,6 +39,7 @@ object UpdaterDlg: TUpdaterDlg
     Top = 12
     Width = 32
     Height = 32
+    Stretch = True
   end
   object lbDescription: TLabel
     Left = 62
@@ -106,6 +108,7 @@ object UpdaterDlg: TUpdaterDlg
     Width = 16
     Height = 16
     Anchors = [akRight, akBottom]
+    Stretch = True
     ExplicitTop = 180
   end
   object lbFooter: TLabel

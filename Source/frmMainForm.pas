@@ -371,6 +371,8 @@ type
     procedure ListDblClick(Sender: TObject);
     procedure acWinBoxUpdateExecute(Sender: TObject);
     procedure SplitterMoved(Sender: TObject);
+    procedure FormAfterMonitorDpiChanged(Sender: TObject; OldDPI,
+      NewDPI: Integer);
   private
     //Lista kirajzolásához szükséges cuccok
     HalfCharHeight, BorderThickness: integer;
@@ -1213,8 +1215,8 @@ end;
 procedure TWinBoxMain.UMIconsChanged(var Msg: TMessage);
 begin
   inherited;
-  IconSet.Icons32.GetIcon(6, DeleteDialog.CustomMainIcon);
-  IconSet.LoadImage(ImgWelcomeLogo, ImgWelcome, false);
+  IconSet.IconsMaxDPI.GetIcon(6, DeleteDialog.CustomMainIcon);
+  IconSet.LoadImage(ImgWelcomeLogo, ImgWelcome, false, false);
 
   DefProfile.Icon.Assign(
     IconSet.ActionImages.Images[21].SourceImages[0].Image);
@@ -1297,6 +1299,16 @@ begin
   SetCommCtrlBiDi(tbVMs.Handle, LocaleIsBiDi);
 
   Frame86Box.FlipBiDi;
+end;
+
+procedure TWinBoxMain.FormAfterMonitorDpiChanged(Sender: TObject; OldDPI,
+  NewDPI: Integer);
+begin
+  IconSet.Initialize(Self);
+  Perform(UM_ICONSETCHANGED, 0, 0);
+
+  if Assigned(Profiles) then
+    ListReload(Self);
 end;
 
 procedure TWinBoxMain.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -1692,7 +1704,7 @@ begin
   Constraints.MinWidth :=
     List.Width +
     Frame86Box.RightPanel.Constraints.MinWidth +
-    50 * Screen.PixelsPerInch div 96;
+    50 * CurrentPPI div 96;
 
   Perform(WM_ENTERSIZEMOVE, 0, 0);
 end;

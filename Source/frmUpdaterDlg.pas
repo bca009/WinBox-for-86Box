@@ -49,6 +49,8 @@ type
     procedure btnTerminateClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure AskUpdateDialogHyperlinkClicked(Sender: TObject);
+    procedure FormAfterMonitorDpiChanged(Sender: TObject; OldDPI,
+      NewDPI: Integer);
   private
     //[local]
     LocalDate, BuildDate: TDateTime;
@@ -140,7 +142,7 @@ var
   List: TStringList;
 begin
   with AskUpdateDialog do begin
-    AskUpdateDialog.Caption := Application.Title;
+    Caption := Application.Title;
     Title := Language.ReadString('UpdateDlg', 'lbTitle', Title);
 
     if LocaleIsBiDi then
@@ -373,22 +375,12 @@ begin
   SetCommCtrlBiDi(Handle, LocaleIsBiDi);
 end;
 
-procedure TUpdaterDlg.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-  if (pbProgress.Position < 100) and (pbProgress.State <> pbsError) then
-    Action := caNone;
-end;
-
-procedure TUpdaterDlg.FormCreate(Sender: TObject);
+procedure TUpdaterDlg.FormAfterMonitorDpiChanged(Sender: TObject; OldDPI,
+  NewDPI: Integer);
 var
   Icon: TIcon;
   Handle: HICON;
 begin
-  Thread := nil;
-
-  ApplyActiveStyle;
-  Perform(UM_ICONSETCHANGED, 0, 0);
-
   if Succeeded(LoadIconWithScaleDown(0, MakeIntResource(IDI_WARNING),
       GetSystemMetrics(SM_CXSMICON), GetSystemMetrics(SM_CYSMICON), Handle)) then begin
         Icon := TIcon.Create;
@@ -397,6 +389,22 @@ begin
         imgFooter.Picture.Assign(Icon);
         Icon.Free;
       end;
+end;
+
+procedure TUpdaterDlg.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  if (pbProgress.Position < 100) and (pbProgress.State <> pbsError) then
+    Action := caNone;
+end;
+
+procedure TUpdaterDlg.FormCreate(Sender: TObject);
+begin
+  Thread := nil;
+
+  ApplyActiveStyle;
+  Perform(UM_ICONSETCHANGED, 0, 0);
+
+  FormAfterMonitorDpiChanged(Self, 96, CurrentPPI);
 
   ChangeLog := TStringList.Create;
 end;
@@ -488,8 +496,8 @@ end;
 procedure TUpdaterDlg.UMIconsChanged(var Msg: TMessage);
 begin
   with IconSet do begin
-    Icons32.GetIcon(27, AskUpdateDialog.CustomMainIcon);
-    Icons32.GetIcon(26, imgIcon.Picture.Icon);
+    IconsMaxDPI.GetIcon(27, AskUpdateDialog.CustomMainIcon);
+    Icons32.GetBitmap(26, imgIcon.Picture.Bitmap);
   end;
 end;
 

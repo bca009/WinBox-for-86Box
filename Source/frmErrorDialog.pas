@@ -55,6 +55,8 @@ type
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormDestroy(Sender: TObject);
     procedure FormResize(Sender: TObject);
+    procedure FormAfterMonitorDpiChanged(Sender: TObject; OldDPI,
+      NewDPI: Integer);
   private
     FDetailsVisible: Boolean;
     FThreadID: DWORD;
@@ -516,6 +518,13 @@ procedure TExceptionDialog.FlipBiDi;
 begin
   BiDiMode := BiDiModes[LocaleIsBiDi];
   FlipChildren(true);
+end;
+
+procedure TExceptionDialog.FormAfterMonitorDpiChanged(Sender: TObject; OldDPI,
+  NewDPI: Integer);
+begin
+  FFullHeight := FFullHeight * NewDPI div OldDPI;
+  FNonDetailsHeight := FNonDetailsHeight * NewDPI div OldDPI;
 end;
 
 procedure TExceptionDialog.FormCreate(Sender: TObject);

@@ -75,7 +75,7 @@ object ImportVM: TImportVM
     Top = 0
     Width = 337
     Height = 263
-    ActivePage = tabWelcome
+    ActivePage = tabMachineList
     Align = alClient
     TabOrder = 2
     object tabWelcome: TTabSheet
@@ -242,6 +242,9 @@ object ImportVM: TImportVM
       Caption = 'tabMachineList'
       ImageIndex = 6
       TabVisible = False
+      DesignSize = (
+        329
+        253)
       object lbSelectVM: TLabel
         Left = 16
         Top = 16
@@ -257,18 +260,20 @@ object ImportVM: TImportVM
       end
       object lbImport: TLabel
         Left = 16
-        Top = 48
-        Width = 297
-        Height = 13
+        Top = 44
+        Width = 305
+        Height = 30
+        Anchors = [akLeft, akTop, akRight]
         AutoSize = False
         Caption = 'V'#225'lassza ki a &list'#225'b'#243'l az import'#225'lni k'#237'v'#225'nt virtu'#225'lis g'#233'peket:'
         FocusControl = lvImport
       end
       object lvImport: TListView
         Left = 16
-        Top = 67
+        Top = 72
         Width = 297
-        Height = 134
+        Height = 129
+        Anchors = [akLeft, akTop, akRight, akBottom]
         Checkboxes = True
         Columns = <
           item
@@ -295,6 +300,7 @@ object ImportVM: TImportVM
         Top = 207
         Width = 115
         Height = 25
+        Anchors = [akRight, akBottom]
         Caption = 'Az &'#246'sszes kijel'#246'l'#233'se'
         TabOrder = 1
         OnClick = btnLvSelectClick
@@ -304,6 +310,7 @@ object ImportVM: TImportVM
         Top = 207
         Width = 110
         Height = 25
+        Anchors = [akRight, akBottom]
         Caption = 'Kijel'#246'l'#233's &t'#246'rl'#233'se'
         TabOrder = 2
         OnClick = btnLvSelectClick

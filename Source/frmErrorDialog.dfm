@@ -17,6 +17,7 @@ object ExceptionDialog: TExceptionDialog
   Position = poScreenCenter
   ShowHint = True
   StyleElements = [seFont, seBorder]
+  OnAfterMonitorDpiChanged = FormAfterMonitorDpiChanged
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnKeyDown = FormKeyDown
@@ -121,15 +122,15 @@ object ExceptionDialog: TExceptionDialog
     object lbMessage2: TLabel
       Left = 8
       Top = 64
-      Width = 289
-      Height = 105
+      Width = 281
+      Height = 121
       AutoSize = False
       Caption = 
-        'Ha a hiba'#252'zenet egy'#233'rtelm'#369', '#233's meg'#225'llap'#237'that'#243' az oka is, '#13#10'a kiv' +
-        #233'tel figyelmen k'#237'v'#252'l hagyhat'#243', puszt'#225'n v'#233'delmi c'#233'l'#369'.'#13#10#13#10'Ha a hib' +
-        'a oka ismeretlen, az alkalmaz'#225's instabill'#225' v'#225'lhat, '#13#10'ilyenkor az' +
-        ' adatveszt'#233's elker'#252'l'#233'se '#233'rdek'#233'ben '#233'rdemes '#13#10'elmenteni a munk'#225'j'#225't' +
-        ' '#233's bez'#225'rni az programot.'
+        'Ha a hiba'#252'zenet egy'#233'rtelm'#369', '#233's meg'#225'llap'#237'that'#243' az oka is, a kiv'#233't' +
+        'el figyelmen k'#237'v'#252'l hagyhat'#243', puszt'#225'n v'#233'delmi c'#233'l'#369'.'#13#10#13#10'Ha a hiba ' +
+        'oka ismeretlen, az alkalmaz'#225's instabill'#225' v'#225'lhat, ilyenkor az ada' +
+        'tveszt'#233's elker'#252'l'#233'se '#233'rdek'#233'ben '#233'rdemes elmenteni a munk'#225'j'#225't '#233's be' +
+        'z'#225'rni a programot.'
       WordWrap = True
     end
     object TextLines: TMemo

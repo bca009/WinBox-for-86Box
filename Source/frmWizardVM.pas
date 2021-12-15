@@ -22,9 +22,9 @@
 (*
 
   ToDo in refactor:
-    lehetõség skippelni a templateket
-    automatikusan mentsen log fájlt a vhd/img mellé
-    kicserélni a felsõ részt (itt és más fájlokban is)
+  X lehetõség skippelni a templateket
+  X automatikusan mentsen log fájlt a vhd/img mellé
+    kicserélni a felsõ részt (itt és más fájlokban is) [wtf?]
 
 *)
 
@@ -609,7 +609,7 @@ end;
 procedure TWizardVM.UMIconsChanged(var Msg: TMessage);
 begin
   IconSet.LoadImage('BANNER_NEW', imgBanner, false);
-  IconSet.Icons32.GetIcon(0, imgWarning.Picture.Icon);
+  IconSet.Icons32.GetBitmap(0, imgWarning.Picture.Bitmap);
 end;
 
 procedure TWizardVM.UpdateCHS;

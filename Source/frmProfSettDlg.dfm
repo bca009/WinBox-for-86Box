@@ -427,6 +427,7 @@ object ProfSettDlg: TProfSettDlg
           Top = 27
           Width = 32
           Height = 32
+          Stretch = True
         end
         object cbLogging: TComboBox
           Left = 157

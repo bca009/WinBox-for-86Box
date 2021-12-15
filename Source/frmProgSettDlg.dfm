@@ -816,6 +816,7 @@
           Top = 24
           Width = 32
           Height = 32
+          Stretch = True
         end
         object lbLanguage: TLabel
           Left = 68
@@ -995,6 +996,7 @@
           Top = 26
           Width = 32
           Height = 32
+          Stretch = True
         end
         object cbStyleName: TComboBox
           Left = 105
@@ -1168,6 +1170,7 @@
           Top = 23
           Width = 32
           Height = 32
+          Stretch = True
         end
         object lbTools: TLabel
           Left = 64
@@ -1416,6 +1419,7 @@
           Top = 27
           Width = 32
           Height = 32
+          Stretch = True
         end
         object lbLogging: TLabel
           Left = 16

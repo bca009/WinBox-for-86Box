@@ -84,16 +84,14 @@ end;
 
 procedure TAboutDlg.FormCreate(Sender: TObject);
 begin
-  ApplyActiveStyle;
-
   LoadImageRes('ABOUT', imgSplash, false);
   LangName := Copy(ClassName, 2, MaxInt);
+
+  ApplyActiveStyle;
 
   Translate;
   if LocaleIsBiDi then
     FlipBiDi;
-
-  Perform(CM_STYLECHANGED, 0, 0);
 
   edVersion.Text := GetFileVer(ParamStr(0));
 end;

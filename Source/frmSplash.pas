@@ -37,7 +37,7 @@ begin
   if IsDebuggerPresent then
     FormStyle := fsNormal;
 
-  LoadImageRes('SPLASH', imgSplash);
+  LoadImageRes('SPLASH', imgSplash, true, false);
   Screen.Cursor := crAppStart;
   Application.ProcessMessages;
 end;

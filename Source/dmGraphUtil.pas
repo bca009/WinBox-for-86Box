@@ -36,6 +36,7 @@ type
     ActionImages: TImageCollection;
     Icons32: TVirtualImageList;
     Icons16: TVirtualImageList;
+    IconsMaxDPI: TVirtualImageList;
     procedure DeferStyleChange(Sender: TObject);
   private
     FPath: string;
@@ -75,7 +76,8 @@ type
 
     //Kép betöltése erõforrásból, vagy fájlból (attól függ)
     procedure LoadImage(const Name: string; Image: TImage;
-      const BiDiRotate: boolean = true);
+      const BiDiRotate: boolean = true;
+      const ExtraScale: boolean = true);
 
     //Újonnan létrehozott VM-ek ikonjának felülírása (ha van)
     procedure ExtractTemplIcon(const AName, APath: string);
@@ -103,6 +105,9 @@ type
 var
   IconSet: TIconSet;
 
+//PerMonitor v2 implementáció
+function GetMaxDPI: integer;
+
 //töltõcsík színezése töltöttség szerint
 procedure ColorProgress(const Control: TProgressBar); inline;
 
@@ -120,9 +125,11 @@ function LoadIconWithScaleDown(hinst: HINST; pszName: LPCWSTR; cx: Integer;
 procedure ScaleWIC(var Source: TWICImage; const Width, Height: integer;
   const BiDiRotate: boolean = true); overload;
 procedure DisplayWIC(var Source: TWICImage; Image: TImage;
-  const BiDiRotate: boolean = true);
+  const BiDiRotate: boolean = true;
+  const ExtraScale: boolean = true);
 procedure LoadImageRes(const Name: string; Image: TImage;
-   const BiDiRotate: boolean = true);
+   const BiDiRotate: boolean = true;
+   const ExtraScale: boolean = true);
 
 //Üzenet eljuttatása a program minden ablakához
 procedure BroadcastMessage(Msg: UINT; wParam: WPARAM; lParam: LPARAM);
@@ -160,6 +167,16 @@ resourcestring
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
 {$R *.dfm}
+
+function GetMaxDPI: integer;
+var
+  I: Integer;
+begin
+  Result := 96;
+  for I := 0 to Screen.MonitorCount - 1 do
+    if Screen.Monitors[I].PixelsPerInch > Result then
+      Result := Screen.Monitors[I].PixelsPerInch;
+end;
 
 procedure ComboDrawBiDi(Canvas: TCanvas; Rect: TRect; ItemText: string);
 begin
@@ -214,13 +231,27 @@ begin
 end;
 
 procedure DisplayWIC(var Source: TWICImage; Image: TImage;
-  const BiDiRotate: boolean);
+  const BiDiRotate, ExtraScale: boolean);
 var
   Temp: TWICImage;
+  MaxDPI: integer;
+
+  Size: TPoint;
 begin
+  MaxDPI := GetMaxDPI;
+
   Temp := TWICImage.Create;
   Temp.Assign(Source);
-  ScaleWIC(Temp, Image.Width, Image.Height, BiDiRotate);
+
+  if ExtraScale then begin
+    Size.X := Image.Width * MaxDPI div Image.CurrentPPI;
+    Size.Y := Image.Height * MaxDPI div Image.CurrentPPI;
+  end
+  else begin
+    Size.X := Image.Width;
+    Size.Y := Image.Height;
+  end;
+  ScaleWIC(Temp, Size.X, Size.Y, BiDiRotate);
   Image.Picture.Assign(Temp);
   Temp.Free;
 
@@ -229,7 +260,7 @@ begin
 end;
 
 procedure LoadImageRes(const Name: string; Image: TImage;
-  const BiDiRotate: boolean);
+  const BiDiRotate, ExtraScale: boolean);
 var
   Bitmap: TWICImage;
   Stream: TResourceStream;
@@ -238,7 +269,7 @@ begin
   Stream := TResourceStream.Create(hInstance, Name, RT_RCDATA);
   try
     Bitmap.LoadFromStream(Stream);
-    DisplayWIC(Bitmap, Image, BiDiRotate);
+    DisplayWIC(Bitmap, Image, BiDiRotate, ExtraScale);
   finally
     Stream.Free;
     Bitmap.Free;
@@ -499,6 +530,8 @@ end;
 procedure TIconSet.Initialize(AControl: TControl);
 const
   ListIconSize = 42;
+var
+  MaxDPI: integer;
 begin
   //Állítsuk be a DPI-nek megfelelõen a lista méreteket
   with AControl do begin
@@ -510,11 +543,15 @@ begin
 
     ListIcons.SetSize(ListIconSize * CurrentPPI div 96,
                       ListIconSize * CurrentPPI div 96);
+
+    MaxDPI := GetMaxDPI;
+    IconsMaxDPI.SetSize(32 * MaxDPI div 96,
+                        32 * MaxDPI div 96);
   end;
 end;
 
 procedure TIconSet.LoadImage(const Name: string; Image: TImage;
-  const BiDiRotate: boolean);
+  const BiDiRotate, ExtraScale: boolean);
 var
   FileName: string;
   Bitmap: TWICImage;
@@ -522,12 +559,12 @@ begin
   FileName := FPath + PfDataImages + Name + '.png';
 
   if (FPath = '') or not FileExists(FileName) then
-    dmGraphUtil.LoadImageRes(Name, Image, BiDiRotate)
+    dmGraphUtil.LoadImageRes(Name, Image, BiDiRotate, ExtraScale)
   else begin
     Bitmap := TWICImage.Create;
     try
       Bitmap.LoadFromFile(FileName);
-      DisplayWIC(Bitmap, Image, BiDiRotate);
+      DisplayWIC(Bitmap, Image, BiDiRotate, ExtraScale);
     finally
       Bitmap.Free;
     end;
