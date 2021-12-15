@@ -100,15 +100,17 @@ type
     lbDiskSize: TLabel;
     pbHostCPU: TProgressBar;
     pbHostRAM: TProgressBar;
-    btnImgNext: TButton;
-    btnImgPrev: TButton;
     edState: TEdit;
-    bvScreenshots: TBevel;
     lbNone: TLabel;
     Splitter: TSplitter;
     DelayChange: TTimer;
     TopPanel: TPanel;
     btnWorkDir: TSpeedButton;
+    pnRightBottom: TPanel;
+    pnRightTop: TPanel;
+    btnImgNext: TButton;
+    btnImgPrev: TButton;
+    bvScreenshots: TBevel;
     procedure cgPanelsResize(Sender: TObject);
     procedure PicturePagerContextPopup(Sender: TObject; MousePos: TPoint;
       var Handled: Boolean);
@@ -241,9 +243,9 @@ begin
     ParentBiDiMode := false;
     BiDiMode := bdLeftToRight;
     Parent := RightPanel;
-    with bvScreenshots do
-      PicturePager.SetBounds(Left + 1, Top + 1, Width - 2, Height - 2);
-    Anchors := [akLeft, akTop, akRight, akBottom];
+    Margins.Assign(bvScreenshots.Margins);
+    AlignWithMargins := true;
+    Align := alClient;
     ButtonNext := btnImgNext;
     ButtonPrev := btnImgPrev;
 

@@ -109,7 +109,6 @@ object Frame86Box: TFrame86Box
       Caption = 'Portok'
       ParentColor = True
       TabOrder = 0
-      ExplicitWidth = 320
       object lbSerialDesc: TLabel
         Left = 16
         Top = 8
@@ -143,7 +142,6 @@ object Frame86Box: TFrame86Box
       Caption = 'Beviteli eszk'#246'z'#246'k'
       ParentColor = True
       TabOrder = 1
-      ExplicitWidth = 320
       object lbMouseDesc: TLabel
         Left = 16
         Top = 8
@@ -189,7 +187,6 @@ object Frame86Box: TFrame86Box
       Caption = 'H'#225'l'#243'zat'
       ParentColor = True
       TabOrder = 2
-      ExplicitWidth = 320
       object lbNetCardDesc: TLabel
         Left = 16
         Top = 8
@@ -235,7 +232,6 @@ object Frame86Box: TFrame86Box
       Caption = 'T'#225'rol'#243
       ParentColor = True
       TabOrder = 3
-      ExplicitWidth = 320
       object lbFloppyDesc: TLabel
         Left = 16
         Top = 8
@@ -314,7 +310,6 @@ object Frame86Box: TFrame86Box
       Caption = 'Audi'#243
       ParentColor = True
       TabOrder = 4
-      ExplicitWidth = 320
       object lbSndCardDesc: TLabel
         Left = 16
         Top = 8
@@ -360,7 +355,6 @@ object Frame86Box: TFrame86Box
       Caption = 'K'#233'perny'#337
       ParentColor = True
       TabOrder = 5
-      ExplicitWidth = 320
       object lbGfxCardDesc: TLabel
         Left = 16
         Top = 8
@@ -406,7 +400,6 @@ object Frame86Box: TFrame86Box
       Caption = 'Rendszer'
       ParentColor = True
       TabOrder = 6
-      ExplicitWidth = 320
       object lbMachineDesc: TLabel
         Left = 16
         Top = 8
@@ -512,148 +505,186 @@ object Frame86Box: TFrame86Box
     ParentColor = True
     ParentDoubleBuffered = False
     TabOrder = 2
-    DesignSize = (
-      178
-      253)
     object lbNone: TLabel
-      Left = 11
-      Top = 37
-      Width = 162
-      Height = 101
+      AlignWithMargins = True
+      Left = 10
+      Top = 41
+      Width = 158
+      Height = 93
+      Margins.Left = 10
+      Margins.Top = 0
+      Margins.Right = 10
+      Margins.Bottom = 10
+      Align = alClient
       Alignment = taCenter
-      Anchors = [akLeft, akTop, akRight, akBottom]
       AutoSize = False
       Caption = '(nincs)'
       Layout = tlCenter
+      ExplicitLeft = 11
+      ExplicitTop = 37
       ExplicitWidth = 168
       ExplicitHeight = 113
-    end
-    object lbHostCPU: TLabel
-      Left = 112
-      Top = 144
-      Width = 61
-      Height = 26
-      Alignment = taRightJustify
-      Anchors = [akRight, akBottom]
-      AutoSize = False
-      Caption = '0%'
-      ExplicitTop = 156
-    end
-    object lbHostCPUDesc: TLabel
-      Left = 11
-      Top = 144
-      Width = 78
-      Height = 26
-      Anchors = [akLeft, akBottom]
-      AutoSize = False
-      Caption = '&CPU:'
-      ExplicitTop = 156
-    end
-    object lbHostMemoryRAM: TLabel
-      Left = 11
-      Top = 186
-      Width = 86
-      Height = 27
-      Anchors = [akLeft, akBottom]
-      AutoSize = False
-      Caption = '&Mem'#243'ria:'
-      ExplicitTop = 198
-    end
-    object lbHostRAM: TLabel
-      Left = 80
-      Top = 186
-      Width = 93
-      Height = 27
-      Alignment = taRightJustify
-      Anchors = [akRight, akBottom]
-      AutoSize = False
-      Caption = '0% (0 B)'
-      ExplicitTop = 198
-    end
-    object lbScreenshots: TLabel
-      Tag = 3
-      Left = 11
-      Top = 12
-      Width = 88
-      Height = 19
-      Cursor = crHandPoint
-      Anchors = [akLeft, akTop, akRight]
-      AutoSize = False
-      Caption = '&K'#233'perny'#337'k'#233'pek:'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clHotLight
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = [fsUnderline]
-      ParentFont = False
-      StyleElements = [seClient, seBorder]
-      OnClick = btnWorkDirClick
-    end
-    object lbDiskSizeDesc: TLabel
-      Left = 11
-      Top = 232
-      Width = 118
-      Height = 13
-      Anchors = [akLeft, akBottom]
-      AutoSize = False
-      Caption = 'Elfoglalt lemezter'#252'let:'
-      ExplicitTop = 244
-    end
-    object lbDiskSize: TLabel
-      Left = 120
-      Top = 232
-      Width = 53
-      Height = 21
-      Alignment = taRightJustify
-      Anchors = [akRight, akBottom]
-      AutoSize = False
-      Caption = '0 MB'
-      ExplicitTop = 244
     end
     object bvScreenshots: TBevel
-      Left = 11
-      Top = 37
-      Width = 162
-      Height = 101
-      Anchors = [akLeft, akTop, akRight, akBottom]
-      ExplicitWidth = 168
-      ExplicitHeight = 113
+      AlignWithMargins = True
+      Left = 10
+      Top = 41
+      Width = 158
+      Height = 93
+      Margins.Left = 10
+      Margins.Top = 0
+      Margins.Right = 10
+      Margins.Bottom = 10
+      Align = alClient
+      ExplicitLeft = 7
+      ExplicitTop = 44
     end
-    object pbHostCPU: TProgressBar
-      Left = 11
-      Top = 163
-      Width = 162
-      Height = 17
-      Anchors = [akLeft, akRight, akBottom]
+    object pnRightBottom: TPanel
+      Left = 0
+      Top = 144
+      Width = 178
+      Height = 109
+      Align = alBottom
+      BevelOuter = bvNone
+      FullRepaint = False
+      ParentBackground = False
+      ParentColor = True
       TabOrder = 0
+      DesignSize = (
+        178
+        109)
+      object lbDiskSize: TLabel
+        Left = 120
+        Top = 88
+        Width = 53
+        Height = 21
+        Alignment = taRightJustify
+        Anchors = [akRight, akBottom]
+        AutoSize = False
+        Caption = '0 MB'
+      end
+      object lbDiskSizeDesc: TLabel
+        Left = 11
+        Top = 88
+        Width = 118
+        Height = 13
+        Anchors = [akLeft, akBottom]
+        AutoSize = False
+        Caption = 'Elfoglalt lemezter'#252'let:'
+        ExplicitTop = 244
+      end
+      object lbHostCPU: TLabel
+        Left = 112
+        Top = 0
+        Width = 61
+        Height = 26
+        Alignment = taRightJustify
+        Anchors = [akRight, akBottom]
+        AutoSize = False
+        Caption = '0%'
+        ExplicitTop = 156
+      end
+      object lbHostCPUDesc: TLabel
+        Left = 11
+        Top = 0
+        Width = 78
+        Height = 26
+        Anchors = [akLeft, akBottom]
+        AutoSize = False
+        Caption = '&CPU:'
+        ExplicitTop = 156
+      end
+      object lbHostMemoryRAM: TLabel
+        Left = 11
+        Top = 42
+        Width = 86
+        Height = 27
+        Anchors = [akLeft, akBottom]
+        AutoSize = False
+        Caption = '&Mem'#243'ria:'
+        ExplicitTop = 198
+      end
+      object lbHostRAM: TLabel
+        Left = 80
+        Top = 42
+        Width = 93
+        Height = 27
+        Alignment = taRightJustify
+        Anchors = [akRight, akBottom]
+        AutoSize = False
+        Caption = '0% (0 B)'
+        ExplicitTop = 198
+      end
+      object pbHostCPU: TProgressBar
+        Left = 11
+        Top = 62
+        Width = 162
+        Height = 17
+        Anchors = [akLeft, akRight, akBottom]
+        TabOrder = 0
+      end
+      object pbHostRAM: TProgressBar
+        Left = 11
+        Top = 19
+        Width = 162
+        Height = 17
+        Anchors = [akLeft, akRight, akBottom]
+        TabOrder = 1
+      end
     end
-    object pbHostRAM: TProgressBar
-      Left = 11
-      Top = 205
-      Width = 162
-      Height = 17
-      Anchors = [akLeft, akRight, akBottom]
+    object pnRightTop: TPanel
+      Left = 0
+      Top = 0
+      Width = 178
+      Height = 41
+      Align = alTop
+      BevelOuter = bvNone
+      FullRepaint = False
+      ParentBackground = False
+      ParentColor = True
       TabOrder = 1
-    end
-    object btnImgNext: TButton
-      Left = 139
-      Top = 6
-      Width = 33
-      Height = 25
-      Anchors = [akTop, akRight]
-      Caption = '>'
-      Enabled = False
-      TabOrder = 2
-    end
-    object btnImgPrev: TButton
-      Left = 105
-      Top = 6
-      Width = 33
-      Height = 25
-      Anchors = [akTop, akRight]
-      Caption = '<'
-      Enabled = False
-      TabOrder = 3
+      DesignSize = (
+        178
+        41)
+      object lbScreenshots: TLabel
+        Tag = 3
+        Left = 11
+        Top = 12
+        Width = 88
+        Height = 19
+        Cursor = crHandPoint
+        Anchors = [akLeft, akTop, akRight]
+        AutoSize = False
+        Caption = '&K'#233'perny'#337'k'#233'pek:'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clHotLight
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = [fsUnderline]
+        ParentFont = False
+        StyleElements = [seClient, seBorder]
+        OnClick = btnWorkDirClick
+      end
+      object btnImgNext: TButton
+        Left = 139
+        Top = 6
+        Width = 33
+        Height = 25
+        Anchors = [akTop, akRight]
+        Caption = '>'
+        Enabled = False
+        TabOrder = 0
+      end
+      object btnImgPrev: TButton
+        Left = 105
+        Top = 6
+        Width = 33
+        Height = 25
+        Anchors = [akTop, akRight]
+        Caption = '<'
+        Enabled = False
+        TabOrder = 1
+      end
     end
   end
   object TopPanel: TPanel

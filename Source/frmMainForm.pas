@@ -1308,6 +1308,9 @@ begin
   IconSet.Initialize(Self);
   Perform(UM_ICONSETCHANGED, 0, 0);
 
+  //az Align visszadobja, de szükséges mert eltûnnek a gombok a szélérõl váltáskor
+  tbVMs.Width := tbVMs.Width + 1;
+
   if Assigned(Profiles) then
     ListReload(Self);
 end;
