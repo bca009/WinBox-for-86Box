@@ -254,17 +254,15 @@ end;
 procedure TExceptionDialog.CMStyleChange(var Msg: TMessage);
 begin
   inherited;
+  Color := StyleServices(Self).GetSystemColor(clBtnFace);
+
   with TextLines do
-    if StyleServices(Self).IsSystemStyle then begin
-      ParentColor := true;
-      Font.Color := Self.Font.Color;
-    end
-    else begin
-      Color :=
-        StyleServices(Self).GetSystemColor(clBtnFace);
+    if StyleServices(Self).IsSystemStyle then
+      Font.Color :=
+        StyleServices(Self).GetSystemColor(clWindowText)
+    else
       Font.Color :=
         StyleServices(Self).GetStyleFontColor(sfTextLabelNormal);
-    end;
 end;
 
 procedure TExceptionDialog.CopyReportToClipboard;

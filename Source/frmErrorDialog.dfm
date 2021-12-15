@@ -16,6 +16,7 @@ object ExceptionDialog: TExceptionDialog
   KeyPreview = True
   Position = poScreenCenter
   ShowHint = True
+  StyleElements = [seFont, seBorder]
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnKeyDown = FormKeyDown
