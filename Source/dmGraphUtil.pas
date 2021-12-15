@@ -103,9 +103,10 @@ type
     class procedure ChangeControlStyle(Control: TWinControl; AStyleName: string; const AllLevels: boolean);
   end;
 
-  TStylingForm = class helper for TForm
+  TStylingWinControl = class helper for TWinControl
   public
     procedure ApplyActiveStyle;
+    procedure ApplyStyle(const AStyleName: string);
   end;
 
 var
@@ -682,8 +683,8 @@ end;
 
 procedure TIconSet.UpdateColorsAllowed;
 begin
-  IsColorsAllowed := not LocaleIsBiDi and
-    StyleServices(Application.MainForm).IsSystemStyle;
+  IsColorsAllowed := not LocaleIsBiDi; //and
+    //StyleServices(Application.MainForm).IsSystemStyle;
 end;
 
 function TIconSet.UpdateDarkMode: boolean;
@@ -761,14 +762,19 @@ begin
     end;
 end;
 
-{ TStylingForm }
+{ TStylingWinControl }
 
-procedure TStylingForm.ApplyActiveStyle;
+procedure TStylingWinControl.ApplyActiveStyle;
+begin
+  ApplyStyle(IconSet.Style);
+end;
+
+procedure TStylingWinControl.ApplyStyle(const AStyleName: string);
 begin
   if LocaleIsBiDi then
     exit;
 
-  TStyleManager.ChangeControlStyle(Self, IconSet.Style, true);
+  TStyleManager.ChangeControlStyle(Self, AStyleName, true);
   Perform(CM_STYLECHANGED, 0, 0);
 end;
 

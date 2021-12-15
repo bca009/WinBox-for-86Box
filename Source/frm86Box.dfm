@@ -109,6 +109,7 @@ object Frame86Box: TFrame86Box
       Caption = 'Portok'
       ParentColor = True
       TabOrder = 0
+      ExplicitWidth = 320
       object lbSerialDesc: TLabel
         Left = 16
         Top = 8
@@ -142,6 +143,7 @@ object Frame86Box: TFrame86Box
       Caption = 'Beviteli eszk'#246'z'#246'k'
       ParentColor = True
       TabOrder = 1
+      ExplicitWidth = 320
       object lbMouseDesc: TLabel
         Left = 16
         Top = 8
@@ -187,6 +189,7 @@ object Frame86Box: TFrame86Box
       Caption = 'H'#225'l'#243'zat'
       ParentColor = True
       TabOrder = 2
+      ExplicitWidth = 320
       object lbNetCardDesc: TLabel
         Left = 16
         Top = 8
@@ -232,6 +235,7 @@ object Frame86Box: TFrame86Box
       Caption = 'T'#225'rol'#243
       ParentColor = True
       TabOrder = 3
+      ExplicitWidth = 320
       object lbFloppyDesc: TLabel
         Left = 16
         Top = 8
@@ -310,6 +314,7 @@ object Frame86Box: TFrame86Box
       Caption = 'Audi'#243
       ParentColor = True
       TabOrder = 4
+      ExplicitWidth = 320
       object lbSndCardDesc: TLabel
         Left = 16
         Top = 8
@@ -355,6 +360,7 @@ object Frame86Box: TFrame86Box
       Caption = 'K'#233'perny'#337
       ParentColor = True
       TabOrder = 5
+      ExplicitWidth = 320
       object lbGfxCardDesc: TLabel
         Left = 16
         Top = 8
@@ -400,6 +406,7 @@ object Frame86Box: TFrame86Box
       Caption = 'Rendszer'
       ParentColor = True
       TabOrder = 6
+      ExplicitWidth = 320
       object lbMachineDesc: TLabel
         Left = 16
         Top = 8

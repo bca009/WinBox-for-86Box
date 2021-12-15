@@ -425,20 +425,25 @@ begin
     if Assigned(Profile) then
       Tag := Profile.Color;
 
-    if Tag = clNone then
-      Self.Color := clWindow
-    else
+    if Tag = clNone then begin
+      Self.Color := clWindow;
+      ApplyActiveStyle;
+    end
+    else begin
       Self.Color := Tag;
+      ApplyStyle('Windows');
 
-     cgPanels.GradientBaseColor := Self.Color;
-     cgPanels.GradientColor := Self.Color;
+      cgPanels.GradientBaseColor := Self.Color;
+      cgPanels.GradientColor := Self.Color;
 
-     Font.Color := GetTextColor(Color);
-     edState.Font.Color := Font.Color;
-     lbScreenshots.Font.Color := GetLinkColor(Color);
+      Font.Color := GetTextColor(Color);
+      edState.Font.Color := Font.Color;
 
-     cgPanels.ChevronColor := Font.Color;
-     cgPanels.HeaderFont.Color := Font.Color;
+      cgPanels.ChevronColor := Font.Color;
+      cgPanels.HeaderFont.Color := Font.Color;
+    end;
+
+    lbScreenshots.Font.Color := GetLinkColor(Color);
   finally
     if Success then begin
       LockWindowUpdate(0);
