@@ -30,11 +30,11 @@ uses
   StdCtrls, Registry, Themes;
 
 type
-  TScaleOption = (soBiDiRotate, soExtraScale);
+  TScaleOption = (soBiDiRotate, soOverScale);
   TScaleOptions = set of TScaleOption;
 
 const
-  DefScaleOptions = [soBiDiRotate, soExtraScale];
+  DefScaleOptions = [soBiDiRotate, soOverScale];
 
 type
   TIconSet = class(TDataModule)
@@ -83,6 +83,10 @@ type
 
     //Kép betöltése erõforrásból, vagy fájlból (attól függ)
     procedure LoadImage(const Name: string; Image: TImage;
+      const ScaleOptions: TScaleOptions = DefScaleOptions);
+
+    //Ikon megjelenítése skálázási opciókkal
+    procedure DisplayIcon(const Index: integer; Image: TImage;
       const ScaleOptions: TScaleOptions = DefScaleOptions);
 
     //Újonnan létrehozott VM-ek ikonjának felülírása (ha van)
@@ -248,7 +252,7 @@ begin
   Temp := TWICImage.Create;
   Temp.Assign(Source);
 
-  if soExtraScale in ScaleOptions then begin
+  if soOverScale in ScaleOptions then begin
     Size.X := Image.Width * MaxDPI div Image.CurrentPPI;
     Size.Y := Image.Height * MaxDPI div Image.CurrentPPI;
   end
@@ -424,6 +428,27 @@ begin
   BkupActionImages.Free;
   BkupListImages.Free;
   inherited;
+end;
+
+procedure TIconSet.DisplayIcon(const Index: integer; Image: TImage;
+  const ScaleOptions: TScaleOptions);
+var
+  Source: TWICImage;
+begin
+  if not Assigned(Image) then
+    exit;
+
+  if (Index >= 0) and (Index < ActionImages.Count) then begin
+    Source := TWICImage.Create;
+    try
+      Source.Assign(ActionImages.Images[Index].SourceImages[0].Image);
+      DisplayWIC(Source, Image, ScaleOptions);
+    finally
+      Source.Free;
+    end;
+  end
+  else
+    Image.Picture := nil;
 end;
 
 procedure TIconSet.DrawBiDi(ASourceImage: TWICImage; ACanvas: TCanvas;

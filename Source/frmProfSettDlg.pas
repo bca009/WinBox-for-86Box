@@ -332,8 +332,8 @@ end;
 procedure TProfSettDlg.UMIconsChanged(var Msg: TMessage);
 begin
   with IconSet do begin
-    Icons32.GetBitmap(31, imgEmulator.Picture.Bitmap);
-    Icons32.GetBitmap(33, imgDebug.Picture.Bitmap);
+    DisplayIcon(31, imgEmulator, DefScaleOptions - [soBiDiRotate]);
+    DisplayIcon(33, imgDebug, DefScaleOptions - [soBiDiRotate]);
   end;
 end;
 

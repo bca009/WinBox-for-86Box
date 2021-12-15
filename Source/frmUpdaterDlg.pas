@@ -497,7 +497,7 @@ procedure TUpdaterDlg.UMIconsChanged(var Msg: TMessage);
 begin
   with IconSet do begin
     IconsMaxDPI.GetIcon(27, AskUpdateDialog.CustomMainIcon);
-    Icons32.GetBitmap(26, imgIcon.Picture.Bitmap);
+    DisplayIcon(26, imgIcon, DefScaleOptions - [soBiDiRotate]);
   end;
 end;
 

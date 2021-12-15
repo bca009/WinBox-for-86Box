@@ -611,7 +611,8 @@ begin
   IconSet.LoadImage('BANNER_NEW', imgBanner,
     DefScaleOptions - [soBiDiRotate]);
 
-  IconSet.Icons32.GetBitmap(0, imgWarning.Picture.Bitmap);
+  IconSet.DisplayIcon(0, imgWarning,
+    DefScaleOptions - [soBiDiRotate]);
 end;
 
 procedure TWizardVM.UpdateCHS;

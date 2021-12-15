@@ -1217,7 +1217,7 @@ begin
   inherited;
   IconSet.IconsMaxDPI.GetIcon(6, DeleteDialog.CustomMainIcon);
   IconSet.LoadImage(ImgWelcomeLogo, ImgWelcome,
-    DefScaleOptions - [soBiDiRotate, soExtraScale]);
+    DefScaleOptions - [soBiDiRotate, soOverScale]);
 
   DefProfile.Icon.Assign(
     IconSet.ActionImages.Images[21].SourceImages[0].Image);
@@ -1627,7 +1627,7 @@ begin
         ScaleWIC(Image,
           IconSet.ListIcons.Width,
           IconSet.ListIcons.Height,
-          DefScaleOptions - [soBiDiRotate, soExtraScale]);
+          DefScaleOptions - [soBiDiRotate, soOverScale]);
 
         Icons.Add(Image);
 

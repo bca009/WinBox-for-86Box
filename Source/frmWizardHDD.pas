@@ -636,8 +636,8 @@ begin
     DefScaleOptions - [soBiDiRotate]);
 
   with IconSet do begin
-    Icons32.GetBitmap(0, imgWarning.Picture.Bitmap);
-    Icons32.GetBitmap(11, imgInfo.Picture.Bitmap);
+    DisplayIcon(0, imgWarning, DefScaleOptions - [soBiDiRotate]);
+    DisplayIcon(11, imgInfo, DefScaleOptions - [soBiDiRotate]);
   end;
 end;
 

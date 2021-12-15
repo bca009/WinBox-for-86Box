@@ -4,7 +4,7 @@ object WinBoxMain: TWinBoxMain
   BiDiMode = bdLeftToRight
   Caption = 'WinBox for 86Box'
   ClientHeight = 448
-  ClientWidth = 703
+  ClientWidth = 650
   Color = clBtnFace
   Constraints.MinHeight = 450
   Font.Charset = DEFAULT_CHARSET
@@ -54,7 +54,7 @@ object WinBoxMain: TWinBoxMain
   object Pages: TPageControl
     Left = 212
     Top = 104
-    Width = 491
+    Width = 438
     Height = 325
     ActivePage = tabHome
     Align = alClient
@@ -66,15 +66,16 @@ object WinBoxMain: TWinBoxMain
     Font.Style = []
     ParentFont = False
     TabOrder = 1
+    ExplicitWidth = 491
     object tabHome: TTabSheet
       Caption = 'Kezd'#337'lap'
       DesignSize = (
-        483
+        430
         297)
       object lbWelcomeTip: TLabel
         Left = 19
         Top = 45
-        Width = 288
+        Width = 235
         Height = 249
         Anchors = [akLeft, akTop, akRight, akBottom]
         AutoSize = False
@@ -92,7 +93,7 @@ object WinBoxMain: TWinBoxMain
       object lbWelcome: TLabel
         Left = 19
         Top = 16
-        Width = 288
+        Width = 235
         Height = 16
         Anchors = [akLeft, akTop, akRight]
         AutoSize = False
@@ -103,14 +104,16 @@ object WinBoxMain: TWinBoxMain
         Font.Name = 'Tahoma'
         Font.Style = [fsBold]
         ParentFont = False
+        ExplicitWidth = 288
       end
       object ImgWelcome: TImage
-        Left = 321
+        Left = 268
         Top = 16
         Width = 142
         Height = 145
         Anchors = [akTop, akRight]
         Proportional = True
+        ExplicitLeft = 321
       end
     end
     object tabPerfMon: TTabSheet
@@ -120,7 +123,7 @@ object WinBoxMain: TWinBoxMain
         AlignWithMargins = True
         Left = 10
         Top = 10
-        Width = 463
+        Width = 410
         Height = 230
         Margins.Left = 10
         Margins.Top = 10
@@ -134,7 +137,7 @@ object WinBoxMain: TWinBoxMain
           object ChartCPU: TChart
             Left = 0
             Top = 0
-            Width = 455
+            Width = 402
             Height = 202
             Legend.CheckBoxes = True
             Title.Text.Strings = (
@@ -179,7 +182,7 @@ object WinBoxMain: TWinBoxMain
           object ChartRAM: TChart
             Left = 0
             Top = 0
-            Width = 455
+            Width = 402
             Height = 202
             Legend.CheckBoxes = True
             Title.Text.Strings = (
@@ -224,7 +227,7 @@ object WinBoxMain: TWinBoxMain
           object ChartVMs: TChart
             Left = 0
             Top = 0
-            Width = 455
+            Width = 402
             Height = 202
             Legend.CheckBoxes = True
             Title.Text.Strings = (
@@ -264,15 +267,16 @@ object WinBoxMain: TWinBoxMain
       object pnpBottom: TPanel
         Left = 0
         Top = 250
-        Width = 483
+        Width = 430
         Height = 47
         Align = alBottom
         BevelOuter = bvNone
         ParentColor = True
         TabOrder = 1
         OnResize = pnpBottomResize
+        ExplicitWidth = 483
         object pnpRight: TPanel
-          Left = 224
+          Left = 171
           Top = 0
           Width = 259
           Height = 47
@@ -280,6 +284,7 @@ object WinBoxMain: TWinBoxMain
           BevelOuter = bvNone
           ParentColor = True
           TabOrder = 0
+          ExplicitLeft = 224
           DesignSize = (
             259
             47)
@@ -302,13 +307,14 @@ object WinBoxMain: TWinBoxMain
         object pnpLeft: TPanel
           Left = 0
           Top = 0
-          Width = 224
+          Width = 171
           Height = 47
           Align = alClient
           BevelOuter = bvNone
           TabOrder = 1
+          ExplicitWidth = 224
           DesignSize = (
-            224
+            171
             47)
           object lbHCPU: TLabel
             Left = 11
@@ -320,7 +326,7 @@ object WinBoxMain: TWinBoxMain
           object pbCPU: TProgressBar
             Left = 80
             Top = 12
-            Width = 121
+            Width = 68
             Height = 17
             Anchors = [akLeft, akTop, akRight]
             TabOrder = 0
@@ -336,17 +342,18 @@ object WinBoxMain: TWinBoxMain
   object StatusBar: TStatusBar
     Left = 0
     Top = 429
-    Width = 703
+    Width = 650
     Height = 19
     BiDiMode = bdLeftToRight
     Panels = <>
     ParentBiDiMode = False
     SimplePanel = True
+    ExplicitWidth = 703
   end
   object tbGlobal: TToolBar
     Left = 0
     Top = 52
-    Width = 703
+    Width = 650
     Height = 52
     ButtonHeight = 52
     ButtonWidth = 77
@@ -357,6 +364,7 @@ object WinBoxMain: TWinBoxMain
     ParentDoubleBuffered = False
     TabOrder = 3
     Transparent = True
+    ExplicitWidth = 703
     object tbNewVM: TToolButton
       Tag = 9
       Left = 0
@@ -415,7 +423,7 @@ object WinBoxMain: TWinBoxMain
   object tbVMs: TToolBar
     Left = 0
     Top = 0
-    Width = 703
+    Width = 650
     Height = 52
     ButtonHeight = 52
     ButtonWidth = 78
@@ -427,6 +435,7 @@ object WinBoxMain: TWinBoxMain
     TabOrder = 4
     Transparent = True
     Visible = False
+    ExplicitWidth = 703
     object tbStart: TToolButton
       Tag = 1
       Left = 0
