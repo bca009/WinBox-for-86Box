@@ -1380,6 +1380,8 @@ end;
 
 procedure TWinBoxMain.FormDestroy(Sender: TObject);
 begin
+  TrayIcon.Visible := false;
+
   Updater.Free;
 
   Icons.Free;
