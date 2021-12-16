@@ -71,6 +71,7 @@ type
     procedure ZipProgress(Sender: TObject; FileName: string;
       Header: TZipHeader; Position: Int64);
 
+    procedure WMStyleChanged(var Msg: TMessage); message WM_STYLECHANGED;
     procedure UMIconsChanged(var Msg: TMessage); message UM_ICONSETCHANGED;
   protected
   public
@@ -91,7 +92,7 @@ implementation
 {$R *.dfm}
 
 uses uConfigMgr, uCommUtil, uWebUtils, dmGraphUtil, DateUtils,
-     IOUtils, ShellAPI;
+     IOUtils, ShellAPI, Themes;
 
 resourcestring
   StrProgressCleanUp    = 'UpdateDlg.Progress.CleanUp';
@@ -499,6 +500,12 @@ begin
     IconsMaxDPI.GetIcon(27, AskUpdateDialog.CustomMainIcon);
     DisplayIcon(26, imgIcon, DefScaleOptions - [soBiDiRotate]);
   end;
+end;
+
+procedure TUpdaterDlg.WMStyleChanged(var Msg: TMessage);
+begin
+  rcBackground.Brush.Color :=
+    StyleServices(Self).GetSystemColor(clWindow);
 end;
 
 procedure TUpdaterDlg.ZipProgress(Sender: TObject; FileName: string;
