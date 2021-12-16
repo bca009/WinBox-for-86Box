@@ -6,13 +6,14 @@ object UpdaterDlg: TUpdaterDlg
   Caption = 'Emul'#225'tor friss'#237't'#233'se'
   ClientHeight = 214
   ClientWidth = 457
-  Color = clBtnFace
+  Color = clWindow
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'Segoe UI'
   Font.Style = []
   Position = poMainFormCenter
+  StyleElements = [seFont, seBorder]
   OnAfterMonitorDpiChanged = FormAfterMonitorDpiChanged
   OnClose = FormClose
   OnCreate = FormCreate
@@ -23,17 +24,6 @@ object UpdaterDlg: TUpdaterDlg
     457
     214)
   TextHeight = 13
-  object rcBackground: TShape
-    Left = 0
-    Top = 0
-    Width = 457
-    Height = 136
-    Align = alTop
-    Anchors = [akLeft, akTop, akRight, akBottom]
-    Brush.Color = clWindow
-    Pen.Style = psClear
-    ExplicitHeight = 129
-  end
   object imgIcon: TImage
     Left = 17
     Top = 12
@@ -56,9 +46,7 @@ object UpdaterDlg: TUpdaterDlg
     Top = 81
     Width = 49
     Height = 13
-    Anchors = [akRight, akBottom]
     Caption = '&Folyamat:'
-    ExplicitTop = 90
   end
   object lbFileName: TLabel
     Left = 381
@@ -66,18 +54,15 @@ object UpdaterDlg: TUpdaterDlg
     Width = 57
     Height = 13
     Alignment = taRightJustify
-    Anchors = [akRight, akBottom]
+    Anchors = [akTop, akRight]
     Caption = 'lbFileName'
-    ExplicitTop = 74
   end
   object lbInformation: TLabel
     Left = 80
     Top = 81
     Width = 71
     Height = 13
-    Anchors = [akRight, akBottom]
     Caption = 'lbInformation'
-    ExplicitTop = 74
   end
   object lbTitle: TLabel
     Left = 62
@@ -92,54 +77,68 @@ object UpdaterDlg: TUpdaterDlg
     Font.Style = []
     ParentFont = False
   end
-  object bvFooter: TBevel
-    Left = 0
-    Top = 177
-    Width = 457
-    Height = 37
-    Align = alBottom
-    Anchors = [akRight, akBottom]
-    Shape = bsTopLine
-    ExplicitTop = 160
-  end
-  object imgFooter: TImage
-    Left = 17
-    Top = 187
-    Width = 16
-    Height = 16
-    Anchors = [akRight, akBottom]
-    Stretch = True
-    ExplicitTop = 180
-  end
-  object lbFooter: TLabel
-    Left = 41
-    Top = 187
-    Width = 359
-    Height = 13
-    Anchors = [akRight, akBottom]
-    Caption = 
-      'A folyamat erej'#233'ig lehet'#337's'#233'g szerint ne bontsa az internetkapcso' +
-      'latot.'
-    ExplicitTop = 180
-  end
-  object btnTerminate: TButton
-    Left = 337
-    Top = 142
-    Width = 101
-    Height = 25
-    Hint = '&Kil'#233'p'#233's'
-    Anchors = [akRight, akBottom]
-    Caption = '&Megszak'#237't'#225's'
-    TabOrder = 0
-    OnClick = btnTerminateClick
-  end
   object pbProgress: TProgressBar
     Left = 17
     Top = 100
     Width = 421
     Height = 17
-    Anchors = [akRight, akBottom]
+    Anchors = [akLeft, akTop, akRight]
+    TabOrder = 0
+  end
+  object pnBottom: TPanel
+    Left = 0
+    Top = 136
+    Width = 457
+    Height = 78
+    Align = alBottom
+    BevelOuter = bvNone
+    FullRepaint = False
+    ParentBackground = False
     TabOrder = 1
+    DesignSize = (
+      457
+      78)
+    object bvFooter: TBevel
+      Left = 0
+      Top = 41
+      Width = 457
+      Height = 37
+      Align = alBottom
+      Anchors = [akRight, akBottom]
+      Shape = bsTopLine
+      ExplicitTop = 31
+    end
+    object imgFooter: TImage
+      Left = 17
+      Top = 52
+      Width = 16
+      Height = 16
+      Anchors = [akRight, akBottom]
+      Stretch = True
+      ExplicitTop = 46
+    end
+    object lbFooter: TLabel
+      Left = 44
+      Top = 52
+      Width = 359
+      Height = 13
+      Anchors = [akRight, akBottom]
+      Caption = 
+        'A folyamat erej'#233'ig lehet'#337's'#233'g szerint ne bontsa az internetkapcso' +
+        'latot.'
+      ExplicitTop = 46
+    end
+    object btnTerminate: TButton
+      Left = 337
+      Top = 6
+      Width = 101
+      Height = 25
+      Hint = '&Kil'#233'p'#233's'
+      Anchors = [akRight, akBottom]
+      Caption = '&Megszak'#237't'#225's'
+      TabOrder = 0
+      OnClick = btnTerminateClick
+    end
   end
   object AskUpdateDialog: TTaskDialog
     Buttons = <>

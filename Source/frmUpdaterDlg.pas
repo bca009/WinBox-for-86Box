@@ -32,17 +32,17 @@ type
   TUpdaterDlg = class(TForm, ILanguageSupport)
     AskUpdateDialog: TTaskDialog;
     imgIcon: TImage;
-    rcBackground: TShape;
-    btnTerminate: TButton;
     lbDescription: TLabel;
     lbProgress: TLabel;
     pbProgress: TProgressBar;
     lbFileName: TLabel;
     lbInformation: TLabel;
     lbTitle: TLabel;
+    lbFooter: TLabel;
+    pnBottom: TPanel;
     bvFooter: TBevel;
     imgFooter: TImage;
-    lbFooter: TLabel;
+    btnTerminate: TButton;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -74,6 +74,7 @@ type
     procedure WMStyleChanged(var Msg: TMessage); message WM_STYLECHANGED;
     procedure UMIconsChanged(var Msg: TMessage); message UM_ICONSETCHANGED;
   protected
+    InitialHeight, InitialPPI: integer;
   public
     procedure Refresh;
     function AskUpdateAction: boolean;
@@ -390,6 +391,8 @@ begin
         imgFooter.Picture.Assign(Icon);
         Icon.Free;
       end;
+
+  ClientHeight := InitialHeight * NewDPI div InitialPPI;
 end;
 
 procedure TUpdaterDlg.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -404,6 +407,9 @@ begin
 
   ApplyActiveStyle;
   Perform(UM_ICONSETCHANGED, 0, 0);
+
+  InitialHeight := ClientHeight;
+  InitialPPI := CurrentPPI;
 
   FormAfterMonitorDpiChanged(Self, 96, CurrentPPI);
 
@@ -504,8 +510,7 @@ end;
 
 procedure TUpdaterDlg.WMStyleChanged(var Msg: TMessage);
 begin
-  rcBackground.Brush.Color :=
-    StyleServices(Self).GetSystemColor(clWindow);
+  Color := StyleServices(Self).GetSystemColor(clWindow);
 end;
 
 procedure TUpdaterDlg.ZipProgress(Sender: TObject; FileName: string;
