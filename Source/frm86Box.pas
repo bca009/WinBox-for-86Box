@@ -434,7 +434,9 @@ begin
     else begin
       Self.Color := Tag;
       ApplyStyle('Windows');
+    end;
 
+    if StyleServices(Self).IsSystemStyle then begin
       cgPanels.GradientBaseColor := Self.Color;
       cgPanels.GradientColor := Self.Color;
 
