@@ -66,7 +66,6 @@ object WinBoxMain: TWinBoxMain
     Font.Style = []
     ParentFont = False
     TabOrder = 1
-    ExplicitWidth = 438
     object tabHome: TTabSheet
       Caption = 'Kezd'#337'lap'
       DesignSize = (
@@ -348,7 +347,6 @@ object WinBoxMain: TWinBoxMain
     Panels = <>
     ParentBiDiMode = False
     SimplePanel = True
-    ExplicitWidth = 650
   end
   object tbGlobal: TToolBar
     Left = 0
@@ -364,7 +362,6 @@ object WinBoxMain: TWinBoxMain
     ParentDoubleBuffered = False
     TabOrder = 3
     Transparent = True
-    ExplicitWidth = 650
     object tbNewVM: TToolButton
       Tag = 9
       Left = 0
@@ -435,7 +432,6 @@ object WinBoxMain: TWinBoxMain
     TabOrder = 4
     Transparent = True
     Visible = False
-    ExplicitWidth = 650
     object tbStart: TToolButton
       Tag = 1
       Left = 0

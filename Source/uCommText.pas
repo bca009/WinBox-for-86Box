@@ -63,6 +63,8 @@ resourcestring
   Str86MgrPathNeeded = 'WinBox.86MgrPathNeeded';
   Str86MgrPathOf     = 'WinBox.86MgrPathOf';
 
+  StrDeferStyleChange = 'IconSet.DeferStyleChange';
+
 implementation
 
 end.

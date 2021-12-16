@@ -157,8 +157,6 @@ resourcestring
   PfIconSetPath   = 'Iconsets\';
   PathEmuIconSets = 'roms\icons\';
 
-  StrDeferStyleChange = 'IconSet.DeferStyleChange';
-
 implementation
 
 uses uCommText, uLang;
@@ -674,6 +672,7 @@ begin
      (Win32MajorVersion < 10) then
     exit;
 
+  (* futás közben nem váltunk témát, így nem kell ez a kód
   if Application.ModalLevel <> 0 then begin
     FDeferStyle := Value;
     Application.OnModalEnd := DeferStyleChange;
@@ -681,6 +680,7 @@ begin
       PChar(Application.Title), MB_ICONINFORMATION or MB_OK);
     exit;
   end;
+    több bug jár vele mint haszon *)
 
   Success := false;
   if (Value <> '') then begin

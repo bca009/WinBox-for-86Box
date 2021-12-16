@@ -698,7 +698,13 @@ begin
 
         ChangeLanguage(Config.ProgramLang);
         ChangeIconSet(Config.ProgIconSet);
-        ChangeStyle(Config.StyleName, -1);
+
+        //bugos szar, ne csináljuk inkább
+        //ChangeStyle(Config.StyleName, -1);
+
+        if Config.StyleName <> Self.StyleName then
+          MessageBox(Handle, _P(StrDeferStyleChange),
+          PChar(Application.Title), MB_ICONINFORMATION or MB_OK);
 
         DefProfile.Default;
         acUpdateList.Execute;
@@ -1972,7 +1978,9 @@ begin
      (PChar(Pointer(Msg.LParam)) = 'ImmersiveColorSet') and
      IconSet.UpdateDarkMode and
      (Config.StyleName = '') then
-    ChangeStyle('', -1);
+    //ChangeStyle('', -1); bugos szar a témaváltás runtime
+    MessageBox(Handle, _P(StrDeferStyleChange),
+      PChar(Application.Title), MB_ICONINFORMATION or MB_OK);
 
   inherited;
 end;
