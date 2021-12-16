@@ -1130,7 +1130,10 @@ procedure TProgSettDlg.UpdateStyles;
 var
   AStyle: string;
 begin
-  rbStyleColor.Enabled := Win32MajorVersion >= 10; //licenszelés szerint
+  rbStyleSystem.Enabled := not LocaleIsBiDi;
+  rbStyleCustom.Enabled := rbStyleSystem.Enabled;
+  rbStyleColor.Enabled :=
+    rbStyleSystem.Enabled and (Win32MajorVersion >= 10); //licenszelés szerint
 
   if Mode = 0 then
     with cbStyleName, Items do begin
@@ -1148,11 +1151,11 @@ begin
         ItemIndex := IndexOf(Config.StyleName);
 
         if ItemIndex = -1 then begin
-          if Config.StyleName = StrLightStyle then begin
+          if (Config.StyleName = StrLightStyle) and rbStyleColor.Enabled then begin
             rbStyleColor.Checked := true;
             cbStyleColor.ItemIndex := 0;
           end
-          else if Config.StyleName = StrDarkStyle then begin
+          else if (Config.StyleName = StrDarkStyle) and rbStyleColor.Enabled then begin
             rbStyleColor.Checked := true;
             cbStyleColor.ItemIndex := 1;
           end
@@ -1165,10 +1168,6 @@ begin
         EndUpdate;
       end;
     end;
-
-  rbStyleSystem.Enabled := not LocaleIsBiDi;
-  rbStyleColor.Enabled  := rbStyleSystem.Enabled;
-  rbStyleCustom.Enabled := rbStyleSystem.Enabled;
 
   cbStyleColor.Enabled :=
     rbStyleSystem.Enabled and rbStyleColor.Checked and rbStyleColor.Enabled;
