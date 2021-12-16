@@ -42,6 +42,11 @@ type
     procedure WMPaint(var Msg: TWMPaint); message WM_PAINT;
   end;
 
+  TTrayIcon = class(ExtCtrls.TTrayIcon)
+  public
+    property Data;
+  end;
+
   TWinBoxMain = class(TForm, ILanguageSupport)
     Actions: TActionList;
     MainMenu: TMainMenu;
@@ -1407,8 +1412,11 @@ begin
 end;
 
 procedure TWinBoxMain.FormDestroy(Sender: TObject);
+var
+  TrayData: TNotifyIconData;
 begin
-  TrayIcon.Visible := false;
+  TrayData := TrayIcon.Data;
+  Shell_NotifyIcon(NIM_DELETE, @TrayData);
 
   Updater.Free;
 

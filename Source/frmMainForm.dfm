@@ -272,7 +272,6 @@ object WinBoxMain: TWinBoxMain
         ParentColor = True
         TabOrder = 1
         OnResize = pnpBottomResize
-        ExplicitWidth = 494
         object pnpRight: TPanel
           Left = 224
           Top = 0
@@ -282,7 +281,6 @@ object WinBoxMain: TWinBoxMain
           BevelOuter = bvNone
           ParentColor = True
           TabOrder = 0
-          ExplicitLeft = 235
           DesignSize = (
             259
             47)
@@ -310,7 +308,6 @@ object WinBoxMain: TWinBoxMain
           Align = alClient
           BevelOuter = bvNone
           TabOrder = 1
-          ExplicitWidth = 235
           DesignSize = (
             224
             47)
