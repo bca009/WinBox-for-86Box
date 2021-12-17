@@ -14,6 +14,7 @@ object WinBoxMain: TWinBoxMain
   Font.Style = []
   Menu = MainMenu
   ParentBiDiMode = False
+  OnActivate = FormFirstActivate
   OnAfterMonitorDpiChanged = FormAfterMonitorDpiChanged
   OnClose = FormClose
   OnCreate = FormCreate

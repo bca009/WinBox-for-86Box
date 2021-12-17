@@ -378,6 +378,7 @@ type
     procedure SplitterMoved(Sender: TObject);
     procedure FormAfterMonitorDpiChanged(Sender: TObject; OldDPI,
       NewDPI: Integer);
+    procedure FormFirstActivate(Sender: TObject);
   private
     //Lista kirajzolásához szükséges cuccok
     HalfCharHeight, BorderThickness: integer;
@@ -1426,6 +1427,22 @@ begin
   Frame86Box.Free;
 end;
 
+procedure TWinBoxMain.FormFirstActivate(Sender: TObject);
+begin
+  //pozícionáljuk a formot és a framet a beállítások szerint
+  // (csak itt lehet és az OnShow-ban,
+  //   az OnCreate eseményben még nem,
+  //   és csak akkor ha nem a ProgramSettings hívja meg)
+
+  ChangePosition(Config.PositionData);
+  OnActivate := nil;
+
+  //azért jobb itt mert akkor a DPI PMv2 már nem bassza el
+  // a betöltött méretet [ha nem az elsõdleges monitoron
+  // van a mentett méret] (elv. így jó, a saját tesztek sz.),
+  // míg az OnShow-ban meg igen
+end;
+
 procedure TWinBoxMain.FormResize(Sender: TObject);
 begin
   //List.Width := Round(ClientWidth * SideRatio);
@@ -1435,12 +1452,6 @@ procedure TWinBoxMain.FormShow(Sender: TObject);
 begin
   TrayIcon.Visible := Config.TrayBehavior > 0;
   acUpdateToolsExecute(Self);
-
-  //pozícionáljuk a formot és a framet a beállítások szerint
-  // (csak itt lehet, az OnCreate eseményben még nem,
-  //  és csak akkor ha nem a ProgramSettings hívja meg)
-  if Sender = Self then
-    ChangePosition(Config.PositionData);
 end;
 
 procedure TWinBoxMain.ListClick(Sender: TObject);
