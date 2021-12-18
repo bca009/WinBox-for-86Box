@@ -703,11 +703,11 @@ procedure TWinBoxMain.acProgramSettingsExecute(Sender: TObject);
 var
   OldStyle: string;
 begin
+  OldStyle := Config.StyleName;
+
   with TProgSettDlg.Create(Application) do
     try
       if ShowModal = mrOK then begin
-        OldStyle := Config.StyleName;
-
         FormShow(Sender);
 
         ChangeLanguage(Config.ProgramLang);
