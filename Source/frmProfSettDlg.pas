@@ -142,7 +142,7 @@ begin
          Profile.DefaultIcon;
          IconChanged := true;
 
-         DisplayWIC(Profile.Icon, imgIcon);
+         DisplayWIC(DefProfile.Icon, imgIcon);
          bvIcon.Invalidate;
        end;
     8: ShellExecute(Handle, 'open', 'notepad.exe',
@@ -248,7 +248,10 @@ begin
       lbInternalID.Caption := ProfileID;
       mmDescription.Text := Description;
 
-      DisplayWIC(Icon, imgIcon, DefScaleOptions - [soBiDiRotate]);
+      if HasIcon then
+        DisplayWIC(Icon, imgIcon, DefScaleOptions - [soBiDiRotate])
+      else
+        DisplayWIC(DefProfile.Icon, imgIcon, DefScaleOptions - [soBiDiRotate]);
       bvIcon.Invalidate;
 
       FillChar(CompactPath[0], MaxLen * SizeOf(Char), #0);

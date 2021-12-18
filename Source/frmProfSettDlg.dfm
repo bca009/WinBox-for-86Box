@@ -44,7 +44,7 @@ object ProfSettDlg: TProfSettDlg
     Top = 8
     Width = 444
     Height = 458
-    ActivePage = tabEmulator
+    ActivePage = tabGeneral
     Anchors = [akLeft, akTop, akRight, akBottom]
     TabOrder = 0
     object tabGeneral: TTabSheet
