@@ -47,7 +47,8 @@ type
     AutoUpdate,
     GetSource: boolean;
 
-    DisplayMode: integer;
+    DisplayMode,
+    DisplayFlags: integer;
     DisplayValues: TStrings;
 
     ProgramLang,
@@ -57,6 +58,7 @@ type
     ProgIconSet,
     EmuIconSet,
     StyleName: string;
+    TaskbarFlags: integer;
 
     PositionData: TPositionData;
 
@@ -91,6 +93,11 @@ var
   Defaults, Config: TConfiguration;
 
   Templates: string;
+
+const
+  TASKBAR_PROGRESSMASK  = 3;   //maszk a töltési sáv opciókhoz
+
+  DISPLAY_DEFFULLSCREEN = 1;  //alapból fullscreenben legyenek új VM-ek?
 
 type
   TCheckListKey = record
@@ -176,6 +183,7 @@ resourcestring
   KeyGetSource       = 'GetSource';
   KeyDisplayMode     = 'DisplayMode';
   KeyDisplayValues   = 'DisplayValues';
+  KeyDisplayFlags    = 'DisplayFlags';
   KeyTools           = 'Tools';
   KeyCustomTemplates = 'CustomTemplates';
   KeyLoggingMode     = 'LoggingMode';
@@ -189,6 +197,7 @@ resourcestring
   KeyProgIconSet     = 'ProgIconSet';
   KeyEmuIconSet      = 'EmuIconSet';
   KeyStyleName       = 'StyleName';
+  KeyTaskbarFlags    = 'TaskbarFlags';
   KeyPositionX       = 'Position.X';
   KeyPositionY       = 'Position.Y';
   KeySizeX           = 'Size.X';
@@ -303,6 +312,7 @@ begin
           GetSource       := ReadBoolDef(KeyGetSource, GetSource);
 
           DisplayMode     := ReadIntegerDef(KeyDisplayMode, DisplayMode);
+          DisplayFlags    := ReadIntegerDef(KeyDisplayFlags, DisplayFlags);
           case DisplayMode of
             0:    DisplayValues.Assign(Defaults.DisplayValues);
             1, 2: if ValueExists(KeyDisplayValues) then begin
@@ -326,6 +336,7 @@ begin
           ProgIconSet     := ReadStringDef(KeyProgIconSet, ProgIconSet);
           EmuIconSet      := ReadStringDef(KeyEmuIconSet, EmuIconSet);
           StyleName       := ReadStringDef(KeyStyleName, StyleName);
+          TaskbarFlags    := ReadIntegerDef(KeyTaskbarFlags, TaskbarFlags);
 
           with PositionData do begin
             Position.X   := ReadIntegerDef(KeyPositionX, Position.X);
@@ -407,6 +418,7 @@ begin
           WriteBoolChk(KeyGetSource, GetSource, Defaults.GetSource);
 
           WriteIntegerChk(KeyDisplayMode, DisplayMode, Defaults.DisplayMode);
+          WriteIntegerChk(KeyDisplayFlags, DisplayFlags, Defaults.DisplayFlags);
           DeleteValue(KeyDisplayValues);
           if DisplayMode in [1, 2] then
             WriteStringMulti(KeyDisplayValues, DisplayValues);
@@ -420,6 +432,7 @@ begin
           WriteStringChk(KeyProgIconSet, ProgIconSet, Defaults.ProgIconSet);
           WriteStringChk(KeyEmuIconSet, EmuIconSet, Defaults.EmuIconSet);
           WriteStringChk(KeyStyleName, StyleName, Defaults.StyleName);
+          WriteIntegerChk(KeyTaskbarFlags, TaskbarFlags, Defaults.TaskbarFlags);
 
           with PositionData do begin
             WriteIntegerChk(KeyPositionX, Position.X, Defaults.PositionData.Position.X);
@@ -471,6 +484,7 @@ begin
   GetSource := false;
 
   DisplayMode := 0;
+  DisplayFlags := 0;
   DisplayValues.Text := DefDisplayValues;
 
   ProgramLang  := PrgDefaultLanguage;
@@ -480,6 +494,7 @@ begin
   ProgIconSet := '';
   EmuIconSet := '';
   StyleName := '';
+  TaskbarFlags := 0;
 
   FillChar(PositionData, SizeOf(PositionData), #0);
   PositionData.MainRatio := 30; //TWinBoxMain

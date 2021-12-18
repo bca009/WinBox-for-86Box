@@ -29,7 +29,8 @@ uses
   ComCtrls, VCLTee.TeEngine, VCLTee.TeeProcs, VCLTee.Chart, VCLTee.Series,
   BaseImageCollection, ImageCollection, ImageList, ImgList, VirtualImageList,
   GraphUtil, Generics.Collections, u86Box, Vcl.ToolWin, uLang, AppEvnts, frm86Box,
-  Vcl.ExtDlgs, frmUpdaterDlg, uCommText, uConfigMgr;
+  Vcl.ExtDlgs, frmUpdaterDlg, uCommText, uConfigMgr, System.Win.TaskbarCore,
+  Vcl.Taskbar;
 
 type
   TListBox = class(StdCtrls.TListBox)
@@ -339,6 +340,7 @@ type
     MissingDiskDlg: TTaskDialog;
     acWinBoxUpdate: TAction;
     Programfrisstsekkeresse1: TMenuItem;
+    Taskbar: TTaskbar;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure acDebugExecute(Sender: TObject);
@@ -389,6 +391,8 @@ type
     procedure ResetChart(Chart: TChart);
     procedure AddSeries(Chart: TChart; AColor: TColor; const FriendlyName: string);
     procedure AddValue(ASeries: TFastLineSeries; const Value: extended);
+
+    procedure UpdateTaskbar(const Progress: integer; const Color: boolean);
 
     procedure CMStyleChanged(var Msg: TMessage); message CM_STYLECHANGED;
 
@@ -696,10 +700,14 @@ begin
 end;
 
 procedure TWinBoxMain.acProgramSettingsExecute(Sender: TObject);
+var
+  OldStyle: string;
 begin
   with TProgSettDlg.Create(Application) do
     try
       if ShowModal = mrOK then begin
+        OldStyle := Config.StyleName;
+
         FormShow(Sender);
 
         ChangeLanguage(Config.ProgramLang);
@@ -708,7 +716,7 @@ begin
         //bugos szar, ne csináljuk inkább
         //ChangeStyle(Config.StyleName, -1);
 
-        if Config.StyleName <> Self.StyleName then
+        if Config.StyleName <> OldStyle then
           MessageBox(Handle, _P(StrDeferStyleChange),
           PChar(Application.Title), MB_ICONINFORMATION or MB_OK);
 
@@ -1231,6 +1239,8 @@ begin
 end;
 
 procedure TWinBoxMain.UMIconsChanged(var Msg: TMessage);
+var
+  I: integer;
 begin
   inherited;
   IconSet.IconsMaxDPI.GetIcon(6, DeleteDialog.CustomMainIcon);
@@ -1240,8 +1250,51 @@ begin
   DefProfile.Icon.Assign(
     IconSet.ActionImages.Images[21].SourceImages[0].Image);
 
+  for I := 0 to Taskbar.TaskBarButtons.Count - 1 do
+    with Taskbar.TaskBarButtons[I] do
+      if Assigned(Action) and (Action is TAction) then
+        IconSet.IconsMaxDPI.GetIcon((Action as TAction).ImageIndex, Icon);
+
+  Taskbar.ApplyButtonsChanges;
+
   if Assigned(Profiles) then
     ListReload(Self);
+end;
+
+procedure TWinBoxMain.UpdateTaskbar(const Progress: integer;
+  const Color: boolean);
+var
+  I: integer;
+  State: TThumbButtonStates;
+begin
+  for I := 0 to Taskbar.TaskBarButtons.Count - 1 do
+    with Taskbar.TaskBarButtons[I] do begin
+      State := [];
+      case I of
+        0..2:
+          if FirstUpdateDone then
+            State := [TThumbButtonState.Enabled];
+        3:
+          if IsAnyRunning then
+            State := [TThumbButtonState.Enabled];
+        end;
+
+      if State <> ButtonState then
+        ButtonState := State;
+    end;
+
+  Taskbar.Tag := ord(Progress < 0);
+
+  if Progress = -1 then
+    exit;
+
+  Taskbar.ProgressMaxValue := 100;
+  Taskbar.ProgressValue := Progress;
+
+  if Color then
+    ColorTaskbar(Taskbar)
+  else
+    Taskbar.ProgressState := TTaskBarProgressState.Normal;
 end;
 
 procedure TWinBoxMain.DummyUpdate(Sender: TObject);
@@ -1350,6 +1403,7 @@ begin
   InitialTitle := Application.Title;
 
   IconSet.Initialize(Self);
+  IconSet.Taskbar := Taskbar;
   List.Constraints.MinWidth := IconSet.ListIcons.Width * 3 div 2;
 
   for I := 0 to Pages.PageCount - 1 do
@@ -1425,6 +1479,9 @@ begin
   Profiles.Free;
   Monitor.Free;
   Frame86Box.Free;
+
+  if Assigned(Taskbar) then
+    IconSet.Taskbar := nil;
 end;
 
 procedure TWinBoxMain.FormFirstActivate(Sender: TObject);
@@ -1801,6 +1858,16 @@ begin
     lbHCPU.Caption := _T('WinBox.HostCPU', [CPU]);
     pbCPU.Position := Round(CPU);
     ColorProgress(pbCPU);
+
+    case Config.TaskbarFlags and TASKBAR_PROGRESSMASK of
+      0: UpdateTaskbar(-1, false);
+      1: UpdateTaskbar(pbCPU.Position, true);
+      2: UpdateTaskbar(pbRAM.Position, true);
+      3: if Profiles.Count = 0 then
+           UpdateTaskbar(0, true)
+         else
+           UpdateTaskbar(100 * VMs div Profiles.Count, true);
+    end;
   except
     with (Sender as TTimer) do begin
       Enabled := false;
@@ -1960,6 +2027,12 @@ begin
     ChartVMs.Title.Text.Text := _T(format(StrChartBase, ['VMs']));
     ChartVMs.BottomAxis.Title.Caption := _T(format(StrChartAxisBase, ['VMs', 'X']));
     ChartVMs.LeftAxis.Title.Caption := _T(format(StrChartAxisBase, ['VMs', 'Y']));
+
+    for I := 0 to Taskbar.TaskBarButtons.Count - 1 do
+      with Taskbar.TaskBarButtons[I] do
+        if Assigned(Action) and (Action is TAction) then
+          Hint := StringReplace((Action as TAction).Caption, '&', '', [rfReplaceAll]);
+    Taskbar.ApplyButtonsChanges;
   end;
 end;
 

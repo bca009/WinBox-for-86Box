@@ -587,6 +587,7 @@ begin
             try
               WorkingDirectory := edPath.Text;
               FriendlyName := edName.Text;
+              Fullscreen := (uConfigMgr.Config.DisplayFlags and DISPLAY_DEFFULLSCREEN) <> 0;
               Save;
             finally
               Free;

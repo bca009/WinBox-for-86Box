@@ -29,7 +29,8 @@ var
 implementation
 
 uses uWebUtils, uCommUtil, uConfigMgr, uLang, uCommText, frmWaitForm,
-     Generics.Collections, JSON, DateUtils, ShellAPI, IOUtils;
+     dmGraphUtil, JSON, DateUtils, ShellAPI, Generics.Collections,
+     IOUtils;
 
 resourcestring
   WinBoxRepo =   'https://api.github.com/repos/laciba96/WinBox-for-86Box/releases/latest';
@@ -182,12 +183,15 @@ begin
       ProgressBar.Style := pbstMarquee;
       Application.ProcessMessages;
 
+      IconSet.UpdateTaskbar(0, -1, PROGRESS_MARQUEE);
+
       Thread := TThread.CreateAnonymousThread(DoUpdate);
       Thread.Suspended := false;
 
       while WaitForSingleObject(Thread.Handle, 10) <> WAIT_OBJECT_0 do
         Application.ProcessMessages;
     finally
+      IconSet.UpdateTaskbar(0, -1, PROGRESS_NONE);
       Free;
     end;
 

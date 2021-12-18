@@ -27,7 +27,7 @@ uses
   Windows, Messages, SysUtils, Classes, Controls, Graphics, Forms,
   ImageList, WinCodec, ComCtrls, ExtCtrls, Generics.Collections,
   ImgList, VirtualImageList, BaseImageCollection, ImageCollection,
-  StdCtrls, Registry, Themes;
+  StdCtrls, Registry, Themes, System.Win.TaskbarCore, Vcl.Taskbar;
 
 type
   TScaleOption = (soBiDiRotate, soOverScale);
@@ -35,6 +35,13 @@ type
 
 const
   DefScaleOptions = [soBiDiRotate, soOverScale];
+
+const
+  PROGRESS_NONE = 0;
+  PROGRESS_MARQUEE = 1;
+  PROGRESS_NORMAL = 2;
+  PROGRESS_ERROR = 3;
+  PROGRESS_PAUSED = 4;
 
 type
   TIconSet = class(TDataModule)
@@ -59,8 +66,16 @@ type
     procedure ChangeImageList(Images: TImageCollection; Path: string); overload;
     procedure ChangeImageList(Images: TImageCollection; List: TObjectDictionary<string, TWICImage>); overload;
   public
+    //átviteli változó a TWinBoxMain.Taskbar-hoz - nem mindig assigned!
+    Taskbar: TTaskbar;
+
     //Virtuális gépek színének engedélyezése/letiltása (pl. BiDi-nél letiltva)
     IsColorsAllowed: boolean;
+
+    //TWinBoxMain.Taskbar - nem mindig assigned!
+    procedure UpdateTaskbar(const Progress, Max, Mode: integer);
+
+    //Virtuális gépek színének engedélyezése/letiltása (pl. BiDi-nél letiltva)
     procedure UpdateColorsAllowed;
 
     constructor Create(AOwner: TComponent); override;
@@ -121,6 +136,7 @@ function GetMaxDPI: integer;
 
 //töltõcsík színezése töltöttség szerint
 procedure ColorProgress(const Control: TProgressBar); inline;
+procedure ColorTaskbar(const Taskbar: TTaskbar);
 
 //egyedileg rajzolt ComboBox BiDi-kompatibilis rajzolása
 procedure ComboDrawBiDi(Canvas: TCanvas; Rect: TRect; ItemText: string);
@@ -170,6 +186,10 @@ resourcestring
 
   RegDarkModeKey = 'Software\Microsoft\Windows\CurrentVersion\Themes\Personalize';
   RegDarkModeName = 'AppsUseLightTheme';
+
+const
+  PROGRESS_RED    = 90;
+  PROGRESS_YELLOW = 75;
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
@@ -321,12 +341,24 @@ end;
 
 procedure ColorProgress(const Control: TProgressBar); inline;
 begin
-  if Control.Position > 90 then
-    Control.State := pbsError
-  else if Control.Position > 75 then
-    Control.State := pbsPaused
-  else
-    Control.State := pbsNormal;
+  with Control do
+    if Position > PROGRESS_RED then
+      State := pbsError
+    else if Position > PROGRESS_YELLOW then
+      State := pbsPaused
+    else
+      State := pbsNormal;
+end;
+
+procedure ColorTaskbar(const Taskbar: TTaskbar);
+begin
+  with TaskBar do
+    if ProgressValue > PROGRESS_RED then
+      ProgressState := TTaskBarProgressState.Error
+    else if ProgressValue > PROGRESS_YELLOW then
+      ProgressState := TTaskBarProgressState.Paused
+    else
+      ProgressState := TTaskBarProgressState.Normal;
 end;
 
 //Source: https://coderedirect.com/questions/441320/prevent-rtl-tlistview-from-mirroring-check-boxes-and-or-graphics
@@ -732,6 +764,21 @@ begin
     end;
 
   Result := OldMode <> FDarkMode;
+end;
+
+procedure TIconSet.UpdateTaskbar(const Progress, Max, Mode: integer);
+begin
+  if Assigned(Taskbar) and (Taskbar.Tag <> 0) then
+    with Taskbar do begin
+      if Progress <> -1 then
+        ProgressValue := Progress;
+
+      if Max <> -1 then
+        ProgressMaxValue := Max;
+
+      if Mode <> -1 then
+        ProgressState := TTaskBarProgressState(Mode);
+    end;
 end;
 
 { TStyleExtensions }

@@ -34,9 +34,9 @@ type
     pcPages: TPageControl;
     btnOK: TButton;
     btnCancel: TButton;
-    tabGeneral: TTabSheet;
+    tabNewVM: TTabSheet;
     tabAppearance: TTabSheet;
-    grpDefaultPath: TGroupBox;
+    grpNewVMs: TGroupBox;
     imgNewVM: TImage;
     lbDefaultPath: TLabel;
     lbPath: TLabel;
@@ -48,13 +48,6 @@ type
     cbEraseProt: TComboBox;
     imgInfo: TImage;
     lbOnlyNewVM: TLabel;
-    grpBehavior: TGroupBox;
-    cbMinimizeOnStart: TCheckBox;
-    lbTrayBehavior: TLabel;
-    cbTrayBehavior: TComboBox;
-    lbLaunchTimeout: TLabel;
-    spLaunchTimeout: TSpinEdit;
-    lbMilliseconds: TLabel;
     grpAppearance: TGroupBox;
     imgDisplay: TImage;
     lbDefaultDisplay: TLabel;
@@ -84,7 +77,7 @@ type
     edToolName: TEdit;
     mmToolPath: TMemo;
     btnToolBrowse: TButton;
-    tabEmulator: TTabSheet;
+    tab: TTabSheet;
     grpDefEmulator: TGroupBox;
     imgEmulator: TImage;
     lbDefEmulator: TLabel;
@@ -94,11 +87,6 @@ type
     btnDef86Box: TButton;
     btnOpen86Box: TButton;
     btn86Box: TButton;
-    grpAutoUpdate: TGroupBox;
-    lbArtifact: TLabel;
-    cbAutoUpdate: TCheckBox;
-    cbGetSource: TCheckBox;
-    edArtifact: TEdit;
     tabSpecial: TTabSheet;
     grpExtraPaths: TGroupBox;
     lbExtraPaths: TLabel;
@@ -131,9 +119,6 @@ type
     N1: TMenuItem;
     miDefaults: TMenuItem;
     odConfigFiles: TOpenDialog;
-    lbWinBoxUpdate: TLabel;
-    cbWinBoxUpdate: TComboBox;
-    tvArtifact: TTreeView;
     tabLanguage: TTabSheet;
     grpLanguage: TGroupBox;
     imgLanguage: TImage;
@@ -197,6 +182,40 @@ type
     btnQuadEqSolve: TButton;
     imgStyle: TImage;
     imgIconSet: TImage;
+    tabUpdates: TTabSheet;
+    grpEmulatorUpdates: TGroupBox;
+    lbArtifact: TLabel;
+    cbAutoUpdate: TCheckBox;
+    cbGetSource: TCheckBox;
+    edArtifact: TEdit;
+    tvArtifact: TTreeView;
+    imgInfo2: TImage;
+    lbArtfSwitchNote: TLabel;
+    btnDefEraseProt: TButton;
+    grpBehavior: TGroupBox;
+    lbLaunchTimeout: TLabel;
+    spLaunchTimeout: TSpinEdit;
+    lbMilliseconds: TLabel;
+    lkEmulatorUpdate: TLabel;
+    lbTrayBehavior: TLabel;
+    cbTrayBehavior: TComboBox;
+    cbMinimizeOnStart: TCheckBox;
+    lbTaskbarProgress: TLabel;
+    cbTaskbarProgress: TComboBox;
+    lkProgramUpdate: TLabel;
+    grpProgramUpdates: TGroupBox;
+    lbWinBoxUpdate: TLabel;
+    cbWinBoxUpdate: TComboBox;
+    btnDefWinBoxUpd: TButton;
+    btnPortWinBoxUpd: TButton;
+    lbEraseProtNote: TLabel;
+    lbDisplaySettings: TLabel;
+    cbDefFullscreen: TCheckBox;
+    lkAppearance: TLabel;
+    lkLanguage: TLabel;
+    lkIconSet: TLabel;
+    bvStylePreview: TBevel;
+    lbStyleNoPreview: TLabel;
     procedure Reload(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure cbLoggingChange(Sender: TObject);
@@ -224,6 +243,7 @@ type
     procedure btnPositionClick(Sender: TObject);
     procedure UpdateStyleControls(Sender: TObject);
     procedure btnQuadEqSolveClick(Sender: TObject);
+    procedure lbLinkClick(Sender: TObject);
   private
     LangName: string;
     ProgLangs, EmuLangs: TStringList;
@@ -332,6 +352,9 @@ begin
     6: cbEmuLang.ItemIndex := EmuLangs.IndexOf(Defaults.EmulatorLang);
     7: cbProgIconSet.ItemIndex := cbProgIconSet.Items.IndexOfName(Defaults.ProgIconSet);
     8: cbEmuIconSet.ItemIndex := cbEmuIconSet.Items.IndexOfName(Defaults.EmuIconSet);
+    9: cbEraseProt.ItemIndex := Defaults.EraseProtLvl;
+    10: cbWinBoxUpdate.ItemIndex := Defaults.WinBoxUpdate;
+    11: cbWinBoxUpdate.ItemIndex := 1; //manual download and update
   end;
 end;
 
@@ -468,6 +491,10 @@ begin
       3:    DisplayValues.Clear;
     end;
 
+    DisplayFlags := 0;
+    if cbDefFullscreen.Checked then
+      DisplayFlags := DisplayFlags or DISPLAY_DEFFULLSCREEN;
+
     if rbEmuLangFix.Checked then
       EmuLangCtrl := 1
     else if rbEmuLangFree.Checked then
@@ -490,6 +517,8 @@ begin
     ProgIconSet := TextLeft(cbProgIconSet.Text, '=');
     EmuIconSet  := TextLeft(cbEmuIconSet.Text, '=');
     StyleName   := GetSelectedStyle;
+
+    TaskbarFlags := cbTaskbarProgress.ItemIndex and TASKBAR_PROGRESSMASK;
 
     PositionData := Self.PositionData;
 
@@ -790,6 +819,17 @@ begin
     FreeAndNil(EmuLangs);
 end;
 
+procedure TProgSettDlg.lbLinkClick(Sender: TObject);
+var
+  I: integer;
+begin
+  for I := 0 to pcPages.PageCount - 1 do
+    if pcPages.Pages[I].Name = (Sender as TControl).HelpKeyword then begin
+      pcPages.ActivePage := pcPages.Pages[I];
+      break;
+    end;
+end;
+
 procedure TProgSettDlg.lvToolsSelectItem(Sender: TObject; Item: TListItem;
   Selected: Boolean);
 begin
@@ -874,8 +914,8 @@ begin
   pnStylePreview.Visible :=
     rbStyleSystem.Enabled and rbStyleCustom.Checked
       and (pnStylePreview.StyleName <> '');
-  lbStylePreview.Visible :=
-    pnStylePreview.Visible;
+  //lbStylePreview.Visible :=
+  //  pnStylePreview.Visible;
 end;
 
 procedure TProgSettDlg.UMIconsChanged(var Msg: TMessage);
@@ -883,7 +923,10 @@ begin
   inherited;
   with IconSet do begin
     DisplayIcon(8,  imgExtraPaths, DefScaleOptions - [soBiDiRotate]);
+
     DisplayIcon(11, imgInfo, DefScaleOptions - [soBiDiRotate]);
+    DisplayIcon(11, imgInfo2, DefScaleOptions - [soBiDiRotate]);
+
     DisplayIcon(13, imgNewVM, DefScaleOptions - [soBiDiRotate]);
 
     DisplayIcon(30, imgDisplay, DefScaleOptions - [soBiDiRotate]);
@@ -1243,6 +1286,9 @@ begin
       2: rbManualOptions.Checked := true;
       3: rbNoDisplayOptions.Checked := true;
     end;
+
+    cbTaskbarProgress.ItemIndex := TaskbarFlags and TASKBAR_PROGRESSMASK;
+    cbDefFullscreen.Checked := (DisplayFlags and DISPLAY_DEFFULLSCREEN) <> 0;
 
     UpdateLanguages(0);
     UpdateIconSets(0);

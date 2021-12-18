@@ -224,6 +224,7 @@ begin
   else begin
     AtomicExchange(Cancelled, 1);
     pbProgress.State := pbsPaused;
+    IconSet.UpdateTaskbar(-1, -1, PROGRESS_PAUSED);
   end;
 end;
 
@@ -350,6 +351,7 @@ begin
       procedure
       begin
         pbProgress.State := pbsError;
+        IconSet.UpdateTaskbar(-1, -1, PROGRESS_ERROR);
         btnTerminate.Caption := btnTerminate.Hint;
         raise Capture;
       end);
@@ -399,6 +401,8 @@ procedure TUpdaterDlg.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   if (pbProgress.Position < 100) and (pbProgress.State <> pbsError) then
     Action := caNone;
+
+  IconSet.UpdateTaskbar(0, -1, PROGRESS_NONE);
 end;
 
 procedure TUpdaterDlg.FormCreate(Sender: TObject);
@@ -431,6 +435,8 @@ begin
   pbProgress.Position := 0;
   pbProgress.State := pbsNormal;
 
+  IconSet.UpdateTaskbar(0, pbProgress.Max, PROGRESS_NORMAL);
+
   Thread := nil;
   Thread := TTask.Create(DoUpdate);
 
@@ -450,8 +456,10 @@ begin
       lbInformation.Caption := Text;
       lbFileName.Caption := FileName;
 
-      if Position <> -1 then
+      if Position <> -1 then begin
         pbProgress.Position := Position;
+        IconSet.UpdateTaskbar(Position, -1, -1);
+      end;
     end);
 end;
 
