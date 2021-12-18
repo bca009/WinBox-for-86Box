@@ -76,6 +76,8 @@ type
     procedure Reload; virtual;
     procedure ReloadTools;
 
+    procedure Migrate(var ADisplayValues: TStrings); virtual;
+
     function RepoToArtf(const Repository, Artifact: string): string;
 
     function AdjustEmuLang: string;
@@ -217,6 +219,38 @@ begin
   inherited;
 end;
 
+procedure TConfiguration.Migrate(var ADisplayValues: TStrings);
+var
+  Temp: string;
+
+  function MigrateValue(const Key: string; var Value: string): boolean;
+  var
+    Index: integer;
+  begin
+    Index := ADisplayValues.IndexOfName(Key);
+
+    Result := Index <> -1;
+    if Result then begin
+      Value := ADisplayValues.ValueFromIndex[Index];
+      ADisplayValues.Delete(Index);
+    end;
+  end;
+
+begin
+  if ADisplayValues = nil then
+    exit;
+
+  //sima törlés
+  MigrateValue('window_remember', Temp);  //lásd 101. sor miatt
+  MigrateValue('window_fixed_res', Temp); //a profil tartalmazza
+
+  //valódi migrálás - ikonkészlet, és nyelv
+  MigrateValue('iconset', EmuIconSet);
+
+  if MigrateValue('language', EmulatorLang) then
+    EmuLangCtrl := 1;
+end;
+
 (*
   This function creates the lang code to be passed to the emulator,
   by properly combining EmulatorLang, ProgramLang, and EmuLangCtrl.
@@ -277,6 +311,7 @@ begin
                   end;
             3:    DisplayValues.Clear;
           end;
+          Migrate(DisplayValues);
 
           if LocaleOverride = PrgSystemLanguage then
             ProgramLang     := PrgSystemLanguage

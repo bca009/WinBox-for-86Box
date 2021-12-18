@@ -360,10 +360,16 @@ begin
            try
              with Config do begin
                mmManualOptions.Clear;
-               Config.DeleteKey('General', 'window_fixed_res');
-               Config.DeleteKey('General', 'language');
-               Config.DeleteKey('General', 'iconset');
-               Config.ReadSectionValues('General', mmManualOptions.Lines);
+
+               with TConfiguration.Create(false) do
+                 try
+                   Config.ReadSectionValues('General', DisplayValues);
+                   Migrate(DisplayValues);
+                   mmManualOptions.Lines.Assign(DisplayValues);
+                 finally
+                   Free;
+                 end;
+
                UpdateApperance(mmManualOptions);
              end;
            finally
@@ -916,12 +922,6 @@ begin
 
   if rbDefaultDisplay.Checked then
     mmManualOptions.Lines.Assign(Defaults.DisplayValues);
-
-  //> Lásd miért: uConfig.pas, 54. sor
-  I := mmManualOptions.Lines.IndexOfName('window_remember');
-  if I <> -1 then
-    mmManualOptions.Lines.Delete(I);
-  //> ---
 
   for I := 0 to High(CheckListKeys) do
     with CheckListKeys[I] do
