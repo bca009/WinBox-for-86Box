@@ -25,7 +25,7 @@
     Top = 8
     Width = 444
     Height = 479
-    ActivePage = Témák
+    ActivePage = tabUI
     Anchors = [akLeft, akTop, akRight, akBottom]
     MultiLine = True
     TabOrder = 0
@@ -756,6 +756,13 @@
             'n'#225'lni k'#237'v'#225'nt ikonk'#233'szletet a list'#225'kban el'#233'rhet'#337'ek k'#246'z'#252'l.'
           WordWrap = True
         end
+        object imgIconSet: TImage
+          Left = 20
+          Top = 23
+          Width = 32
+          Height = 32
+          Stretch = True
+        end
         object cbProgIconSet: TComboBox
           Left = 40
           Top = 83
@@ -819,9 +826,9 @@
           Stretch = True
         end
         object lbLanguage: TLabel
-          Left = 68
+          Left = 61
           Top = 24
-          Width = 317
+          Width = 324
           Height = 41
           Anchors = [akLeft, akTop, akRight]
           AutoSize = False

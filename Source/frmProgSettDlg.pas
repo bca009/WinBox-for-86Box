@@ -196,6 +196,7 @@ type
     mmQuadEq: TMemo;
     btnQuadEqSolve: TButton;
     imgStyle: TImage;
+    imgIconSet: TImage;
     procedure Reload(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure cbLoggingChange(Sender: TObject);
@@ -865,7 +866,8 @@ begin
     pnStylePreview, GetSelectedStyle, true);
 
   pnStylePreview.Visible :=
-    rbStyleSystem.Enabled and (pnStylePreview.StyleName <> '');
+    rbStyleSystem.Enabled and rbStyleCustom.Checked
+      and (pnStylePreview.StyleName <> '');
   lbStylePreview.Visible :=
     pnStylePreview.Visible;
 end;
@@ -884,6 +886,9 @@ begin
     DisplayIcon(33, imgDebug, DefScaleOptions - [soBiDiRotate]);
 
     DisplayIcon(35, imgLanguage, DefScaleOptions - [soBiDiRotate]);
+
+    DisplayIcon(36, imgIconSet, DefScaleOptions - [soBiDiRotate]);
+    DisplayIcon(37, imgStyle, DefScaleOptions - [soBiDiRotate]);
   end;
 end;
 
