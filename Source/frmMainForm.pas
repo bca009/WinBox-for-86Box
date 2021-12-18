@@ -1423,9 +1423,6 @@ begin
         (TObject(cgPanels.Panels[I]) as TCategoryPanel).Collapsed := true;
   end;
 
-  //mentsük el a form skálázott tervezési pozícióját
-  DefaultSize := Point(Width, Height);
-
   Locale := '-'; //cseréljük ki az alapérték '' nyelvet akármire
   if LocaleOverride = '' then
     ChangeLanguage(Config.ProgramLang) //azért hogy ez végigfusson
@@ -1490,6 +1487,9 @@ begin
   // (csak itt lehet és az OnShow-ban,
   //   az OnCreate eseményben még nem,
   //   és csak akkor ha nem a ProgramSettings hívja meg)
+
+  //mentsük el a form skálázott tervezési pozícióját
+  DefaultSize := Point(Width, Height);
 
   ChangePosition(Config.PositionData);
   OnActivate := nil;
