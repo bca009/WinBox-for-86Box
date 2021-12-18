@@ -768,6 +768,7 @@ ncr53c820=Symbios Logic/NCR 53c820
 ncr53c825a=Symbios Logic/NCR 53c825A
 ncr53c860=Symbios Logic/NCR 53c860
 ncr53c875=Symbios Logic/NCR 53c875
+ncr53c90=Symbios Logic/NCR 53c90 MCA
 rt1000b=Rancho RT1000B
 scsiat=Sumo SCSI AT
 spock=IBM PS/2 SCSI Adapter (Spock)
