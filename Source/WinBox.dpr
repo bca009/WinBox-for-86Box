@@ -38,6 +38,7 @@ var
 begin
   Handle := FindWindow('TWinBoxMain', nil);
   if (Handle <> 0) then begin
+    TWinBoxMain.SendCommandLine(Handle);
     BringWindowToFront(Handle);
     Halt(1);
   end;

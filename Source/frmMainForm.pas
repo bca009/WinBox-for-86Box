@@ -400,6 +400,7 @@ type
     procedure UMDoFirstUpdate(var Msg: TMessage); message UM_DOFIRSTUPDATE;
 
     procedure WMEnterSizeMove(var Msg: TMessage); message WM_ENTERSIZEMOVE;
+    procedure WMCopyData(var Msg: TWMCopyData); message WM_COPYDATA;
     procedure WMSettingChange(var Msg: TMessage); message WM_SETTINGCHANGE;
   public
     //Nyelvváltáskor, a program eredeti címének megtartása
@@ -441,6 +442,9 @@ type
     procedure ChangePosition(AData: TPositionData);
 
     procedure GetRttiReport(Result: TStrings);
+
+    //TJumpList által megkapott paraméterek továbbítása a futó példánynak
+    class procedure SendCommandLine(const Handle: HWND);
   end;
 
 var
@@ -461,6 +465,8 @@ uses JclDebug, uProcessMon, uProcProfile, uCommUtil, frmProgSettDlg,
 const
   MaxPoints = 60;
   ScrollPoints = 1;
+
+  CopyDataSig = $FFFF0013; //Signature for TWMCopyData
 
 resourcestring
   EInvalidActionTag = 'Invalid action tag.';
@@ -1195,6 +1201,7 @@ begin
         Updater.ShowModal;
     finally
       FirstUpdateDone := true;
+      SendCommandLine(Handle);
     end;
 end;
 
@@ -1754,6 +1761,27 @@ begin
   Chart.Axes.Bottom.Scroll(60 - Chart.Axes.Bottom.Maximum);
 end;
 
+class procedure TWinBoxMain.SendCommandLine(const Handle: HWND);
+var
+  Data: TCopyDataStruct;
+  Text: string;
+  I: Integer;
+begin
+  for I := 0 to ParamCount do
+    if I = 0 then
+      Text := ParamStr(I)
+    else
+      Text := Text + #13#10 + ParamStr(I);
+
+  Text := Text + #0;
+
+  Data.dwData := CopyDataSig;
+  Data.cbData := length(Text) * SizeOf(Char);
+  Data.lpData := @Text[1];
+
+  SendMessage(Handle, WM_COPYDATA, WPARAM(Handle), LPARAM(@Data));
+end;
+
 procedure TWinBoxMain.SplitterMoved(Sender: TObject);
 begin
   Constraints.MinWidth :=
@@ -2009,6 +2037,74 @@ begin
     with Sender as TMenuItem do
       ShellExecute(Handle, 'open', PChar(Hint), nil,
                    PChar(ExtractFileDir(Hint)), SW_SHOWNORMAL);
+end;
+
+procedure TWinBoxMain.WMCopyData(var Msg: TWMCopyData);
+var
+  I: integer;
+  Params: TStringList;
+
+  function CheckParam(Parameter: string): boolean;
+  begin
+    Parameter := UpperCase(Parameter);
+    Result := Parameter = UpperCase(Params[I]);
+  end;
+
+  function CheckProfileParam(const Parameter: string): boolean;
+  var
+    Index: integer;
+  begin
+    Result := CheckParam(Parameter);
+
+    if Result and (I < Params.Count - 1) then begin
+      Index := Profiles.FindByID(Params[I + 1]);
+      if Index <> -1 then begin
+        List.ItemIndex := Index + 2;
+        ListClick(Self);
+        Application.ProcessMessages;
+
+        Result := true;
+      end;
+    end;
+  end;
+
+begin
+  if FirstUpdateDone and Assigned(Msg.CopyDataStruct) then
+    with Msg.CopyDataStruct^ do
+      if dwData = CopyDataSig then begin
+        Params := TStringList.Create;
+        try
+          Params.Text := PChar(lpData);
+
+          //itt lehet feldolgozni a másodpéldányok
+          //  által továbbított paraméterlistát is
+          //  pl. JumpList implementáció esetén
+
+          if Params.Count > 1 then //az elsõ sor a program elérési útja
+            for I := 1 to Params.Count - 1 do
+              if CheckProfileParam('-startvm') then
+                ListDblClick(Self) //start or bring to front
+              else if CheckProfileParam('-stopvm') then
+                acStop.Execute
+              else if CheckProfileParam('-killvm') then
+                acStopForced.Execute
+              else if CheckParam('-stopall') then
+                acStopAll.Execute
+              else if CheckParam('-killall') then
+                acStopAllForced.Execute
+              else if CheckParam('-newvm') then
+                acNewVM.Execute
+              else if CheckParam('-newhdd') then
+                acNewHDD.Execute
+              else if CheckParam('-newfloppy') then
+                acNewFloppy.Execute;
+
+        finally
+          Params.Free;
+        end;
+      end;
+
+  inherited;
 end;
 
 procedure TWinBoxMain.WMEnterSizeMove(var Msg: TMessage);
