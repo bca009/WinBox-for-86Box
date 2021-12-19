@@ -24,9 +24,9 @@ unit frmProfSettDlg;
 interface
 
 uses
-  UITypes, Windows, SysUtils, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, ExtCtrls, ComCtrls, uBaseProfile, uLang, Menus,
-  ShellAPI, ExtDlgs;
+  UITypes, Windows, Messages, SysUtils, Classes, Graphics, Controls,
+  Forms, Dialogs, StdCtrls, ExtCtrls, ComCtrls, uBaseProfile, Menus,
+  ShellAPI, ExtDlgs, uLang, uCommText;
 
 type
   TBevel = class(ExtCtrls.TBevel)
@@ -92,7 +92,7 @@ type
     procedure ActionClick(Sender: TObject);
     procedure OpenImgClick(Sender: TObject);
   private
-    { Private declarations }
+    procedure UMIconsChanged(var Msg: TMessage); message UM_ICONSETCHANGED;
   public
     Profile: TProfile;
     IconChanged: boolean;
@@ -109,7 +109,7 @@ implementation
 
 {$R *.dfm}
 
-uses uCommUtil, uCommText, frmMainForm;
+uses uCommUtil, dmGraphUtil;
 
 resourcestring
   AskVmIconDel = '.AskVmIconDel';
@@ -142,7 +142,7 @@ begin
          Profile.DefaultIcon;
          IconChanged := true;
 
-         DisplayWIC(Profile.Icon, imgIcon);
+         DisplayWIC(DefProfile.Icon, imgIcon);
          bvIcon.Invalidate;
        end;
     8: ShellExecute(Handle, 'open', 'notepad.exe',
@@ -227,8 +227,8 @@ begin
   pcPages.ActivePageIndex := 0;
   LangName := Copy(ClassName, 2, MaxInt);
 
-  WinBoxMain.Icons32.GetIcon(31, imgEmulator.Picture.Icon);
-  WinBoxMain.Icons32.GetIcon(33, imgDebug.Picture.Icon);
+  ApplyActiveStyle;
+  Perform(UM_ICONSETCHANGED, 0, 0);
 
   Translate;
   if LocaleIsBiDi then
@@ -248,7 +248,10 @@ begin
       lbInternalID.Caption := ProfileID;
       mmDescription.Text := Description;
 
-      DisplayWIC(Icon, imgIcon, false);
+      if HasIcon then
+        DisplayWIC(Icon, imgIcon, DefScaleOptions - [soBiDiRotate])
+      else
+        DisplayWIC(DefProfile.Icon, imgIcon, DefScaleOptions - [soBiDiRotate]);
       bvIcon.Invalidate;
 
       FillChar(CompactPath[0], MaxLen * SizeOf(Char), #0);
@@ -271,7 +274,7 @@ begin
         rcColor.Brush.Style := bsSolid;
       end;
 
-      rcColor.Enabled := WinBoxMain.IsColorsAllowed;
+      rcColor.Enabled := IconSet.IsColorsAllowed;
       if (not rcColor.Enabled) and (rcColor.Brush.Style <> bsClear) then
         rcColor.Brush.Style := bsDiagCross;
 
@@ -326,6 +329,14 @@ begin
     opdIcon.Filter := _T(OpenDlgWICPic);
 
     Caption := ReadString(LangName, LangName, Caption);
+  end;
+end;
+
+procedure TProfSettDlg.UMIconsChanged(var Msg: TMessage);
+begin
+  with IconSet do begin
+    DisplayIcon(31, imgEmulator, DefScaleOptions - [soBiDiRotate]);
+    DisplayIcon(33, imgDebug, DefScaleOptions - [soBiDiRotate]);
   end;
 end;
 

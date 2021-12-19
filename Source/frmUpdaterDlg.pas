@@ -24,30 +24,33 @@ unit frmUpdaterDlg;
 interface
 
 uses
-  Windows, SysUtils, Classes, Controls, Forms, Graphics, ComCtrls,
-  StdCtrls, ExtCtrls, Dialogs, Threading, Zip, uLang;
+  Windows, Messages, SysUtils, Classes, Controls, Forms,
+  Graphics, ComCtrls, StdCtrls, ExtCtrls, Dialogs, Zip,
+  Threading, uLang, uCommText;
 
 type
   TUpdaterDlg = class(TForm, ILanguageSupport)
     AskUpdateDialog: TTaskDialog;
     imgIcon: TImage;
-    rcBackground: TShape;
-    btnTerminate: TButton;
     lbDescription: TLabel;
     lbProgress: TLabel;
     pbProgress: TProgressBar;
     lbFileName: TLabel;
     lbInformation: TLabel;
     lbTitle: TLabel;
+    lbFooter: TLabel;
+    pnBottom: TPanel;
     bvFooter: TBevel;
     imgFooter: TImage;
-    lbFooter: TLabel;
+    btnTerminate: TButton;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btnTerminateClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure AskUpdateDialogHyperlinkClicked(Sender: TObject);
+    procedure FormAfterMonitorDpiChanged(Sender: TObject; OldDPI,
+      NewDPI: Integer);
   private
     //[local]
     LocalDate, BuildDate: TDateTime;
@@ -67,7 +70,11 @@ type
     procedure Progress(const Text, FileName: string; const Position: integer = -1);
     procedure ZipProgress(Sender: TObject; FileName: string;
       Header: TZipHeader; Position: Int64);
+
+    procedure WMStyleChanged(var Msg: TMessage); message WM_STYLECHANGED;
+    procedure UMIconsChanged(var Msg: TMessage); message UM_ICONSETCHANGED;
   protected
+    InitialHeight, InitialPPI: integer;
   public
     procedure Refresh;
     function AskUpdateAction: boolean;
@@ -85,8 +92,8 @@ implementation
 
 {$R *.dfm}
 
-uses uConfigMgr, uCommUtil, uCommText, uWebUtils, frmMainForm, DateUtils,
-     IOUtils, ShellAPI;
+uses uConfigMgr, uCommUtil, uWebUtils, dmGraphUtil, DateUtils,
+     IOUtils, ShellAPI, Themes;
 
 resourcestring
   StrProgressCleanUp    = 'UpdateDlg.Progress.CleanUp';
@@ -137,7 +144,7 @@ var
   List: TStringList;
 begin
   with AskUpdateDialog do begin
-    AskUpdateDialog.Caption := Application.Title;
+    Caption := Application.Title;
     Title := Language.ReadString('UpdateDlg', 'lbTitle', Title);
 
     if LocaleIsBiDi then
@@ -217,6 +224,7 @@ begin
   else begin
     AtomicExchange(Cancelled, 1);
     pbProgress.State := pbsPaused;
+    IconSet.UpdateTaskbar(-1, -1, PROGRESS_PAUSED);
   end;
 end;
 
@@ -343,6 +351,7 @@ begin
       procedure
       begin
         pbProgress.State := pbsError;
+        IconSet.UpdateTaskbar(-1, -1, PROGRESS_ERROR);
         btnTerminate.Caption := btnTerminate.Hint;
         raise Capture;
       end);
@@ -370,22 +379,12 @@ begin
   SetCommCtrlBiDi(Handle, LocaleIsBiDi);
 end;
 
-procedure TUpdaterDlg.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-  if (pbProgress.Position < 100) and (pbProgress.State <> pbsError) then
-    Action := caNone;
-end;
-
-procedure TUpdaterDlg.FormCreate(Sender: TObject);
+procedure TUpdaterDlg.FormAfterMonitorDpiChanged(Sender: TObject; OldDPI,
+  NewDPI: Integer);
 var
   Icon: TIcon;
   Handle: HICON;
 begin
-  Thread := nil;
-
-  WinBoxMain.Icons32.GetIcon(27, AskUpdateDialog.CustomMainIcon);
-  WinBoxMain.Icons32.GetIcon(26, imgIcon.Picture.Icon);
-
   if Succeeded(LoadIconWithScaleDown(0, MakeIntResource(IDI_WARNING),
       GetSystemMetrics(SM_CXSMICON), GetSystemMetrics(SM_CYSMICON), Handle)) then begin
         Icon := TIcon.Create;
@@ -394,6 +393,29 @@ begin
         imgFooter.Picture.Assign(Icon);
         Icon.Free;
       end;
+
+  ClientHeight := InitialHeight * NewDPI div InitialPPI;
+end;
+
+procedure TUpdaterDlg.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  if (pbProgress.Position < 100) and (pbProgress.State <> pbsError) then
+    Action := caNone;
+
+  IconSet.UpdateTaskbar(0, -1, PROGRESS_NONE);
+end;
+
+procedure TUpdaterDlg.FormCreate(Sender: TObject);
+begin
+  Thread := nil;
+
+  ApplyActiveStyle;
+  Perform(UM_ICONSETCHANGED, 0, 0);
+
+  InitialHeight := ClientHeight;
+  InitialPPI := CurrentPPI;
+
+  FormAfterMonitorDpiChanged(Self, 96, CurrentPPI);
 
   ChangeLog := TStringList.Create;
 end;
@@ -412,6 +434,8 @@ begin
   Cancelled := 0;
   pbProgress.Position := 0;
   pbProgress.State := pbsNormal;
+
+  IconSet.UpdateTaskbar(0, pbProgress.Max, PROGRESS_NORMAL);
 
   Thread := nil;
   Thread := TTask.Create(DoUpdate);
@@ -432,8 +456,10 @@ begin
       lbInformation.Caption := Text;
       lbFileName.Caption := FileName;
 
-      if Position <> -1 then
+      if Position <> -1 then begin
         pbProgress.Position := Position;
+        IconSet.UpdateTaskbar(Position, -1, -1);
+      end;
     end);
 end;
 
@@ -480,6 +506,19 @@ procedure TUpdaterDlg.Translate;
 begin
   Language.Translate('UpdateDlg', Self);
   Caption := Application.Title;
+end;
+
+procedure TUpdaterDlg.UMIconsChanged(var Msg: TMessage);
+begin
+  with IconSet do begin
+    IconsMaxDPI.GetIcon(27, AskUpdateDialog.CustomMainIcon);
+    DisplayIcon(26, imgIcon, DefScaleOptions - [soBiDiRotate]);
+  end;
+end;
+
+procedure TUpdaterDlg.WMStyleChanged(var Msg: TMessage);
+begin
+  Color := StyleServices(Self).GetSystemColor(clWindow);
 end;
 
 procedure TUpdaterDlg.ZipProgress(Sender: TObject; FileName: string;

@@ -9,3 +9,5 @@ BANNER_FLOPPY RCDATA bann_floppy.png
 BANNER_HDD RCDATA bann_hdd.png
 BANNER_NEW RCDATA bann_new.png
 SPLASH RCDATA splash.png
+Windows10DarkExplorer VCLSTYLE win10dxp.vsf
+RetroBox95 VCLSTYLE retbox95.vsf

@@ -24,7 +24,10 @@ uses
   frmWizardHDD in 'frmWizardHDD.pas' {WizardHDD},
   frmWizardVM in 'frmWizardVM.pas' {WizardVM},
   frmSplash in 'frmSplash.pas' {WinBoxSplash},
-  dmWinBoxUpd in 'dmWinBoxUpd.pas' {WinBoxUpd: TDataModule};
+  dmWinBoxUpd in 'dmWinBoxUpd.pas' {WinBoxUpd: TDataModule},
+  dmGraphUtil in 'dmGraphUtil.pas' {IconSet: TDataModule},
+  Vcl.Themes,
+  Vcl.Styles;
 
 {$R *.res}
 {$R '..\Data\rcWinBox.RES'}
@@ -35,6 +38,7 @@ var
 begin
   Handle := FindWindow('TWinBoxMain', nil);
   if (Handle <> 0) then begin
+    TWinBoxMain.SendCommandLine(Handle);
     BringWindowToFront(Handle);
     Halt(1);
   end;
@@ -43,6 +47,13 @@ begin
     Halt(2);
 
   Application.Initialize;
+
+  with TStyleManager do begin
+    UseSystemStyleAsDefault := true;
+    SystemHooks := SystemHooks - [shDialogs];
+    TrySetStyle('Windows10 DarkExplorer', false);
+  end;
+
   WinBoxSplash := TWinBoxSplash.Create(nil);
   WinBoxSplash.Show;
   Application.ProcessMessages;
@@ -50,6 +61,7 @@ begin
   Application.MainFormOnTaskbar := True;
   Application.Title := 'WinBox for 86Box';
   Application.ActionUpdateDelay := 50;
+  Application.CreateForm(TIconSet, IconSet);
   Application.CreateForm(TWinBoxMain, WinBoxMain);
   Application.CreateForm(THDSelect, HDSelect);
   Application.Run;

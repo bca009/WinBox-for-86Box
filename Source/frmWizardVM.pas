@@ -22,9 +22,9 @@
 (*
 
   ToDo in refactor:
-    lehetõség skippelni a templateket
-    automatikusan mentsen log fájlt a vhd/img mellé
-    kicserélni a felsõ részt (itt és más fájlokban is)
+  X lehetõség skippelni a templateket
+  X automatikusan mentsen log fájlt a vhd/img mellé
+    kicserélni a felsõ részt (itt és más fájlokban is) [wtf?]
 
 *)
 
@@ -33,10 +33,10 @@ unit frmWizardVM;
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  StdCtrls, Vcl.Samples.Spin, ComCtrls, ExtCtrls, uBaseProfile, uVMSample,
-  frmSelectHDD, frmWizardHDD, ShellAPI, IniFiles, Zip, uLang, Registry,
-  uImaging;
+  Windows, Messages, SysUtils, Classes, Graphics, Controls,
+  Forms, Dialogs, StdCtrls, Vcl.Samples.Spin, ComCtrls,
+  ExtCtrls, uBaseProfile, uVMSample, frmSelectHDD, frmWizardHDD,
+  ShellAPI, IniFiles, Zip, uLang, Registry, uImaging, uCommText;
 
 type
   IWizardVM = interface
@@ -140,6 +140,7 @@ type
     FAutoCreate: boolean;
     ADiskData: TDiskData;
     ProfileID: string;
+    procedure UMIconsChanged(var Msg: TMessage); message UM_ICONSETCHANGED;
   protected
   public
     Samples: TVMSampleFilter;
@@ -170,7 +171,7 @@ var
 
 implementation
 
-uses uCommUtil, uCommText, uConfigMgr, frmMainForm;
+uses uCommUtil, uConfigMgr, dmGraphUtil;
 
 resourcestring
   WizSelectWorkDir = 'WizardVM.SelectWorkDir';
@@ -324,9 +325,8 @@ end;
 procedure TWizardVM.cbOption1DrawItem(Control: TWinControl; Index: Integer;
   Rect: TRect; State: TOwnerDrawState);
 begin
-  with Control as TComboBox do begin
-    Canvas.TextRect(Rect, Rect.Left, Rect.Top, Items.ValueFromIndex[Index]);
-  end;
+  with Control as TComboBox do
+    ComboDrawBiDi(Canvas, Rect, Items.ValueFromIndex[Index]);
 end;
 
 procedure TWizardVM.btnHDDClick(Sender: TObject);
@@ -370,8 +370,8 @@ end;
 
 procedure TWizardVM.FormCreate(Sender: TObject);
 begin
-  LoadImage('BANNER_NEW', imgBanner, false);
-  WinBoxMain.Icons32.GetIcon(0, imgWarning.Picture.Icon);
+  ApplyActiveStyle;
+  Perform(UM_ICONSETCHANGED, 0, 0);
 
   Samples := TVMSampleFilter.Create(true);
   DiskTool := CreateWizardHDD(Self);
@@ -526,6 +526,7 @@ begin
         if not CustomSample then begin
           ExtractZipFile(Sample.FileName, edPath.Text);
           DeleteWithShell(edPath.Text + 'winbox.*', false);
+          IconSet.ExtractTemplIcon(Sample.FileName, edPath.Text);
         end;
 
         Config := TryLoadIni(edPath.Text + Sample.ConfigFile);
@@ -577,12 +578,16 @@ begin
 
             if LoWord(EmuLangCtrl) <> 2 then
               Config.WriteString('General', 'language', AdjustEmuLang);
+
+            if EmuIconSet <> '' then
+              Config.WriteString('General', 'iconset', EmuIconSet);
           end;
 
           with TProfile.Create(ProfileID, false) do
             try
               WorkingDirectory := edPath.Text;
               FriendlyName := edName.Text;
+              Fullscreen := (uConfigMgr.Config.DisplayFlags and DISPLAY_DEFFULLSCREEN) <> 0;
               Save;
             finally
               Free;
@@ -600,6 +605,15 @@ begin
     if CustomSample then
       FreeAndNil(Sample);
   end;
+end;
+
+procedure TWizardVM.UMIconsChanged(var Msg: TMessage);
+begin
+  IconSet.LoadImage('BANNER_NEW', imgBanner,
+    DefScaleOptions - [soBiDiRotate]);
+
+  IconSet.DisplayIcon(0, imgWarning,
+    DefScaleOptions - [soBiDiRotate]);
 end;
 
 procedure TWizardVM.UpdateCHS;

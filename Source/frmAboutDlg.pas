@@ -24,7 +24,8 @@ unit frmAboutDlg;
 interface
 
 uses
-  Windows, Classes, Forms, StdCtrls, Controls, ExtCtrls, uLang;
+  Windows, Messages, Classes, Forms, StdCtrls, Controls, ExtCtrls,
+  uLang;
 
 type
   TAboutDlg = class(TForm, ILanguageSupport)
@@ -49,7 +50,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure lbWebApplicationClick(Sender: TObject);
   private
-    { Private declarations }
+    procedure CMStyleChanged(var Msg: TMessage); message CM_STYLECHANGED;
   public
     LangName: string;
     procedure GetTranslation(Language: TLanguage); stdcall;
@@ -64,7 +65,16 @@ implementation
 
 {$R *.dfm}
 
-uses uCommUtil, ShellAPI;
+uses uCommUtil, dmGraphUtil, Themes, Graphics, ShellAPI;
+
+procedure TAboutDlg.CMStyleChanged(var Msg: TMessage);
+begin
+  inherited;
+  TStyleManager.FixHiddenEdits(Self, true, StyleServices(Self).IsSystemStyle);
+
+  Color := edVersion.Color;
+  Font.Color := edVersion.Font.Color;
+end;
 
 procedure TAboutDlg.FlipBiDi;
 begin
@@ -74,16 +84,17 @@ end;
 
 procedure TAboutDlg.FormCreate(Sender: TObject);
 begin
-  LoadImage('ABOUT', imgSplash, false);
+  LoadImageRes('ABOUT', imgSplash,
+    DefScaleOptions - [soBiDiRotate]);
   LangName := Copy(ClassName, 2, MaxInt);
+
+  ApplyActiveStyle;
 
   Translate;
   if LocaleIsBiDi then
     FlipBiDi;
 
   edVersion.Text := GetFileVer(ParamStr(0));
-  lbTitle.Left := (ClientWidth - lbTitle.Width) div 2;
-  lbLicensing.Left := (ClientWidth - lbLicensing.Width) div 2;
 end;
 
 procedure TAboutDlg.GetTranslation(Language: TLanguage);

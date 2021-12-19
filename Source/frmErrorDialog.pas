@@ -32,12 +32,9 @@ unit frmErrorDialog;
 interface
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, ExtCtrls, AppEvnts,
-  JclSysUtils, JclUnitVersioning, JclUnitVersioningProviders, JclDebug,
-  Vcl.ComCtrls, uLang;
+  Dialogs, StdCtrls, ExtCtrls, AppEvnts, uCommText,JclSysUtils, uLang, 
+  JclUnitVersioning, JclUnitVersioningProviders, JclDebug, ComCtrls;
 
-const
-  UM_CREATEDETAILS = WM_USER + $100;
 type
   TExceptionDialog = class(TForm, ILanguageSupport)
     SaveBtn: TButton;
@@ -58,6 +55,8 @@ type
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormDestroy(Sender: TObject);
     procedure FormResize(Sender: TObject);
+    procedure FormAfterMonitorDpiChanged(Sender: TObject; OldDPI,
+      NewDPI: Integer);
   private
     FDetailsVisible: Boolean;
     FThreadID: DWORD;
@@ -87,6 +86,8 @@ type
     procedure GetTranslation(Language: TLanguage); stdcall;
     procedure Translate; stdcall;
     procedure FlipBiDi; stdcall;
+
+    procedure CMStyleChange(var Msg: TMessage); message CM_STYLECHANGED;
   end;
   TExceptionDialogClass = class of TExceptionDialog;
 var
@@ -94,9 +95,10 @@ var
 implementation
 {$R *.dfm}
 uses
-  ClipBrd, Math, uCommUtil, uCommText,
-  JclBase, JclFileUtils, JclHookExcept, JclPeImage, JclStrings, JclSysInfo, JclWin32,
-  frmMainForm;
+  ClipBrd, Math, uCommUtil, dmGraphUtil, JclBase,JclFileUtils, 
+  JclHookExcept, JclPeImage, JclStrings, JclSysInfo, JclWin32,
+  frmMainForm, Themes;
+
 resourcestring
   RsExceptionClass = 'Exception class: %s';
   RsExceptionMessage = 'Exception message: %s';
@@ -251,6 +253,20 @@ begin
   end;
 end;
 //----------------------------------------------------------------------------
+procedure TExceptionDialog.CMStyleChange(var Msg: TMessage);
+begin
+  inherited;
+  Color := StyleServices(Self).GetSystemColor(clBtnFace);
+
+  with TextLines do
+    if StyleServices(Self).IsSystemStyle then
+      Font.Color :=
+        StyleServices(Self).GetSystemColor(clWindowText)
+    else
+      Font.Color :=
+        StyleServices(Self).GetStyleFontColor(sfTextLabelNormal);
+end;
+
 procedure TExceptionDialog.CopyReportToClipboard;
 begin
   ClipBoard.AsText := ReportAsText;
@@ -504,6 +520,13 @@ begin
   FlipChildren(true);
 end;
 
+procedure TExceptionDialog.FormAfterMonitorDpiChanged(Sender: TObject; OldDPI,
+  NewDPI: Integer);
+begin
+  FFullHeight := FFullHeight * NewDPI div OldDPI;
+  FNonDetailsHeight := FNonDetailsHeight * NewDPI div OldDPI;
+end;
+
 procedure TExceptionDialog.FormCreate(Sender: TObject);
 var
   Handle: HICON;
@@ -511,6 +534,8 @@ var
 begin
   FFullHeight := ClientHeight;
   DetailsVisible := False;
+
+  ApplyActiveStyle;
 
   Translate;
   if LocaleIsBiDi then
@@ -525,6 +550,8 @@ begin
         OnPaint := nil;
         Icon.Free;
       end;
+
+  Perform(CM_STYLECHANGED, 0, 0);
 end;
 //--------------------------------------------------------------------------------------------------
 procedure TExceptionDialog.FormDestroy(Sender: TObject);

@@ -24,8 +24,9 @@ unit frmWizardHDD;
 interface
 
 uses
-  Windows, SysUtils, Classes, Forms, Dialogs, StdCtrls, ComCtrls,
-  Controls, ExtCtrls, uImaging, uLang, Vcl.Samples.Spin;
+  Windows, Messages, SysUtils, Classes, Forms, Dialogs,
+  StdCtrls, ComCtrls, Controls, ExtCtrls, Vcl.Samples.Spin,
+  uLang, uImaging, uCommText;
 
 type
   IWizardHDD = interface
@@ -133,6 +134,8 @@ type
     FAutoCreate: boolean;
     FDiskChanged, FFirst: boolean;
     procedure UpdateUI;
+
+    procedure UMIconsChanged(var Msg: TMessage); message UM_ICONSETCHANGED;
   public
     FDiskData: TDiskData;
     function GetIsVHD: boolean; stdcall;
@@ -164,7 +167,8 @@ implementation
 
 {$R *.dfm}
 
-uses uCommUtil, uCommText, frmSelectHDD, Printers, frmMainForm, frmErrorDialog;
+uses
+  uCommUtil, frmSelectHDD, Printers, frmErrorDialog, dmGraphUtil;
 
 resourcestring
   OpenDlgVhdDisk = 'OpenDialog.VhdDisk';
@@ -393,9 +397,9 @@ begin
 
   FDiskChanged := false;
   FFirst := true;
-  LoadImage('BANNER_HDD', imgBanner, false);
-  WinBoxMain.Icons32.GetIcon(0, imgWarning.Picture.Icon);
-  WinBoxMain.Icons32.GetIcon(11, imgInfo.Picture.Icon);
+
+  ApplyActiveStyle;
+  Perform(UM_ICONSETCHANGED, 0, 0);
 end;
 
 procedure TWizardHDD.FormShow(Sender: TObject);
@@ -624,6 +628,17 @@ begin
 
   FDiskData.szConnector[19] := #0;
   SetConnectorFilter(false);
+end;
+
+procedure TWizardHDD.UMIconsChanged(var Msg: TMessage);
+begin
+  IconSet.LoadImage('BANNER_HDD', imgBanner,
+    DefScaleOptions - [soBiDiRotate]);
+
+  with IconSet do begin
+    DisplayIcon(0, imgWarning, DefScaleOptions - [soBiDiRotate]);
+    DisplayIcon(11, imgInfo, DefScaleOptions - [soBiDiRotate]);
+  end;
 end;
 
 procedure TWizardHDD.UpdateUI;

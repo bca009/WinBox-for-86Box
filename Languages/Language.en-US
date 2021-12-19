@@ -197,6 +197,15 @@ WizardVM.NoManufaturer=(Unknown Manufacturer)
 WizardVM.NewVM=New Virtual Machine #%d
 WizardVM.SelectWorkDir=Select the desired Working Directory:
 
+QuadEq.NoSolution=The equation has no solution.
+QuadEq.AnySolution=Any number can be the solution to the equation.
+QuadEq.LinearSolution=The equation is linear, with solution x=%.2f.
+QuadEq.SingleSolution=The equation has two coincident real solutions: x1=x2=%.2f.
+QuadEq.DoubleSolution=The equation has two different real solutions: x1=%.2f, and x2=%.2f.
+QuadEq.ComplexSolution=The equation has two different complex solutions: x1=%.2f%s%.2fi, and x2=%.2f%s%.2fi.
+
+IconSet.DeferStyleChange=The system-wide application mode or the program theme settings have been changed and saved.\r\n\r\nThe changes will take effect the next time the program is started.
+
 [UpdateDlg]
 btnTerminate.Hint=&Close
 btnTerminate=&Abort
@@ -427,18 +436,26 @@ lbDiskSizeDesc=Occupied Space:
 
 [ProgSettDlg]
 ProgSettDlg=Program Settings 
-tabGeneral=General
-grpDefaultPath=Place of New Virtual Machines 
+tabVMs=Virtual Machines
+grpNewVMs=New Virtual Machines
 lbDefaultPath=Here you can define, where you want to store the working directories of newly created virtual machines.
 lbPath=&Path:
 lbEraseProt=&Erase Protection: 
 lbOnlyNewVM=This setting affects only newly created virtual machines, all the existing ones remain unchanged.
 btnDefPath=&Default
 btnOpenPath=&Open Directory...
+lbEraseProtNote=Erase protection prevents you from accidentally deleting files of protected virtual machines from within the program's user interface.
 cbEraseProt.Items[0]=Disabled for new, and later imported machines
 cbEraseProt.Items[1]=Enabled only for later imported virtual machines
 cbEraseProt.Items[2]=Enabled for new, and later imported machines
-grpBehavior=Behavior of WinBox
+btnDefEraseProt=D&efault
+lbDisplaySettings=&Appearance settings:
+cbDefFullscreen=Start new Virtual Machines on &full screen by default
+lkAppearance=More appearance settings for new virtual machines
+lkLanguage=Language settings for new virtual machines
+lkIconSet=Iconset settings for new virtual machines
+tabGeneral=General
+grpBehavior=Program Behavior
 lbTrayBehavior=&Notification area icon:
 lbLaunchTimeout=Emulator startup &timeout:
 lbMilliseconds=millisec.
@@ -447,22 +464,33 @@ cbTrayBehavior.Items[0]=No system tray icon, minimized to taskbar
 cbTrayBehavior.Items[1]=Icon on the tray, but minimized to taskbar
 cbTrayBehavior.Items[2]=Minimize to the system tray icon
 cbTrayBehavior.Items[3]=Close to the system tray icon
-lbWinBoxUpdate=&Update management:
-cbWinBoxUpdate.Items[0]=Do not search for new WinBox versions
-cbWinBoxUpdate.Items[1]=Manual download option, custom update 
-cbWinBoxUpdate.Items[2]=Installer download, guided installation 
-cbWinBoxUpdate.Items[3]=Installer download, automatic installation 
-tabEmulator=Emulator
+lbTaskbarProgress=&Taskbar &load indicator:
+cbTaskbarProgress.Items[0]=Disabled
+cbTaskbarProgress.Items[1]=Display Host CPU Load
+cbTaskbarProgress.Items[2]=Display Allocated Memory
+cbTaskbarProgress.Items[3]=Display Running Machines
+lkProgramUpdate=Automatic Update settings for the Program
 grpDefEmulator=Emulator Defaults
 lbDefEmulator=On this tab, you can specify the informations of the 86Box emulator used by Virtual Machines by default. 
 lbAffectedVMs=This setting only affects machines that use the default emulator. You may differ from this in the virtual machine profile settings.
 lb86BoxPath=&Path:
 btnDef86Box=&Default
 btnOpen86Box=&Open Directory...
-grpAutoUpdate=Automatic Updates
+lkEmulatorUpdate=Automatic Update settings for the Emulator
+tabAutoUpdate=Automatic Updates
+grpProgramUpdates=Program Updates
+lbWinBoxUpdate=&Update management of WinBox:
+cbWinBoxUpdate.Items[0]=Do not search for new WinBox versions
+cbWinBoxUpdate.Items[1]=Manual download option, custom update 
+cbWinBoxUpdate.Items[2]=Installer download, guided installation 
+cbWinBoxUpdate.Items[3]=Installer download, automatic installation 
+btnDefWinBoxUpd=&Default
+btnPortWinBoxUpd=&Portable Mode
+grpEmulatorUpdates=Emulator Updates
 cbAutoUpdate=Search for Emulator &Updates automatically
 cbGetSource=&Download Source Code as well, if possible
 lbArtifact=Download the following 86Box &artifact:
+lbArtfSwitchNote=To change the current artifact right now, run the Emulator Update module after closing the window.
 tabAppearance=Appearance
 grpAppearance=Appearance of new Virtual Machines
 lbAppearance=Here you can specify the appearance of new virtual machines. Later this can be customized on per machine basis.
@@ -494,6 +522,23 @@ cbWindowSizing.Items[5]=Magnify display by 2x
 rbManualOptions=&Manually Entered Settings
 rbNoDisplayOptions=&Do not create Display Settings 
 btnManOptLoad=Load from &File...
+tabUI=User Interface
+grpPositionData=Position, Size and Layout
+lbPositionCurrentDesc=Current Size, and Position:
+lbPositionSavedDesc=Saved Size, and Position:
+lbPositionCurrent.Hint=(default)
+lbPositionSaved.Hint=(default)
+btnPositionClear=De&fault
+btnPositionSave=Save &State ▼
+grpIconSets=Icon sets
+lbProgIconSet=Icon set used by the &program:
+lbEmuIconSet=Icon set used by the &emulator:
+lbEmuIconSetNote=The emulator icon set setting only affects new virtual machines, it has no effect on the settings of existing virtual machines.
+lbIconSetDesc=At this point you can select from the list the set of icons you want to use with the program and emulator.
+cbProgIconSet.Hint=(Default icon set of the Program)
+btnDefProgIconSet=&Default
+cbEmuIconSet.Hint=(Default icon set of the Emulator)
+btnDefEmuIconSet=D&efault
 tabLanguage=Language
 grpLanguage=Language Settings
 lbLanguage=In this section you can change the language related behavior of the program and the emulator.
@@ -508,6 +553,20 @@ cbEmuLang.Items[0]=(System Default Language)
 btnDefEmuLang=De&fault
 rbEmuLangFree=Do&n\'t change the language settings of the emulator
 cbEmuLangForced=&Override the language of the emulator for all virtual machines
+tabStyles=Visual Styles
+grpThemes=Themes, Colors, and Styles
+lbStyleDesc=On this page, you can adjust the settings of dark mode or you can completely change the look of the program with custom themes.
+rbStyleSystem=Use a style that matches the system theme and color settings
+rbStyleColor=Use a style that matches the system, but with custom color settings
+lbStyleColor=&Color Mode:
+cbStyleColor.Items[0]=Light application-mode
+cbStyleColor.Items[1]=Dark application-mode
+rbStyleCustom=Use a unique visual style, which differs from the system theme
+lbStyleName=Visual &Style:
+lbStylePreview=&Preview:
+lbStyleNoPreview=(not available)
+lbQuadEq=Quadratic Equation Solver\r\nax^2+bx+c\x3D0
+btnQuadEqSolve=&Solve
 tabTools=Tools
 grpTools=List of User Tools
 lbTools=WinBox can create a menu from applications, which are frequently used along with Virtual Machines. The list of the applications can be configured at this page.
@@ -545,6 +604,13 @@ btnImport=&Import \u25BC
 miImport86Mgr=Transfer settings from 86Box &Manager
 miImportWinBox=Transfer settings from &WinBox Reloaded
 miDefaults=Reset settings to &factory defaults
+
+[pmPosition]
+miCompleteState=Save the complete &state of the main window
+miPositionOnly=Save only the &position of the main window
+miSizeOnly=Save only the si&ze of the main window
+miLayoutOnly=Save only the &layout of the main window
+miDefaults2=Reset settings to &factory defaults
 
 [ProfSettDlg]
 ProfSettDlg=Profile Settings

@@ -15,6 +15,7 @@ object AboutDlg: TAboutDlg
   Font.Style = []
   ParentBiDiMode = False
   Position = poMainFormCenter
+  StyleElements = [seFont, seBorder]
   OnCreate = FormCreate
   PixelsPerInch = 96
   DesignSize = (
@@ -27,6 +28,8 @@ object AboutDlg: TAboutDlg
     Width = 358
     Height = 156
     Align = alTop
+    Stretch = True
+    ExplicitTop = 8
   end
   object lbTitle: TLabel
     Left = 0
@@ -115,11 +118,12 @@ object AboutDlg: TAboutDlg
     AutoSize = False
     Caption = 'Weboldal'
     Font.Charset = DEFAULT_CHARSET
-    Font.Color = 14120960
+    Font.Color = clHotLight
     Font.Height = -11
     Font.Name = 'Tahoma'
     Font.Style = [fsUnderline]
     ParentFont = False
+    StyleElements = [seClient, seBorder]
     OnClick = lbWebApplicationClick
   end
   object lbWebDeveloper: TLabel
@@ -133,11 +137,12 @@ object AboutDlg: TAboutDlg
     AutoSize = False
     Caption = 'Weboldal'
     Font.Charset = DEFAULT_CHARSET
-    Font.Color = 14120960
+    Font.Color = clHotLight
     Font.Height = -11
     Font.Name = 'Tahoma'
     Font.Style = [fsUnderline]
     ParentFont = False
+    StyleElements = [seClient, seBorder]
     OnClick = lbWebApplicationClick
   end
   object lbConnProjects: TLabel
@@ -187,11 +192,12 @@ object AboutDlg: TAboutDlg
     AutoSize = False
     Caption = 'Weboldal'
     Font.Charset = DEFAULT_CHARSET
-    Font.Color = 14120960
+    Font.Color = clHotLight
     Font.Height = -11
     Font.Name = 'Tahoma'
     Font.Style = [fsUnderline]
     ParentFont = False
+    StyleElements = [seClient, seBorder]
     OnClick = lbWebApplicationClick
   end
   object lbJCL: TLabel
@@ -213,11 +219,12 @@ object AboutDlg: TAboutDlg
     AutoSize = False
     Caption = 'Weboldal'
     Font.Charset = DEFAULT_CHARSET
-    Font.Color = 14120960
+    Font.Color = clHotLight
     Font.Height = -11
     Font.Name = 'Tahoma'
     Font.Style = [fsUnderline]
     ParentFont = False
+    StyleElements = [seClient, seBorder]
     OnClick = lbWebApplicationClick
   end
   object lbLicensing: TLabel
@@ -240,6 +247,7 @@ object AboutDlg: TAboutDlg
     ReadOnly = True
     TabOrder = 0
     Text = 'edVersion'
+    StyleElements = [seBorder]
   end
   object btnOK: TButton
     Left = 260

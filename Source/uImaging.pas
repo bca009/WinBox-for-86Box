@@ -66,7 +66,7 @@ function CreateFloppyImage(const FileName: string; const Index: integer;
 
 implementation
 
-uses frmWaitForm;
+uses dmGraphUtil, frmWaitForm;
 
 const
   FloppyImages: array [0..9] of string =
@@ -98,6 +98,7 @@ begin
       with TWaitForm.Create(Application) do
         try
           ProgressBar.Max := Count;
+          IconSet.UpdateTaskbar(0, Count, PROGRESS_NORMAL);
           Show;
           with TFileStream.Create(FileName, fmCreate) do
             try
@@ -105,11 +106,13 @@ begin
                 WriteBuffer(Buffer^, BufferSize);
                 ProgressBar.Position := I;
                 Application.ProcessMessages;
+                IconSet.UpdateTaskbar(I, -1, -1);
               end;
             finally
               Free;
             end;
         finally
+          IconSet.UpdateTaskbar(0, -1, PROGRESS_NONE);
           Close;
           Free;
         end;
@@ -203,10 +206,13 @@ begin
       with TWaitForm.Create(Application) do
         try
           ProgressBar.Style := pbstMarquee;
+          IconSet.UpdateTaskbar(0, -1, PROGRESS_MARQUEE);
           Show;
           while not HasOverlappedIoCompleted(Overlapped) do
             Application.ProcessMessages;
         finally
+          IconSet.UpdateTaskbar(0, -1, PROGRESS_NONE);
+          Close;
           Free;
         end;
     else begin

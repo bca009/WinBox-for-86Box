@@ -24,18 +24,19 @@ unit frmProgSettDlg;
 interface
 
 uses
-  Types, Windows, SysUtils, Classes, Controls, Forms, Dialogs, StdCtrls,
-  ComCtrls, Buttons, ExtCtrls, Vcl.Samples.Spin, CheckLst, Menus, Registry,
-  ShellAPI, uLang;
+  Types, Windows, Messages, SysUtils, Classes, Controls, Forms,
+  Dialogs, StdCtrls, ComCtrls, Buttons, ExtCtrls, Vcl.Samples.Spin,
+  CheckLst, Menus, Registry, ShellAPI, IniFiles, uLang, uCommText,
+  uConfigMgr;
 
 type
   TProgSettDlg = class(TForm, ILanguageSupport)
     pcPages: TPageControl;
     btnOK: TButton;
     btnCancel: TButton;
-    tabGeneral: TTabSheet;
+    tabVMs: TTabSheet;
     tabAppearance: TTabSheet;
-    grpDefaultPath: TGroupBox;
+    grpNewVMs: TGroupBox;
     imgNewVM: TImage;
     lbDefaultPath: TLabel;
     lbPath: TLabel;
@@ -47,13 +48,6 @@ type
     cbEraseProt: TComboBox;
     imgInfo: TImage;
     lbOnlyNewVM: TLabel;
-    grpBehavior: TGroupBox;
-    cbMinimizeOnStart: TCheckBox;
-    lbTrayBehavior: TLabel;
-    cbTrayBehavior: TComboBox;
-    lbLaunchTimeout: TLabel;
-    spLaunchTimeout: TSpinEdit;
-    lbMilliseconds: TLabel;
     grpAppearance: TGroupBox;
     imgDisplay: TImage;
     lbDefaultDisplay: TLabel;
@@ -83,7 +77,7 @@ type
     edToolName: TEdit;
     mmToolPath: TMemo;
     btnToolBrowse: TButton;
-    tabEmulator: TTabSheet;
+    tabGeneral: TTabSheet;
     grpDefEmulator: TGroupBox;
     imgEmulator: TImage;
     lbDefEmulator: TLabel;
@@ -93,11 +87,6 @@ type
     btnDef86Box: TButton;
     btnOpen86Box: TButton;
     btn86Box: TButton;
-    grpAutoUpdate: TGroupBox;
-    lbArtifact: TLabel;
-    cbAutoUpdate: TCheckBox;
-    cbGetSource: TCheckBox;
-    edArtifact: TEdit;
     tabSpecial: TTabSheet;
     grpExtraPaths: TGroupBox;
     lbExtraPaths: TLabel;
@@ -130,9 +119,6 @@ type
     N1: TMenuItem;
     miDefaults: TMenuItem;
     odConfigFiles: TOpenDialog;
-    lbWinBoxUpdate: TLabel;
-    cbWinBoxUpdate: TComboBox;
-    tvArtifact: TTreeView;
     tabLanguage: TTabSheet;
     grpLanguage: TGroupBox;
     imgLanguage: TImage;
@@ -148,6 +134,88 @@ type
     lbEmuLangAvail: TLabel;
     btnDefEmuLang: TButton;
     cbEmuLangForced: TCheckBox;
+    tabUI: TTabSheet;
+    lbProgIconSet: TLabel;
+    cbProgIconSet: TComboBox;
+    btnDefProgIconSet: TButton;
+    cbEmuIconSet: TComboBox;
+    btnDefEmuIconSet: TButton;
+    lbPositionSavedDesc: TLabel;
+    lbPositionSaved: TLabel;
+    btnPositionClear: TButton;
+    lbPositionCurrentDesc: TLabel;
+    lbPositionCurrent: TLabel;
+    btnPositionSave: TButton;
+    pmPosition: TPopupMenu;
+    miCompleteState: TMenuItem;
+    N2: TMenuItem;
+    miPositionOnly: TMenuItem;
+    miSizeOnly: TMenuItem;
+    miLayoutOnly: TMenuItem;
+    N3: TMenuItem;
+    miDefaults2: TMenuItem;
+    grpPositionData: TGroupBox;
+    grpIconSets: TGroupBox;
+    lbEmuIconSet: TLabel;
+    tabStyles: TTabSheet;
+    lbEmuIconSetNote: TLabel;
+    lbIconSetDesc: TLabel;
+    grpThemes: TGroupBox;
+    lbStyleName: TLabel;
+    lbStyleColor: TLabel;
+    cbStyleName: TComboBox;
+    rbStyleSystem: TRadioButton;
+    rbStyleColor: TRadioButton;
+    cbStyleColor: TComboBox;
+    rbStyleCustom: TRadioButton;
+    lbStylePreview: TLabel;
+    lbStyleDesc: TLabel;
+    pnStylePreview: TPanel;
+    lbQuadEq: TLabel;
+    spQuadEqA: TSpinEdit;
+    spQuadEqC: TSpinEdit;
+    spQuadEqB: TSpinEdit;
+    lbQuadEqA: TLabel;
+    lbQuadEqB: TLabel;
+    lbQuadEqC: TLabel;
+    mmQuadEq: TMemo;
+    btnQuadEqSolve: TButton;
+    imgStyle: TImage;
+    imgIconSet: TImage;
+    tabAutoUpdate: TTabSheet;
+    grpEmulatorUpdates: TGroupBox;
+    lbArtifact: TLabel;
+    cbAutoUpdate: TCheckBox;
+    cbGetSource: TCheckBox;
+    edArtifact: TEdit;
+    tvArtifact: TTreeView;
+    imgInfo2: TImage;
+    lbArtfSwitchNote: TLabel;
+    btnDefEraseProt: TButton;
+    grpBehavior: TGroupBox;
+    lbLaunchTimeout: TLabel;
+    spLaunchTimeout: TSpinEdit;
+    lbMilliseconds: TLabel;
+    lkEmulatorUpdate: TLabel;
+    lbTrayBehavior: TLabel;
+    cbTrayBehavior: TComboBox;
+    cbMinimizeOnStart: TCheckBox;
+    lbTaskbarProgress: TLabel;
+    cbTaskbarProgress: TComboBox;
+    lkProgramUpdate: TLabel;
+    grpProgramUpdates: TGroupBox;
+    lbWinBoxUpdate: TLabel;
+    cbWinBoxUpdate: TComboBox;
+    btnDefWinBoxUpd: TButton;
+    btnPortWinBoxUpd: TButton;
+    lbEraseProtNote: TLabel;
+    lbDisplaySettings: TLabel;
+    cbDefFullscreen: TCheckBox;
+    lkAppearance: TLabel;
+    lkLanguage: TLabel;
+    lkIconSet: TLabel;
+    bvStylePreview: TBevel;
+    lbStyleNoPreview: TLabel;
     procedure Reload(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure cbLoggingChange(Sender: TObject);
@@ -156,7 +224,7 @@ type
       Selected: Boolean);
     procedure CustomDisplayChange(Sender: TObject);
     procedure btnOKClick(Sender: TObject);
-    procedure btnImportClick(Sender: TObject);
+    procedure btnCustomDropDown(Sender: TObject);
     procedure miImportWinBoxClick(Sender: TObject);
     procedure miImport86MgrClick(Sender: TObject);
     procedure btnBrowseClick(Sender: TObject);
@@ -170,12 +238,27 @@ type
     procedure tvArtifactChange(Sender: TObject; Node: TTreeNode);
     procedure FormDestroy(Sender: TObject);
     procedure UpdateLangRadio(Sender: TObject);
+    procedure cbProgIconSetDrawItem(Control: TWinControl; Index: Integer;
+      Rect: TRect; State: TOwnerDrawState);
+    procedure btnPositionClick(Sender: TObject);
+    procedure UpdateStyleControls(Sender: TObject);
+    procedure btnQuadEqSolveClick(Sender: TObject);
+    procedure lbLinkClick(Sender: TObject);
   private
-    procedure UpdateTools(Tools: TStrings);
-    procedure UpdateLanguages(const Mode: integer);
-  public
     LangName: string;
     ProgLangs, EmuLangs: TStringList;
+
+    PositionData: TPositionData;
+
+    procedure UpdateTools(Tools: TStrings);
+    procedure UpdateLanguages(const Mode: integer);
+    procedure UpdateIconSets(const Mode: integer);
+    procedure UpdateStyles(const Mode: integer);
+
+    function GetSelectedStyle: string;
+
+    procedure UMIconsChanged(var Msg: TMessage); message UM_ICONSETCHANGED;
+  protected
     procedure GetTranslation(Language: TLanguage); stdcall;
     procedure Translate; stdcall;
     procedure FlipBiDi; stdcall;
@@ -186,7 +269,7 @@ var
 
 implementation
 
-uses uCommUtil, uCommText, uConfigMgr, frmMainForm, IniFiles;
+uses uCommUtil, frmMainForm, dmGraphUtil, Graphics, Themes;
 
 resourcestring
   StrLvToolsColumn0 = '.lvTools.Column[0]';
@@ -199,6 +282,17 @@ resourcestring
   AskSaveChanges = '.AskSaveChanges';
 
   EOpenConfigLocked = '.EOpenConfigLocked';
+  StrPositionFmt = '(%dx%d)';
+
+  StrLightStyle = 'Windows';
+  StrDarkStyle  = 'Windows10 DarkExplorer';
+
+  StrQuadEqNo      = 'QuadEq.NoSolution';
+  StrQuadEqAny     = 'QuadEq.AnySolution';
+  StrQuadEqLinear  = 'QuadEq.LinearSolution';
+  StrQuadEqSingle  = 'QuadEq.SingleSolution';
+  StrQuadEqDouble  = 'QuadEq.DoubleSolution';
+  StrQuadEqComplex = 'QuadEq.ComplexSolution';
 
 {$R *.dfm}
 
@@ -256,15 +350,22 @@ begin
          cbProgLang.OnChange(cbProgLang);
        end;
     6: cbEmuLang.ItemIndex := EmuLangs.IndexOf(Defaults.EmulatorLang);
+    7: cbProgIconSet.ItemIndex := cbProgIconSet.Items.IndexOfName(Defaults.ProgIconSet);
+    8: cbEmuIconSet.ItemIndex := cbEmuIconSet.Items.IndexOfName(Defaults.EmuIconSet);
+    9: cbEraseProt.ItemIndex := Defaults.EraseProtLvl;
+    10: cbWinBoxUpdate.ItemIndex := Defaults.WinBoxUpdate;
+    11: cbWinBoxUpdate.ItemIndex := 1; //manual download and update
   end;
 end;
 
-procedure TProgSettDlg.btnImportClick(Sender: TObject);
+procedure TProgSettDlg.btnCustomDropDown(Sender: TObject);
 begin
-  with ClientToScreen(Point(
-      btnImport.Left + ord(LocaleIsBiDi) * btnImport.Width,
-      btnImport.Top + btnImport.Height)) do
-    pmImport.Popup(X, Y);
+  if Sender is TButton then
+    with Sender as TButton do
+      if Assigned(DropDownMenu) and Assigned(Parent) then
+        with Parent.ClientToScreen(Point(Left +
+          ord(LocaleIsBiDi) * Width, Top + Height)) do
+            DropDownMenu.Popup(X, Y);
 end;
 
 procedure TProgSettDlg.btnManOptLoadClick(Sender: TObject);
@@ -282,9 +383,16 @@ begin
            try
              with Config do begin
                mmManualOptions.Clear;
-               Config.DeleteKey('General', 'window_fixed_res');
-               Config.DeleteKey('General', 'language');
-               Config.ReadSectionValues('General', mmManualOptions.Lines);
+
+               with TConfiguration.Create(false) do
+                 try
+                   Config.ReadSectionValues('General', DisplayValues);
+                   Migrate(DisplayValues);
+                   mmManualOptions.Lines.Assign(DisplayValues);
+                 finally
+                   Free;
+                 end;
+
                UpdateApperance(mmManualOptions);
              end;
            finally
@@ -383,6 +491,10 @@ begin
       3:    DisplayValues.Clear;
     end;
 
+    DisplayFlags := 0;
+    if cbDefFullscreen.Checked then
+      DisplayFlags := DisplayFlags or DISPLAY_DEFFULLSCREEN;
+
     if rbEmuLangFix.Checked then
       EmuLangCtrl := 1
     else if rbEmuLangFree.Checked then
@@ -401,6 +513,14 @@ begin
       (cbEmuLang.ItemIndex >= 0) and
       (cbEmuLang.ItemIndex < EmuLangs.Count) then
         EmulatorLang := EmuLangs[cbEmuLang.ItemIndex];
+
+    ProgIconSet := TextLeft(cbProgIconSet.Text, '=');
+    EmuIconSet  := TextLeft(cbEmuIconSet.Text, '=');
+    StyleName   := GetSelectedStyle;
+
+    TaskbarFlags := cbTaskbarProgress.ItemIndex and TASKBAR_PROGRESSMASK;
+
+    PositionData := Self.PositionData;
 
     Save;
   end;
@@ -422,6 +542,101 @@ begin
 
   SysUtils.ForceDirectories(Path); //nem a FileCtrl verzió kell
   ShellExecute(Handle, 'open', PChar(Path), nil, nil, SW_SHOWNORMAL);
+end;
+
+procedure TProgSettDlg.btnPositionClick(Sender: TObject);
+const
+  SizeSep = '; ';
+var
+  I, Value: integer;
+
+  function PosToStr(const X, Y: integer; const Default: string): string;
+  begin
+    if (X = 0) and (Y = 0) then
+      Result := Default
+    else
+      Result := format(StrPositionFmt, [X, Y]);
+  end;
+
+begin
+  if Assigned(Sender) and (Sender is TComponent) then begin
+    Value := (Sender as TComponent).Tag;
+
+    if Value = 0 then
+      PositionData := Defaults.PositionData
+    else if Assigned(WinBoxMain) then
+      with PositionData do
+        for I := 0 to SizeOf(Value) * 8 - 1 do
+          if (Value and (integer(1) shl I)) <> 0 then
+            case I of
+              0: begin
+                   Position.X := WinBoxMain.Left;
+                   Position.Y := WinBoxMain.Top;
+                 end;
+              1: begin
+                   Size.X := WinBoxMain.Width;
+                   Size.Y := WinBoxMain.Height;
+                 end;
+              2: begin
+                   MainRatio := Round(WinBoxMain.SideRatio * 100);
+
+                   if Assigned(WinBoxMain.Frame86Box) then
+                     FrameRatio := Round(WinBoxMain.Frame86Box.SideRatio * 100);
+                 end;
+            end;
+  end;
+
+  with lbPositionSaved, PositionData do
+    Caption :=
+      PosToStr(Position.X, Position.Y, Hint) + SizeSep +
+      PosToStr(Size.X, Size.Y, Hint);
+
+  if Assigned(WinBoxMain) then
+    with lbPositionCurrent, WinBoxMain.BoundsRect do
+      Caption :=
+        PosToStr(Left, Top, Hint) + SizeSep +
+        PosToStr(Width, Height, Hint);
+end;
+
+procedure TProgSettDlg.btnQuadEqSolveClick(Sender: TObject);
+const
+  StrSign: array [boolean] of string = ('-', '+');
+var
+  a, b, c, D, R: extended;
+begin
+  (* Hogy minek ez a kód ebbe a programba?
+     Totál semmi értelme itt, de miért ne. :D *)
+
+  a := spQuadEqA.Value;
+  b := spQuadEqB.Value;
+  c := spQuadEqC.Value;
+
+  if a <> 0 then begin
+    D := b * b - 4 * a * c;
+    R := -b / (2 * a);
+
+    if D < 0 then begin
+      mmQuadEq.Text := format(_T(StrQuadEqComplex),
+       [R, StrSign[a >= 0], sqrt(-D) / (2 * abs(a)),
+        R, StrSign[a < 0], sqrt(-D) / (2 * abs(a))])
+    end
+    else if D = 0 then
+      mmQuadEq.Text := format(_T(StrQuadEqSingle),
+       [R + sqrt(D) / (2 * a)])
+    else
+      mmQuadEq.Text := format(_T(StrQuadEqDouble),
+       [R + sqrt(D) / (2 * a), R - sqrt(D) / (2 * a)]);
+  end
+  else if b <> 0 then
+    mmQuadEq.Text := format(_T(StrQuadEqLinear), [-c/b])
+  else if c <> 0 then
+    mmQuadEq.Text := _T(StrQuadEqNo)
+  else
+    mmQuadEq.Text := _T(StrQuadEqAny);
+
+  (*  Just for fun. mint az egész téma és ikonredszer!
+      Remélem a fordítók is értékelni fogják az új
+      szükséges sorokat :P *)
 end;
 
 procedure TProgSettDlg.btnToolsClick(Sender: TObject);
@@ -488,6 +703,13 @@ begin
   end;
 end;
 
+procedure TProgSettDlg.cbProgIconSetDrawItem(Control: TWinControl; Index: Integer;
+  Rect: TRect; State: TOwnerDrawState);
+begin
+  with Control as TComboBox do
+    ComboDrawBiDi(Canvas, Rect, Items.ValueFromIndex[Index]);
+end;
+
 procedure TProgSettDlg.cbLoggingChange(Sender: TObject);
 begin
   edGlobalLog.Enabled := cbLogging.ItemIndex = 1;
@@ -543,6 +765,7 @@ begin
     lbVersion.Caption := format(_T(StrVersion) ,[_T(StrUnknown)]);
 
   UpdateLanguages(1);
+  UpdateIconSets(1);
 end;
 
 procedure TProgSettDlg.edArtifactChange(Sender: TObject);
@@ -579,16 +802,8 @@ begin
   pcPages.ActivePageIndex := 0;
   LangName := Copy(ClassName, 2, MaxInt);
 
-  WinBoxMain.Icons32.GetIcon(8, imgExtraPaths.Picture.Icon);
-  WinBoxMain.Icons32.GetIcon(11, imgInfo.Picture.Icon);
-  WinBoxMain.Icons32.GetIcon(13, imgNewVM.Picture.Icon);
-
-  WinBoxMain.Icons32.GetIcon(30, imgDisplay.Picture.Icon);
-  WinBoxMain.Icons32.GetIcon(31, imgEmulator.Picture.Icon);
-  WinBoxMain.Icons32.GetIcon(32, imgTools.Picture.Icon);
-  WinBoxMain.Icons32.GetIcon(33, imgDebug.Picture.Icon);
-
-  WinBoxMain.Icons32.GetIcon(35, imgLanguage.Picture.Icon);
+  ApplyActiveStyle;
+  Perform(UM_ICONSETCHANGED, 0, 0);
 
   Translate;
   if LocaleIsBiDi then
@@ -602,6 +817,17 @@ begin
 
   if Assigned(EmuLangs) then
     FreeAndNil(EmuLangs);
+end;
+
+procedure TProgSettDlg.lbLinkClick(Sender: TObject);
+var
+  I: integer;
+begin
+  for I := 0 to pcPages.PageCount - 1 do
+    if pcPages.Pages[I].Name = (Sender as TControl).HelpKeyword then begin
+      pcPages.ActivePage := pcPages.Pages[I];
+      break;
+    end;
 end;
 
 procedure TProgSettDlg.lvToolsSelectItem(Sender: TObject; Item: TListItem;
@@ -677,6 +903,44 @@ begin
     end;
 end;
 
+procedure TProgSettDlg.UpdateStyleControls(Sender: TObject);
+begin
+  if Assigned(Sender) and (Sender is TRadioButton) then
+    UpdateStyles(1);
+
+  TStyleManager.ChangeControlStyle(
+    pnStylePreview, GetSelectedStyle, true);
+
+  pnStylePreview.Visible :=
+    rbStyleSystem.Enabled and rbStyleCustom.Checked
+      and (pnStylePreview.StyleName <> '');
+  //lbStylePreview.Visible :=
+  //  pnStylePreview.Visible;
+end;
+
+procedure TProgSettDlg.UMIconsChanged(var Msg: TMessage);
+begin
+  inherited;
+  with IconSet do begin
+    DisplayIcon(8,  imgExtraPaths, DefScaleOptions - [soBiDiRotate]);
+
+    DisplayIcon(11, imgInfo, DefScaleOptions - [soBiDiRotate]);
+    DisplayIcon(11, imgInfo2, DefScaleOptions - [soBiDiRotate]);
+
+    DisplayIcon(13, imgNewVM, DefScaleOptions - [soBiDiRotate]);
+
+    DisplayIcon(30, imgDisplay, DefScaleOptions - [soBiDiRotate]);
+    DisplayIcon(31, imgEmulator, DefScaleOptions - [soBiDiRotate]);
+    DisplayIcon(32, imgTools, DefScaleOptions - [soBiDiRotate]);
+    DisplayIcon(33, imgDebug, DefScaleOptions - [soBiDiRotate]);
+
+    DisplayIcon(35, imgLanguage, DefScaleOptions - [soBiDiRotate]);
+
+    DisplayIcon(36, imgIconSet, DefScaleOptions - [soBiDiRotate]);
+    DisplayIcon(37, imgStyle, DefScaleOptions - [soBiDiRotate]);
+  end;
+end;
+
 procedure TProgSettDlg.UpdateApperance(Sender: TObject);
 var
   I: integer;
@@ -702,12 +966,6 @@ begin
   if rbDefaultDisplay.Checked then
     mmManualOptions.Lines.Assign(Defaults.DisplayValues);
 
-  //> Lásd miért: uConfig.pas, 54. sor
-  I := mmManualOptions.Lines.IndexOfName('window_remember');
-  if I <> -1 then
-    mmManualOptions.Lines.Delete(I);
-  //> ---
-
   for I := 0 to High(CheckListKeys) do
     with CheckListKeys[I] do
       clbCustomOptions.Checked[I] := ReadKey(Name, Default) <> 0;
@@ -730,6 +988,54 @@ begin
     cbFullscreenSizing.ItemIndex := I
   else
     cbFullscreenSizing.ItemIndex := -1;
+end;
+
+procedure TProgSettDlg.UpdateIconSets(const Mode: integer);
+var
+  IconSets: TStringList;
+  Bookmark: string;
+begin
+  //Program iconsets part
+
+  if Mode = 0 then
+    with cbProgIconSet do begin
+      IconSets := IconSet.GetAvailIconSets;
+      try
+        IconSets.Insert(0, Defaults.ProgIconSet + '=' + Hint);
+
+        Items.Assign(IconSets);
+        ItemIndex := Items.IndexOfName(Config.ProgIconSet);
+
+        if ItemIndex = -1 then
+          ItemIndex := 0;
+      finally
+        IconSets.Free;
+      end;
+    end;
+
+  //Emulator iconsets part
+
+  if Mode <= 1 then
+    with cbEmuIconSet do begin
+      IconSets := IconSet.GetAvailIconSets(
+        ExtractFilePath(ed86Box.Text) + PathEmuIconSets);
+      try
+        IconSets.Insert(0, Defaults.EmuIconSet + '=' + Hint);
+
+        Bookmark := TextLeft(Text, '=');
+        Items.Assign(IconSets);
+
+        if Mode = 0 then
+          ItemIndex := Items.IndexOfName(Config.EmuIconSet)
+        else
+          ItemIndex := Items.IndexOfName(Bookmark);
+
+        if ItemIndex = -1 then
+          ItemIndex := 0;
+      finally
+        IconSets.Free;
+      end;
+    end;
 end;
 
 function GetResourceLanguages(hModule: HMODULE; lpszType, lpszName: LPCTSTR;
@@ -868,6 +1174,64 @@ begin
     FindEmuLang(Defaults.EmulatorLang);
 end;
 
+procedure TProgSettDlg.UpdateStyles;
+var
+  AStyle: string;
+begin
+  rbStyleSystem.Enabled := not LocaleIsBiDi;
+  rbStyleCustom.Enabled := rbStyleSystem.Enabled;
+  rbStyleColor.Enabled :=
+    rbStyleSystem.Enabled and (Win32MajorVersion >= 10); //licenszelés szerint
+
+  if Mode = 0 then
+    with cbStyleName, Items do begin
+      BeginUpdate;
+      try
+        Clear;
+        for AStyle in TStyleManager.StyleNames do
+           if (AStyle <> StrLightStyle) and
+              (AStyle <> StrDarkStyle) and
+              ((pos('Windows10', AStyle) = 0) or //licenszelés szerint
+               rbStyleColor.Enabled) then
+                Add(AStyle);
+
+        Sorted := true;
+        ItemIndex := IndexOf(Config.StyleName);
+
+        if ItemIndex = -1 then begin
+          if (Config.StyleName = StrLightStyle) and rbStyleColor.Enabled then begin
+            rbStyleColor.Checked := true;
+            cbStyleColor.ItemIndex := 0;
+          end
+          else if (Config.StyleName = StrDarkStyle) and rbStyleColor.Enabled then begin
+            rbStyleColor.Checked := true;
+            cbStyleColor.ItemIndex := 1;
+          end
+          else
+            rbStyleSystem.Checked := true;
+        end
+        else
+          rbStyleCustom.Checked := true;
+      finally
+        EndUpdate;
+      end;
+    end;
+
+  cbStyleColor.Enabled :=
+    rbStyleSystem.Enabled and rbStyleColor.Checked and rbStyleColor.Enabled;
+
+  with cbStyleName do begin
+    if (Items.Count > 0) and (ItemIndex = -1) then
+      ItemIndex := 0;
+
+    Enabled :=
+      rbStyleSystem.Enabled and rbStyleCustom.Checked and (ItemIndex <> -1);
+  end;
+
+  if Mode = 0 then
+    UpdateStyleControls(nil);
+end;
+
 procedure TProgSettDlg.UpdateTools(Tools: TStrings);
 var
   I: integer;
@@ -923,8 +1287,29 @@ begin
       3: rbNoDisplayOptions.Checked := true;
     end;
 
+    cbTaskbarProgress.ItemIndex := TaskbarFlags and TASKBAR_PROGRESSMASK;
+    cbDefFullscreen.Checked := (DisplayFlags and DISPLAY_DEFFULLSCREEN) <> 0;
+
     UpdateLanguages(0);
+    UpdateIconSets(0);
+    UpdateStyles(0);
+
+    Self.PositionData := PositionData;
+    btnPositionClick(nil);
   end;
+end;
+
+function TProgSettDlg.GetSelectedStyle: string;
+begin
+  if rbStyleSystem.Checked then
+    Result   := ''
+  else if rbStyleColor.Checked then
+    case cbStyleColor.ItemIndex of
+      1:   Result := StrDarkStyle
+      else Result := StrLightStyle;
+    end
+  else
+    Result := cbStyleName.Text;
 end;
 
 procedure TProgSettDlg.GetTranslation(Language: TLanguage);
@@ -934,6 +1319,7 @@ begin
   with Language do begin
     GetTranslation(LangName, Self);
     GetTranslation(pmImport.Name, pmImport.Items);
+    GetTranslation(pmPosition.Name, pmPosition.Items);
 
     GetTranslation(LangName + StrLvToolsColumn0, lvTools.Column[0].Caption);
     GetTranslation(LangName + StrLvToolsColumn1, lvTools.Column[1].Caption);
@@ -970,6 +1356,7 @@ begin
   with Language do begin
     Translate(LangName, Self);
     Translate(pmImport.Name, pmImport.Items);
+    Translate(pmPosition.Name, pmPosition.Items);
 
     lvTools.Column[0].Caption := _T(LangName + StrLvToolsColumn0);
     lvTools.Column[1].Caption := _T(LangName + StrLvToolsColumn1);

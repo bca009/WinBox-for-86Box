@@ -24,8 +24,9 @@ unit frmImportVM;
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, ComCtrls, ExtCtrls, uLang, frmMainForm;
+  Windows, Messages, SysUtils, Classes, Graphics, Controls,
+  Forms, Dialogs, StdCtrls, ComCtrls, ExtCtrls, uCommText,
+  uLang, frmMainForm;
 
 type
   TListView = class(ComCtrls.TListView)
@@ -91,6 +92,8 @@ type
 
     function ImportList: boolean;
     function ImportManual: boolean;
+
+    procedure UMIconsChanged(var Msg: TMessage); message UM_ICONSETCHANGED;
   public
     LangName: string;
     RootOf86Mgr: string;
@@ -106,7 +109,7 @@ implementation
 
 {$R *.dfm}
 
-uses uCommUtil, uConfigMgr, uBaseProfile, frmProfSettDlg, uCommText;
+uses dmGraphUtil, uConfigMgr, uBaseProfile, frmProfSettDlg;
 
 resourcestring
   ImgBannerImport = 'BANNER_IMP';
@@ -217,7 +220,8 @@ end;
 
 procedure TImportVM.FormCreate(Sender: TObject);
 begin
-  LoadImage(ImgBannerImport, imgBanner, false);
+  ApplyActiveStyle;
+  Perform(UM_ICONSETCHANGED, 0, 0);
   pcPages.ActivePageIndex := 0;
 
   LangName := Copy(ClassName, 2, MaxInt);
@@ -414,6 +418,11 @@ begin
   end;
 end;
 
+procedure TImportVM.UMIconsChanged(var Msg: TMessage);
+begin
+  IconSet.LoadImage(ImgBannerImport, imgBanner,
+   DefScaleOptions - [soBiDiRotate]);
+end;
 
 { TListView }
 

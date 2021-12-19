@@ -25,7 +25,7 @@ implementation
 
 {$R *.dfm}
 
-uses uCommUtil;
+uses dmGraphUtil;
 
 procedure TWinBoxSplash.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
@@ -37,7 +37,7 @@ begin
   if IsDebuggerPresent then
     FormStyle := fsNormal;
 
-  LoadImage('SPLASH', imgSplash);
+  LoadImageRes('SPLASH', imgSplash, DefScaleOptions - [soOverScale]);
   Screen.Cursor := crAppStart;
   Application.ProcessMessages;
 end;

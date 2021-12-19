@@ -24,9 +24,10 @@ unit frmSelectHDD;
 interface
 
 uses
-  Windows, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs,
-  Data.DB, Grids, DBGrids, StdCtrls, DBCtrls, ExtCtrls, Vcl.Samples.Spin,
-  uLang, Datasnap.DBClient, uImaging;
+  Windows, Messages, SysUtils, Variants, Classes, Graphics,
+  Controls, Forms, Dialogs, Data.DB, Grids, DBGrids, DBCtrls,
+  StdCtrls, ExtCtrls, Vcl.Samples.Spin, Datasnap.DBClient,
+  uLang, uImaging, uCommText;
 
 type
   ISelectHDD = interface
@@ -92,6 +93,8 @@ type
     FBookmark: TBookmark;
 
     FStandard: string;
+
+    procedure UMIconsChanged(var Msg: TMessage); message UM_ICONSETCHANGED;
   protected
   public
     procedure LoadTable;
@@ -117,7 +120,7 @@ implementation
 
 {$R *.dfm}
 
-uses uCommText;
+uses dmGraphUtil;
 
 resourcestring
   EFailedToAddRow    = 'SelectHDD.EFailedToAddRow';
@@ -241,6 +244,9 @@ var
 const
   HiddenColumns: set of byte = [0];
 begin
+  ApplyActiveStyle;
+  Perform(UM_ICONSETCHANGED, 0, 0);
+
   Translate;
   if LocaleIsBiDi then
     FlipBiDi;
@@ -525,6 +531,11 @@ begin
   FStandard := Standard;
 
   Language.Translate('SelectHDD', Self);
+end;
+
+procedure THDSelect.UMIconsChanged(var Msg: TMessage);
+begin
+  IconSet.Icons16.GetIcon(10, Icon);
 end;
 
 procedure THDSelect.FilterChange(Sender: TObject);

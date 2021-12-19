@@ -24,8 +24,9 @@ unit frm86Box;
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Buttons,
-  ComCtrls, ExtCtrls, StdCtrls, u86Box, uPicturePager, uFolderMon, uLang;
+  Windows, Messages, SysUtils, Classes, Graphics, Controls,
+  Forms, Buttons, ComCtrls, ExtCtrls, StdCtrls, uFolderMon,
+  uPicturePager, u86Box, uLang;
 
 type
   TCategoryPanel =  class(ExtCtrls.TCategoryPanel)
@@ -99,16 +100,17 @@ type
     lbDiskSize: TLabel;
     pbHostCPU: TProgressBar;
     pbHostRAM: TProgressBar;
-    btnImgNext: TButton;
-    btnImgPrev: TButton;
     edState: TEdit;
-    bvScreenshots: TBevel;
     lbNone: TLabel;
-    TopPanel: TPanel;
-    lbFriendlyName: TLabel;
-    btnWorkDir: TSpeedButton;
     Splitter: TSplitter;
     DelayChange: TTimer;
+    TopPanel: TPanel;
+    btnWorkDir: TSpeedButton;
+    pnRightBottom: TPanel;
+    pnRightTop: TPanel;
+    btnImgNext: TButton;
+    btnImgPrev: TButton;
+    bvScreenshots: TBevel;
     procedure cgPanelsResize(Sender: TObject);
     procedure PicturePagerContextPopup(Sender: TObject; MousePos: TPoint;
       var Handled: Boolean);
@@ -116,9 +118,12 @@ type
     procedure PicturePagerClick(Sender: TObject);
     procedure btnWorkDirClick(Sender: TObject);
     procedure DelayChangeTimer(Sender: TObject);
+    procedure OnEnterSizeMove(Sender: TObject);
   private
     DirectoryChange: string;
     DirectoryChgType: Cardinal;
+
+    procedure CMStyleChanged(var Msg: TMessage); message CM_STYLECHANGED;
   public
     PicturePager: TPicturePager;
     FolderMonitor: TFolderMonitor;
@@ -135,7 +140,6 @@ type
     procedure OnDirectoryChange(Sender: TObject; FileName: string;
       ChangeType: Cardinal);
 
-    procedure OnEnterSizeMove(Sender: TObject);
     procedure GetRttiReport(Result: TStrings);
 
     procedure GetTranslation(Language: TLanguage); stdcall;
@@ -148,15 +152,13 @@ resourcestring
   StrMemoryD = '%.0f%% (%s)';
   Str86BoxVersionStr = '86Box %s';
 
-const
-  DefSideRatio = 0.36;
-
 var
   dbgLogFolderChanges: boolean = false;
 
 implementation
 
-uses uCommUtil, uCommText, frmMainForm, ShellAPI, Rtti;
+uses uConfigMgr, uCommUtil, uCommText, frmMainForm,
+     ShellAPI, Rtti, dmGraphUtil, Themes;
 
 resourcestring
   StrWorkDirRemoved = 'WinBox.WorkDirRemoved';
@@ -204,10 +206,34 @@ begin
     end;
 end;
 
+procedure TFrame86Box.CMStyleChanged(var Msg: TMessage);
+var
+  IsSystemStyle: boolean;
+begin
+  inherited;
+  IsSystemStyle := StyleServices(Self).IsSystemStyle;
+  TStyleManager.FixHiddenEdits(cgPanels, true, IsSystemStyle);
+
+  if not IsSystemStyle then begin
+    Color :=
+      StyleServices(Self).GetSystemColor(clBtnFace);
+    Font.Color :=
+      StyleServices(Self).GetStyleFontColor(sfTextLabelNormal);
+  end;
+
+  edState.ParentColor := true;
+  edState.Font.Color := Font.Color;
+
+  if IsSystemStyle then
+    btnWorkDir.Font.Color := clBlack
+  else
+    btnWorkDir.Font.Color := TopPanel.Font.Color;
+end;
+
 constructor TFrame86Box.Create(AOwner: TComponent);
 begin
   inherited;
-  SideRatio := DefSideRatio;
+  SideRatio := Defaults.PositionData.FrameRatio / 100;
 
   SetWindowLongPtr(cgPanels.Handle, GWL_STYLE,
     GetWindowLongPtr(cgPanels.Handle, GWL_STYLE) and not WS_BORDER);
@@ -217,9 +243,9 @@ begin
     ParentBiDiMode := false;
     BiDiMode := bdLeftToRight;
     Parent := RightPanel;
-    with bvScreenshots do
-      PicturePager.SetBounds(Left + 1, Top + 1, Width - 2, Height - 2);
-    Anchors := [akLeft, akTop, akRight, akBottom];
+    Margins.Assign(bvScreenshots.Margins);
+    AlignWithMargins := true;
+    Align := alClient;
     ButtonNext := btnImgNext;
     ButtonPrev := btnImgPrev;
 
@@ -230,6 +256,9 @@ begin
     OnContextPopup := PicturePagerContextPopup;
     OnClick := PicturePagerClick;
   end;
+
+  Tag := clNone;
+  Perform(CM_STYLECHANGED, 0, 0);
 
   FolderMonitor := TFolderMonitor.Create(nil);
   FolderMonitor.OnChange := OnDirectoryChange;
@@ -278,8 +307,16 @@ begin
 end;
 
 procedure TFrame86Box.FrameResize(Sender: TObject);
+var
+  MaxWidth: integer;
 begin
   //RightPanel.ClientWidth := Round(ClientWidth * SideRatio);
+
+  MaxWidth :=
+    ClientWidth - Splitter.Width - RightPanel.Margins.Right - RightPanel.Margins.Left;
+
+  if RightPanel.Width > MaxWidth then
+    RightPanel.Width := MaxWidth;
 end;
 
 procedure TFrame86Box.GetRttiReport(Result: TStrings);
@@ -373,35 +410,44 @@ begin
   if (RightPanel.Width <> 0) and (ClientWidth <> 0) then
     SideRatio := RightPanel.Width / ClientWidth
   else
-    SideRatio := DefSideRatio;
+    SideRatio := Defaults.PositionData.FrameRatio / 100;
+
+  inherited;
 end;
 
 procedure TFrame86Box.UpdateColor(const Profile: T86BoxProfile);
 var
   Success: boolean;
 begin
-  if not WinBoxMain.IsColorsAllowed then
+  if not IconSet.IsColorsAllowed then
     exit;
 
   Success := LockWindowUpdate(Handle);
   try
     if Assigned(Profile) then
-      with Profile do begin
-        if Color = clNone then
-          Self.Color := clWindow
-        else
-          Self.Color := Color;
+      Tag := Profile.Color;
 
-        cgPanels.GradientBaseColor := Self.Color;
-        cgPanels.GradientColor := Self.Color;
+    if Tag = clNone then begin
+      Self.Color := clWindow;
+      ApplyActiveStyle;
+    end
+    else begin
+      Self.Color := Tag;
+      ApplyStyle('Windows');
+    end;
 
-        Font.Color := GetTextColor(Color);
-        edState.Font.Color := Font.Color;
-        lbScreenshots.Font.Color := GetLinkColor(Color);
+    if StyleServices(Self).IsSystemStyle then begin
+      cgPanels.GradientBaseColor := Self.Color;
+      cgPanels.GradientColor := Self.Color;
 
-        cgPanels.ChevronColor := Font.Color;
-        cgPanels.HeaderFont.Color := Font.Color;
-      end;
+      Font.Color := GetTextColor(Color);
+      edState.Font.Color := Font.Color;
+
+      cgPanels.ChevronColor := Font.Color;
+      cgPanels.HeaderFont.Color := Font.Color;
+    end;
+
+    lbScreenshots.Font.Color := GetLinkColor(Color);
   finally
     if Success then begin
       LockWindowUpdate(0);
@@ -573,7 +619,7 @@ begin
       btnWorkDir.Hint := Profile.WorkingDirectory;
 
       lbScreenshots.Hint := Screenshots;
-      lbFriendlyName.Caption := FriendlyName;
+      btnWorkDir.Caption := '    ' + FriendlyName;
     end;
 
   UpdateData(Profile);

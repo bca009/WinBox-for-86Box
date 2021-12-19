@@ -26,6 +26,11 @@ interface
 uses Windows, Classes, SysUtils, IOUtils, Graphics, Registry;
 
 type
+  TPositionData = record
+    Position, Size: TPoint;
+    MainRatio, FrameRatio: integer;
+  end;
+
   TConfiguration = class
   public
     MachineRoot: string;
@@ -42,12 +47,20 @@ type
     AutoUpdate,
     GetSource: boolean;
 
-    DisplayMode: integer;
+    DisplayMode,
+    DisplayFlags: integer;
     DisplayValues: TStrings;
 
     ProgramLang,
     EmulatorLang: string;
     EmuLangCtrl: integer;
+
+    ProgIconSet,
+    EmuIconSet,
+    StyleName: string;
+    TaskbarFlags: integer;
+
+    PositionData: TPositionData;
 
     Tools: TStrings;
 
@@ -65,6 +78,8 @@ type
     procedure Reload; virtual;
     procedure ReloadTools;
 
+    procedure Migrate(var ADisplayValues: TStrings); virtual;
+
     function RepoToArtf(const Repository, Artifact: string): string;
 
     function AdjustEmuLang: string;
@@ -78,6 +93,11 @@ var
   Defaults, Config: TConfiguration;
 
   Templates: string;
+
+const
+  TASKBAR_PROGRESSMASK  = 3;   //maszk a töltési sáv opciókhoz
+
+  DISPLAY_DEFFULLSCREEN = 1;  //alapból fullscreenben legyenek új VM-ek?
 
 type
   TCheckListKey = record
@@ -163,6 +183,7 @@ resourcestring
   KeyGetSource       = 'GetSource';
   KeyDisplayMode     = 'DisplayMode';
   KeyDisplayValues   = 'DisplayValues';
+  KeyDisplayFlags    = 'DisplayFlags';
   KeyTools           = 'Tools';
   KeyCustomTemplates = 'CustomTemplates';
   KeyLoggingMode     = 'LoggingMode';
@@ -173,6 +194,16 @@ resourcestring
   KeyProgramLang     = 'ProgramLang';
   KeyEmulatorLang    = 'EmulatorLang';
   KeyEmuLangCtrl     = 'EmuLangCtrl';
+  KeyProgIconSet     = 'ProgIconSet';
+  KeyEmuIconSet      = 'EmuIconSet';
+  KeyStyleName       = 'StyleName';
+  KeyTaskbarFlags    = 'TaskbarFlags';
+  KeyPositionX       = 'Position.X';
+  KeyPositionY       = 'Position.Y';
+  KeySizeX           = 'Size.X';
+  KeySizeY           = 'Size.Y';
+  KeyMainRatio       = 'MainRatio';
+  KeyFrameRatio      = 'FrameRatio';
 
   ImportWinBoxRoot   = 'Software\Laci bá''\WinBox';
   Import86MgrRoot    = 'Software\86Box';
@@ -195,6 +226,38 @@ begin
   DisplayValues.Free;
   Tools.Free;
   inherited;
+end;
+
+procedure TConfiguration.Migrate(var ADisplayValues: TStrings);
+var
+  Temp: string;
+
+  function MigrateValue(const Key: string; var Value: string): boolean;
+  var
+    Index: integer;
+  begin
+    Index := ADisplayValues.IndexOfName(Key);
+
+    Result := Index <> -1;
+    if Result then begin
+      Value := ADisplayValues.ValueFromIndex[Index];
+      ADisplayValues.Delete(Index);
+    end;
+  end;
+
+begin
+  if ADisplayValues = nil then
+    exit;
+
+  //sima törlés
+  MigrateValue('window_remember', Temp);  //lásd 101. sor miatt
+  MigrateValue('window_fixed_res', Temp); //a profil tartalmazza
+
+  //valódi migrálás - ikonkészlet, és nyelv
+  MigrateValue('iconset', EmuIconSet);
+
+  if MigrateValue('language', EmulatorLang) then
+    EmuLangCtrl := 1;
 end;
 
 (*
@@ -249,6 +312,7 @@ begin
           GetSource       := ReadBoolDef(KeyGetSource, GetSource);
 
           DisplayMode     := ReadIntegerDef(KeyDisplayMode, DisplayMode);
+          DisplayFlags    := ReadIntegerDef(KeyDisplayFlags, DisplayFlags);
           case DisplayMode of
             0:    DisplayValues.Assign(Defaults.DisplayValues);
             1, 2: if ValueExists(KeyDisplayValues) then begin
@@ -257,6 +321,7 @@ begin
                   end;
             3:    DisplayValues.Clear;
           end;
+          Migrate(DisplayValues);
 
           if LocaleOverride = PrgSystemLanguage then
             ProgramLang     := PrgSystemLanguage
@@ -267,6 +332,20 @@ begin
 
           EmulatorLang    := ReadStringDef(KeyEmulatorLang, EmulatorLang);
           EmuLangCtrl     := ReadIntegerDef(KeyEmuLangCtrl, EmuLangCtrl);
+
+          ProgIconSet     := ReadStringDef(KeyProgIconSet, ProgIconSet);
+          EmuIconSet      := ReadStringDef(KeyEmuIconSet, EmuIconSet);
+          StyleName       := ReadStringDef(KeyStyleName, StyleName);
+          TaskbarFlags    := ReadIntegerDef(KeyTaskbarFlags, TaskbarFlags);
+
+          with PositionData do begin
+            Position.X   := ReadIntegerDef(KeyPositionX, Position.X);
+            Position.Y   := ReadIntegerDef(KeyPositionY, Position.Y);
+            Size.X       := ReadIntegerDef(KeySizeX, Size.X);
+            Size.Y       := ReadIntegerDef(KeySizeY, Size.Y);
+            MainRatio    := ReadIntegerDef(KeyMainRatio, MainRatio);
+            FrameRatio   := ReadIntegerDef(KeyFrameRatio, FrameRatio);
+          end;
 
           if ValueExists(KeyTools) then begin
             Tools.Clear;
@@ -339,6 +418,7 @@ begin
           WriteBoolChk(KeyGetSource, GetSource, Defaults.GetSource);
 
           WriteIntegerChk(KeyDisplayMode, DisplayMode, Defaults.DisplayMode);
+          WriteIntegerChk(KeyDisplayFlags, DisplayFlags, Defaults.DisplayFlags);
           DeleteValue(KeyDisplayValues);
           if DisplayMode in [1, 2] then
             WriteStringMulti(KeyDisplayValues, DisplayValues);
@@ -348,6 +428,20 @@ begin
 
           WriteStringChk(KeyEmulatorLang, EmulatorLang, Defaults.EmulatorLang);
           WriteIntegerChk(KeyEmuLangCtrl, EmuLangCtrl, Defaults.EmuLangCtrl);
+
+          WriteStringChk(KeyProgIconSet, ProgIconSet, Defaults.ProgIconSet);
+          WriteStringChk(KeyEmuIconSet, EmuIconSet, Defaults.EmuIconSet);
+          WriteStringChk(KeyStyleName, StyleName, Defaults.StyleName);
+          WriteIntegerChk(KeyTaskbarFlags, TaskbarFlags, Defaults.TaskbarFlags);
+
+          with PositionData do begin
+            WriteIntegerChk(KeyPositionX, Position.X, Defaults.PositionData.Position.X);
+            WriteIntegerChk(KeyPositionY, Position.Y, Defaults.PositionData.Position.Y);
+            WriteIntegerChk(KeySizeX, Size.X, Defaults.PositionData.Size.X);
+            WriteIntegerChk(KeySizeY, Size.Y, Defaults.PositionData.Size.Y);
+            WriteIntegerChk(KeyMainRatio, MainRatio, Defaults.PositionData.MainRatio);
+            WriteIntegerChk(KeyFrameRatio, FrameRatio, Defaults.PositionData.FrameRatio);
+          end;
 
           DeleteValue(KeyTools);
           if Tools.Count <> 0 then
@@ -390,11 +484,21 @@ begin
   GetSource := false;
 
   DisplayMode := 0;
+  DisplayFlags := 0;
   DisplayValues.Text := DefDisplayValues;
 
   ProgramLang  := PrgDefaultLanguage;
   EmulatorLang := EmuDefaultLanguage;
   EmuLangCtrl  := 0;
+
+  ProgIconSet := '';
+  EmuIconSet := '';
+  StyleName := '';
+  TaskbarFlags := 0;
+
+  FillChar(PositionData, SizeOf(PositionData), #0);
+  PositionData.MainRatio := 30; //TWinBoxMain
+  PositionData.FrameRatio  := 36; //Tfrm86Box
 
   Tools.Clear;
 

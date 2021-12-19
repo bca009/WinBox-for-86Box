@@ -29,7 +29,8 @@ uses
   ComCtrls, VCLTee.TeEngine, VCLTee.TeeProcs, VCLTee.Chart, VCLTee.Series,
   BaseImageCollection, ImageCollection, ImageList, ImgList, VirtualImageList,
   GraphUtil, Generics.Collections, u86Box, Vcl.ToolWin, uLang, AppEvnts, frm86Box,
-  Vcl.ExtDlgs, frmUpdaterDlg;
+  Vcl.ExtDlgs, frmUpdaterDlg, uCommText, uConfigMgr, System.Win.TaskbarCore,
+  Vcl.Taskbar;
 
 type
   TListBox = class(StdCtrls.TListBox)
@@ -40,6 +41,11 @@ type
   TToolBar = class(ComCtrls.TToolBar)
   protected
     procedure WMPaint(var Msg: TWMPaint); message WM_PAINT;
+  end;
+
+  TTrayIcon = class(ExtCtrls.TTrayIcon)
+  public
+    property Data;
   end;
 
   TWinBoxMain = class(TForm, ILanguageSupport)
@@ -91,8 +97,6 @@ type
     tab86Box: TTabSheet;
     Splitter: TSplitter;
     StatusBar: TStatusBar;
-    ListImages: TVirtualImageList;
-    ImageCollection: TImageCollection;
     acProgramSettings: TAction;
     acUpdateList: TAction;
     miTools: TMenuItem;
@@ -130,9 +134,6 @@ type
     Nvjegy1: TMenuItem;
     N5: TMenuItem;
     N6: TMenuItem;
-    ImageCollection1: TImageCollection;
-    Icons32: TVirtualImageList;
-    Icons16: TVirtualImageList;
     ac86BoxSettings: TAction;
     acCtrlAltDel: TAction;
     acCtrlAltEsc: TAction;
@@ -339,6 +340,7 @@ type
     MissingDiskDlg: TTaskDialog;
     acWinBoxUpdate: TAction;
     Programfrisstsekkeresse1: TMenuItem;
+    Taskbar: TTaskbar;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure acDebugExecute(Sender: TObject);
@@ -375,10 +377,10 @@ type
       var Handled: Boolean);
     procedure ListDblClick(Sender: TObject);
     procedure acWinBoxUpdateExecute(Sender: TObject);
-    procedure ImageCollectionGetBitmapBiDi(ASourceImage: TWICImage; AWidth,
-      AHeight: Integer; out ABitmap: TBitmap);
-    procedure ImageCollectionDrawBiDi(ASourceImage: TWICImage; ACanvas: TCanvas;
-      ARect: TRect; AProportional: Boolean);
+    procedure SplitterMoved(Sender: TObject);
+    procedure FormAfterMonitorDpiChanged(Sender: TObject; OldDPI,
+      NewDPI: Integer);
+    procedure FormFirstActivate(Sender: TObject);
   private
     //Lista kirajzolásához szükséges cuccok
     HalfCharHeight, BorderThickness: integer;
@@ -386,20 +388,27 @@ type
     clHighlight1, clHighlight2,
     clDisabled1, clDisabled2: TColor;
 
-    //A lista a és a PageControl közti aránytartáshoz, méretezéskor
-    SideRatio: single;
-
     procedure ResetChart(Chart: TChart);
     procedure AddSeries(Chart: TChart; AColor: TColor; const FriendlyName: string);
     procedure AddValue(ASeries: TFastLineSeries; const Value: extended);
 
-    procedure WMEnterSizeMove(var Message: TMessage); message WM_ENTERSIZEMOVE;
-  public
-    //Virtuális gépek színének engedélyezése/letiltása (pl. BiDi-nél letiltva)
-    IsColorsAllowed: boolean;
+    procedure UpdateTaskbar(const Progress: integer; const Color: boolean);
 
+    procedure CMStyleChanged(var Msg: TMessage); message CM_STYLECHANGED;
+
+    procedure UMIconsChanged(var Msg: TMessage); message UM_ICONSETCHANGED;
+    procedure UMDoFirstUpdate(var Msg: TMessage); message UM_DOFIRSTUPDATE;
+
+    procedure WMEnterSizeMove(var Msg: TMessage); message WM_ENTERSIZEMOVE;
+    procedure WMCopyData(var Msg: TWMCopyData); message WM_COPYDATA;
+    procedure WMSettingChange(var Msg: TMessage); message WM_SETTINGCHANGE;
+  public
     //Nyelvváltáskor, a program eredeti címének megtartása
     InitialTitle: string;
+
+    //A lista az ablak és a PageControl közti aránytartáshoz, méretezéskor
+    DefaultSize: TPoint;
+    SideRatio: single;
 
     //Belsõ cuccok
     IsAllStopped,
@@ -428,9 +437,14 @@ type
 
     procedure ChangeBiDi(const NewBiDi: boolean);
     procedure ChangeLanguage(const ALocale: string);
+    procedure ChangeIconSet(const AIconSet: string);
+    procedure ChangeStyle(const AStyle: string; const Mode: integer);
+    procedure ChangePosition(AData: TPositionData);
 
     procedure GetRttiReport(Result: TStrings);
-    procedure DoFirstUpdate(var Msg: TMessage); message WM_USER;
+
+    //TJumpList által megkapott paraméterek továbbítása a futó példánynak
+    class procedure SendCommandLine(const Handle: HWND);
   end;
 
 var
@@ -438,20 +452,21 @@ var
 
 resourcestring
   StrMissingDiskDlg = 'MissingDiskDlg';
+  ImgWelcomeLogo = 'WELCOME';
 
 implementation
 
 uses JclDebug, uProcessMon, uProcProfile, uCommUtil, frmProgSettDlg,
-  frmProfSettDlg, frmImportVM, uWinProfile, uConfigMgr, ShellAPI,
-  uCommText, Rtti, frmErrorDialog, frmAboutDlg, frmSelectHDD, frmNewFloppy,
+  frmProfSettDlg, frmImportVM, uWinProfile, ShellAPI, dmGraphUtil,
+  Rtti, frmErrorDialog, frmAboutDlg, frmSelectHDD, frmNewFloppy,
   frmWizardHDD, frmWizardVM, uBaseProfile, frmSplash, dmWinBoxUpd,
-  WinCodec;
+  WinCodec, Themes, VCLTee.TeCanvas;
 
 const
   MaxPoints = 60;
   ScrollPoints = 1;
 
-  DefSideRatio = 0.3;
+  CopyDataSig = $FFFF0013; //Signature for TWMCopyData
 
 resourcestring
   EInvalidActionTag = 'Invalid action tag.';
@@ -691,12 +706,26 @@ begin
 end;
 
 procedure TWinBoxMain.acProgramSettingsExecute(Sender: TObject);
+var
+  OldStyle: string;
 begin
+  OldStyle := Config.StyleName;
+
   with TProgSettDlg.Create(Application) do
     try
       if ShowModal = mrOK then begin
         FormShow(Sender);
+
         ChangeLanguage(Config.ProgramLang);
+        ChangeIconSet(Config.ProgIconSet);
+
+        //bugos szar, ne csináljuk inkább
+        //ChangeStyle(Config.StyleName, -1);
+
+        if Config.StyleName <> OldStyle then
+          MessageBox(Handle, _P(StrDeferStyleChange),
+          PChar(Application.Title), MB_ICONINFORMATION or MB_OK);
+
         DefProfile.Default;
         acUpdateList.Execute;
       end;
@@ -706,6 +735,19 @@ begin
 end;
 
 procedure TWinBoxMain.acSaveLangFile(Sender: TObject);
+
+  procedure GetTranslation(const AClass: TFormClass);
+  var
+    Form: TForm;
+  begin
+    Form := AClass.Create(nil);
+    try
+      (Form as ILanguageSupport).GetTranslation(Language);
+    finally
+      Form.Free;
+    end;
+  end;
+
 begin
   try
     Screen.Cursor := crHourGlass;
@@ -719,68 +761,15 @@ begin
       if Assigned(Updater) then
         Updater.GetTranslation(Language);
 
-      with TProgSettDlg.Create(nil) do
-        try
-          GetTranslation(Language);
-        finally
-          Free;
-        end;
-
-      with TProfSettDlg.Create(nil) do
-        try
-          GetTranslation(Language);
-        finally
-          Free;
-        end;
-
-      with TImportVM.Create(nil) do
-        try
-          GetTranslation(Language);
-        finally
-          Free;
-        end;
-
-      with TExceptionDialog.Create(nil) do
-        try
-          GetTranslation(Language);
-        finally
-          Free;
-        end;
-
-      with TAboutDlg.Create(nil) do
-        try
-          GetTranslation(Language);
-        finally
-          Free;
-        end;
-
-      with THDSelect.Create(nil) do
-        try
-          GetTranslation(Language);
-        finally
-          Free;
-        end;
-
-      with TNewFloppy.Create(nil) do
-        try
-          GetTranslation(Language);
-        finally
-          Free;
-        end;
-
-      with TWizardHDD.Create(nil) do
-        try
-          GetTranslation(Language);
-        finally
-          Free;
-        end;
-
-      with TWizardVM.Create(nil) do
-        try
-          GetTranslation(Language);
-        finally
-          Free;
-        end;
+      GetTranslation(TProgSettDlg);
+      GetTranslation(TProfSettDlg);
+      GetTranslation(TImportVM);
+      GetTranslation(TExceptionDialog);
+      GetTranslation(TAboutDlg);
+      GetTranslation(THDSelect);
+      GetTranslation(TNewFloppy);
+      GetTranslation(TWizardHDD);
+      GetTranslation(TWizardVM);
     finally
       Screen.Cursor := crDefault;
       if SaveLogDialog.Execute then
@@ -878,7 +867,7 @@ begin
           //-1:  Enabled := State = PROFILE_STATE_STOPPED;
           -2:  Enabled := State = PROFILE_STATE_RUNNING;
           -6:  Enabled := State <> 0;
-          -7, -8:  Enabled := IsColorsAllowed;
+          -7, -8:  Enabled := IconSet.IsColorsAllowed;
           -127: Enabled := State = 0;
           else if Tag >= 0 then
             Enabled := CanState(Tag)
@@ -975,8 +964,22 @@ begin
   if NewBiDi <> LocaleIsBiDi then begin
     LocaleIsBiDi := NewBiDi;
 
+    //if the new language is RTL disable styling
+    if NewBiDi then
+      TStyleManager.TrySetStyle('Windows', false);
+    //else ha implementálva lesz egy on-fly layout swith
+    // TStyleManager.TrySetStyle('Windows10 DarkExplorer', false);
+
     FlipBiDi;
   end;
+end;
+
+procedure TWinBoxMain.ChangeIconSet(const AIconSet: string);
+begin
+  if AIconSet <> '' then
+    IconSet.Path := IconSet.GetIconSetRoot + AIconSet
+  else
+    IconSet.Path := '';
 end;
 
 procedure TWinBoxMain.ChangeLanguage(const ALocale: string);
@@ -1028,6 +1031,120 @@ begin
   ChangeBiDi(NewBiDi);
 end;
 
+procedure TWinBoxMain.ChangePosition(AData: TPositionData);
+
+  procedure SetRatio(AWindow, AControl: TControl; ARatio: integer;
+    const DefRatio: integer; Callback: TNotifyEvent);
+  begin
+    if not (Assigned(AWindow) and Assigned(AControl)) or
+       ((ARatio = 0) and (DefRatio = 0)) then
+      exit;
+
+    if ARatio = 0 then
+      ARatio := DefRatio;
+
+    AControl.Width := AWindow.ClientWidth * ARatio div 100;
+
+    if Assigned(Callback) then
+      Callback(Self);
+  end;
+
+begin
+  if AData.Size.IsZero then
+    AData.Size := DefaultSize;
+
+  if AData.Position.IsZero or
+     (Screen.MonitorFromPoint(AData.Position, mdNull) = nil) then
+    with Screen.PrimaryMonitor.WorkareaRect do
+      AData.Position := Point(
+        Left + (Width - AData.Size.X) div 2,
+        Top + (Height - AData.Size.Y) div 2);
+
+  with AData do
+    SetBounds(Position.X, Position.Y, Size.X, Size.Y);
+
+  SetRatio(Self, List, AData.MainRatio,
+    Defaults.PositionData.MainRatio, SplitterMoved);
+
+  SetRatio(Frame86Box, Frame86Box.RightPanel, AData.FrameRatio,
+    Defaults.PositionData.FrameRatio, Frame86Box.OnEnterSizeMove);
+end;
+
+procedure TWinBoxMain.ChangeStyle(const AStyle: string;
+  const Mode: integer);
+begin
+  IconSet.Style := AStyle;
+
+  //Ha külsõ üzenet hatására kell megcsinálni, itt kell frissíteni.
+  if Mode = -1 then
+    ListClick(List);
+  //Ellenkezõ esetben vagy nem kell (OnCreate),
+  //  vagy alapból van frissítés (acUpdateList.Execute).
+end;
+
+procedure TWinBoxMain.CMStyleChanged(var Msg: TMessage);
+var
+  IsSystemStyle: boolean;
+  H, L, S: word;
+  BkColor, TextColor, TitleColor, GridColor: TColor;
+const
+  TitleColors: array [boolean] of TColor = (clHighlight, clBlue);
+  BkColors: array [boolean] of TColor = (clBtnFace, clWindow);
+
+  procedure ProcessChart(Chart: TChart);
+  begin
+    with Chart do begin
+      Color := BkColor;
+      Legend.Color := BkColor;
+
+      Frame.Color := TextColor;
+      Legend.Font.Color := TextColor;
+      Legend.Frame.Color := TextColor;
+      LeftAxis.LabelsFont.Color := TextColor;
+      BottomAxis.LabelsFont.Color := TextColor;
+      LeftAxis.Title.Font.Color := TextColor;
+      BottomAxis.Title.Font.Color := TextColor;
+
+      LeftAxis.Grid.Color := GridColor;
+      BottomAxis.Grid.Color := GridColor;
+
+      Title.Font.Color := TitleColor;
+    end;
+  end;
+
+begin
+  inherited;
+  IsSystemStyle := StyleServices(Self).IsSystemStyle;
+
+  //Lista kirajzolási eljárás segédlet
+  HalfCharHeight := Canvas.TextHeight('Wg');
+  BorderThickness :=
+    (List.ItemHeight - IconSet.ListIcons.Height) div 2;
+
+  clHighlight1 := StyleServices(Self).GetSystemColor(clHighlight);
+  ColorRGBToHLS(clHighlight1, H, L, S);
+  clDisabled1 := ColorHLSToRGB(H, L, 0);
+
+  L := L * 10 div 8;
+  clHighlight2 := ColorHLSToRGB(H, L, S);
+  clDisabled2 := ColorHLSToRGB(H, L, 0);
+
+  TitleColor := TitleColors[IsSystemStyle];
+  BkColor := StyleServices(Self).GetSystemColor(BkColors[IsSystemStyle]);
+  GridColor := StyleServices(Self).GetSystemColor(clGrayText);
+
+  if IsSystemStyle then
+    TextColor :=
+      StyleServices(Self).GetSystemColor(clWindowText)
+  else
+    TextColor :=
+      StyleServices(Self).GetStyleFontColor(sfTextLabelNormal);
+
+  ProcessChart(ChartCPU);
+  ProcessChart(ChartRAM);
+  ProcessChart(ChartVMs);
+end;
+
 procedure TWinBoxMain.DeleteVM(DeleteFiles: boolean);
 var
   FItemIndex: integer;
@@ -1066,7 +1183,7 @@ begin
   end;
 end;
 
-procedure TWinBoxMain.DoFirstUpdate(var Msg: TMessage);
+procedure TWinBoxMain.UMDoFirstUpdate(var Msg: TMessage);
 begin
   inherited;
   if (Msg.LParam = 7) and (Msg.WParam = 13) and Assigned(WinBoxSplash) then
@@ -1084,7 +1201,67 @@ begin
         Updater.ShowModal;
     finally
       FirstUpdateDone := true;
+      SendCommandLine(Handle);
     end;
+end;
+
+procedure TWinBoxMain.UMIconsChanged(var Msg: TMessage);
+var
+  I: integer;
+begin
+  inherited;
+  IconSet.IconsMaxDPI.GetIcon(6, DeleteDialog.CustomMainIcon);
+  IconSet.LoadImage(ImgWelcomeLogo, ImgWelcome,
+    DefScaleOptions - [soBiDiRotate, soOverScale]);
+
+  DefProfile.Icon.Assign(
+    IconSet.ActionImages.Images[21].SourceImages[0].Image);
+
+  for I := 0 to Taskbar.TaskBarButtons.Count - 1 do
+    with Taskbar.TaskBarButtons[I] do
+      if Assigned(Action) and (Action is TAction) then
+        IconSet.IconsMaxDPI.GetIcon((Action as TAction).ImageIndex, Icon);
+
+  Taskbar.ApplyButtonsChanges;
+
+  if Assigned(Profiles) then
+    ListReload(Self);
+end;
+
+procedure TWinBoxMain.UpdateTaskbar(const Progress: integer;
+  const Color: boolean);
+var
+  I: integer;
+  State: TThumbButtonStates;
+begin
+  for I := 0 to Taskbar.TaskBarButtons.Count - 1 do
+    with Taskbar.TaskBarButtons[I] do begin
+      State := [];
+      case I of
+        0..2:
+          if FirstUpdateDone then
+            State := [TThumbButtonState.Enabled];
+        3:
+          if IsAnyRunning then
+            State := [TThumbButtonState.Enabled];
+        end;
+
+      if State <> ButtonState then
+        ButtonState := State;
+    end;
+
+  Taskbar.Tag := ord(Progress < 0);
+
+  if Progress = -1 then
+    exit;
+
+  Taskbar.ProgressMaxValue := 100;
+  Taskbar.ProgressValue := Progress;
+
+  if Color then
+    ColorTaskbar(Taskbar)
+  else
+    Taskbar.ProgressState := TTaskBarProgressState.Normal;
 end;
 
 procedure TWinBoxMain.DummyUpdate(Sender: TObject);
@@ -1136,28 +1313,7 @@ begin
   PerfMenu.BiDiMode := BiDiModes[LocaleIsBiDi];
   VMMenu.BiDiMode := BiDiModes[LocaleIsBiDi];
 
-  if LocaleIsBiDi then begin
-    ImageCollection.OnDraw := ImageCollectionDrawBiDi;
-    ImageCollection.OnGetBitmap := ImageCollectionGetBitmapBiDi;
-
-    ImageCollection1.OnDraw := ImageCollectionDrawBiDi;
-    ImageCollection1.OnGetBitmap := ImageCollectionGetBitmapBiDi;
-  end
-  else begin
-    ImageCollection.OnDraw := nil;
-    ImageCollection.OnGetBitmap := nil;
-
-    ImageCollection1.OnDraw := nil;
-    ImageCollection1.OnGetBitmap := nil;
-  end;
-
-  Icons16.UpdateImageList;
-  ListImages.UpdateImageList;
-
-  ImageCollection1.OnDraw := nil;
-  ImageCollection1.OnGetBitmap := nil;
-
-  Icons32.UpdateImageList;
+  IconSet.RefreshImages;
 
   SetCommCtrlBiDi(List.Handle, LocaleIsBiDi);
   SetCommCtrlBiDi(StatusBar.Handle, LocaleIsBiDi);
@@ -1184,6 +1340,19 @@ begin
   Frame86Box.FlipBiDi;
 end;
 
+procedure TWinBoxMain.FormAfterMonitorDpiChanged(Sender: TObject; OldDPI,
+  NewDPI: Integer);
+begin
+  IconSet.Initialize(Self);
+  Perform(UM_ICONSETCHANGED, 0, 0);
+
+  //az Align visszadobja, de szükséges mert eltûnnek a gombok a szélérõl váltáskor
+  tbVMs.Width := tbVMs.Width + 1;
+
+  if Assigned(Profiles) then
+    ListReload(Self);
+end;
+
 procedure TWinBoxMain.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   if Config.TrayBehavior = 3 then begin
@@ -1195,32 +1364,20 @@ end;
 
 procedure TWinBoxMain.FormCreate(Sender: TObject);
 var
-  H, L, S: word;
   I: integer;
 begin
   //GUI part
   InitialTitle := Application.Title;
 
-  Icons16.SetSize(GetSystemMetrics(SM_CXSMICON),
-                  GetSystemMetrics(SM_CYSMICON));
-
-  HalfCharHeight := Canvas.TextHeight('W');
-  BorderThickness := (List.ItemHeight - ListImages.Height) div 2;
-
-  clHighlight1 := ColorToRGB(clHighlight);
-  ColorRGBToHLS(clHighlight1, H, L, S);
-  clDisabled1 := ColorHLSToRGB(H, L, 0);
-
-  L := L * 10 div 8;
-  clHighlight2 := ColorHLSToRGB(H, L, S);
-  clDisabled2 := ColorHLSToRGB(H, L, 0);
+  IconSet.Initialize(Self);
+  IconSet.Taskbar := Taskbar;
+  List.Constraints.MinWidth := IconSet.ListIcons.Width * 3 div 2;
 
   for I := 0 to Pages.PageCount - 1 do
     Pages.Pages[I].TabVisible := false;
   Pages.ActivePageIndex := 0;
   pgCharts.ActivePageIndex := 0;
 
-  LoadImage('WELCOME', ImgWelcome);
   miDebug.Visible := IsDebuggerPresent;
 
   Frame86Box := TFrame86Box.Create(nil);
@@ -1238,15 +1395,19 @@ begin
     ChangeLanguage(Config.ProgramLang) //azért hogy ez végigfusson
   else
     ChangeLanguage(LocaleOverride);
-  IsColorsAllowed := not LocaleIsBiDi;
+
+  ChangeStyle(Config.StyleName, 0);
+  Perform(CM_STYLECHANGED, 0, 0);
+
+  //töltsük be az ikonkészletet, majd tükrözzük meg a képeket
+  //  és tiltsuk le a színeket ha szükséges
+  ChangeIconSet(Config.ProgIconSet);
 
   Application.CreateForm(TWinBoxUpd, WinBoxUpd);
 
   tbVMs.ShowCaptions := true;
   tbGlobal.ShowCaptions := true;
 
-  SideRatio := DefSideRatio;
-  Icons32.GetIcon(6, DeleteDialog.CustomMainIcon);
   DeleteDialog.Caption := Application.Title;
   MissingDiskDlg.Caption := Application.Title;
 
@@ -1270,13 +1431,40 @@ begin
 end;
 
 procedure TWinBoxMain.FormDestroy(Sender: TObject);
+var
+  TrayData: TNotifyIconData;
 begin
+  TrayData := TrayIcon.Data;
+  Shell_NotifyIcon(NIM_DELETE, @TrayData);
+
   Updater.Free;
 
   Icons.Free;
   Profiles.Free;
   Monitor.Free;
   Frame86Box.Free;
+
+  if Assigned(Taskbar) then
+    IconSet.Taskbar := nil;
+end;
+
+procedure TWinBoxMain.FormFirstActivate(Sender: TObject);
+begin
+  //pozícionáljuk a formot és a framet a beállítások szerint
+  // (csak itt lehet és az OnShow-ban,
+  //   az OnCreate eseményben még nem,
+  //   és csak akkor ha nem a ProgramSettings hívja meg)
+
+  //mentsük el a form skálázott tervezési pozícióját
+  DefaultSize := Point(Width, Height);
+
+  ChangePosition(Config.PositionData);
+  OnActivate := nil;
+
+  //azért jobb itt mert akkor a DPI PMv2 már nem bassza el
+  // a betöltött méretet [ha nem az elsõdleges monitoron
+  // van a mentett méret] (elv. így jó, a saját tesztek sz.),
+  // míg az OnShow-ban meg igen
 end;
 
 procedure TWinBoxMain.FormResize(Sender: TObject);
@@ -1370,31 +1558,32 @@ var
   IconLeft, TextLeft: integer;
 begin
   try
-    with Control as TListBox, Canvas do begin
-      if Enabled and (odSelected in State) then begin
-        Brush.Color := clHighlight;
-        Font.Color := clHighlightText;
-        GradientFillCanvas(Canvas, clHighlight2, clHighlight1, Rect, gdVertical);
-      end
-      else if (odSelected in State) then begin
-        Brush.Color := cl3DDkShadow;
-        Font.Color := cl3DLight;
-        GradientFillCanvas(Canvas, clDisabled2, clDisabled1, Rect, gdVertical);
-      end
-      else begin
-        Brush.Color := clWindow;
-        Font.Color := clWindowText;
-        FillRect(Rect);
-      end;
+    with IconSet, Control as TListBox, Canvas do
+      with StyleServices(Self) do begin
+        if Enabled and (odSelected in State) then begin
+          Brush.Color := GetSystemColor(clHighlight);
+          Font.Color  := GetSystemColor(clHighlightText);
+          GradientFillCanvas(Canvas, clHighlight2, clHighlight1, Rect, gdVertical);
+        end
+        else if (odSelected in State) then begin
+          Brush.Color := GetSystemColor(cl3DDkShadow);
+          Font.Color  := GetSystemColor(cl3DLight);
+          GradientFillCanvas(Canvas, clDisabled2, clDisabled1, Rect, gdVertical);
+        end
+        else begin
+          Brush.Color := GetSystemColor(clWindow);
+          Font.Color  := GetSystemColor(clWindowText);
+          FillRect(Rect);
+        end;
 
       Brush.Style := bsClear;
 
-      TextLeft := Rect.Left + ListImages.Width + 2 * BorderThickness + 1;
+      TextLeft := Rect.Left + ListIcons.Width + 2 * BorderThickness + 1;
       IconLeft := Rect.Left + BorderThickness;
 
       HalfCharHeight := TextHeight('Wg') div 2;
       if Index < 2 then begin
-        ListImages.Draw(Canvas, IconLeft,
+        ListIcons.Draw(Canvas, IconLeft,
                         Rect.Top + BorderThickness, Index);
 
         Font.Style := [fsBold];
@@ -1488,8 +1677,16 @@ begin
         Profile.OnChange := ProfileChange;
 
         Image := TWICImage.Create;
-        Image.Assign(Profile.Icon);
-        ScaleWIC(Image, ListImages.Width, ListImages.Height, false);
+        if Profile.HasIcon then
+          Image.Assign(Profile.Icon)
+        else
+          Image.Assign(DefProfile.Icon);
+
+        ScaleWIC(Image,
+          IconSet.ListIcons.Width,
+          IconSet.ListIcons.Height,
+          DefScaleOptions - [soBiDiRotate, soOverScale]);
+
         Icons.Add(Image);
 
         cTemp := RGB(random($100), random($100), random($100));
@@ -1547,7 +1744,7 @@ begin
     else
       Monitor.OnUpdate := nil;
 
-    PostMessage(Handle, WM_USER, 13, 7);
+    PostMessage(Handle, UM_DOFIRSTUPDATE, 13, 7);
   end
   else
     inc(UpdateCount);
@@ -1562,6 +1759,37 @@ procedure TWinBoxMain.ResetChart(Chart: TChart);
 begin
   Chart.RemoveAllSeries;
   Chart.Axes.Bottom.Scroll(60 - Chart.Axes.Bottom.Maximum);
+end;
+
+class procedure TWinBoxMain.SendCommandLine(const Handle: HWND);
+var
+  Data: TCopyDataStruct;
+  Text: string;
+  I: Integer;
+begin
+  for I := 0 to ParamCount do
+    if I = 0 then
+      Text := ParamStr(I)
+    else
+      Text := Text + #13#10 + ParamStr(I);
+
+  Text := Text + #0;
+
+  Data.dwData := CopyDataSig;
+  Data.cbData := length(Text) * SizeOf(Char);
+  Data.lpData := @Text[1];
+
+  SendMessage(Handle, WM_COPYDATA, WPARAM(Handle), LPARAM(@Data));
+end;
+
+procedure TWinBoxMain.SplitterMoved(Sender: TObject);
+begin
+  Constraints.MinWidth :=
+    List.Width +
+    Frame86Box.RightPanel.Constraints.MinWidth +
+    50 * CurrentPPI div 96;
+
+  Perform(WM_ENTERSIZEMOVE, 0, 0);
 end;
 
 procedure TWinBoxMain.tmrUpdateTimer(Sender: TObject);
@@ -1618,6 +1846,16 @@ begin
     lbHCPU.Caption := _T('WinBox.HostCPU', [CPU]);
     pbCPU.Position := Round(CPU);
     ColorProgress(pbCPU);
+
+    case Config.TaskbarFlags and TASKBAR_PROGRESSMASK of
+      0: UpdateTaskbar(-1, false);
+      1: UpdateTaskbar(pbCPU.Position, true);
+      2: UpdateTaskbar(pbRAM.Position, true);
+      3: if Profiles.Count = 0 then
+           UpdateTaskbar(0, true)
+         else
+           UpdateTaskbar(100 * VMs div Profiles.Count, true);
+    end;
   except
     with (Sender as TTimer) do begin
       Enabled := false;
@@ -1731,19 +1969,6 @@ begin
   end;
 end;
 
-procedure TWinBoxMain.ImageCollectionDrawBiDi(ASourceImage: TWICImage;
-  ACanvas: TCanvas; ARect: TRect; AProportional: Boolean);
-begin
-  //Az AProportional tulajdonság jelenleg nem támogatott ezen a módon.
-  ImgColl_DrawBiDi(ASourceImage, ACanvas, ARect, AProportional);
-end;
-
-procedure TWinBoxMain.ImageCollectionGetBitmapBiDi(ASourceImage: TWICImage; AWidth,
-  AHeight: Integer; out ABitmap: TBitmap);
-begin
-  ImgColl_GetBitmapBiDi(ASourceImage, AWidth, AHeight, ABitmap);
-end;
-
 procedure TWinBoxMain.Translate;
 var
   I: integer;
@@ -1790,6 +2015,12 @@ begin
     ChartVMs.Title.Text.Text := _T(format(StrChartBase, ['VMs']));
     ChartVMs.BottomAxis.Title.Caption := _T(format(StrChartAxisBase, ['VMs', 'X']));
     ChartVMs.LeftAxis.Title.Caption := _T(format(StrChartAxisBase, ['VMs', 'Y']));
+
+    for I := 0 to Taskbar.TaskBarButtons.Count - 1 do
+      with Taskbar.TaskBarButtons[I] do
+        if Assigned(Action) and (Action is TAction) then
+          Hint := StringReplace((Action as TAction).Caption, '&', '', [rfReplaceAll]);
+    Taskbar.ApplyButtonsChanges;
   end;
 end;
 
@@ -1808,15 +2039,98 @@ begin
                    PChar(ExtractFileDir(Hint)), SW_SHOWNORMAL);
 end;
 
-procedure TWinBoxMain.WMEnterSizeMove(var Message: TMessage);
+procedure TWinBoxMain.WMCopyData(var Msg: TWMCopyData);
+var
+  I: integer;
+  Params: TStringList;
+
+  function CheckParam(Parameter: string): boolean;
+  begin
+    Parameter := UpperCase(Parameter);
+    Result := Parameter = UpperCase(Params[I]);
+  end;
+
+  function CheckProfileParam(const Parameter: string): boolean;
+  var
+    Index: integer;
+  begin
+    Result := CheckParam(Parameter);
+
+    if Result and (I < Params.Count - 1) then begin
+      Index := Profiles.FindByID(Params[I + 1]);
+      if Index <> -1 then begin
+        List.ItemIndex := Index + 2;
+        ListClick(Self);
+        Application.ProcessMessages;
+
+        Result := true;
+      end;
+    end;
+  end;
+
+begin
+  if FirstUpdateDone and Assigned(Msg.CopyDataStruct) then
+    with Msg.CopyDataStruct^ do
+      if dwData = CopyDataSig then begin
+        Params := TStringList.Create;
+        try
+          Params.Text := PChar(lpData);
+
+          //itt lehet feldolgozni a másodpéldányok
+          //  által továbbított paraméterlistát is
+          //  pl. JumpList implementáció esetén
+
+          if Params.Count > 1 then //az elsõ sor a program elérési útja
+            for I := 1 to Params.Count - 1 do
+              if CheckProfileParam('-startvm') then
+                ListDblClick(Self) //start or bring to front
+              else if CheckProfileParam('-stopvm') then
+                acStop.Execute
+              else if CheckProfileParam('-killvm') then
+                acStopForced.Execute
+              else if CheckParam('-stopall') then
+                acStopAll.Execute
+              else if CheckParam('-killall') then
+                acStopAllForced.Execute
+              else if CheckParam('-newvm') then
+                acNewVM.Execute
+              else if CheckParam('-newhdd') then
+                acNewHDD.Execute
+              else if CheckParam('-newfloppy') then
+                acNewFloppy.Execute;
+
+        finally
+          Params.Free;
+        end;
+      end;
+
+  inherited;
+end;
+
+procedure TWinBoxMain.WMEnterSizeMove(var Msg: TMessage);
 begin
   if (List.Width <> 0) and (ClientWidth <> 0) then
     SideRatio := List.Width / ClientWidth
   else
-    SideRatio := DefSideRatio;
+    SideRatio := Defaults.PositionData.MainRatio / 100;
 
   if Assigned(Frame86Box) then
     Frame86Box.OnEnterSizeMove(Self);
+
+  inherited;
+end;
+
+procedure TWinBoxMain.WMSettingChange(var Msg: TMessage);
+begin
+  if (Msg.LParam <> 0) and
+     (PChar(Pointer(Msg.LParam)) = 'ImmersiveColorSet') and
+     IconSet.UpdateDarkMode and
+     (Config.StyleName = '') then
+    //ChangeStyle('', -1); bugos szar a témaváltás runtime
+    MessageBox(Handle, _P(StrDeferStyleChange),
+      PChar(Application.Title), MB_ICONINFORMATION or MB_OK);
+
+  inherited;
 end;
 
 procedure TWinBoxMain.pnpBottomResize(Sender: TObject);
