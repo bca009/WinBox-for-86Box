@@ -738,7 +738,7 @@ procedure TWinBoxMain.acSaveLangFile(Sender: TObject);
     try
       (Form as ILanguageSupport).GetTranslation(Language);
     finally
-      Free;
+      Form.Free;
     end;
   end;
 
