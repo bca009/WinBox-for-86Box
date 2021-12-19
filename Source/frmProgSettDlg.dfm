@@ -1,4 +1,4 @@
-﻿object ProgSettDlg: TProgSettDlg
+object ProgSettDlg: TProgSettDlg
   Left = 0
   Top = 0
   BorderStyle = bsDialog
@@ -25,11 +25,11 @@
     Top = 8
     Width = 444
     Height = 479
-    ActivePage = tabLanguage
+    ActivePage = tabVMs
     Anchors = [akLeft, akTop, akRight, akBottom]
     MultiLine = True
     TabOrder = 0
-    object tabNewVM: TTabSheet
+    object tabVMs: TTabSheet
       Caption = 'Virtu'#225'lis g'#233'pek'
       DesignSize = (
         436
@@ -260,7 +260,7 @@
         end
       end
     end
-    object tab: TTabSheet
+    object tabGeneral: TTabSheet
       Caption = #193'ltal'#225'nos'
       ImageIndex = 3
       DesignSize = (
@@ -332,7 +332,7 @@
           Height = 13
           Cursor = crHandPoint
           HelpType = htKeyword
-          HelpKeyword = 'tabUpdates'
+          HelpKeyword = 'tabAutoUpdate'
           Alignment = taRightJustify
           Anchors = [akLeft, akTop, akRight]
           AutoSize = False
@@ -439,11 +439,11 @@
           Height = 13
           Cursor = crHandPoint
           HelpType = htKeyword
-          HelpKeyword = 'tabUpdates'
+          HelpKeyword = 'tabAutoUpdate'
           Alignment = taRightJustify
           Anchors = [akLeft, akTop, akRight]
           AutoSize = False
-          Caption = 'Az program automatikus friss'#237't'#233'si be'#225'll'#237't'#225'sai'
+          Caption = 'A program automatikus friss'#237't'#233'si be'#225'll'#237't'#225'sai'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clHotLight
           Font.Height = -11
@@ -503,7 +503,7 @@
         end
       end
     end
-    object tabUpdates: TTabSheet
+    object tabAutoUpdate: TTabSheet
       Caption = 'Automatikus friss'#237't'#233'sek'
       ImageIndex = 9
       DesignSize = (
@@ -923,7 +923,7 @@
           Top = 66
           Width = 113
           Height = 25
-          Caption = '&Alap'#233'rtelmezett'
+          Caption = 'Ala&p'#233'rtelmezett'
           TabOrder = 0
           OnClick = btnPositionClick
         end
@@ -1030,7 +1030,7 @@
           Top = 182
           Width = 105
           Height = 25
-          Caption = '&Alap'#233'rtelmezett'
+          Caption = 'A&lap'#233'rtelmezett'
           TabOrder = 3
           OnClick = btnDefaultClick
         end
@@ -1181,7 +1181,7 @@
         end
       end
     end
-    object Témák: TTabSheet
+    object tabStyles: TTabSheet
       Caption = 'T'#233'm'#225'k'
       ImageIndex = 7
       object grpThemes: TGroupBox
@@ -1200,7 +1200,7 @@
           Width = 59
           Height = 13
           AutoSize = False
-          Caption = 'St'#237'lus:'
+          Caption = '&St'#237'lus:'
         end
         object lbStyleColor: TLabel
           Left = 40
@@ -1256,7 +1256,7 @@
         end
         object cbStyleName: TComboBox
           Left = 105
-          Top = 175
+          Top = 176
           Width = 257
           Height = 21
           Style = csDropDownList
@@ -1285,7 +1285,7 @@
         end
         object cbStyleColor: TComboBox
           Left = 105
-          Top = 121
+          Top = 122
           Width = 257
           Height = 21
           Style = csDropDownList

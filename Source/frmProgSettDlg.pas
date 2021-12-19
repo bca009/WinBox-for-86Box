@@ -34,7 +34,7 @@ type
     pcPages: TPageControl;
     btnOK: TButton;
     btnCancel: TButton;
-    tabNewVM: TTabSheet;
+    tabVMs: TTabSheet;
     tabAppearance: TTabSheet;
     grpNewVMs: TGroupBox;
     imgNewVM: TImage;
@@ -77,7 +77,7 @@ type
     edToolName: TEdit;
     mmToolPath: TMemo;
     btnToolBrowse: TButton;
-    tab: TTabSheet;
+    tabGeneral: TTabSheet;
     grpDefEmulator: TGroupBox;
     imgEmulator: TImage;
     lbDefEmulator: TLabel;
@@ -157,7 +157,7 @@ type
     grpPositionData: TGroupBox;
     grpIconSets: TGroupBox;
     lbEmuIconSet: TLabel;
-    Témák: TTabSheet;
+    tabStyles: TTabSheet;
     lbEmuIconSetNote: TLabel;
     lbIconSetDesc: TLabel;
     grpThemes: TGroupBox;
@@ -182,7 +182,7 @@ type
     btnQuadEqSolve: TButton;
     imgStyle: TImage;
     imgIconSet: TImage;
-    tabUpdates: TTabSheet;
+    tabAutoUpdate: TTabSheet;
     grpEmulatorUpdates: TGroupBox;
     lbArtifact: TLabel;
     cbAutoUpdate: TCheckBox;
