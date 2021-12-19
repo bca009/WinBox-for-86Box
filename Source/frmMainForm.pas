@@ -729,6 +729,19 @@ begin
 end;
 
 procedure TWinBoxMain.acSaveLangFile(Sender: TObject);
+
+  procedure GetTranslation(const AClass: TFormClass);
+  var
+    Form: TForm;
+  begin
+    Form := AClass.Create(nil);
+    try
+      (Form as ILanguageSupport).GetTranslation(Language);
+    finally
+      Free;
+    end;
+  end;
+
 begin
   try
     Screen.Cursor := crHourGlass;
@@ -742,68 +755,15 @@ begin
       if Assigned(Updater) then
         Updater.GetTranslation(Language);
 
-      with TProgSettDlg.Create(nil) do
-        try
-          GetTranslation(Language);
-        finally
-          Free;
-        end;
-
-      with TProfSettDlg.Create(nil) do
-        try
-          GetTranslation(Language);
-        finally
-          Free;
-        end;
-
-      with TImportVM.Create(nil) do
-        try
-          GetTranslation(Language);
-        finally
-          Free;
-        end;
-
-      with TExceptionDialog.Create(nil) do
-        try
-          GetTranslation(Language);
-        finally
-          Free;
-        end;
-
-      with TAboutDlg.Create(nil) do
-        try
-          GetTranslation(Language);
-        finally
-          Free;
-        end;
-
-      with THDSelect.Create(nil) do
-        try
-          GetTranslation(Language);
-        finally
-          Free;
-        end;
-
-      with TNewFloppy.Create(nil) do
-        try
-          GetTranslation(Language);
-        finally
-          Free;
-        end;
-
-      with TWizardHDD.Create(nil) do
-        try
-          GetTranslation(Language);
-        finally
-          Free;
-        end;
-
-      with TWizardVM.Create(nil) do
-        try
-          GetTranslation(Language);
-        finally
-          Free;
-        end;
+      GetTranslation(TProgSettDlg);
+      GetTranslation(TProfSettDlg);
+      GetTranslation(TImportVM);
+      GetTranslation(TExceptionDialog);
+      GetTranslation(TAboutDlg);
+      GetTranslation(THDSelect);
+      GetTranslation(TNewFloppy);
+      GetTranslation(TWizardHDD);
+      GetTranslation(TWizardVM);
     finally
       Screen.Cursor := crDefault;
       if SaveLogDialog.Execute then
