@@ -171,7 +171,7 @@ UpdateDlg.Progress.CleanUp=删除临时文件...
 UpdateDlg.Progress.Terminated=进程已被用户中止. 
 
 WinBoxUpd.DetailsInfo=版本: %s\r\n发布日期: %s
-WinBoxUpd.DialogTitle=程序更新可用
+WinBoxUpd.DialogTitle=更新程序
 WinBoxUpd.AskAllowUpdate=WinBox for 86Box 程序有可用更新. \r\n您想下载并安装吗？
 WinBoxUpd.AskLocalNewer=当前使用的 86Box 的 WinBox 版本与可下载的版本相同或更新. \r\n您想替换当前版本吗？
 

@@ -171,7 +171,7 @@ UpdateDlg.Progress.CleanUp=Remove Temporary Files...
 UpdateDlg.Progress.Terminated=The process has been aborted by the user.
 
 WinBoxUpd.DetailsInfo=Version: %s\r\nRelease date: %s
-WinBoxUpd.DialogTitle=Program Update Available
+WinBoxUpd.DialogTitle=Updating Program
 WinBoxUpd.AskAllowUpdate=An update is available for the WinBox for 86Box program.\r\nDo you want to download and install?
 WinBoxUpd.AskLocalNewer=The version WinBox for 86Box currently in use is the same or newer than the downloadable one.\r\nDo you want to replace the current version? 
 
