@@ -282,6 +282,12 @@ joystick.standard_2button=Standard 2-button joystick(s)
 joystick.standard_4button=Standard 4-button joystick
 joystick.standard_6button=Standard 6-button joystick
 joystick.standard_8button=Standard 8-button joystick
+joystick.2axis_2button=2-axis 2-button joystick(s)
+joystick.2axis_4button=2-axis 4-button joystick
+joystick.2axis_6button=2-axis 6-button joystick
+joystick.2axis_8button=2-axis 8-button joystick
+joystick.3axis_2button=3-axis 2-button joystick
+joystick.3axis_4button=3-axis 4-button joystick
 joystick.4axis_4button=4-axis 4-button joystick
 
 [Actions]
