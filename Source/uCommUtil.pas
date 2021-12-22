@@ -24,7 +24,7 @@ unit uCommUtil;
 interface
 
 uses Windows, SysUtils, Classes, Controls, Dialogs, Graphics, ExtCtrls,
-     WinCodec, Registry, ComCtrls, ShellAPI, IniFiles;
+     WinCodec, Registry, ComCtrls, ShellAPI, ComObj, ShlObj, IniFiles;
 
 type
   TRegHelper = class helper for TRegistry
@@ -68,6 +68,9 @@ procedure Log(const Text: string; const Args: array of const); overload;
 function CommandLineToArgs(const CommandLine: string): TStringList;
 function ExpandFileNameTo(const FileName, BaseDir: string): string;
 function CompactFileNameTo(const FileName, BaseDir: string): string;
+
+function GetDesktopFolder: string;
+procedure SaveShortcut(ShellLink: IShellLink; const LnkFile: string);
 
 function CommandLineToArgvW(lpCmdLine: LPCWSTR; var pNumArgs: integer): PPWideChar; stdcall; external 'shell32.dll';
 {$EXTERNALSYM CommandLineToArgvW}
@@ -117,10 +120,42 @@ procedure ShowSysPopup(aFile: string; x, y: integer; HND: HWND);
 
 implementation
 
-uses ComObj, ShlObj, ActiveX, FileCtrl, uCommText, uLang;
+uses ActiveX, FileCtrl, uCommText, uLang;
 
 resourcestring
   InfWinBox = 'WinBox.inf';
+
+procedure SaveShortcut(ShellLink: IShellLink; const LnkFile: string);
+var
+  PersistFile: IPersistFile;
+begin
+  if not Assigned(ShellLink) then
+    exit;
+
+  PersistFile := ShellLink as IPersistFile;
+  PersistFile.Save(PChar(LnkFile), false);
+end;
+
+function GetDesktopFolder: string;
+var
+  Buffer: array [0 .. MAX_PATH + 1] of char;
+  Items: PItemIDList;
+begin
+  SHGetSpecialFolderLocation(0, CSIDL_DESKTOP, Items);
+
+  if Assigned(Items) and SHGetPathFromIDList(Items, Buffer) then
+    Result := String(Buffer)
+  else
+    with TRegIniFile.Create('Software\Microsoft\Windows\CurrentVersion\Explorer', KEY_READ) do
+      try
+        Result := ReadString('Shell Folders', 'Desktop',
+          IncludeTrailingPathDelimiter(GetEnvironmentVariable('USERPROFILE')) + 'Desktop');
+      finally
+        Free;
+      end;
+
+  Result := IncludeTrailingPathDelimiter(Result);
+end;
 
 function CheckParam(Parameter: string): boolean;
 var

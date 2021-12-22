@@ -106,7 +106,7 @@ object WinBoxMain: TWinBoxMain
         ParentFont = False
       end
       object ImgWelcome: TImage
-        Left = 321
+        Left = 313
         Top = 16
         Width = 142
         Height = 145
@@ -923,6 +923,13 @@ object WinBoxMain: TWinBoxMain
       ShortCut = 24661
       OnExecute = acWinBoxUpdateExecute
     end
+    object acSaveShortcut: TAction
+      Tag = -10
+      Category = 'G'#233'p'
+      Caption = 'acSaveShortcut'
+      OnExecute = acVMsExecute
+      OnUpdate = acVMsUpdate
+    end
   end
   object MainMenu: TMainMenu
     Images = IconSet.Icons16
@@ -1030,7 +1037,7 @@ object WinBoxMain: TWinBoxMain
       object Virtulisgpinformcikfrisstse1: TMenuItem
         Action = acUpdateFull
       end
-      object N8: TMenuItem
+      object N48: TMenuItem
         Caption = '-'
       end
       object Httrsznmegvltoztatsa1: TMenuItem
@@ -1038,6 +1045,12 @@ object WinBoxMain: TWinBoxMain
       end
       object Httrsznvisszalltsa1: TMenuItem
         Action = acResetColor
+      end
+      object N8: TMenuItem
+        Caption = '-'
+      end
+      object acSaveShortcut2: TMenuItem
+        Action = acSaveShortcut
       end
       object N34: TMenuItem
         Caption = '-'
@@ -1415,6 +1428,12 @@ object WinBoxMain: TWinBoxMain
       object N20: TMenuItem
         Caption = '-'
       end
+      object acSaveShortcut1: TMenuItem
+        Action = acSaveShortcut
+      end
+      object N47: TMenuItem
+        Caption = '-'
+      end
       object Kpernykpekmegnyitsa3: TMenuItem
         Action = acOpenScreenshots
       end
@@ -1704,5 +1723,11 @@ object WinBoxMain: TWinBoxMain
       end>
     Left = 440
     Top = 176
+  end
+  object SaveLnkDialog: TSaveDialog
+    DefaultExt = '.lnk'
+    Filter = 'Parancsikonok (*.lnk)|*.lnk|Minden f'#225'jl (*.*)|*.*'
+    Left = 216
+    Top = 136
   end
 end

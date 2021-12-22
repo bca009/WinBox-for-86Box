@@ -341,6 +341,12 @@ type
     acWinBoxUpdate: TAction;
     Programfrisstsekkeresse1: TMenuItem;
     JumpList: TJumpList;
+    SaveLnkDialog: TSaveDialog;
+    acSaveShortcut: TAction;
+    acSaveShortcut1: TMenuItem;
+    N47: TMenuItem;
+    N48: TMenuItem;
+    acSaveShortcut2: TMenuItem;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure acDebugExecute(Sender: TObject);
@@ -852,6 +858,13 @@ begin
             end;
         -9: if Assigned(Frame86Box) then
               Frame86Box.UpdateFull(Profiles[List.ItemIndex - 2]);
+        -10: with Profiles[List.ItemIndex - 2], SaveLnkDialog do begin
+              FileName :=
+                ToFileName(InitialDir, DefaultExt);
+
+              if Execute then
+                SaveShortcut(GetShellLink, FileName);
+            end;
         0: if (HelpContext = 0) or (MessageBox(Handle, _P(StrTerminateConf),
              PChar(Application.Title), MB_ICONWARNING or MB_YESNO) = mrYes) then
                Profiles[List.ItemIndex - 2].Stop(HelpContext <> 0);
@@ -1400,6 +1413,8 @@ begin
       if cgPanels.Panels[I] <> cpSystem then
         (TObject(cgPanels.Panels[I]) as TCategoryPanel).Collapsed := true;
   end;
+
+  SaveLnkDialog.InitialDir := GetDesktopFolder;
 
   Locale := '-'; //cseréljük ki az alapérték '' nyelvet akármire
   if LocaleOverride = '' then
