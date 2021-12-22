@@ -91,6 +91,8 @@ type
     procedure btnOKClick(Sender: TObject);
     procedure ActionClick(Sender: TObject);
     procedure OpenImgClick(Sender: TObject);
+    procedure edEditKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     procedure UMIconsChanged(var Msg: TMessage); message UM_ICONSETCHANGED;
   public
@@ -206,6 +208,13 @@ begin
     lbVersion.Caption := format(_T(StrVersion) ,[GetFileVer(ed86Box.Text)])
   else
     lbVersion.Caption := format(_T(StrVersion) ,[_T(StrUnknown)])
+end;
+
+procedure TProfSettDlg.edEditKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if Key = VK_RETURN then
+    btnOK.Click;
 end;
 
 procedure TProfSettDlg.FlipBiDi;

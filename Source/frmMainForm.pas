@@ -30,7 +30,7 @@ uses
   BaseImageCollection, ImageCollection, ImageList, ImgList, VirtualImageList,
   GraphUtil, Generics.Collections, u86Box, Vcl.ToolWin, uLang, AppEvnts, frm86Box,
   Vcl.ExtDlgs, frmUpdaterDlg, uCommText, uConfigMgr, System.Win.TaskbarCore,
-  Vcl.Taskbar;
+  Vcl.Taskbar, Vcl.JumpList, uJumpList;
 
 type
   TListBox = class(StdCtrls.TListBox)
@@ -340,7 +340,7 @@ type
     MissingDiskDlg: TTaskDialog;
     acWinBoxUpdate: TAction;
     Programfrisstsekkeresse1: TMenuItem;
-    Taskbar: TTaskbar;
+    JumpList: TJumpList;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure acDebugExecute(Sender: TObject);
@@ -387,6 +387,8 @@ type
 
     clHighlight1, clHighlight2,
     clDisabled1, clDisabled2: TColor;
+
+    Taskbar: TTaskbar;
 
     procedure ResetChart(Chart: TChart);
     procedure AddSeries(Chart: TChart; AColor: TColor; const FriendlyName: string);
@@ -478,15 +480,6 @@ resourcestring
   ImFloppyImages = 'Floppy Disk Images';
   WizNewVM = 'WizardVM.NewVM';
   StrLangNeedsRestart = 'WinBox.LangNeedsRestart';
-
-  CmdStartVM = '-startvm';
-  CmdStopVM = '-stopvm';
-  CmdKillVM = '-killvm';
-  CmdStopAll = '-stopall';
-  CmdKillAll = '-killall';
-  CmdNewVM = '-newvm';
-  CmdNewHDD = '-newhdd';
-  CmdNewFloppy = '-newfloppy';
 
 {$R *.dfm}
 
@@ -1226,12 +1219,13 @@ begin
   DefProfile.Icon.Assign(
     IconSet.ActionImages.Images[21].SourceImages[0].Image);
 
+  (*
   for I := 0 to Taskbar.TaskBarButtons.Count - 1 do
     with Taskbar.TaskBarButtons[I] do
       if Assigned(Action) and (Action is TAction) then
         IconSet.IconsMaxDPI.GetIcon((Action as TAction).ImageIndex, Icon);
 
-  Taskbar.ApplyButtonsChanges;
+  Taskbar.ApplyButtonsChanges; *)
 
   if Assigned(Profiles) then
     ListReload(Self);
@@ -1243,6 +1237,9 @@ var
   I: integer;
   State: TThumbButtonStates;
 begin
+  if not Assigned(Taskbar) then
+    exit;
+
   for I := 0 to Taskbar.TaskBarButtons.Count - 1 do
     with Taskbar.TaskBarButtons[I] do begin
       State := [];
@@ -1377,6 +1374,11 @@ var
 begin
   //GUI part
   InitialTitle := Application.Title;
+
+  if CheckWin32Version(6, 1) then begin
+    Taskbar := TTaskbar.Create(Self);
+    JumpList.Enabled := true;
+  end;
 
   IconSet.Initialize(Self);
   IconSet.Taskbar := Taskbar;
@@ -1524,10 +1526,12 @@ begin
   //  end;
   end;
 
-  if IsSelectedVM then
-    Taskbar.ToolTip := Profiles[List.ItemIndex - 2].FriendlyName
-  else if Assigned(Pages.ActivePage) then
-    Taskbar.ToolTip := Pages.ActivePage.Caption;
+  if Assigned(Taskbar) then begin
+    if IsSelectedVM then
+      Taskbar.ToolTip := Profiles[List.ItemIndex - 2].FriendlyName
+    else if Assigned(Pages.ActivePage) then
+      Taskbar.ToolTip := Pages.ActivePage.Caption;
+  end;
 
   Success := LockWindowUpdate(Handle);
   try
@@ -1718,6 +1722,24 @@ begin
 
       ResetChart(ChartVMs);
       AddSeries(ChartVMs, clRed, Pages.Pages[2].Caption);
+
+      JumpList.ValidateRecents(AppModelID,
+        function(const AArguments: string): IUnknown
+        var
+          ID: string;
+          Index: integer;
+        begin
+          Result := nil;
+
+          if pos(CmdStartVM, AArguments) = 1 then
+            ID := Copy(AArguments, pos(' ', AArguments) + 1, MaxInt)
+          else
+            exit;
+
+          Index := Profiles.FindByID(ID);
+          if Index <> -1 then
+            Result := Profiles[Index].GetShellLink;
+        end);
     end;
   finally
     Monitor.Enabled := State;
@@ -2030,11 +2052,17 @@ begin
     ChartVMs.BottomAxis.Title.Caption := _T(format(StrChartAxisBase, ['VMs', 'X']));
     ChartVMs.LeftAxis.Title.Caption := _T(format(StrChartAxisBase, ['VMs', 'Y']));
 
+
+                                      (*
     for I := 0 to Taskbar.TaskBarButtons.Count - 1 do
       with Taskbar.TaskBarButtons[I] do
         if Assigned(Action) and (Action is TAction) then
           Hint := StringReplace((Action as TAction).Caption, '&', '', [rfReplaceAll]);
-    Taskbar.ApplyButtonsChanges;
+    Taskbar.ApplyButtonsChanges;    *)
+
+    JumpList.TaskList[0].FriendlyName :=
+      StringReplace(acStopAll.Caption, '&', '', [rfReplaceAll]);
+    JumpList.UpdateList;
   end;
 end;
 

@@ -1288,6 +1288,8 @@ begin
     end;
 
     cbTaskbarProgress.ItemIndex := TaskbarFlags and TASKBAR_PROGRESSMASK;
+    cbTaskbarProgress.Enabled := CheckWin32Version(6, 1);
+
     cbDefFullscreen.Checked := (DisplayFlags and DISPLAY_DEFFULLSCREEN) <> 0;
 
     UpdateLanguages(0);

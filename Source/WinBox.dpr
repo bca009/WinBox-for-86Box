@@ -28,7 +28,8 @@ uses
   dmWinBoxUpd in 'dmWinBoxUpd.pas' {WinBoxUpd: TDataModule},
   dmGraphUtil in 'dmGraphUtil.pas' {IconSet: TDataModule},
   Vcl.Themes,
-  Vcl.Styles;
+  Vcl.Styles,
+  uJumpList in 'uJumpList.pas';
 
 {$R *.res}
 {$R '..\Data\rcWinBox.RES'}
@@ -37,7 +38,7 @@ var
   Handle: HWND;
 
 begin
-  InitAppModelID;
+  SetAppModelID;
 
   Handle := FindWindow('TWinBoxMain', nil);
   if (Handle <> 0) then begin

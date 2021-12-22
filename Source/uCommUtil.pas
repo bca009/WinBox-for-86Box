@@ -69,8 +69,6 @@ function CommandLineToArgs(const CommandLine: string): TStringList;
 function ExpandFileNameTo(const FileName, BaseDir: string): string;
 function CompactFileNameTo(const FileName, BaseDir: string): string;
 
-procedure InitAppModelID;
-
 function CommandLineToArgvW(lpCmdLine: LPCWSTR; var pNumArgs: integer): PPWideChar; stdcall; external 'shell32.dll';
 {$EXTERNALSYM CommandLineToArgvW}
 
@@ -107,6 +105,9 @@ function SelectDirectory(const Caption: string; const Root: WideString;
 function TryLoadIni(const FileName: string): TMemIniFile;
 procedure TryLoadList(Stream: TStream; List: TStrings; const Origin: int64 = 0);
 
+procedure SetAppModelID;
+function CheckParam(Parameter: string): boolean;
+
 //közös UI kód, a 86Box Manager elérési útjának bekérérésére
 function AskFor86MgrPath(var ProgramRoot: string): boolean;
 procedure Check86MgrPath(var Field, ProgramRoot: string);
@@ -121,9 +122,26 @@ uses ComObj, ShlObj, ActiveX, FileCtrl, uCommText, uLang;
 resourcestring
   InfWinBox = 'WinBox.inf';
 
-procedure InitAppModelID;
+function CheckParam(Parameter: string): boolean;
+var
+  I: Integer;
 begin
-  SetCurrentProcessExplicitAppUserModelID(PChar(AppModelID));
+  Result := false;
+  Parameter := UpperCase(Parameter);
+
+  if paramcount > 0 then
+    for I := 1 to paramcount do
+      if Parameter = paramstr(I) then begin
+        Result := true;
+        exit;
+      end;
+end;
+
+procedure SetAppModelID;
+begin
+  if CheckWin32Version(6, 1) then
+    OleCheck(
+      SetCurrentProcessExplicitAppUserModelID(PChar(AppModelID)));
 end;
 
 function AskFor86MgrPath(var ProgramRoot: string): boolean;

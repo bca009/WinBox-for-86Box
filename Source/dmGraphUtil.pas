@@ -352,13 +352,14 @@ end;
 
 procedure ColorTaskbar(const Taskbar: TTaskbar);
 begin
-  with TaskBar do
-    if ProgressValue > PROGRESS_RED then
-      ProgressState := TTaskBarProgressState.Error
-    else if ProgressValue > PROGRESS_YELLOW then
-      ProgressState := TTaskBarProgressState.Paused
-    else
-      ProgressState := TTaskBarProgressState.Normal;
+  if Assigned(Taskbar) then
+    with TaskBar do
+      if ProgressValue > PROGRESS_RED then
+        ProgressState := TTaskBarProgressState.Error
+      else if ProgressValue > PROGRESS_YELLOW then
+        ProgressState := TTaskBarProgressState.Paused
+      else
+        ProgressState := TTaskBarProgressState.Normal;
 end;
 
 //Source: https://coderedirect.com/questions/441320/prevent-rtl-tlistview-from-mirroring-check-boxes-and-or-graphics
@@ -427,6 +428,7 @@ end;
 constructor TIconSet.Create(AOwner: TComponent);
 begin
   inherited;
+  Taskbar := nil;
   IsColorsAllowed := true;
 
   FStyle := 'Windows';
