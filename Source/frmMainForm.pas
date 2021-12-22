@@ -479,6 +479,15 @@ resourcestring
   WizNewVM = 'WizardVM.NewVM';
   StrLangNeedsRestart = 'WinBox.LangNeedsRestart';
 
+  CmdStartVM = '-startvm';
+  CmdStopVM = '-stopvm';
+  CmdKillVM = '-killvm';
+  CmdStopAll = '-stopall';
+  CmdKillAll = '-killall';
+  CmdNewVM = '-newvm';
+  CmdNewHDD = '-newhdd';
+  CmdNewFloppy = '-newfloppy';
+
 {$R *.dfm}
 
 procedure TWinBoxMain.acCloseExecute(Sender: TObject);
@@ -1515,6 +1524,11 @@ begin
   //  end;
   end;
 
+  if IsSelectedVM then
+    Taskbar.ToolTip := Profiles[List.ItemIndex - 2].FriendlyName
+  else if Assigned(Pages.ActivePage) then
+    Taskbar.ToolTip := Pages.ActivePage.Caption;
+
   Success := LockWindowUpdate(Handle);
   try
     tbVMs.Visible := List.ItemIndex > 1;
@@ -2048,6 +2062,12 @@ var
   begin
     Parameter := UpperCase(Parameter);
     Result := Parameter = UpperCase(Params[I]);
+
+    if Result then begin
+      List.ItemIndex := 0;
+      ListClick(Self);
+      Application.ProcessMessages;
+    end;
   end;
 
   function CheckProfileParam(const Parameter: string): boolean;
@@ -2082,22 +2102,24 @@ begin
 
           if Params.Count > 1 then //az elsõ sor a program elérési útja
             for I := 1 to Params.Count - 1 do
-              if CheckProfileParam('-startvm') then
+              if CheckProfileParam(CmdStartVM) then
                 ListDblClick(Self) //start or bring to front
-              else if CheckProfileParam('-stopvm') then
+              else if CheckProfileParam(CmdStopVM) then
                 acStop.Execute
-              else if CheckProfileParam('-killvm') then
+              else if CheckProfileParam(CmdKillVM) then
                 acStopForced.Execute
-              else if CheckParam('-stopall') then
+              else if CheckParam(CmdStopAll) then
                 acStopAll.Execute
-              else if CheckParam('-killall') then
+              else if CheckParam(CmdKillAll) then
                 acStopAllForced.Execute
-              else if CheckParam('-newvm') then
+              else if CheckParam(CmdNewVM) then
                 acNewVM.Execute
-              else if CheckParam('-newhdd') then
+              else if CheckParam(CmdNewHDD) then
                 acNewHDD.Execute
-              else if CheckParam('-newfloppy') then
-                acNewFloppy.Execute;
+              else if CheckParam(CmdNewFloppy) then
+                acNewFloppy.Execute
+              else
+                BringWindowToFront(Handle);
 
         finally
           Params.Free;

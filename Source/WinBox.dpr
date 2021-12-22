@@ -4,6 +4,7 @@ uses
   MidasLib,
   Windows,
   uCommUtil,
+  uCommText,
   Forms,
   frmMainForm in 'frmMainForm.pas' {WinBoxMain},
   uProcessMon in 'uProcessMon.pas',
@@ -36,10 +37,11 @@ var
   Handle: HWND;
 
 begin
+  InitAppModelID;
+
   Handle := FindWindow('TWinBoxMain', nil);
   if (Handle <> 0) then begin
     TWinBoxMain.SendCommandLine(Handle);
-    BringWindowToFront(Handle);
     Halt(1);
   end;
 

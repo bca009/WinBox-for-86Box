@@ -69,6 +69,8 @@ function CommandLineToArgs(const CommandLine: string): TStringList;
 function ExpandFileNameTo(const FileName, BaseDir: string): string;
 function CompactFileNameTo(const FileName, BaseDir: string): string;
 
+procedure InitAppModelID;
+
 function CommandLineToArgvW(lpCmdLine: LPCWSTR; var pNumArgs: integer): PPWideChar; stdcall; external 'shell32.dll';
 {$EXTERNALSYM CommandLineToArgvW}
 
@@ -118,6 +120,11 @@ uses ComObj, ShlObj, ActiveX, FileCtrl, uCommText, uLang;
 
 resourcestring
   InfWinBox = 'WinBox.inf';
+
+procedure InitAppModelID;
+begin
+  SetCurrentProcessExplicitAppUserModelID(PChar(AppModelID));
+end;
 
 function AskFor86MgrPath(var ProgramRoot: string): boolean;
 begin

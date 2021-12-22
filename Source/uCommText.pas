@@ -65,6 +65,8 @@ resourcestring
 
   StrDeferStyleChange = 'IconSet.DeferStyleChange';
 
+  AppModelID = 'com.laciba.WinBox-for-86Box';
+
 implementation
 
 end.
