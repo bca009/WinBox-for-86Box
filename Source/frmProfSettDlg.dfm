@@ -184,6 +184,7 @@ object ProfSettDlg: TProfSettDlg
           BiDiMode = bdLeftToRight
           ParentBiDiMode = False
           TabOrder = 0
+          OnKeyUp = edEditKeyUp
         end
         object mmDescription: TMemo
           Left = 160

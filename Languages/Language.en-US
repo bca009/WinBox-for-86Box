@@ -72,6 +72,7 @@ OpenDialog.EmfImage=Metafiles (*.emf; *.wmf)|*.emf;*.wmf|All files (*.*)|*.*
 OpenDialog.Floppy=Floppy Disk Images (*.ima; *.vfd)|*.ima;*.vfd|Raw Disk Images (*.im?; *.vfd)|*.im?;*.vfd|All files (*.*)|*.*
 OpenDialog.RawDisk=Hard Disk Images (*.img)|*.img|Raw Disk Images (*.im?)|*.im?|All files (*.*)|*.*
 OpenDialog.VhdDisk=Virtual Hard Disks (*.vhd)|*.vhd|All files (*.*)|*.*
+OpenDialog.Shortcuts=Shortcuts (*.lnk)|*.lnk|All files (*.*)|*.*
 
 Strings.Unknown=Unknown
 Strings.Version=Version: %s
@@ -206,6 +207,8 @@ QuadEq.ComplexSolution=The equation has two different complex solutions: x1=%.2f
 
 IconSet.DeferStyleChange=The system-wide application mode or the program theme settings have been changed and saved.\r\n\r\nThe changes will take effect the next time the program is started.
 
+WinBox.InvCmdProfileID=The profile ID ("%s") specified as parameter is invalid. Check that you have entered the profile ID correctly and that the profile you are looking for has not been deleted.
+
 [UpdateDlg]
 btnTerminate.Hint=&Close
 btnTerminate=&Abort
@@ -312,6 +315,7 @@ acProfileSettings=&Profile Settings...
 acOpenScreenshots=Open S&creenshots...
 acOpenPrinterTray=Open Printer Tra&y...
 acOpenWorkDir=Open &Working Directory...
+acSaveShortcut=Create Sh&ortcut...
 
 acBringToFront=Bring Machine To &Front...
 acUpdateFull=Update Machine &Informations
@@ -319,6 +323,8 @@ acChangeColor=&Change Background Color...
 acResetColor=&Reset Background Color
 acUpdateList=&Update Machine List
 acUpdateTools=Update List of User &Tools
+
+acPerfMonPrint=&Print the Graph...
 
 acAutoUpdate=Search for Emulator &Updates...
 acWinBoxUpdate=Search for Program Up&dates...

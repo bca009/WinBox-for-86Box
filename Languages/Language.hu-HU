@@ -72,6 +72,7 @@ OpenDialog.EmfImage=Metafájlok (*.emf; *.wmf)|*.emf;*.wmf|Minden fájl (*.*)|*.
 OpenDialog.Floppy=Hajlékonylemez képfájlok (*.ima; *.vfd)|*.ima;*.vfd|Nyers lemezképfájlok (*.im?; *.vfd)|*.im?;*.vfd|Minden fájl (*.*)|*.*
 OpenDialog.RawDisk=Merevlemez képfájlok (*.img)|*.img|Nyers lemezképfájlok (*.im?)|*.im?|Minden fájl (*.*)|*.*
 OpenDialog.VhdDisk=Virtuális merevlemezek (*.vhd)|*.vhd|Minden fájl (*.*)|*.*
+OpenDialog.Shortcuts=Parancsikonok (*.lnk)|*.lnk|Minden fájl (*.*)|*.*
 
 Strings.Unknown=Ismeretlen
 Strings.Version=Verzió: %s
@@ -205,6 +206,8 @@ QuadEq.DoubleSolution=Az egyenlet két különböző valós megoldással rendelk
 QuadEq.ComplexSolution=Az egyenlet két különböző komplex megoldással rendelkezik: x1=%.2f%s%.2fi, és x2=%.2f%s%.2fi.
 
 IconSet.DeferStyleChange=A rendszer alkalmazás-üzemmód, vagy a program témabeállításai megváltoztak, és mentésre kerültek.\r\n\r\nA változások a program következő indításakor lépnek életbe.
+
+WinBox.InvCmdProfileID=A paraméterként megadott profilazonosító ("%s") érvénytelen. Ellenőrizze hogy megfelelően adta-e meg a profilazonosítót, és hogy nem-e törölték azóta a keresett profilt.
 
 [UpdateDlg]
 btnTerminate.Hint=&Kilépés

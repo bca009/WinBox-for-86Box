@@ -4,6 +4,7 @@ uses
   MidasLib,
   Windows,
   uCommUtil,
+  uCommText,
   Forms,
   frmMainForm in 'frmMainForm.pas' {WinBoxMain},
   uProcessMon in 'uProcessMon.pas',
@@ -27,7 +28,8 @@ uses
   dmWinBoxUpd in 'dmWinBoxUpd.pas' {WinBoxUpd: TDataModule},
   dmGraphUtil in 'dmGraphUtil.pas' {IconSet: TDataModule},
   Vcl.Themes,
-  Vcl.Styles;
+  Vcl.Styles,
+  uJumpList in 'uJumpList.pas';
 
 {$R *.res}
 {$R '..\Data\rcWinBox.RES'}
@@ -36,10 +38,11 @@ var
   Handle: HWND;
 
 begin
+  SetAppModelID;
+
   Handle := FindWindow('TWinBoxMain', nil);
   if (Handle <> 0) then begin
     TWinBoxMain.SendCommandLine(Handle);
-    BringWindowToFront(Handle);
     Halt(1);
   end;
 

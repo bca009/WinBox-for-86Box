@@ -23,7 +23,8 @@ unit uWinProfile;
 
 interface
 
-uses Windows, Messages, SysUtils, uProcProfile;
+uses Windows, Messages, SysUtils, ComObj, ActiveX, ShlObj,
+     PropSys, PropKey, uProcProfile;
 
 (*
 
@@ -49,9 +50,14 @@ type
   protected
     function CanPause: boolean; //Támogatott-e a mûvelet?
   public
+    function GetShellLink: IShellLink;
+    function ToFileName(const Directory, Extension: string): string;
+
     function Pause(const Suspend: boolean): boolean; virtual; abstract;
     //Suspend: true = Pause, false = Resume
 
+    function Start(const Parameters: string = '';
+      const nShow: integer = SW_SHOWNORMAL): boolean; override;
     function Stop(const Force: boolean): boolean;
 
     function CanState(const Target: integer): boolean;
@@ -77,7 +83,7 @@ function FindWindowByPID(hwnd: HWND; pFindWindow: PFindWindow): BOOL; stdcall;
 
 implementation
 
-uses uCommUtil;
+uses uCommUtil, uCommText;
 
 function FindWindowByPID(hwnd: HWND; pFindWindow: PFindWindow): BOOL; stdcall;
 var
@@ -231,6 +237,29 @@ begin
   end;
 end;
 
+function TWinBoxProfile.GetShellLink: IShellLink;
+var
+  PropStore: IPropertyStore;
+  PropVar: TPropVariant;
+begin
+  if FriendlyName = '' then begin
+    Result := nil;
+    exit;
+  end;
+  Result := CreateComObject(CLSID_ShellLink) as IShellLink;
+  OleCheck(Result.QueryInterface(IPropertyStore, PropStore));
+  //Set FriendlyName
+  OleCheck(InitPropVariantFromString(PChar(FriendlyName), PropVar));
+  OleCheck(PropStore.SetValue(PKEY_Title, PropVar));
+  OleCheck(PropStore.Commit);
+  OleCheck(PropVariantClear(PropVar));
+  with Result do begin
+    OleCheck(SetArguments(PChar(CmdStartVM + ' ' + ProfileID)));
+    OleCheck(SetPath(PChar(paramstr(0))));
+    OleCheck(SetIconLocation(PChar(paramstr(0)), 1)); //empty VM icon is = 1
+  end;
+end;
+
 function TWinBoxProfile.SetState(const Target: integer;
   const Forced: boolean): boolean;
 var
@@ -263,6 +292,13 @@ begin
   end;
 end;
 
+function TWinBoxProfile.Start(const Parameters: string;
+  const nShow: integer): boolean;
+begin
+  SHAddToRecentDocs(SHARD_LINK, GetShellLink);
+  Result := inherited Start(Parameters, nShow);
+end;
+
 function TWinBoxProfile.Stop(const Force: boolean): boolean;
 var
   I: integer;
@@ -276,6 +312,22 @@ begin
 
   if dbgLogProcessOp then
     Log('TWinBoxProfile.Stop, Force: %d, Result: %d', [ord(Force), ord(Result)]);
+end;
+
+function TWinBoxProfile.ToFileName(const Directory, Extension: string): string;
+var
+  Buffer: array [0 .. MAX_PATH + 1] of char;
+begin
+  FillChar(Buffer[0], SizeOf(Buffer), #0);
+
+  if FriendlyName <> '' then
+    StrPLCopy(@Buffer[0], FriendlyName + Extension + #0, MAX_PATH)
+  else
+    StrPLCopy(@Buffer[0], ProfileID + Extension + #0, MAX_PATH);
+
+  PathCleanupSpec(PChar(Directory), @Buffer[0]);
+
+  Result := IncludeTrailingPathDelimiter(Directory) + String(Buffer);
 end;
 
 end.

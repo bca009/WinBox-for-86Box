@@ -190,18 +190,16 @@
         </DCCReference>
         <DCCReference Include="frmSplash.pas">
             <Form>WinBoxSplash</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="dmWinBoxUpd.pas">
             <Form>WinBoxUpd</Form>
-            <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
         <DCCReference Include="dmGraphUtil.pas">
             <Form>IconSet</Form>
-            <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
+        <DCCReference Include="uJumpList.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

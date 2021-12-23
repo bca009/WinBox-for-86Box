@@ -30,7 +30,7 @@ uses
   BaseImageCollection, ImageCollection, ImageList, ImgList, VirtualImageList,
   GraphUtil, Generics.Collections, u86Box, Vcl.ToolWin, uLang, AppEvnts, frm86Box,
   Vcl.ExtDlgs, frmUpdaterDlg, uCommText, uConfigMgr, System.Win.TaskbarCore,
-  Vcl.Taskbar;
+  Vcl.Taskbar, Vcl.JumpList, uJumpList;
 
 type
   TListBox = class(StdCtrls.TListBox)
@@ -340,7 +340,14 @@ type
     MissingDiskDlg: TTaskDialog;
     acWinBoxUpdate: TAction;
     Programfrisstsekkeresse1: TMenuItem;
-    Taskbar: TTaskbar;
+    JumpList: TJumpList;
+    SaveLnkDialog: TSaveDialog;
+    acSaveShortcut: TAction;
+    acSaveShortcut1: TMenuItem;
+    N47: TMenuItem;
+    N48: TMenuItem;
+    acSaveShortcut2: TMenuItem;
+    acPerfMonPrint: TAction;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure acDebugExecute(Sender: TObject);
@@ -388,11 +395,15 @@ type
     clHighlight1, clHighlight2,
     clDisabled1, clDisabled2: TColor;
 
+    Taskbar: TTaskbar;
+
     procedure ResetChart(Chart: TChart);
     procedure AddSeries(Chart: TChart; AColor: TColor; const FriendlyName: string);
     procedure AddValue(ASeries: TFastLineSeries; const Value: extended);
 
+    function InitTaskbar: TTaskbar;
     procedure UpdateTaskbar(const Progress: integer; const Color: boolean);
+    procedure UpdateTaskButtons(const Mode: integer);
 
     procedure CMStyleChanged(var Msg: TMessage); message CM_STYLECHANGED;
 
@@ -850,11 +861,20 @@ begin
             end;
         -9: if Assigned(Frame86Box) then
               Frame86Box.UpdateFull(Profiles[List.ItemIndex - 2]);
+        -10: with Profiles[List.ItemIndex - 2], SaveLnkDialog do begin
+              FileName :=
+                ToFileName(InitialDir, DefaultExt);
+
+              if Execute then
+                SaveShortcut(GetShellLink, FileName);
+            end;
         0: if (HelpContext = 0) or (MessageBox(Handle, _P(StrTerminateConf),
              PChar(Application.Title), MB_ICONWARNING or MB_YESNO) = mrYes) then
                Profiles[List.ItemIndex - 2].Stop(HelpContext <> 0);
         else Profiles[List.ItemIndex - 2].SetState(Tag, HelpContext <> 0);
       end;
+
+  UpdateTaskButtons(3);
 end;
 
 procedure TWinBoxMain.acVMsUpdate(Sender: TObject);
@@ -936,10 +956,19 @@ begin
 end;
 
 procedure TWinBoxMain.btnChartClick(Sender: TObject);
+var
+  AHelpContext: integer;
 begin
-  if FirstUpdateDone then
-    with Sender as TMenuItem do
-      case HelpContext of
+  if FirstUpdateDone then begin
+    if Sender is TMenuItem then
+      AHelpContext := (Sender as TMenuItem).HelpContext
+    else if Sender is TAction then
+      AHelpContext := (Sender as TAction).HelpContext
+    else
+      AHelpContext := 0;
+
+    with Sender as TComponent do
+      case AHelpContext of
         1: begin
              List.ItemIndex := 1;
              ListClick(List);
@@ -956,7 +985,11 @@ begin
                else
                  SaveToMetafileEnh(SaveEmf.FileName);
              end;
+
+        -1: if PrintDialog.Execute then
+             (pgCharts.ActivePage.Controls[0] as TChart).Print;
       end;
+  end;
 end;
 
 procedure TWinBoxMain.ChangeBiDi(const NewBiDi: boolean);
@@ -1206,8 +1239,6 @@ begin
 end;
 
 procedure TWinBoxMain.UMIconsChanged(var Msg: TMessage);
-var
-  I: integer;
 begin
   inherited;
   IconSet.IconsMaxDPI.GetIcon(6, DeleteDialog.CustomMainIcon);
@@ -1217,12 +1248,15 @@ begin
   DefProfile.Icon.Assign(
     IconSet.ActionImages.Images[21].SourceImages[0].Image);
 
+  (*
   for I := 0 to Taskbar.TaskBarButtons.Count - 1 do
     with Taskbar.TaskBarButtons[I] do
       if Assigned(Action) and (Action is TAction) then
         IconSet.IconsMaxDPI.GetIcon((Action as TAction).ImageIndex, Icon);
 
-  Taskbar.ApplyButtonsChanges;
+  Taskbar.ApplyButtonsChanges; *)
+
+  UpdateTaskButtons(2);
 
   if Assigned(Profiles) then
     ListReload(Self);
@@ -1230,26 +1264,11 @@ end;
 
 procedure TWinBoxMain.UpdateTaskbar(const Progress: integer;
   const Color: boolean);
-var
-  I: integer;
-  State: TThumbButtonStates;
 begin
-  for I := 0 to Taskbar.TaskBarButtons.Count - 1 do
-    with Taskbar.TaskBarButtons[I] do begin
-      State := [];
-      case I of
-        0..2:
-          if FirstUpdateDone then
-            State := [TThumbButtonState.Enabled];
-        3:
-          if IsAnyRunning then
-            State := [TThumbButtonState.Enabled];
-        end;
+  if not Assigned(Taskbar) then
+    exit;
 
-      if State <> ButtonState then
-        ButtonState := State;
-    end;
-
+  UpdateTaskButtons(3);
   Taskbar.Tag := ord(Progress < 0);
 
   if Progress = -1 then
@@ -1262,6 +1281,87 @@ begin
     ColorTaskbar(Taskbar)
   else
     Taskbar.ProgressState := TTaskBarProgressState.Normal;
+end;
+
+procedure TWinBoxMain.UpdateTaskButtons(const Mode: integer);
+var
+  I: Integer;
+
+  procedure ModifyState(const Item: TThumbBarButton;
+    const Flag: TThumbButtonState; const Value: boolean);
+  var
+    State: TThumbButtonStates;
+  begin
+    State := Item.ButtonState;
+
+    if Value then
+      Include(State, Flag)
+    else
+      Exclude(State, Flag);
+
+    if State <> Item.ButtonState then
+      Item.ButtonState := State;
+  end;
+
+begin
+  if not Assigned(Taskbar) then
+    exit;
+
+  with Taskbar, TaskBarButtons do begin
+    BeginUpdate;
+    try
+    if Mode in [0] then
+      for I := 0 to Count - 1 do
+        with Items[I] do
+          case I of
+            0..2:
+              ModifyState(Items[I], TThumbButtonState.Hidden,
+                Pages.ActivePageIndex <> 0);
+            6:
+              ModifyState(Items[I], TThumbButtonState.Hidden,
+                Pages.ActivePageIndex <> 1);
+            3..5:
+              ModifyState(Items[I], TThumbButtonState.Hidden,
+                Pages.ActivePageIndex <> 2);
+          end;
+
+    if Mode in [0, 1] then
+      for I := 0 to Count - 1 do
+        with Items[I] do
+          if Assigned(Action) and (Action is TAction) then
+            Hint := StringReplace((Action as TAction).Caption, '&', '', [rfReplaceAll]);
+
+    if Mode in [0, 2] then
+      for I := 0 to Count - 1 do
+        with Items[I] do
+          if Assigned(Action) and (Action is TAction) then
+            IconSet.Icons16.GetIcon(
+              (Action as TAction).ImageIndex, Icon);
+
+    if Mode in [0, 3] then
+      for I := 0 to Count - 1 do
+        with Items[I] do
+          case I of
+            0..2, 6:
+              ModifyState(Items[I], TThumbButtonState.Enabled,
+                FirstUpdateDone);
+            3:
+              ModifyState(Items[I], TThumbButtonState.Enabled,
+                FirstUpdateDone and IsSelectedVM and
+                Profiles[List.ItemIndex - 2].CanState(PROFILE_STATE_RUNNING));
+            4:
+              ModifyState(Items[I], TThumbButtonState.Enabled,
+                FirstUpdateDone and IsSelectedVM and
+                Profiles[List.ItemIndex - 2].CanState(PROFILE_STATE_STOPPED));
+            5:
+              ModifyState(Items[I], TThumbButtonState.Enabled,
+                FirstUpdateDone and IsSelectedVM);
+          end;
+    finally
+      EndUpdate;
+      ApplyButtonsChanges;
+    end;
+  end;
 end;
 
 procedure TWinBoxMain.DummyUpdate(Sender: TObject);
@@ -1369,6 +1469,11 @@ begin
   //GUI part
   InitialTitle := Application.Title;
 
+  if CheckWin32Version(6, 1) then begin
+    Taskbar := InitTaskbar;
+    JumpList.Enabled := true;
+  end;
+
   IconSet.Initialize(Self);
   IconSet.Taskbar := Taskbar;
   List.Constraints.MinWidth := IconSet.ListIcons.Width * 3 div 2;
@@ -1389,6 +1494,8 @@ begin
       if cgPanels.Panels[I] <> cpSystem then
         (TObject(cgPanels.Panels[I]) as TCategoryPanel).Collapsed := true;
   end;
+
+  SaveLnkDialog.InitialDir := GetDesktopFolder;
 
   Locale := '-'; //cseréljük ki az alapérték '' nyelvet akármire
   if LocaleOverride = '' then
@@ -1513,6 +1620,15 @@ begin
       //Pages.ActivePageIndex := Core.Profiles[Core.ItemIndex].Tag;
       //(Pages.ActivePage.Controls[0] as IWinBoxFrame).UpdateFull;    *)
   //  end;
+  end;
+
+  if Assigned(Taskbar) then begin
+    UpdateTaskButtons(0);
+
+    if IsSelectedVM then
+      Taskbar.ToolTip := Profiles[List.ItemIndex - 2].FriendlyName
+    else if Assigned(Pages.ActivePage) then
+      Taskbar.ToolTip := Pages.ActivePage.Caption;
   end;
 
   Success := LockWindowUpdate(Handle);
@@ -1704,6 +1820,24 @@ begin
 
       ResetChart(ChartVMs);
       AddSeries(ChartVMs, clRed, Pages.Pages[2].Caption);
+
+      JumpList.ValidateRecents(AppModelID,
+        function(const AArguments: string): IUnknown
+        var
+          ID: string;
+          Index: integer;
+        begin
+          Result := nil;
+
+          if pos(CmdStartVM, AArguments) = 1 then
+            ID := Copy(AArguments, pos(' ', AArguments) + 1, MaxInt)
+          else
+            exit;
+
+          Index := Profiles.FindByID(ID);
+          if Index <> -1 then
+            Result := Profiles[Index].GetShellLink;
+        end);
     end;
   finally
     Monitor.Enabled := State;
@@ -1969,6 +2103,21 @@ begin
   end;
 end;
 
+function TWinBoxMain.InitTaskbar: TTaskbar;
+begin
+  Result := TTaskbar.Create(Self);
+
+  with Result, TaskBarButtons do begin
+    Add.Action := acNewVM;
+    Add.Action := acNewHDD;
+    Add.Action := acNewFloppy;
+    Add.Action := acStart;
+    Add.Action := acStop;
+    Add.Action := ac86BoxSettings;
+    Add.Action := acPerfMonPrint;
+  end;
+end;
+
 procedure TWinBoxMain.Translate;
 var
   I: integer;
@@ -1988,6 +2137,7 @@ begin
 
     SaveBmp.Filter := _T('OpenDialog.BmpImage');
     SaveEmf.Filter := _T('OpenDialog.EmfImage');
+    SaveLnkDialog.Filter := _T('OpenDialog.Shortcuts');
     SaveLogDialog.Filter := _T(OpenDlgLogFiles);
 
     for I := 0 to DeleteDialog.Buttons.Count - 1 do
@@ -2016,11 +2166,18 @@ begin
     ChartVMs.BottomAxis.Title.Caption := _T(format(StrChartAxisBase, ['VMs', 'X']));
     ChartVMs.LeftAxis.Title.Caption := _T(format(StrChartAxisBase, ['VMs', 'Y']));
 
+    UpdateTaskButtons(1);
+
+                                      (*
     for I := 0 to Taskbar.TaskBarButtons.Count - 1 do
       with Taskbar.TaskBarButtons[I] do
         if Assigned(Action) and (Action is TAction) then
           Hint := StringReplace((Action as TAction).Caption, '&', '', [rfReplaceAll]);
-    Taskbar.ApplyButtonsChanges;
+    Taskbar.ApplyButtonsChanges;    *)
+
+    JumpList.TaskList[0].FriendlyName :=
+      StringReplace(acStopAll.Caption, '&', '', [rfReplaceAll]);
+    JumpList.UpdateList;
   end;
 end;
 
@@ -2044,10 +2201,25 @@ var
   I: integer;
   Params: TStringList;
 
+  procedure EnsureVisible;
+  begin
+    if not Visible then
+      Show;
+
+    BringWindowToFront(Handle);
+    Application.ProcessMessages;
+  end;
+
   function CheckParam(Parameter: string): boolean;
   begin
     Parameter := UpperCase(Parameter);
     Result := Parameter = UpperCase(Params[I]);
+
+    if Result then begin
+      List.ItemIndex := 0;
+      ListClick(Self);
+      Application.ProcessMessages;
+    end;
   end;
 
   function CheckProfileParam(const Parameter: string): boolean;
@@ -2064,6 +2236,11 @@ var
         Application.ProcessMessages;
 
         Result := true;
+      end
+      else begin
+        EnsureVisible;
+        MessageBox(Handle, _P('WinBox.InvCmdProfileID', [Params[I + 1]]),
+          PChar(Application.Title), MB_ICONERROR or MB_OK);
       end;
     end;
   end;
@@ -2082,22 +2259,24 @@ begin
 
           if Params.Count > 1 then //az elsõ sor a program elérési útja
             for I := 1 to Params.Count - 1 do
-              if CheckProfileParam('-startvm') then
+              if CheckProfileParam(CmdStartVM) then
                 ListDblClick(Self) //start or bring to front
-              else if CheckProfileParam('-stopvm') then
+              else if CheckProfileParam(CmdStopVM) then
                 acStop.Execute
-              else if CheckProfileParam('-killvm') then
+              else if CheckProfileParam(CmdKillVM) then
                 acStopForced.Execute
-              else if CheckParam('-stopall') then
+              else if CheckParam(CmdStopAll) then
                 acStopAll.Execute
-              else if CheckParam('-killall') then
+              else if CheckParam(CmdKillAll) then
                 acStopAllForced.Execute
-              else if CheckParam('-newvm') then
+              else if CheckParam(CmdNewVM) then
                 acNewVM.Execute
-              else if CheckParam('-newhdd') then
+              else if CheckParam(CmdNewHDD) then
                 acNewHDD.Execute
-              else if CheckParam('-newfloppy') then
-                acNewFloppy.Execute;
+              else if CheckParam(CmdNewFloppy) then
+                acNewFloppy.Execute
+              else
+                EnsureVisible;
 
         finally
           Params.Free;

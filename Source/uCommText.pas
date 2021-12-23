@@ -65,6 +65,18 @@ resourcestring
 
   StrDeferStyleChange = 'IconSet.DeferStyleChange';
 
+  AppModelID = 'com.laciba.WinBox-for-86Box';
+
+  CmdStartVM = '-startvm';
+  CmdStopVM = '-stopvm';
+  CmdKillVM = '-killvm';
+  CmdStopAll = '-stopall';
+  CmdKillAll = '-killall';
+  CmdNewVM = '-newvm';
+  CmdNewHDD = '-newhdd';
+  CmdNewFloppy = '-newfloppy';
+  CmdStartHide = '-starthide';
+
 implementation
 
 end.
