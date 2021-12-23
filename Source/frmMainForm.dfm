@@ -927,6 +927,8 @@ object WinBoxMain: TWinBoxMain
       Tag = -10
       Category = 'G'#233'p'
       Caption = '&Parancsikon l'#233'trehoz'#225'sa...'
+      ImageIndex = 38
+      ImageName = '38 - shortcut'
       OnExecute = acVMsExecute
       OnUpdate = acVMsUpdate
     end
