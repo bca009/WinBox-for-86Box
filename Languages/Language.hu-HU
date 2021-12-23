@@ -72,6 +72,7 @@ OpenDialog.EmfImage=Metafájlok (*.emf; *.wmf)|*.emf;*.wmf|Minden fájl (*.*)|*.
 OpenDialog.Floppy=Hajlékonylemez képfájlok (*.ima; *.vfd)|*.ima;*.vfd|Nyers lemezképfájlok (*.im?; *.vfd)|*.im?;*.vfd|Minden fájl (*.*)|*.*
 OpenDialog.RawDisk=Merevlemez képfájlok (*.img)|*.img|Nyers lemezképfájlok (*.im?)|*.im?|Minden fájl (*.*)|*.*
 OpenDialog.VhdDisk=Virtuális merevlemezek (*.vhd)|*.vhd|Minden fájl (*.*)|*.*
+OpenDialog.Shortcuts=Parancsikonok (*.lnk)|*.lnk|Minden fájl (*.*)|*.*
 
 Strings.Unknown=Ismeretlen
 Strings.Version=Verzió: %s

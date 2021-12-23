@@ -2039,6 +2039,7 @@ begin
 
     SaveBmp.Filter := _T('OpenDialog.BmpImage');
     SaveEmf.Filter := _T('OpenDialog.EmfImage');
+    SaveLnkDialog.Filter := _T('OpenDialog.Shortcuts');
     SaveLogDialog.Filter := _T(OpenDlgLogFiles);
 
     for I := 0 to DeleteDialog.Buttons.Count - 1 do

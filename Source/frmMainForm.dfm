@@ -926,7 +926,7 @@ object WinBoxMain: TWinBoxMain
     object acSaveShortcut: TAction
       Tag = -10
       Category = 'G'#233'p'
-      Caption = 'acSaveShortcut'
+      Caption = '&Parancsikon l'#233'trehoz'#225'sa...'
       OnExecute = acVMsExecute
       OnUpdate = acVMsUpdate
     end
