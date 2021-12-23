@@ -930,6 +930,14 @@ object WinBoxMain: TWinBoxMain
       OnExecute = acVMsExecute
       OnUpdate = acVMsUpdate
     end
+    object acPerfMonPrint: TAction
+      Category = 'N'#233'zet'
+      Caption = 'Grafikon &nyomtat'#225'sa...'
+      HelpContext = -1
+      ImageIndex = 15
+      ImageName = '15 - print'
+      OnExecute = btnChartClick
+    end
   end
   object MainMenu: TMainMenu
     Images = IconSet.Icons16

@@ -347,6 +347,7 @@ type
     N47: TMenuItem;
     N48: TMenuItem;
     acSaveShortcut2: TMenuItem;
+    acPerfMonPrint: TAction;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure acDebugExecute(Sender: TObject);
@@ -400,7 +401,9 @@ type
     procedure AddSeries(Chart: TChart; AColor: TColor; const FriendlyName: string);
     procedure AddValue(ASeries: TFastLineSeries; const Value: extended);
 
+    function InitTaskbar: TTaskbar;
     procedure UpdateTaskbar(const Progress: integer; const Color: boolean);
+    procedure UpdateTaskButtons(const Mode: integer);
 
     procedure CMStyleChanged(var Msg: TMessage); message CM_STYLECHANGED;
 
@@ -870,6 +873,8 @@ begin
                Profiles[List.ItemIndex - 2].Stop(HelpContext <> 0);
         else Profiles[List.ItemIndex - 2].SetState(Tag, HelpContext <> 0);
       end;
+
+  UpdateTaskButtons(3);
 end;
 
 procedure TWinBoxMain.acVMsUpdate(Sender: TObject);
@@ -951,10 +956,19 @@ begin
 end;
 
 procedure TWinBoxMain.btnChartClick(Sender: TObject);
+var
+  AHelpContext: integer;
 begin
-  if FirstUpdateDone then
-    with Sender as TMenuItem do
-      case HelpContext of
+  if FirstUpdateDone then begin
+    if Sender is TMenuItem then
+      AHelpContext := (Sender as TMenuItem).HelpContext
+    else if Sender is TAction then
+      AHelpContext := (Sender as TAction).HelpContext
+    else
+      AHelpContext := 0;
+
+    with Sender as TComponent do
+      case AHelpContext of
         1: begin
              List.ItemIndex := 1;
              ListClick(List);
@@ -971,7 +985,11 @@ begin
                else
                  SaveToMetafileEnh(SaveEmf.FileName);
              end;
+
+        -1: if PrintDialog.Execute then
+             (pgCharts.ActivePage.Controls[0] as TChart).Print;
       end;
+  end;
 end;
 
 procedure TWinBoxMain.ChangeBiDi(const NewBiDi: boolean);
@@ -1221,8 +1239,6 @@ begin
 end;
 
 procedure TWinBoxMain.UMIconsChanged(var Msg: TMessage);
-var
-  I: integer;
 begin
   inherited;
   IconSet.IconsMaxDPI.GetIcon(6, DeleteDialog.CustomMainIcon);
@@ -1240,35 +1256,19 @@ begin
 
   Taskbar.ApplyButtonsChanges; *)
 
+  UpdateTaskButtons(2);
+
   if Assigned(Profiles) then
     ListReload(Self);
 end;
 
 procedure TWinBoxMain.UpdateTaskbar(const Progress: integer;
   const Color: boolean);
-var
-  I: integer;
-  State: TThumbButtonStates;
 begin
   if not Assigned(Taskbar) then
     exit;
 
-  for I := 0 to Taskbar.TaskBarButtons.Count - 1 do
-    with Taskbar.TaskBarButtons[I] do begin
-      State := [];
-      case I of
-        0..2:
-          if FirstUpdateDone then
-            State := [TThumbButtonState.Enabled];
-        3:
-          if IsAnyRunning then
-            State := [TThumbButtonState.Enabled];
-        end;
-
-      if State <> ButtonState then
-        ButtonState := State;
-    end;
-
+  UpdateTaskButtons(3);
   Taskbar.Tag := ord(Progress < 0);
 
   if Progress = -1 then
@@ -1281,6 +1281,87 @@ begin
     ColorTaskbar(Taskbar)
   else
     Taskbar.ProgressState := TTaskBarProgressState.Normal;
+end;
+
+procedure TWinBoxMain.UpdateTaskButtons(const Mode: integer);
+var
+  I: Integer;
+
+  procedure ModifyState(const Item: TThumbBarButton;
+    const Flag: TThumbButtonState; const Value: boolean);
+  var
+    State: TThumbButtonStates;
+  begin
+    State := Item.ButtonState;
+
+    if Value then
+      Include(State, Flag)
+    else
+      Exclude(State, Flag);
+
+    if State <> Item.ButtonState then
+      Item.ButtonState := State;
+  end;
+
+begin
+  if not Assigned(Taskbar) then
+    exit;
+
+  with Taskbar, TaskBarButtons do begin
+    BeginUpdate;
+    try
+    if Mode in [0] then
+      for I := 0 to Count - 1 do
+        with Items[I] do
+          case I of
+            0..2:
+              ModifyState(Items[I], TThumbButtonState.Hidden,
+                Pages.ActivePageIndex <> 0);
+            6:
+              ModifyState(Items[I], TThumbButtonState.Hidden,
+                Pages.ActivePageIndex <> 1);
+            3..5:
+              ModifyState(Items[I], TThumbButtonState.Hidden,
+                Pages.ActivePageIndex <> 2);
+          end;
+
+    if Mode in [0, 1] then
+      for I := 0 to Count - 1 do
+        with Items[I] do
+          if Assigned(Action) and (Action is TAction) then
+            Hint := StringReplace((Action as TAction).Caption, '&', '', [rfReplaceAll]);
+
+    if Mode in [0, 2] then
+      for I := 0 to Count - 1 do
+        with Items[I] do
+          if Assigned(Action) and (Action is TAction) then
+            IconSet.Icons16.GetIcon(
+              (Action as TAction).ImageIndex, Icon);
+
+    if Mode in [0, 3] then
+      for I := 0 to Count - 1 do
+        with Items[I] do
+          case I of
+            0..2, 6:
+              ModifyState(Items[I], TThumbButtonState.Enabled,
+                FirstUpdateDone);
+            3:
+              ModifyState(Items[I], TThumbButtonState.Enabled,
+                FirstUpdateDone and IsSelectedVM and
+                Profiles[List.ItemIndex - 2].CanState(PROFILE_STATE_RUNNING));
+            4:
+              ModifyState(Items[I], TThumbButtonState.Enabled,
+                FirstUpdateDone and IsSelectedVM and
+                Profiles[List.ItemIndex - 2].CanState(PROFILE_STATE_STOPPED));
+            5:
+              ModifyState(Items[I], TThumbButtonState.Enabled,
+                FirstUpdateDone and IsSelectedVM);
+          end;
+    finally
+      EndUpdate;
+      ApplyButtonsChanges;
+    end;
+  end;
 end;
 
 procedure TWinBoxMain.DummyUpdate(Sender: TObject);
@@ -1389,7 +1470,7 @@ begin
   InitialTitle := Application.Title;
 
   if CheckWin32Version(6, 1) then begin
-    Taskbar := TTaskbar.Create(Self);
+    Taskbar := InitTaskbar;
     JumpList.Enabled := true;
   end;
 
@@ -1542,6 +1623,8 @@ begin
   end;
 
   if Assigned(Taskbar) then begin
+    UpdateTaskButtons(0);
+
     if IsSelectedVM then
       Taskbar.ToolTip := Profiles[List.ItemIndex - 2].FriendlyName
     else if Assigned(Pages.ActivePage) then
@@ -2020,6 +2103,21 @@ begin
   end;
 end;
 
+function TWinBoxMain.InitTaskbar: TTaskbar;
+begin
+  Result := TTaskbar.Create(Self);
+
+  with Result, TaskBarButtons do begin
+    Add.Action := acNewVM;
+    Add.Action := acNewHDD;
+    Add.Action := acNewFloppy;
+    Add.Action := acStart;
+    Add.Action := acStop;
+    Add.Action := ac86BoxSettings;
+    Add.Action := acPerfMonPrint;
+  end;
+end;
+
 procedure TWinBoxMain.Translate;
 var
   I: integer;
@@ -2068,6 +2166,7 @@ begin
     ChartVMs.BottomAxis.Title.Caption := _T(format(StrChartAxisBase, ['VMs', 'X']));
     ChartVMs.LeftAxis.Title.Caption := _T(format(StrChartAxisBase, ['VMs', 'Y']));
 
+    UpdateTaskButtons(1);
 
                                       (*
     for I := 0 to Taskbar.TaskBarButtons.Count - 1 do
