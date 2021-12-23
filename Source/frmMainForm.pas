@@ -2101,6 +2101,15 @@ var
   I: integer;
   Params: TStringList;
 
+  procedure EnsureVisible;
+  begin
+    if not Visible then
+      Show;
+
+    BringWindowToFront(Handle);
+    Application.ProcessMessages;
+  end;
+
   function CheckParam(Parameter: string): boolean;
   begin
     Parameter := UpperCase(Parameter);
@@ -2127,6 +2136,11 @@ var
         Application.ProcessMessages;
 
         Result := true;
+      end
+      else begin
+        EnsureVisible;
+        MessageBox(Handle, _P('WinBox.InvCmdProfileID', [Params[I + 1]]),
+          PChar(Application.Title), MB_ICONERROR or MB_OK);
       end;
     end;
   end;
@@ -2162,7 +2176,7 @@ begin
               else if CheckParam(CmdNewFloppy) then
                 acNewFloppy.Execute
               else
-                BringWindowToFront(Handle);
+                EnsureVisible;
 
         finally
           Params.Free;

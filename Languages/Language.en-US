@@ -206,6 +206,8 @@ QuadEq.ComplexSolution=The equation has two different complex solutions: x1=%.2f
 
 IconSet.DeferStyleChange=The system-wide application mode or the program theme settings have been changed and saved.\r\n\r\nThe changes will take effect the next time the program is started.
 
+WinBox.InvCmdProfileID=The profile ID ("%s") specified as parameter is invalid. Check that you have entered the profile ID correctly and that the profile you are looking for has not been deleted.
+
 [UpdateDlg]
 btnTerminate.Hint=&Close
 btnTerminate=&Abort
