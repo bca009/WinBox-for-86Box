@@ -72,6 +72,7 @@ OpenDialog.EmfImage=Metafile (*.emf; *.wmf)|*.emf;*.wmf|Tutti i file (*.*)|*.*
 OpenDialog.Floppy=Immagine del Floppy Disk (*.ima; *.vfd)|*.ima;*.vfd|Immagine grezza del disco (*.im?; *.vfd)|*.im?;*.vfd|Tutti i file (*.*)|*.*
 OpenDialog.RawDisk=Immagine del Disco Rigido (*.img)|*.img|Immagine grezza del disco (*.im?)|*.im?|Tutti i file (*.*)|*.*
 OpenDialog.VhdDisk=Disco Rigido Virtuale (*.vhd)|*.vhd|Tutti i file (*.*)|*.*
+OpenDialog.Shortcuts=File scorciatoia (*.lnk)|*.lnk|Tutti i file (*.*)|*.*
 
 Strings.Unknown=Sconosciuto
 Strings.Version=Versione: %s
@@ -197,6 +198,17 @@ WizardVM.NoManufaturer=(Produttore Sconosciuto)
 WizardVM.NewVM=Nuova Macchina Virtuale n.%d
 WizardVM.SelectWorkDir=Seleziona il percorso di lavoro desiderato:
 
+QuadEq.NoSolution=L'equazione non ha soluzione.
+QuadEq.AnySolution=Qualsiasi numero può essere la soluzione dell'equazione.
+QuadEq.LinearSolution=L'equazione è lineare, con soluzione x=%.2f.
+QuadEq.SingleSolution=L'equazione ha due soluzioni reali coincidenti: x1=x2=%.2f.
+QuadEq.DoubleSolution=L'equazione ha due diverse soluzioni reali: x1=%.2f, e x2=%.2f.
+QuadEq.ComplexSolution=L'equazione ha due diverse soluzioni complesse: x1=%.2f%s%.2fi, e x2=%.2f%s%.2fi.
+
+IconSet.DeferStyleChange=La modalità di applicazione a livello di sistema o le impostazioni del tema del programma sono state cambiate e salvate.\r\n\r\nLe modifiche avranno effetto al prossimo avvio del programma.
+
+WinBox.InvCmdProfileID=L'ID del profilo ("%s") specificato come parametro non è valido. Controlla di aver inserito l'ID del profilo correttamente e che il profilo che stai cercando non sia stato cancellato.
+
 [UpdateDlg]
 btnTerminate.Hint=&Chiudi
 btnTerminate=&Termina
@@ -273,6 +285,12 @@ joystick.standard_2button=Joystick standard a 2 pulsanti
 joystick.standard_4button=Joystick standard a 4 pulsanti 
 joystick.standard_6button=Joystick standard a 6 pulsanti 
 joystick.standard_8button=Joystick standard a 8 pulsanti 
+joystick.2axis_2button=Joystick a 2 assi a 2 pulsanti 
+joystick.2axis_4button=Joystick a 2 assi a 4 pulsanti 
+joystick.2axis_6button=Joystick a 2 assi a 6 pulsanti 
+joystick.2axis_8button=Joystick a 2 assi a 8 pulsanti 
+joystick.3axis_2button=Joystick a 3 assi a 2 pulsanti 
+joystick.3axis_4button=Joystick a 3 assi a 4 pulsanti 
 joystick.4axis_4button=Joystick a 4 assi a 4 pulsanti 
 
 [Actions]
@@ -297,6 +315,7 @@ acProfileSettings=Impostazioni &Profilo...
 acOpenScreenshots=Apri &Schermate...
 acOpenPrinterTray=Apri &Vassoio Stampante...
 acOpenWorkDir=&Apri Percorso di Lavoro...
+acSaveShortcut=Creare &Scorciatoia...
 
 acBringToFront=Porta al Primo &Piano...
 acUpdateFull=Aggiorna Informazioni &Macchine
@@ -304,6 +323,8 @@ acChangeColor=Cambia Colore &Sfondo...
 acResetColor=&Colore Sfondo Predefinito
 acUpdateList=&Aggiorna Elenco Macchine
 acUpdateTools=Aggiorna Elenco di Strumenti &Utente
+
+acPerfMonPrint=&Stampare il diagramma...
 
 acAutoUpdate=Cerca emulatore e &aggiornamenti...
 acWinBoxUpdate=Cerca a&ggiornamenti del programma... 
@@ -427,18 +448,26 @@ lbDiskSizeDesc=Spazio occupato:
 
 [ProgSettDlg]
 ProgSettDlg=Impostazioni Programma
-tabGeneral=Generale
-grpDefaultPath=Percorso di Nuove Macchine Virtuali
+tabVMs=Macchine Virtuali
+grpNewVMs=Nuove Macchine Virtuali
 lbDefaultPath=Qua si possono definire dove e su quale disco vuoi mantenere le nuove macchine virtuali.
 lbPath=&Percorso:
 lbEraseProt=&Guardia di eliminaz.:
 lbOnlyNewVM=Questa impostazione prende effetto solo su macchine nuove, tutte quelle esistenti rimarranno invariate.
 btnDefPath=P&redefinito
 btnOpenPath=&Apri Percorso...
+lbEraseProtNote=Guardia di eliminaz. impedisce di cancellare accidentalmente i file delle macchine protette dall'interno del programma.
 cbEraseProt.Items[0]=Disabilitato per macchine create o appena importate
 cbEraseProt.Items[1]=Abilitato per le macchine appena importate
 cbEraseProt.Items[2]=Abilitato per macchine create o appena importate
-grpBehavior=Comportamento del WinBox
+btnDefEraseProt=P&redefinito
+lbDisplaySettings=Impostazioni dell'&aspetto:
+cbDefFullscreen=Avvio di nuove macchine a &schermo intero per impostazione predefinita
+lkAppearance=Più impostazioni di aspetto per le nuove macchine virtuali
+lkLanguage=Impostazioni della lingua per le nuove macchine virtuali
+lkIconSet=Impostazioni dell'icona per le nuove macchine virtuali
+tabGeneral=Generale
+grpBehavior=Comportamento del programma
 lbTrayBehavior=&Icona di notifica:
 lbLaunchTimeout=&Timeout dell\'emulatore:
 lbMilliseconds=millisec.
@@ -447,23 +476,34 @@ cbTrayBehavior.Items[0]=Nessuna icona di notifica, ridotta a icona sulla barra d
 cbTrayBehavior.Items[1]=Ha un\'icona di notifica, ridotta a icona sulla barra delle applicazioni 
 cbTrayBehavior.Items[2]=Riduci a icona nell\'area di notifica
 cbTrayBehavior.Items[3]=Esci nell\'area di notifica
-lbWinBoxUpdate=Gestione &aggiorn.:
-cbWinBoxUpdate.Items[0]=Non cercare nuove versioni di WinBox
-cbWinBoxUpdate.Items[1]=Apri l'opzione di download, aggiornamento manuale
-cbWinBoxUpdate.Items[2]=Scarica il programma di inst., installazione manuale
-cbWinBoxUpdate.Items[3]=Scarica il programma di inst., installazione silenziosa 
-tabEmulator=Emulatore
+lbTaskbarProgress=Indic. di carico:
+cbTaskbarProgress.Items[0]=Disabilitato
+cbTaskbarProgress.Items[1]=Visualizzazione del carico della CPU dell'host
+cbTaskbarProgress.Items[2]=Visualizzare la memoria allocata
+cbTaskbarProgress.Items[3]=Visualizzazione delle macchine in esecuzione
+lkProgramUpdate=Impost. di aggiornamento auto. per il programma
 grpDefEmulator=Impostazioni predefinite dell\'emulatore
 lbDefEmulator=In questa scheda è possibile specificare le informazioni dell\'emulatore 86Box utilizzato di default dalle macchine virtuali.
 lbAffectedVMs=Questo vale per le macchine che utilizzano le impostazioni predefinite. Puoi differire nelle impostazioni del profilo. 
 lb86BoxPath=&Percorso:
 btnDef86Box=P&redefinito
 btnOpen86Box=&Apri Percorso...
-grpAutoUpdate=Aggiornamenti Automatici
+lkEmulatorUpdate=Impost. di aggiornamento auto. per l'emulatore
+tabAutoUpdate=Aggiornamenti automatici
+grpProgramUpdates=Aggiornamenti del programma
+lbWinBoxUpdate=Gestione degli &aggiornamenti di WinBox:
+cbWinBoxUpdate.Items[0]=Non cercare nuove versioni di WinBox
+cbWinBoxUpdate.Items[1]=Opzione di download manuale, aggiornamento personalizzato
+cbWinBoxUpdate.Items[2]=Download del programma di installazione, installazione guidata
+cbWinBoxUpdate.Items[3]=Download del programma di installazione, installazione automatica
+btnDefWinBoxUpd=&Predefinito
+btnPortWinBoxUpd=Modo &portatile
+grpEmulatorUpdates=Aggiornamenti dell'emulatore
 cbAutoUpdate=Cerca aggiornamenti emulatore &automaticamente
 cbGetSource=&Scarica anche codice sorgente, se possibile
 lbArtifact=Scarica il seguente &artefatto 86Box:
 tabAppearance=Aspetto
+lbArtfSwitchNote=Per cambiare l'artefatto corrente in questo momento, eseguite Update of emulator dopo aver chiuso la finestra.
 grpAppearance=Aspetto di nuove Macchine Virtuali
 lbAppearance=Qua puoi specificare l\'apparenze di nuove macchine 86Box. Questo può essere personalizzato per macchina.
 lbDefaultDisplay=Finestra ridimensionata fissa (e.g. 960x720) e aspetto 4:3 in schermo intero.
@@ -494,6 +534,23 @@ cbWindowSizing.Items[5]=Ingrandisci display da 2x
 rbManualOptions=&Impostazioni inserite manualmente
 rbNoDisplayOptions=&Non creare impostazioni display
 btnManOptLoad=Carica da &file...
+tabUI=Interfaccia Utente
+grpPositionData=Posizione, dimensione e disposizione
+lbPositionCurrentDesc=Dimensione attuale e posizione:
+lbPositionSavedDesc=Dimensione salvata e posizione:
+lbPositionCurrent.Hint=(predef.)
+lbPositionSaved.Hint=(predef.)
+btnPositionClear=Pre&definito
+btnPositionSave=Salva &Stato ▼
+grpIconSets=Set di icone
+lbProgIconSet=Set di icone usato dal &programma:
+lbEmuIconSet=Set di icone usato dall'&emulatore:
+lbEmuIconSetNote=L'impostazione dell'icona dell'emulatore ha effetto solo sulle nuove macchine, non ha effetto su quelle esistenti.
+lbIconSetDesc=Qui puoi selezionare dalla lista il set di icone che vuoi usare con il programma e l'emulatore.
+cbProgIconSet.Hint=(Default icon set of the Program)
+btnDefProgIconSet=&Default
+cbEmuIconSet.Hint=(Default icon set of the Emulator)
+btnDefEmuIconSet=D&efault
 tabLanguage=Lingua
 grpLanguage=Impostazioni della lingua
 lbLanguage=In questa sezione potete cambiare il comportamento del programma e dell'emulatore in relazione alla lingua.
@@ -508,6 +565,20 @@ cbEmuLang.Items[0]=(Lingua predefinita di sistema)
 btnDefEmuLang=Pre&definito
 rbEmuLangFree=&Non cambiare le impostazioni della lingua dell'emulatore
 cbEmuLangForced=&Sovrascrivere la lingua dell'emulatore per tutte le macchine virtuali
+tabStyles=Stili Visivi
+grpThemes=Temi, Colori e Stili
+lbStyleDesc=In questa pagina, è possibile impostare la modalità scura o cambiare completamente il tema del programma.
+rbStyleSystem=Utilizzare lo stesso stile e modalità di colore del sistema
+rbStyleColor=Usare lo stesso stile ma una m. di colore diversa da quella del sistema
+lbStyleColor=M. &colore:
+cbStyleColor.Items[0]=Modalità di applicazione della luce
+cbStyleColor.Items[1]=Modalità di applicazione scura
+rbStyleCustom=Utilizzare uno stile visivo non di sistema
+lbStyleName=&Stili Visivi:
+lbStylePreview=&Anteprima:
+lbStyleNoPreview=(non disponibile)
+lbQuadEq=Risolutore di Equazioni Quadratiche\r\nax^2+bx+c\x3D0
+btnQuadEqSolve=&Risolvere
 tabTools=Strumenti
 grpTools=Lista Strumenti
 lbTools=In questa pagina si possono definire una lista di applicazioni che sono frequentemente utilizzate con le Macchine Virtuali. Dopo, WinBox può creare un menu da queste applicazioni.
@@ -545,6 +616,13 @@ btnImport=&Importare \u25BC
 miImport86Mgr=Trasferisci impostazioni da 86Box &Manager 
 miImportWinBox=Trasferisci impostazioni da &WinBox Reloaded
 miDefaults=Ripristina le impostazioni ai valori &predefiniti di fabbrica
+
+[pmPosition]
+miCompleteState=Salva lo &stato completo della finestra principale
+miPositionOnly=Salva solo la &posizione della finestra principale
+miSizeOnly=Salva solo le dimensioni della finestra principale
+miLayoutOnly=Salva solo la &disposizione della finestra principale
+miDefaults2=Ripristina le impostazioni ai valori &predefiniti di fabbrica
 
 [ProfSettDlg]
 ProfSettDlg=Impostazioni Profilo

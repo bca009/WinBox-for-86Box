@@ -61,6 +61,7 @@ ProgSettDlg.AskSaveChanges=Es wurden Änderungen an der Geräteliste vorgenommen
 ProgSettDlg.EOpenConfigLocked=Die Datei (\"%s\"), die Sie öffnen möchten, wird von einem anderen Programm verwendet.
 
 ProfSettDlg.AskVmIconDel=Der Dateischutz ist derzeit auf der virtuellen Maschine aktiviert, und dieser Vorgang überschreibt oder löscht die Datei \"vm-icon.png\" im Arbeitsverzeichnis.\r\n\r\nWollen Sie fortfahren?
+
 OpenDialog.86Box=86Box-binaries (??Box*.exe)|??Box*.exe|Ausführbare Dateien (*.exe; *.com; *.bat; *.cmd)|*.exe; *.com; *.bat; *.cmd|Alle Dateien (*.*)|*.*
 OpenDialog.Executables=Ausführbare Dateien (*.exe; *.com; *.bat; *.cmd)|*.exe; *.com; *.bat; *.cmd|Alle Dateien (*.*)|*.*
 OpenDialog.LogFiles=Protokolldateien (*.log)|*.log|Textdateien (*.txt)|*.txt|Alle Dateien (*.*)|*.*
@@ -71,6 +72,7 @@ OpenDialog.EmfImage=Metadatei (*.emf; *.wmf)|*.emf;*.wmf|Alle Dateien (*.*)|*.*
 OpenDialog.Floppy=Disketten-Images (*.ima; *.vfd)|*.ima;*.vfd|Raw-Disketten-Images (*.im?; *.vfd)|*.im?;*.vfd|Alle Dateien (*.*)|*.*
 OpenDialog.RawDisk=Festplatten-Images (*.img)|*.img|Raw-Festplatten-Images (*.im?)|*.im?|Alle Dateien (*.*)|*.*
 OpenDialog.VhdDisk=Virtuelle Festplatte (*.vhd)|*.vhd|Alle Dateien (*.*)|*.*
+OpenDialog.Shortcuts=Verknüpfungsdateien (*.lnk)|*.lnk|All files (*.*)|*.*
 
 Strings.Unknown=Unbekannt
 Strings.Version=Version: %s
@@ -196,6 +198,17 @@ WizardVM.NoManufaturer=(Unbekannt Hersteller)
 WizardVM.NewVM=Neue virtuelle Maschine Nr. %d
 WizardVM.SelectWorkDir=Wählen Sie das Arbeitsverzeichnis aus, das Sie verwenden möchten:
 
+QuadEq.NoSolution=Die Gleichung hat keine Lösung.
+QuadEq.AnySolution=Jede Zahl kann die Lösung der Gleichung sein.
+QuadEq.LinearSolution=Die Gleichung ist linear, mit der Lösung x=%.2f.
+QuadEq.SingleSolution=Die Gleichung hat zwei übereinstimmende reelle Lösungen: x1=x2=%.2f.
+QuadEq.DoubleSolution=Die Gleichung hat zwei verschiedene reelle Lösungen: x1=%.2f, und x2=%.2f.
+QuadEq.ComplexSolution=Die Gleichung hat zwei verschiedene komplexe Lösungen: x1=%.2f%s%.2fi, und x2=%.2f%s%.2fi.
+
+IconSet.DeferStyleChange=Der systemweite Anwendungsmodus oder die Einstellungen des Programmthemas wurden geändert und gespeichert.\r\n\r\nDie Änderungen werden beim nächsten Start des Programms wirksam.
+
+WinBox.InvCmdProfileID=Die als Parameter angegebene Profil-ID ("%s") ist ungültig. Überprüfen Sie, ob Sie die Profil-ID korrekt eingegeben haben und ob das gesuchte Profil nicht gelöscht wurde.
+
 [UpdateDlg]
 btnTerminate.Hint=&Beenden
 btnTerminate=&Unterbrechung
@@ -273,6 +286,12 @@ joystick.standard_2button=Standard-Joystick mit 2 Tasten
 joystick.standard_4button=Standard-Joystick mit 4 Tasten
 joystick.standard_6button=Standard-Joystick mit 6 Tasten
 joystick.standard_8button=Standard-Joystick mit 8 Tasten
+joystick.2axis_2button=2-Achsen 2-Tasten-Joystick
+joystick.2axis_4button=2-Achsen 4-Tasten-Joystick
+joystick.2axis_6button=2-Achsen 6-Tasten-Joystick
+joystick.2axis_8button=2-Achsen 8-Tasten-Joystick
+joystick.3axis_2button=3-Achsen 2-Tasten-Joystick
+joystick.3axis_4button=3-Achsen 4-Tasten-Joystick
 joystick.4axis_4button=4-Achsen 4-Tasten-Joystick
 
 [Actions]
@@ -297,6 +316,7 @@ acProfileSettings=&Profileinstellungen...
 acOpenScreenshots=B&ildschirmfotos öffnen...
 acOpenPrinterTray=&Druckerfach öffnen...
 acOpenWorkDir=&Arbeitsverzeichnis öffnen...
+acSaveShortcut=&Verknüpfungsdatei erstellen...
 
 acBringToFront=Machine &voran bringen...
 acUpdateFull=Maschinen&informationen aktualisieren
@@ -304,6 +324,8 @@ acChangeColor=&Hintergrundfarbe ändern...
 acResetColor=&Hintergrundfarbe zurücksetzen
 acUpdateList=Maschinenliste &aktualisieren
 acUpdateTools=Benutzer-&Tools aktualisieren
+
+acPerfMonPrint=Drucken Sie das &Diagramm aus...
 
 acAutoUpdate=Nach Emulator-&Updates suchen...
 acWinBoxUpdate=Nach Programmaktualisierungen suchen...
@@ -427,18 +449,26 @@ lbDiskSizeDesc=Speicherplatz:
 
 [ProgSettDlg]
 ProgSettDlg=Programmeinstellungen 
-tabGeneral=Allgemein
-grpDefaultPath=Standort neuer virtueller Maschinen 
+tabVMs=Virtuelle Maschinen
+grpNewVMs=Neue virtuelle Maschinen
 lbDefaultPath=Hier können Sie angeben, wo Sie die Arbeitsverzeichnisse neu erstellter virtueller Maschinen speichern möchten.
 lbPath=&Pfad:
 lbEraseProt=&Löschschutz: 
 lbOnlyNewVM=Diese Einstellung betrifft nur neu erstellte virtuelle Maschinen, alle bestehenden bleiben unverändert.
 btnDefPath=&Standardwert
 btnOpenPath=Verzeichnis &öffnen...
+lbEraseProtNote=Der Löschschutz verh. das versehentliche Löschen von Dateien geschützter Maschinen über die Benutzeroberfläche des Programms.
 cbEraseProt.Items[0]=Deaktiviert für neue und später importierte Maschinen
 cbEraseProt.Items[1]=Aktiviert nur für später importierte virtuelle Maschinen
 cbEraseProt.Items[2]=Aktiviert für neue und später importierte Maschinen
-grpBehavior=Verhalten von WinBox 
+btnDefEraseProt=S&tandardwert
+lbDisplaySettings=Einstellungen für das &Aussehen:
+cbDefFullscreen=Neue v. Maschinen standardmäßig auf dem &Vollbildschirm starten
+lkAppearance=Mehr Aussehen-Einstellungen für neue virtuelle Maschinen
+lkLanguage=Spracheinstellungen für neue virtuelle Maschinen
+lkIconSet=Symbolsatz-Einstellungen für neue virtuelle Maschinen
+tabGeneral=Allgemein
+grpBehavior=Programm-Verhalten
 lbTrayBehavior=&Taskleistensymbol:
 lbLaunchTimeout=&Zeitlimit des Emulators:
 lbMilliseconds=millisek.
@@ -447,11 +477,12 @@ cbTrayBehavior.Items[0]=Kein Taskleistensymbol, auf die Taskleiste minimiert
 cbTrayBehavior.Items[1]=Haben ein Taskleistensymbol, aber minimiert auf die Taskleiste 
 cbTrayBehavior.Items[2]=Auf das Taskleistensymbol minimieren
 cbTrayBehavior.Items[3]=Gehen Sie beim Beenden zum Taskleistensymbol
-lbWinBoxUpdate=&Updateverwaltung:
-cbWinBoxUpdate.Items[0]=Suchen Sie nicht nach neuen Versionen von WinBox
-cbWinBoxUpdate.Items[1]=Manuelle Download-Option, benutzerdefiniertes Update
-cbWinBoxUpdate.Items[2]=Installer-Download, geführte Installation 
-cbWinBoxUpdate.Items[3]=Installer-Download, automatische Installation
+lbTaskbarProgress=Taskleiste &Ladeanzeige:
+cbTaskbarProgress.Items[0]=Deaktiviert
+cbTaskbarProgress.Items[1]=Host-CPU-Last anzeigen
+cbTaskbarProgress.Items[2]=Zugewiesenen Speicher anzeigen
+cbTaskbarProgress.Items[3]=Anzeige laufender Maschinen
+lkProgramUpdate=Einstellungen für die Programmaktualisierung
 tabEmulator=Emulator
 grpDefEmulator=Emulator-Standardwerte
 lbDefEmulator=Auf dieser Registerkarte können Sie die Informationen des 86Box-Emulators angeben, der standardmäßig von virtuellen Maschinen verwendet wird.
@@ -459,10 +490,21 @@ lbAffectedVMs=Diese Einstell. betrifft nur Computer, die den Standardemul. verwe
 lb86BoxPath=&Pfad:
 btnDef86Box=&Standardwert
 btnOpen86Box=Verzeichnis &öffnen...
-grpAutoUpdate=Automatische Updates
+lkEmulatorUpdate=Einstellungen für die Emulator Aktualisierung
+tabAutoUpdate=Automatische Aktualisierungen
+grpProgramUpdates=Aktualisierungen des Programms
+lbWinBoxUpdate=&Update-Verwaltung der WinBox:
+cbWinBoxUpdate.Items[0]=Suchen Sie nicht nach neuen Versionen von WinBox
+cbWinBoxUpdate.Items[1]=Manuelle Download-Option, benutzerdefiniertes Update
+cbWinBoxUpdate.Items[2]=Installer-Download, geführte Installation 
+cbWinBoxUpdate.Items[3]=Installer-Download, automatische Installation
+btnDefWinBoxUpd=&Standardwert
+btnPortWinBoxUpd=&Tragbarer Modus
+grpEmulatorUpdates=Aktualisierungen des Emulators
 cbAutoUpdate=Automatisch nach Emulator-&Updates suchen
 cbGetSource=&Wenn möglich, laden Sie auch den &Quellcode herunter
 lbArtifact=Laden Sie das folgende 86Box-&Artefakt herunter:
+lbArtfSwitchNote=Um das aktuelle Artefakt sofort zu ändern, führen Sie nach dem Schließen des Dialogs die Aktualisierung des Emulators aus.
 tabAppearance=Aussehen
 grpAppearance=Aussehen neuer virtueller Maschinen
 lbAppearance=Hier können Sie das Aussehen neuer virtueller Maschinen definieren. Dies kann später an die spezifische Maschine angepasst werden.
@@ -489,11 +531,28 @@ cbWindowSizing.Items[0]=Entsprechend der aktuellen Bildschirmauflösung
 cbWindowSizing.Items[1]=Frei änderbar
 cbWindowSizing.Items[2]=Feste Auflösung aus der Vorlage
 cbWindowSizing.Items[3]=Anzeige um 0,5x. Rauszoomen
-cbWindowSizing.Items[4]=Vergrößern Sie das Display um 1,5x 
+cbWindowSizing.Items[4]=Aktuelle Größe und LageVergrößern Sie das Display um 1,5x 
 cbWindowSizing.Items[5]=Vergrößern Sie das Display um 2x 
 rbManualOptions=&Manuell eingegebene Einstellungen
 rbNoDisplayOptions=&Keine Anzeigeeinstellungen erstellen
 btnManOptLoad=Lade von der &Datei...
+tabUI=Benutzeroberfläche
+grpPositionData=Lage, Größe und Anordnung
+lbPositionCurrentDesc=Aktuelle Größe und Lage:
+lbPositionSavedDesc=Gespeicherte Größe und Lage:
+lbPositionCurrent.Hint=(stand.)
+lbPositionSaved.Hint=(stand.)
+btnPositionClear=St&andardwert
+btnPositionSave=Speichern &Zustand ▼
+grpIconSets=Symbolsatz
+lbProgIconSet=Vom &Programm verwendeter Symbolsatz:
+lbEmuIconSet=Vom &Emulator verwendeter Symbolsatz:
+lbEmuIconSetNote=Die Einstellung für das Emulator-Symbol wirkt sich nur auf neue virtuelle Maschinen aus; sie wirkt sich nicht auf die vorhandenen Maschinen aus.
+lbIconSetDesc=Hier können Sie aus den Symbolen auswählen, die Sie für das Programm und den Emulator verwenden möchten.
+cbProgIconSet.Hint=(Standard-Symbolsatz des Programms)
+btnDefProgIconSet=&Standardwert
+cbEmuIconSet.Hint=(Standard-Symbolsatz des Emulators)
+btnDefEmuIconSet=S&tandardwert
 tabLanguage=Sprache
 grpLanguage=Spracheinstellungen
 lbLanguage=In diesem Abschnitt können Sie das sprachbezogene Verhalten des Programms und des Emulators ändern. 
@@ -508,6 +567,20 @@ cbEmuLang.Items[0]=(System-Standardsprache)
 btnDefEmuLang=S&tandardwert
 rbEmuLangFree=Ändern Sie &nicht die Spracheinstellungen des Emulators
 cbEmuLangForced=&Überschreiben Sie die Sprache des Emulators für alle virt. Maschinen
+tabStyles=Visuelle Stile
+grpThemes=Themen, Farben und Stile
+lbStyleDesc=Auf dieser Seite können Sie den Dunkelmodus einrichten oder das Design des Programms ändern.
+rbStyleSystem=Verwenden Sie denselben Stil und Farbmodus wie das System
+rbStyleColor=Verwenden Sie denselben Stil, aber einen anderen Farbmodus als das System
+lbStyleColor=&Farbmodus:
+cbStyleColor.Items[0]=Leichter Anwendungsmodus
+cbStyleColor.Items[1]=Dunkler Anwendungsmodus
+rbStyleCustom=Verwendung eines nicht systemeigenen visuellen Stils
+lbStyleName=Vis. &Stile:
+lbStylePreview=&Vorschau:
+lbStyleNoPreview=(nicht verfügbar)
+lbQuadEq=Löser für quadratische Gleichungen\r\nax^2+bx+c\x3D0
+btnQuadEqSolve=&Lösen Sie
 tabTools=Werkzeuge
 grpTools=Liste der Benutzer-Tools
 lbTools=WinBox kann ein Menü mit Anwendungen erstellen, die häufig mit virtuellen Maschinen verwendet werden. Die Liste der Anwendungen kann auf dieser Seite konfiguriert werden.
@@ -545,6 +618,13 @@ btnImport=&Importieren \u25BC
 miImport86Mgr=Übertragen Sie die Einstellungen aus dem 86Box &Manager
 miImportWinBox=Übertragen Sie die Einstellungen aus dem &WinBox Reloaded
 miDefaults=Einstellungen auf Werkseinstellungen &zurücksetzen
+
+[pmPosition]
+miCompleteState=Speichern Sie den kompletten &Status des Hauptfensters
+miPositionOnly=Nur die &Lage des Hauptfensters speichern
+miSizeOnly=Nur die &Größe des Hauptfensters speichern
+miLayoutOnly=Nur die &Anordnung des Hauptfensters speichern
+miDefaults2=Einstellungen auf Werkseinstellungen &zurücksetzen
 
 [ProfSettDlg]
 ProfSettDlg=Profileinstellungen 

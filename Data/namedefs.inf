@@ -129,7 +129,7 @@ portableiii386=Compaq Portable III (386)
 micronics386=Micronics 09-00021
 asus386=ASUS ISA-386C
 ibmps2_m70_type3=IBM PS/2 model 70 (type 3)
-ibmps2_m80=IBM PS/2 model 80
+ibmps2_m80=IBM PS/2 model 80 (type 2)
 ibmps2_m80_type3=IBM PS/2 model 80 (type 3)
 
 award495=Award 486 clone

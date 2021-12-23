@@ -72,6 +72,7 @@ OpenDialog.EmfImage=Meta arquivos (*.emf; *.wmf)|*.emf;*.wmf|Todos os arquivos (
 OpenDialog.Floppy=Imagens de disquete (*.ima; *.vfd)|*.ima;*.vfd|Imagens brutas de disco (*.im?; *.vfd)|*.im?;*.vfd|Todos os arquivos (*.*)|*.*
 OpenDialog.RawDisk=Imagens de disco rígido (*.img)|*.img|Imagens brutas de disco (*.im?)|*.im?|Todos os arquivos (*.*)|*.*
 OpenDialog.VhdDisk=Virtual Hard Disk (*.vhd)|*.vhd|Todos os arquivos (*.*)|*.*
+OpenDialog.Shortcuts=Ficheiro de atalho (*.lnk)|*.lnk|All files (*.*)|*.*
 
 Strings.Unknown=Desconhecido
 Strings.Version=Versão: %s
@@ -197,6 +198,17 @@ WizardVM.NoManufaturer=(Fabricante desconhecido)
 WizardVM.NewVM=Nova máquina virtual Nº%d
 WizardVM.SelectWorkDir=Selecione o diretório de trabalho desejado:
 
+QuadEq.NoSolution=A equação não tem solução.
+QuadEq.AnySolution=Qualquer número pode ser a solução para a equação.
+QuadEq.LinearSolution=A equação é linear, com solução x=%.2f.
+QuadEq.SingleSolution=A equação tem duas soluções reais coincidentes: x1=x2=%.2f.
+QuadEq.DoubleSolution=A equação tem duas soluções reais diferentes: x1=%.2f, e x2=%.2f.
+QuadEq.ComplexSolution=A equação tem duas soluções complexas diferentes: x1=%.2f%s%.2fi, e x2=%.2f%s%.2fi.
+
+IconSet.DeferStyleChange=O modo de aplicação em todo o sistema ou as configurações do tema do programa foram alterados e salvos.\r\n\r\nAs mudanças entrarão em vigor na próxima vez em que o programa for iniciado.
+
+WinBox.InvCmdProfileID=O ID do perfil ("%s") especificado como parâmetro é inválido. Verifique se você digitou o ID do perfil corretamente e se o perfil que você está procurando não foi excluído.
+
 [UpdateDlg]
 btnTerminate.Hint=&Fechar
 btnTerminate=&Abortar
@@ -273,6 +285,12 @@ joystick.standard_2button=Joystick(s) padrão(ões) de 2 botões
 joystick.standard_4button=Joystick padrão de 4 botões
 joystick.standard_6button=Joystick padrão de 6 botões
 joystick.standard_8button=Joystick padrão de 8 botões
+joystick.2axis_2button=Joystick(s) de 2 eixos e 2 botões
+joystick.2axis_4button=Joystick de 2 eixos e 4 botões
+joystick.2axis_6button=Joystick de 2 eixos e 6 botões
+joystick.2axis_8button=Joystick de 2 eixos e 8 botões
+joystick.3axis_2button=Joystick de 3 eixos e 2 botões
+joystick.3axis_4button=Joystick de 3 eixos e 4 botões
 joystick.4axis_4button=Joystick de 4 eixos e 4 botões
 
 [Actions]
@@ -297,6 +315,7 @@ acProfileSettings=Configurações de &perfil...
 acOpenScreenshots=Abrir &capturas de tela...
 acOpenPrinterTray=Abrir bandeja de &impressão...
 acOpenWorkDir=Abrir &diretório de trabalho...
+acSaveShortcut=Criar &Atalho...
 
 acBringToFront=Trazer máquina para &frente...
 acUpdateFull=Atualizar &informações da máquina
@@ -304,6 +323,8 @@ acChangeColor=&Mudar a cor de fundo...
 acResetColor=&Restaurar cor de fundo
 acUpdateList=&Atualizar lista de máquinas
 acUpdateTools=Atualizar lista de &ferramentas do usuário
+
+acPerfMonPrint=&Imprimir o diagrama...
 
 acAutoUpdate=Pesquisar por &atualizações do emulador...
 acWinBoxUpdate=Pesquisar por atualizações do &programa...
@@ -427,18 +448,26 @@ lbDiskSizeDesc=Espaço ocupado:
 
 [ProgSettDlg]
 ProgSettDlg=Configurações do programa
-tabGeneral=Geral
-grpDefaultPath=Lugar das Novas máquinas virtuais 
+tabVMs=Máquinas Virtuais
+grpNewVMs=Novas Máquinas Virtuais
 lbDefaultPath=Aqui você pode definir, onde deseja armazenar os diretórios de trabalho das máquinas virtuais recém-criadas.
 lbPath=&Caminho:
 lbEraseProt=&Proteção de exclusão:
 lbOnlyNewVM=Esta configuração afeta apenas as máquinas virtuais recém-criadas, todas as já existentes permanecem inalteradas.
 btnDefPath=&Padrão
 btnOpenPath=&Abrir diretório...
+lbEraseProtNote=A proteção de exclusão impede que você apague arquivos de máquinas protegidas dentro do programa.
 cbEraseProt.Items[0]=Desl. para máq. novas e posteriormente importadas
 cbEraseProt.Items[1]=Lig. só para máq. virtuais importadas posteriormente
 cbEraseProt.Items[2]=Lig. para máq. novas e posteriormente importadas
-grpBehavior=Comportamento do WinBox
+btnDefEraseProt=P&adrão
+lbDisplaySettings=Configurações de Aparência:
+cbDefFullscreen=Iniciar novas máquinas virtuais em tela cheia por padrão
+lkAppearance=Mais configurações de aparência para novas máquinas virtuais
+lkLanguage=Configurações de idiomas para novas máquinas virtuais
+lkIconSet=Configurações do conjunto de ícones para novas máquinas virtuais
+tabGeneral=Geral
+grpBehavior=Comportamento do programa
 lbTrayBehavior=&Ícone na notificação:
 lbLaunchTimeout=&Tempo lim. de inic. do emul.:
 lbMilliseconds=milissegundos
@@ -447,22 +476,33 @@ cbTrayBehavior.Items[0]=Sem ícone na bandeja, minimiz. na barra de tarefas
 cbTrayBehavior.Items[1]=Ícone na bandeja, mas minimiz. na barra de tarefas
 cbTrayBehavior.Items[2]=Minimizar como ícone da bandeja do sistema
 cbTrayBehavior.Items[3]=Fechar o ícone da bandeja do sistema
-lbWinBoxUpdate=&Gerenciar atualização:
-cbWinBoxUpdate.Items[0]=Não procurar por novas versões do WinBox
-cbWinBoxUpdate.Items[1]=Manualmente, atualização personalizada
-cbWinBoxUpdate.Items[2]=Baixar instalador, instalação guiada 
-cbWinBoxUpdate.Items[3]=Baixar instalador, autoinstalação 
-tabEmulator=Emulador
+lbTaskbarProgress=&Indicador de carga da barra de tarefas:
+cbTaskbarProgress.Items[0]=Desabilitado
+cbTaskbarProgress.Items[1]=Exibir carga da CPU do host
+cbTaskbarProgress.Items[2]=Exibir memória alocada
+cbTaskbarProgress.Items[3]=Exibir máquinas em execução
+lkProgramUpdate=Configurações de atualização automática para o programa
 grpDefEmulator=Padrões do emulador
 lbDefEmulator=Nesta aba, você pode especificar as informações sobre o emulador 86Box utilizado por padrão pelas máquinas virtuais.
 lbAffectedVMs=Esta config. se aplica às máquinas que utilizam as configurações padrão. Você pode diferir disso nas configurações do perfil da máquina virtual.
 lb86BoxPath=&Caminho:
 btnDef86Box=&Padrão
 btnOpen86Box=&Abrir diretório...
-grpAutoUpdate=Atualizações automáticas
+lkEmulatorUpdate=Configurações de atualização automática para o Emulador
+tabAutoUpdate=Atualizações automáticas
+grpProgramUpdates=Atualizações do programa
+lbWinBoxUpdate=&Gerenciamento de atualização da WinBox:
+cbWinBoxUpdate.Items[0]=Não procurar por novas versões do WinBox
+cbWinBoxUpdate.Items[1]=Manualmente, atualização personalizada
+cbWinBoxUpdate.Items[2]=Baixar instalador, instalação guiada 
+cbWinBoxUpdate.Items[3]=Baixar instalador, autoinstalação 
+btnDefWinBoxUpd=&Padrão
+btnPortWinBoxUpd=Modo P&ortátil
+grpEmulatorUpdates=Atualizações do Emulador
 cbAutoUpdate=Procurar automaticamente por &atualizações do emulador
 cbGetSource=&Baixar também o código fonte, se possível
 lbArtifact=Baixe o seguinte artefato &86Box:
+lbArtfSwitchNote=Para alterar o artefato atual agora mesmo, execute a Atualização do Emulador após fechar a janela.
 tabAppearance=Aparência
 grpAppearance=Aparência das novas máquinas virtuais
 lbAppearance=Aqui você pode especificar a aparência das novas máquinas virtuais. Posteriormente, isto pode ser personalizado por máquina.
@@ -494,6 +534,23 @@ cbWindowSizing.Items[5]=Ampliar a exibição por 2x
 rbManualOptions=&Inserir configurações manualmente
 rbNoDisplayOptions=&Não criar configurações de exibição
 btnManOptLoad=Carregar do &arquivo...
+tabUI=Interface do usuário
+grpPositionData=Posição, Tamanho e Arranjo
+lbPositionCurrentDesc=Tamanho e Posição da Corrente:
+lbPositionSavedDesc=Tamanho e Posição Guardados:
+lbPositionCurrent.Hint=(padrão)
+lbPositionSaved.Hint=(padrão)
+btnPositionClear=Pa&drão
+btnPositionSave=Salvar o &Estado ▼
+grpIconSets=Conjuntos de ícones
+lbProgIconSet=Conjunto de ícones utilizados pelo &programa:
+lbEmuIconSet=Conjunto de ícones utilizados pelo &emulador:
+lbEmuIconSetNote=O conjunto de ícones do emulador só afeta as novas máquinas virtuais, não tem efeito sobre as máquinas existentes.
+lbIconSetDesc=Aqui você pode selecionar da lista o conjunto de ícones que você deseja usar com o programa e o emulador.
+cbProgIconSet.Hint=(Conjunto de ícones padrão do Programa)
+btnDefProgIconSet=&Padrão
+cbEmuIconSet.Hint=(Conjunto de ícones padrão do Emulador)
+btnDefEmuIconSet=P&adrão
 tabLanguage=Idioma
 grpLanguage=Configurações de idiomas
 lbLanguage=Nesta seção você pode mudar o comportamento lingüístico do programa e do emulador.
@@ -508,6 +565,20 @@ cbEmuLang.Items[0]=(Idioma padrão do sistema)
 btnDefEmuLang=P&adrão
 rbEmuLangFree=&Não alterar as configurações de idioma do emulador
 cbEmuLangForced=&Substituir a linguagem do emulador para todas as máquinas virtuais
+tabStyles=Estilos Visuais
+grpThemes=Temas, Cores e Estilos
+lbStyleDesc=Nesta página você pode configurar o modo escuro ou pode mudar completamente o tema do programa.
+rbStyleSystem=Usar o mesmo estilo e modo de cor que no sistema
+rbStyleColor=Usar o mesmo estilo e modo de cor que o sistema
+lbStyleColor=Modo &Cor:
+cbStyleColor.Items[0]=Modo de aplicação leve
+cbStyleColor.Items[1]=Modo de aplicação escuro
+rbStyleCustom=Uso de um estilo visual não nativo
+lbStyleName=&Est. Visuais:
+lbStylePreview=&Pré-visualização:
+lbStyleNoPreview=(não disponível)
+lbQuadEq=Solucionador de Equações Quadráticas\r\nax^2+bx+c\x3D0
+btnQuadEqSolve=&Resolva
 tabTools=Ferramentas
 grpTools=Lista de ferramentas do usuário
 lbTools=O WinBox pode criar um menu a partir de aplicações, que são frequentemente utilizadas junto com as máquinas virtuais. A lista das aplicações pode ser configurada nesta página.
@@ -545,6 +616,13 @@ btnImport=&Importar \u25BC
 miImport86Mgr=Transferir configurações do 86Box &Manager
 miImportWinBox=Transferir configurações do &WinBox Reloaded
 miDefaults=Redefinir as configurações para os padrões de &fábrica
+
+[pmPosition]
+miCompleteState=Salvar o &status completo da janela principal
+miPositionOnly=Salvar somente a &posição da janela principal
+miSizeOnly=Salvar apenas o &tamanho da janela principal
+miLayoutOnly=Salvar apenas o arranjo da janela principal
+miDefaults2=Redefinir as configurações para os padrões de &fábrica
 
 [ProfSettDlg]
 ProfSettDlg=Configurações de perfil

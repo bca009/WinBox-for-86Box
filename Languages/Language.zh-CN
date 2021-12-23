@@ -72,6 +72,7 @@ OpenDialog.EmfImage=元图像文件 (*.emf; *.wmf)|*.emf;*.wmf|所有文件 (*.*
 OpenDialog.Floppy软盘镜像 (*.ima; *.vfd)|*.ima;*.vfd|原始(RAW)镜像 (*.im?; *.vfd)|*.im?;*.vfd|所有文件 (*.*)|*.*
 OpenDialog.RawDisk=硬盘镜像 (*.img)|*.img|原始(RAW)镜像 (*.im?)|*.im?|所有文件 (*.*)|*.*
 OpenDialog.VhdDisk=虚拟硬盘文件 (*.vhd)|*.vhd|所有文件 (*.*)|*.*
+OpenDialog.Shortcuts=快捷方式文件 (*.lnk)|*.lnk|所有文件 (*.*)|*.*
 
 Strings.Unknown=未知
 Strings.Version=版本: %s
@@ -197,6 +198,17 @@ WizardVM.NoManufaturer=（未知制造商）
 WizardVM.NewVM=新虚拟机#%d
 WizardVM.SelectWorkDir=选择所需的工作目录: 
 
+QuadEq.NoSolution=该方程无解.
+QuadEq.AnySolution=任何数字都可以成为方程的解.
+QuadEq.LinearSolution=该方程是线性的，其解为 x=%.2f.
+QuadEq.SingleSolution=该方程有两个重合的实数解: x1=x2=%.2f.
+QuadEq.DoubleSolution=该方程有两个不同的实数解: x1=%.2f，和 x2=%.2f.
+QuadEq.ComplexSolution=该方程有两个不同的复数解: x1=%.2f%s%.2fi, 和 x2=%.2f%s%.2fi.
+
+IconSet.DeferStyleChange=全系统应用模式或程序主题设置已被改变并保存.\r\n\r\n这些改变将在下次启动程序时生效.
+
+WinBox.InvCmdProfileID=作为参数指定的配置文件ID （"%s"） 是无效的。检查你是否正确地输入了简介ID, 并且你要找的简介没有被删除.
+
 [UpdateDlg]
 btnTerminate.Hint=关闭(&C)
 btnTerminate=放弃(&A)
@@ -273,6 +285,12 @@ joystick.standard_2button=标准2键操纵杆
 joystick.standard_4button=标准4键操纵杆
 joystick.standard_6button=标准6键操纵杆
 joystick.standard_8button=标准8键操纵杆
+joystick.2axis_2button=2轴4键操纵杆
+joystick.2axis_4button=2轴4键操纵杆
+joystick.2axis_6button=2轴6键操纵杆
+joystick.2axis_8button=2轴8键操纵杆
+joystick.3axis_2button=3轴2键操纵杆
+joystick.3axis_4button=3轴4键操纵杆
 joystick.4axis_4button=4轴4键操纵杆
 
 [Actions]
@@ -297,6 +315,7 @@ acProfileSettings=配置文件设置(&P)...
 acOpenScreenshots=打开屏幕截图(&C)...
 acOpenPrinterTray=打开打印机托盘(&Y)...
 acOpenWorkDir=打开工作目录(&O)...
+acSaveShortcut=创建快捷方式(&o)...
 
 acBringToFront=将机器带到前面(&F)...
 acUpdateFull=更新机器信息(&I)
@@ -304,6 +323,8 @@ acChangeColor=更改背景颜色(&C)...
 acResetColor=重置背景颜色(&R)
 acUpdateList=更新机器列表(&U)
 acUpdateTools=更新用户列表工具(&T)
+
+acPerfMonPrint=打印该图(&P)...
 
 acAutoUpdate=搜索模拟器和更新(&U)...
 acWinBoxUpdate=搜索程序更新(&d)...
@@ -427,18 +448,26 @@ lbDiskSizeDesc=占用空间:
 
 [ProgSettDlg]
 ProgSettDlg=程序设置
-tabGeneral=一般
-grpDefaultPath=新虚拟机的位置
+tabVMs=虚拟机
+grpNewVMs=新的虚拟机
 lbDefaultPath=在这里您可以定义新创建的虚拟机的工作目录的存储位置. 
 lbPath=路径(&P):
 lbEraseProt=擦除保护(&E):
 lbOnlyNewVM=此设置仅影响新创建的虚拟机, 所有现有的虚拟机保持不变.
 btnDefPath=默认(&D)
 btnOpenPath=打开目录(&O)...
+lbEraseProtNote=擦除保护可以防止你从程序中意外地删除虚拟机文件.
 cbEraseProt.Items[0]=对于新的和以后导入的机器禁用
 cbEraseProt.Items[1]=仅对以后导入的虚拟机启用
 cbEraseProt.Items[2]=为新机器和以后导入的机器启用
-grpBehavior=WinBox 行为
+btnDefEraseProt=默认(&e)
+lbDisplaySettings=外观设置(&A):
+cbDefFullscreen=默认在全屏上启动一个新的虚拟机(&F).
+lkAppearance=为新的虚拟机提供更多的外观设置
+lkLanguage=新虚拟机的语言设置
+lkIconSet=新虚拟机的图标设置
+tabGeneral=一般
+grpBehavior=程序的行为
 lbTrayBehavior=通知区域图标(&N):
 lbLaunchTimeout=模拟器启动超时(&t):
 lbMilliseconds = 毫秒.
@@ -447,23 +476,34 @@ cbTrayBehavior.Items[0]=没有系统托盘图标, 最小化到任务栏
 cbTrayBehavior.Items[1]=托盘上的图标, 但最小化到任务栏
 cbTrayBehavior.Items[2]=最小化到系统托盘图标
 cbTrayBehavior.Items[3]=靠近系统托盘图标
-lbWinBoxUpdate=更新管理(&U):
-cbWinBoxUpdate.Items[0]=不要搜索新的 WinBox 版本
-cbWinBoxUpdate.Items[1]=手动下载选项, 自定义更新
-cbWinBoxUpdate.Items[2]=安装程序下载, 引导安装
-cbWinBoxUpdate.Items[3]=安装程序下载, 自动安装
-tabEmulator=模拟器
+lbTaskbarProgress=任务栏加载指示器(&L):
+cbTaskbarProgress.Items[0]=失能
+cbTaskbarProgress.Items[1]=显示主机CPU负载
+cbTaskbarProgress.Items[2]=显示分配的内存
+cbTaskbarProgress.Items[3]=显示正在运行的机器
+lkProgramUpdate=程序的自动更新设置
 grpDefEmulator=模拟器默认值
 lbDefEmulator=在此选项卡上, 您可以指定虚拟机默认使用的86Box 模拟器的信息.
 lbAffectedVMs=这个设置只影响使用默认模拟器的机器. 您可能在虚拟机配置文件设置中与此不同.
 lb86BoxPath=路径(&P):
 btnDef86Box=默认(&D)
 btnOpen86Box=打开目录(&O)...
-grpAutoUpdate=自动更新
+lkEmulatorUpdate=仿真器的自动更新设置
+tabAutoUpdate=自动更新
+grpProgramUpdates=方案的更新
+lbWinBoxUpdate=&WinBox 的更新管理:
+cbWinBoxUpdate.Items[0]=不要搜索新的 WinBox 版本
+cbWinBoxUpdate.Items[1]=手动下载选项, 自定义更新
+cbWinBoxUpdate.Items[2]=安装程序下载, 引导安装
+cbWinBoxUpdate.Items[3]=安装程序下载, 自动安装
+btnDefWinBoxUpd=默认(&D)
+btnPortWinBoxUpd=&便携模式(&P)
+grpEmulatorUpdates=仿真器更新
 cbAutoUpdate=自动搜索模拟器和更新
 cbGetSource=尽可能下载源代码(&D)
 tabAppearance=外观
 lbArtifact=下载以下 86Box 文件（&Artifact）：
+lbArtfSwitchNote=要现在改变当前的 &Artifact,在关闭窗口后运行模拟器更新.
 grpAppearance=新虚拟机的外观
 lbAppearance=在这里您可以指定新虚拟机的外观. 可以稍后在每台机器的基础上进行定制. 
 lbDefaultDisplay=固定缩放窗口(例如 960x720)和 4:3 的全屏纵横比.
@@ -494,6 +534,23 @@ cbWindowSizing.Items[5]=将显示放大 2 倍
 rbManualOptions=手动输入设置(&M)
 rbNoDisplayOptions=不要创建显示设置(&D)
 btnManOptLoad=从文件加载(&F)...
+tabUI=用户界面
+grpPositionData=位置、大小和布局
+lbPositionCurrentDesc=目前的尺寸和位置:
+lbPositionSavedDesc=保存的尺寸和位置:
+lbPositionCurrent.Hint=(违约)
+lbPositionSaved.Hint=(违约)
+btnPositionClear=默认(&f)
+btnPositionSave=保存和状态(&S) ▼
+grpIconSets=图标集
+lbProgIconSet=程序使用的图标集(&P):
+lbEmuIconSet=仿真器使用的图标集(&E):
+lbEmuIconSetNote=仿真器图标集设置只影响新的虚拟机，对现有虚拟机没有影响.
+lbIconSetDesc=在这里你可以从列表中选择你想在程序和模拟器中使用的图标集.
+cbProgIconSet.Hint=(程序的默认图标集)
+btnDefProgIconSet=默认(&D)
+cbEmuIconSet.Hint=(仿真器的默认图标集)
+btnDefEmuIconSet=默认(&e)
 tabLanguage=语言
 grpLanguage=语言设置
 lbLanguage=在这一部分, 你可以改变程序和仿真器的语言相关行为.
@@ -508,6 +565,20 @@ cbEmuLang.Items[0]=(系统默认语言)
 btnDefEmuLang=默认(&F)
 rbEmuLangFree=不要改变仿真器的语言(&N)
 cbEmuLangForced=替换所有虚拟机的仿真器的语言(&O)
+tabStyles=视觉风格
+grpThemes=主题、颜色和风格
+lbStyleDesc=在这个页面上，你可以调整黑暗模式的设置，或者你可以用自定义主题完全改变程序的外观.
+rbStyleSystem=使用符合系统主题和颜色设置的样式(&Y)
+rbStyleColor=使用与系统相匹配的风格，但有自定义的颜色设置(&U)
+lbStyleColor=彩色模式(&C):
+cbStyleColor.Items[0]=光色模式
+cbStyleColor.Items[1]=深色模式
+rbStyleCustom=使用独特的视觉风格，这与系统主题不同(&V).
+lbStyleName=视觉风格(&S):
+lbStylePreview=预览(&P):
+lbStyleNoPreview=(不详)
+lbQuadEq=二次方程解算器\r\nax^2+bx+c\x3D0
+btnQuadEqSolve=计算(&L)
 tabTools=工具
 grpTools=用户工具列表
 lbTools=WinBox 可以从应用程序创建菜单, 这些应用程序经常与虚拟机一起使用. 可以在此页面配置应用程序列表.
@@ -545,6 +616,13 @@ btnImport=导入(&I) \u25BC
 miImport86Mgr=从 86Box &Manager 传输设置
 miImportWinBox=从&WinBox 传输设置重新加载
 miDefaults=将设置重置为出厂默认值(&F)
+
+[pmPosition]
+miCompleteState=保存主窗口的完整状态(&S)
+miPositionOnly=只保存主窗口的位置(&P)
+miSizeOnly=只保存主窗口的大小(&Z)
+miLayoutOnly=只保存主窗口的布局(&L)
+miDefaults2=将设置重置为出厂默认值(&F)
 
 [ProfSettDlg]
 ProfSettDlg=配置文件设置

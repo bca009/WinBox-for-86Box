@@ -25,7 +25,7 @@ object ProgSettDlg: TProgSettDlg
     Top = 8
     Width = 444
     Height = 479
-    ActivePage = tabVMs
+    ActivePage = tabGeneral
     Anchors = [akLeft, akTop, akRight, akBottom]
     MultiLine = True
     TabOrder = 0
@@ -317,9 +317,9 @@ object ProgSettDlg: TProgSettDlg
           FocusControl = ed86Box
         end
         object lbVersion: TLabel
-          Left = 280
+          Left = 208
           Top = 71
-          Width = 104
+          Width = 176
           Height = 26
           Alignment = taRightJustify
           AutoSize = False
@@ -983,7 +983,7 @@ object ProgSettDlg: TProgSettDlg
           Height = 41
           AutoSize = False
           Caption = 
-            'Ezen a ponton kiv'#225'laszthatja a program '#233's az emul'#225'tor '#225'ltal hasz' +
+            'Ezen a helyen kiv'#225'laszthatja a program '#233's az emul'#225'tor '#225'ltal hasz' +
             'n'#225'lni k'#237'v'#225'nt ikonk'#233'szletet a list'#225'kban el'#233'rhet'#337'ek k'#246'z'#252'l.'
           WordWrap = True
         end
@@ -1269,8 +1269,8 @@ object ProgSettDlg: TProgSettDlg
           Width = 370
           Height = 17
           Caption = 
-            'A rendszer t'#233'ma '#233's sz'#237'nbe'#225'll'#237't'#225'sainak megfelel'#337' st'#237'lus haszn'#225'lat' +
-            'a'
+            'A &rendszer t'#233'ma '#233's sz'#237'nbe'#225'll'#237't'#225'sainak megfelel'#337' st'#237'lus haszn'#225'la' +
+            'ta'
           TabOrder = 1
           OnClick = UpdateStyleControls
         end
@@ -1279,7 +1279,9 @@ object ProgSettDlg: TProgSettDlg
           Top = 98
           Width = 370
           Height = 17
-          Caption = 'A rendszer t'#233'm'#225'ja szerinti, de r'#246'gz'#237'tett sz'#237'n-'#252'zemm'#243'd haszn'#225'lata'
+          Caption = 
+            'A rendszer t'#233'm'#225'ja szerinti, de r'#246'gz'#237'tett &sz'#237'n-'#252'zemm'#243'd haszn'#225'lat' +
+            'a'
           TabOrder = 2
           OnClick = UpdateStyleControls
         end
@@ -1302,7 +1304,7 @@ object ProgSettDlg: TProgSettDlg
           Top = 152
           Width = 370
           Height = 17
-          Caption = 'A rendszer t'#233'm'#225'j'#225't'#243'l elt'#233'r'#337', r'#246'gz'#237'tett egyedi st'#237'lus haszn'#225'lata'
+          Caption = 'A rendszer t'#233'm'#225'j'#225't'#243'l elt'#233'r'#337', r'#246'gz'#237'tett &egyedi st'#237'lus haszn'#225'lata'
           TabOrder = 4
           OnClick = UpdateStyleControls
         end
