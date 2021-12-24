@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "WinBox for 86Box"
-#define MyAppVersion "1.1.0.351"
+#define MyAppVersion "1.1.0.352"
 #define MyAppPublisher "Laci bá'"
 #define MyAppURL "https://users.atw.hu/laciba/"    
 
@@ -62,7 +62,8 @@ Type: filesandordirs; Name: "{app}\Templates"
 
 [Files]
 Source: "..\Win32\Debug\WinBox.exe"; DestDir: "{app}"; Flags: ignoreversion;          
-Source: "..\Win32\Debug\Templates\*"; DestDir: "{app}\Templates"; Flags: ignoreversion recursesubdirs createallsubdirs;         
+Source: "..\Win32\Debug\Templates\*"; DestDir: "{app}\Templates"; Flags: ignoreversion recursesubdirs createallsubdirs;     
+Source: "..\Win32\Debug\Iconsets\*"; DestDir: "{app}\Iconsets"; Excludes: "\*\Source\*"; Flags: ignoreversion recursesubdirs createallsubdirs;        
 Source: "..\Languages\*"; DestDir: "{app}\Languages"; Flags: ignoreversion recursesubdirs createallsubdirs;                         
 Source: "LICENSE.TXT"; DestDir: "{app}"; Flags: ignoreversion; 
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
