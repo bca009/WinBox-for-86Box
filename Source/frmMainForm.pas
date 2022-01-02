@@ -30,7 +30,7 @@ uses
   BaseImageCollection, ImageCollection, ImageList, ImgList, VirtualImageList,
   GraphUtil, Generics.Collections, u86Box, Vcl.ToolWin, uLang, AppEvnts, frm86Box,
   Vcl.ExtDlgs, frmUpdaterDlg, uCommText, uConfigMgr, System.Win.TaskbarCore,
-  Vcl.Taskbar, Vcl.JumpList, uJumpList;
+  Vcl.Taskbar, Vcl.JumpList, uJumpList, dmGraphUtil;
 
 type
   TListBox = class(StdCtrls.TListBox)
@@ -468,10 +468,9 @@ resourcestring
 implementation
 
 uses JclDebug, uProcessMon, uProcProfile, uCommUtil, frmProgSettDlg,
-  frmProfSettDlg, frmImportVM, uWinProfile, ShellAPI, dmGraphUtil,
-  Rtti, frmErrorDialog, frmAboutDlg, frmSelectHDD, frmNewFloppy,
-  frmWizardHDD, frmWizardVM, uBaseProfile, frmSplash, dmWinBoxUpd,
-  WinCodec, Themes, VCLTee.TeCanvas;
+  frmProfSettDlg, frmImportVM, uWinProfile, ShellAPI, frmErrorDialog,
+  frmAboutDlg, frmSelectHDD, frmNewFloppy, frmWizardHDD, frmWizardVM,
+  uBaseProfile, frmSplash, dmWinBoxUpd, Themes, VCLTee.TeCanvas, Rtti;
 
 const
   MaxPoints = 60;
@@ -749,7 +748,7 @@ procedure TWinBoxMain.acSaveLangFile(Sender: TObject);
 
   procedure GetTranslation(const AClass: TFormClass);
   var
-    Form: TForm;
+    Form: Forms.TForm;
   begin
     Form := AClass.Create(nil);
     try
@@ -2105,16 +2104,21 @@ end;
 
 function TWinBoxMain.InitTaskbar: TTaskbar;
 begin
-  Result := TTaskbar.Create(Self);
+  try
+    Result := TTaskbar.Create(Self);
 
-  with Result, TaskBarButtons do begin
-    Add.Action := acNewVM;
-    Add.Action := acNewHDD;
-    Add.Action := acNewFloppy;
-    Add.Action := acStart;
-    Add.Action := acStop;
-    Add.Action := ac86BoxSettings;
-    Add.Action := acPerfMonPrint;
+    with Result, TaskBarButtons do begin
+      Add.Action := acNewVM;
+      Add.Action := acNewHDD;
+      Add.Action := acNewFloppy;
+      Add.Action := acStart;
+      Add.Action := acStop;
+      Add.Action := ac86BoxSettings;
+      Add.Action := acPerfMonPrint;
+    end;
+  except
+    TaskbarHandler := nil;
+    Result := nil;
   end;
 end;
 

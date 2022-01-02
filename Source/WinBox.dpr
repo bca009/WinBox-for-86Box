@@ -50,6 +50,7 @@ begin
     Halt(2);
 
   Application.Initialize;
+  Application.MainFormOnTaskbar := True;
 
   with TStyleManager do begin
     UseSystemStyleAsDefault := true;
@@ -61,7 +62,6 @@ begin
   WinBoxSplash.Show;
   Application.ProcessMessages;
 
-  Application.MainFormOnTaskbar := True;
   Application.Title := 'WinBox for 86Box';
   Application.ActionUpdateDelay := 50;
   Application.CreateForm(TIconSet, IconSet);

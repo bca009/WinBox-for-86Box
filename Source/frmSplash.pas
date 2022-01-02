@@ -12,8 +12,8 @@ type
     rcBorder: TShape;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
-  private
-    { Private declarations }
+  protected
+    procedure CreateParams(var Params: TCreateParams); override;
   public
     { Public declarations }
   end;
@@ -26,6 +26,13 @@ implementation
 {$R *.dfm}
 
 uses dmGraphUtil;
+
+procedure TWinBoxSplash.CreateParams(var Params: TCreateParams);
+begin
+  inherited;
+  Params.ExStyle := Params.ExStyle and not WS_EX_APPWINDOW;
+  Params.WndParent := Application.Handle;
+end;
 
 procedure TWinBoxSplash.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
