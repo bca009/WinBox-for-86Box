@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "WinBox for 86Box"
-#define MyAppVersion "1.1.0.352"
+#define MyAppVersion "1.1.0.356"
 #define MyAppPublisher "Laci bá'"
 #define MyAppURL "https://users.atw.hu/laciba/"    
 

@@ -2,7 +2,7 @@
 
     WinBox for 86Box - An alternative manager for 86Box VMs
 
-    Copyright (C) 2021, Laci bá'
+    Copyright (C) 2021-2022, Laci bá'
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -872,6 +872,7 @@ begin
        except
          Log('TaskbarHandler.Initialize skipped.');
          TaskbarHandler := nil;
+         Iconset.Taskbar := nil;
        end;
      end
   else
