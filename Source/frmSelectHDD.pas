@@ -111,6 +111,8 @@ type
     procedure GetTranslation(Language: TLanguage); stdcall;
     procedure Translate; stdcall;
     procedure FlipBiDi; stdcall;
+
+    function DispToField(const DisplayName: string; out FieldIndex: integer): boolean;
   end;
 
 var
@@ -209,9 +211,11 @@ begin
 end;
 
 procedure THDSelect.cbSortByChange(Sender: TObject);
+var
+  FieldIndex: integer;
 begin
-  if cbSortBy.ItemIndex > 0 then
-    ClientDataSet.IndexFieldNames := cbSortBy.Text
+  if (cbSortBy.ItemIndex > 0) and DispToField(cbSortBy.Text, FieldIndex) then
+    ClientDataSet.IndexFieldNames := ClientDataSet.FieldDefs[FieldIndex].Name
   else
     ClientDataSet.IndexFieldNames := '';
 end;
@@ -225,6 +229,20 @@ procedure THDSelect.DBGridColumnMoved(Sender: TObject; FromIndex,
   ToIndex: Integer);
 begin
   (Sender as TDBGrid).Columns[ToIndex].Index := FromIndex;
+end;
+
+function THDSelect.DispToField(const DisplayName: string;
+  out FieldIndex: integer): boolean;
+var
+  I: integer;
+begin
+  Result := false;
+  for I := 0 to ClientDataSet.Fields.Count - 1 do
+    if ClientDataSet.Fields[I].DisplayName = DisplayName then begin
+      FieldIndex := I;
+      Result := true;
+      exit;
+    end;
 end;
 
 function THDSelect.Execute(const Silent: boolean): boolean;
