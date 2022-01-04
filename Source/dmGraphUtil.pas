@@ -44,11 +44,6 @@ const
   PROGRESS_PAUSED = 4;
 
 type
-  TForm = class(Forms.TForm)
-  protected
-    procedure WndProc(var Message: TMessage); override;
-  end;
-
   TIconSet = class(TDataModule)
     ListImages: TImageCollection;
     ListIcons: TVirtualImageList;
@@ -178,6 +173,9 @@ resourcestring
   PfIconSetPath   = 'Iconsets\';
   PathEmuIconSets = 'roms\icons\';
 
+var
+  RM_TaskButtonCreated: Cardinal = 0;
+
 implementation
 
 uses uCommUtil, uCommText, uLang;
@@ -195,9 +193,6 @@ resourcestring
 const
   PROGRESS_RED    = 90;
   PROGRESS_YELLOW = 75;
-
-var
-  RM_TaskButtonCreated: Cardinal = 0;
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
@@ -860,24 +855,6 @@ begin
   Perform(CM_STYLECHANGED, 0, 0);
 end;
 
-{ TForm }
-
-procedure TForm.WndProc(var Message: TMessage);
-begin
-  if (Cardinal(Message.Msg) = RM_TaskButtonCreated) and
-     (TaskbarHandler <> nil) then begin
-       try
-         TaskbarHandler.Initialize;
-         TaskbarHandler.CheckApplyChanges;
-       except
-         Log('TaskbarHandler.Initialize skipped.');
-         TaskbarHandler := nil;
-         Iconset.Taskbar := nil;
-       end;
-     end
-  else
-    inherited;
-end;
 
 initialization
   RM_TaskButtonCreated := RegisterWindowMessage('TaskbarButtonCreated');
