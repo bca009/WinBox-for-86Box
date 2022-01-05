@@ -413,6 +413,8 @@ type
     procedure WMEnterSizeMove(var Msg: TMessage); message WM_ENTERSIZEMOVE;
     procedure WMCopyData(var Msg: TWMCopyData); message WM_COPYDATA;
     procedure WMSettingChange(var Msg: TMessage); message WM_SETTINGCHANGE;
+  protected
+    procedure WndProc(var Message: TMessage); override;
   public
     //Nyelvváltáskor, a program eredeti címének megtartása
     InitialTitle: string;
@@ -2316,6 +2318,24 @@ begin
       PChar(Application.Title), MB_ICONINFORMATION or MB_OK);
 
   inherited;
+end;
+
+procedure TWinBoxMain.WndProc(var Message: TMessage);
+begin
+  if (Cardinal(Message.Msg) = RM_TaskButtonCreated) and
+     (TaskbarHandler <> nil) then begin
+       try
+         TaskbarHandler.Initialize;
+         TaskbarHandler.CheckApplyChanges;
+       except
+         Log('TaskbarHandler.Initialize skipped.');
+         TaskbarHandler := nil;
+         Iconset.Taskbar := nil;
+         FreeAndNil(Taskbar);
+       end;
+     end
+  else
+    inherited;
 end;
 
 procedure TWinBoxMain.pnpBottomResize(Sender: TObject);
