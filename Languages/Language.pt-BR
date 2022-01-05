@@ -218,6 +218,7 @@ lbTitle=Atualização do emulador
 lbFooter=Se possível, não desconecte da Internet durante o processo.
 
 [WinBoxMain]
+WinBoxMain=WinBox para 86Box
 tbStart=&Iniciar
 tbStop=&Parar
 tbAbout1=&Sobre
