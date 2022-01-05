@@ -25,7 +25,7 @@ object ProgSettDlg: TProgSettDlg
     Top = 8
     Width = 444
     Height = 479
-    ActivePage = tabGeneral
+    ActivePage = tabAppearance
     Anchors = [akLeft, akTop, akRight, akBottom]
     MultiLine = True
     TabOrder = 0
@@ -737,13 +737,14 @@ object ProgSettDlg: TProgSettDlg
         end
         object lbAppearance: TLabel
           Left = 64
-          Top = 24
+          Top = 16
           Width = 321
-          Height = 41
+          Height = 49
           AutoSize = False
           Caption = 
             'Itt megadhatja hogy '#250'j 86Box g'#233'pek milyen megjelen'#233'ssel legyenek' +
             ' l'#233'trehozva. Ez k'#233's'#337'bb szem'#233'lyre szabhat'#243' g'#233'penk'#233'nt.'
+          Layout = tlCenter
           WordWrap = True
         end
         object rbDefaultDisplay: TRadioButton
@@ -978,13 +979,14 @@ object ProgSettDlg: TProgSettDlg
         end
         object lbIconSetDesc: TLabel
           Left = 64
-          Top = 24
-          Width = 316
-          Height = 41
+          Top = 16
+          Width = 329
+          Height = 49
           AutoSize = False
           Caption = 
             'Ezen a helyen kiv'#225'laszthatja a program '#233's az emul'#225'tor '#225'ltal hasz' +
             'n'#225'lni k'#237'v'#225'nt ikonk'#233'szletet a list'#225'kban el'#233'rhet'#337'ek k'#246'z'#252'l.'
+          Layout = tlCenter
           WordWrap = True
         end
         object imgIconSet: TImage
@@ -1220,13 +1222,14 @@ object ProgSettDlg: TProgSettDlg
         end
         object lbStyleDesc: TLabel
           Left = 68
-          Top = 29
-          Width = 309
-          Height = 39
+          Top = 16
+          Width = 302
+          Height = 52
           AutoSize = False
           Caption = 
             'Ezen az oldalon elv'#233'gezheti a s'#246't'#233't m'#243'd be'#225'll'#237't'#225'sait, illetve eg' +
             'yedi t'#233'm'#225'kkal teljesen '#225'tszabhatja a program kin'#233'zet'#233't.'
+          Layout = tlCenter
           WordWrap = True
         end
         object imgStyle: TImage

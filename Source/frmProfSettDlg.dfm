@@ -44,7 +44,7 @@ object ProfSettDlg: TProfSettDlg
     Top = 8
     Width = 444
     Height = 458
-    ActivePage = tabGeneral
+    ActivePage = tabEmulator
     Anchors = [akLeft, akTop, akRight, akBottom]
     TabOrder = 0
     object tabGeneral: TTabSheet
@@ -414,13 +414,14 @@ object ProfSettDlg: TProfSettDlg
         end
         object lbDebug: TLabel
           Left = 60
-          Top = 26
+          Top = 16
           Width = 321
-          Height = 37
+          Height = 47
           AutoSize = False
           Caption = 
             'Az al'#225'bbi be'#225'll'#237't'#225'sok seg'#237'ts'#233'g'#233'vel az emul'#225'tor futtat'#225'sakor g'#233'pe' +
             'nk'#233'nt elt'#233'rhet a glob'#225'lis hibakeres'#233'si opci'#243'kt'#243'l.'
+          Layout = tlCenter
           WordWrap = True
         end
         object imgDebug: TImage
