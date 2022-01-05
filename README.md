@@ -21,9 +21,9 @@ Currently this software is the successor of [WinBox Reloaded](https://github.com
 **The program currently supports these display languages:**
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hungarian (hu-HU), English (en-US), Italian (it-IT), Portuguese Brazilian (pt-BR), German (de-DE), 
-Simplified Chinese (zh-CN)
+Simplified Chinese (zh-CN), Spanish (es-ES)
 
-Special thanks to explorerdotexe, Altieres Lima da Silva and startmenu for translating the program.
+Special thanks to explorerdotexe, Altieres Lima da Silva, startmenu and Carlos Romero for translating the program.
 
 If you want to add your language to the supported list, you can find the language files under the Translations folder.
 These files are simple UTF-8 encoded C-style escape sequenced INI-files, can be created by any kind of text editor.
