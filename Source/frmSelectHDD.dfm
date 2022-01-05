@@ -4236,7 +4236,7 @@ object HDSelect: THDSelect
       item
         Name = 'Gy'#225'rt'#243
         Attributes = [faFixed]
-        DataType = ftString
+        DataType = ftWideString
         Size = 35
       end
       item

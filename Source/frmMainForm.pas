@@ -2174,6 +2174,10 @@ begin
     ChartVMs.BottomAxis.Title.Caption := _T(format(StrChartAxisBase, ['VMs', 'X']));
     ChartVMs.LeftAxis.Title.Caption := _T(format(StrChartAxisBase, ['VMs', 'Y']));
 
+    if Assigned(HDSelect) then
+      FreeAndNil(HDSelect);
+    HDSelect := THDSelect.Create(Application);
+
     UpdateTaskButtons(1);
 
                                       (*

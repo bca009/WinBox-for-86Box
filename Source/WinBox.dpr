@@ -87,6 +87,5 @@ begin
   Application.ActionUpdateDelay := 50;
   Application.CreateForm(TIconSet, IconSet);
   Application.CreateForm(TWinBoxMain, WinBoxMain);
-  Application.CreateForm(THDSelect, HDSelect);
   Application.Run;
 end.
