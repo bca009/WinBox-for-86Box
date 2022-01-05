@@ -76,7 +76,7 @@ object WizardVM: TWizardVM
     Top = 0
     Width = 337
     Height = 263
-    ActivePage = tabOptions
+    ActivePage = tabBasic
     Align = alClient
     TabOrder = 2
     object tabWelcome: TTabSheet
@@ -137,10 +137,11 @@ object WizardVM: TWizardVM
         ParentFont = False
       end
       object lbName: TLabel
-        Left = 34
+        Left = 18
         Top = 87
-        Width = 23
+        Width = 45
         Height = 13
+        Alignment = taRightJustify
         Caption = '&N'#233'v:'
         FocusControl = edName
       end
