@@ -1308,7 +1308,7 @@ object WinBoxMain: TWinBoxMain
       Caption = '&S'#250'g'#243
       object miOnlineDocs1: TMenuItem
         Caption = 'Online dokument'#225'ci'#243': &WinBox for 86Box'
-        Hint = 'https://github.com/laciba96/WinBox-for-86Box/wiki'
+        Hint = 'https://github.com/86Box/WinBox-for-86Box/wiki'
         ImageIndex = 7
         ImageName = '7 - earth'
         OnClick = acURLExecute

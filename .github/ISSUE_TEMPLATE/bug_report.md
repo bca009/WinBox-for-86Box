@@ -7,7 +7,7 @@ assignees: ''
 
 ---
 
-**Before you start please read [this guide about reporting bugs.](https://github.com/laciba96/WinBox-for-86Box/wiki/Contribution-Guide#accepted-form-of-issues)**
+**Before you start please read [this guide about reporting bugs.](https://github.com/86Box/WinBox-for-86Box/wiki/Contribution-Guide#accepted-form-of-issues)**
 
 **Describe the bug**
 A clear and concise description of what the bug is. Describe exactly what happened, and what did you expect instead.

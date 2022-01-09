@@ -113,7 +113,7 @@ object AboutDlg: TAboutDlg
     Width = 60
     Height = 20
     Cursor = crHandPoint
-    Hint = 'https://github.com/laciba96/WinBox-for-86Box'
+    Hint = 'https://github.com/86Box/WinBox-for-86Box'
     Anchors = [akTop, akRight]
     AutoSize = False
     Caption = 'Weboldal'

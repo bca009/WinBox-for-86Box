@@ -3,9 +3,9 @@
 
 This program has been created to simplify the way I use [86Box](https://github.com/86Box/86Box) x86 emulator. 
 
-Currently this software is the successor of [WinBox Reloaded](https://github.com/laciba96/WinBox-Reloaded).
+Currently this software is the successor of [WinBox Reloaded](https://github.com/86Box/WinBox-Reloaded).
 
-<p align="center"><img src="https://github.com/laciba96/WinBox-for-86Box/blob/6be9b55daa445b1864c36bd31b092e4bd815d071/Images/Wiki/Screenshot.PNG" width="500" height="353"></img></p>
+<p align="center"><img src="https://github.com/86Box/WinBox-for-86Box/blob/6be9b55daa445b1864c36bd31b092e4bd815d071/Images/Wiki/Screenshot.PNG" width="500" height="353"></img></p>
 
 **It's most noticeable features are:**
 - It automatically updates 86Box from Jenkins.
@@ -36,7 +36,7 @@ Add your new language as a pull request and I most probably include it with the 
   - **Recommended**: Windows 10, and in theory Windows 11 also supported.
   - **Minimum**: Windows 7 SP1 or Windows 8.1, with the **latest updates**.  
 
-*Note: Under Windows 7 there are known [problems](https://github.com/laciba96/WinBox-for-86Box/issues/3#issuecomment-886091172) with the updater due to missing cryptographic capabilities by default. These problems can be solved by installing Internet Explorer 11 and the latest updates after SP1.*
+*Note: Under Windows 7 there are known [problems](https://github.com/86Box/WinBox-for-86Box/issues/3#issuecomment-886091172) with the updater due to missing cryptographic capabilities by default. These problems can be solved by installing Internet Explorer 11 and the latest updates after SP1.*
 
 The program is written in **Delphi 11** and uses the [JEDI Code Library (JCL)](https://github.com/project-jedi/jcl).
 
